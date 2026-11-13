@@ -80,7 +80,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
               <button
                 type="button"
                 onClick={() => onSelectCategory('semua')}
-                className="min-h-[44px] inline-flex items-center text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] underline underline-offset-4 decoration-[#D9B92E]/70 hover:decoration-[#D9B92E] active:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                className="min-h-[44px] inline-flex items-center text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] underline underline-offset-4 decoration-[#D9B92E]/70 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] active:text-[#1F2A2C] dark:active:text-[#E8EAE4] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
               >
                 Tampilkan semua jenis pajak
               </button>
@@ -107,7 +107,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
               type="button"
               onClick={() => setSearchQuery('')}
               aria-label="Bersihkan pencarian"
-              className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] hover:bg-[#5E706F]/15 active:bg-[#D9B92E]/30 active:text-[#1F2A2C] dark:active:text-[#E8EAE4] transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -224,7 +224,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
           <button
             type="button"
             onClick={onBackToDirectory}
-            className="min-h-[44px] px-2.5 -ml-2.5 inline-flex items-center gap-2 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:bg-[#DFE2DA]/75 dark:hover:bg-[#263336]/75 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+            className="min-h-[44px] pr-3 inline-flex items-center gap-2 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>Kembali ke Pustaka Aturan</span>
@@ -350,7 +350,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
                 type="button"
                 onClick={() => setSidebarQuery('')}
                 aria-label="Bersihkan pencarian artikel"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] hover:bg-[#5E706F]/15 active:bg-[#D9B92E]/30 active:text-[#1F2A2C] dark:active:text-[#E8EAE4] transition-colors"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -367,7 +367,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
             <button
               type="button"
               onClick={() => setSidebarQuery('')}
-              className="min-h-[44px] inline-flex items-center text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] underline underline-offset-4 active:opacity-70 transition-opacity"
+              className="min-h-[44px] inline-flex items-center text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] underline underline-offset-4 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] active:text-[#1F2A2C] dark:active:text-[#E8EAE4] transition-colors"
             >
               Bersihkan pencarian
             </button>

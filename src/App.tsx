@@ -204,14 +204,14 @@ export default function App() {
               )}
             </button>
 
-            {/* Unboxed Mobile Menu Button (no card border/background) */}
+            {/* Unboxed Mobile Menu Button (text-color highlight only on press/hover) */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((open) => !open)}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-header-dropdown"
               aria-label={isMobileMenuOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
-              className="md:hidden min-h-[44px] px-2.5 py-2 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:bg-[#DFE2DA] dark:hover:bg-[#263336] active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] active:text-[#6B5A00] dark:active:text-[#D9B92E] inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+              className="md:hidden min-h-[44px] px-2 py-2 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
             >
               {isMobileMenuOpen ? (
                 <>
@@ -241,8 +241,8 @@ export default function App() {
                 onClick={() => handleNavigatePustaka('semua')}
                 className={`w-full min-h-[44px] px-3 py-2 text-left text-sm font-semibold flex items-center justify-between transition-colors ${
                   isPustakaActive && selectedArticleCategory === 'semua'
-                    ? 'bg-[#D9B92E] text-[#1F2A2C] facet-cut-sm active:brightness-95'
-                    : 'text-[#1F2A2C] dark:text-[#E8EAE4] hover:bg-[#D6DAD0] dark:hover:bg-[#2E3D40] active:bg-[#D9B92E]/30 dark:active:bg-[#D9B92E]/25 active:text-[#1F2A2C] dark:active:text-[#E8EAE4]'
+                    ? 'bg-[#D9B92E] text-[#1F2A2C] facet-cut-sm active:opacity-80'
+                    : 'text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E]'
                 }`}
               >
                 <span>Pustaka Aturan (Semua)</span>
@@ -259,8 +259,8 @@ export default function App() {
                       onClick={() => handleNavigatePustaka(cat.id)}
                       className={`w-full min-h-[42px] px-3 py-1.5 text-left text-sm transition-colors ${
                         activeCat
-                          ? 'bg-[#D9B92E] text-[#1F2A2C] font-semibold facet-cut-sm active:brightness-95'
-                          : 'text-[#4F6160] dark:text-[#E8EAE4]/85 hover:bg-[#D6DAD0] dark:hover:bg-[#2E3D40] active:bg-[#D9B92E]/30 dark:active:bg-[#D9B92E]/25 active:text-[#1F2A2C] dark:active:text-[#E8EAE4]'
+                          ? 'bg-[#D9B92E] text-[#1F2A2C] font-semibold facet-cut-sm active:opacity-80'
+                          : 'text-[#4F6160] dark:text-[#E8EAE4]/85 hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E]'
                       }`}
                     >
                       {cat.label}
@@ -276,8 +276,8 @@ export default function App() {
                 onClick={handleNavigateKalkulator}
                 className={`w-full min-h-[44px] px-3 py-2 text-left text-sm font-semibold transition-colors ${
                   activeView === 'kalkulator'
-                    ? 'bg-[#D9B92E] text-[#1F2A2C] facet-cut-sm active:brightness-95'
-                    : 'text-[#1F2A2C] dark:text-[#E8EAE4] hover:bg-[#D6DAD0] dark:hover:bg-[#2E3D40] active:bg-[#D9B92E]/30 dark:active:bg-[#D9B92E]/25'
+                    ? 'bg-[#D9B92E] text-[#1F2A2C] facet-cut-sm active:opacity-80'
+                    : 'text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E]'
                 }`}
               >
                 Kalkulator Pajak
@@ -288,7 +288,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setIsDark((d) => !d)}
-                className="w-full min-h-[44px] px-3 py-2 text-left text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4] hover:bg-[#D6DAD0] dark:hover:bg-[#2E3D40] active:bg-[#D9B92E]/30 dark:active:bg-[#D9B92E]/25 inline-flex items-center gap-2.5 transition-colors"
+                className="w-full min-h-[44px] px-3 py-2 text-left text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] inline-flex items-center gap-2.5 transition-colors"
               >
                 {isDark ? (
                   <>

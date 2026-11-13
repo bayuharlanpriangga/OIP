@@ -118,8 +118,8 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               onClick={() => onSelectTaxType(cat.id)}
               className={`min-h-[44px] px-4 py-2 text-sm font-semibold whitespace-nowrap shrink-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E] ${
                 isActive
-                  ? 'bg-[#1F2A2C] text-[#E8EAE4] dark:bg-[#E8EAE4] dark:text-[#1F2A2C] facet-cut-sm active:brightness-95'
-                  : 'bg-[#DFE2DA] dark:bg-[#263336] text-[#4F6160] dark:text-[#E8EAE4]/80 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] hover:bg-[#D6DAD0] dark:hover:bg-[#2E3D40] active:bg-[#D9B92E]/30 dark:active:bg-[#D9B92E]/25 active:text-[#1F2A2C] dark:active:text-[#E8EAE4] border border-[#5E706F]/30'
+                  ? 'bg-[#1F2A2C] text-[#E8EAE4] dark:bg-[#E8EAE4] dark:text-[#1F2A2C] facet-cut-sm active:opacity-85'
+                  : 'bg-[#DFE2DA] dark:bg-[#263336] text-[#4F6160] dark:text-[#E8EAE4]/80 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] active:text-[#6B5A00] dark:active:text-[#D9B92E] active:border-[#D9B92E] border border-[#5E706F]/30'
               }`}
             >
               {cat.label}
@@ -243,7 +243,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     ))}
                   </select>
                 </div>
-                <label className="flex items-center gap-3 min-h-[44px] px-2 -mx-2 cursor-pointer select-none hover:bg-[#DFE2DA]/60 dark:hover:bg-[#263336]/60 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] transition-colors">
+                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
                   <input
                     type="checkbox"
                     checked={calcInput.pph21.hasNpwp}
@@ -300,7 +300,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     ))}
                   </select>
                 </div>
-                <label className="flex items-center gap-3 min-h-[44px] px-2 -mx-2 cursor-pointer select-none hover:bg-[#DFE2DA]/60 dark:hover:bg-[#263336]/60 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] transition-colors">
+                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
                   <input
                     type="checkbox"
                     checked={calcInput.pph23.hasNpwp}
@@ -397,7 +397,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     }))
                   }
                 />
-                <label className="flex items-center gap-3 min-h-[44px] px-2 -mx-2 cursor-pointer select-none hover:bg-[#DFE2DA]/60 dark:hover:bg-[#263336]/60 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] transition-colors">
+                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
                   <input
                     type="checkbox"
                     checked={calcInput.pph_badan.isTbk}
@@ -457,7 +457,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     </option>
                   </select>
                 </div>
-                <label className="flex items-center gap-3 min-h-[44px] px-2 -mx-2 cursor-pointer select-none hover:bg-[#DFE2DA]/60 dark:hover:bg-[#263336]/60 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] transition-colors">
+                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
                   <input
                     type="checkbox"
                     checked={calcInput.ppn.termasukPpn}
@@ -636,7 +636,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               <button
                 type="button"
                 onClick={handleResetToZero}
-                className="min-h-[44px] px-4 py-2 text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 hover:bg-[#DFE2DA] dark:hover:bg-[#263336] active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] active:border-[#D9B92E] inline-flex items-center gap-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                className="min-h-[44px] px-4 py-2 text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] active:border-[#D9B92E] inline-flex items-center gap-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
               >
                 <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
                 <span>Reset ke Rp 0</span>
@@ -738,7 +738,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               type="button"
               onClick={() => setShowDetailedSteps((s) => !s)}
               aria-expanded={showDetailedSteps}
-              className="w-full min-h-[44px] py-2.5 px-2 -mx-2 flex items-center justify-between border-b border-[#5E706F]/35 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] hover:bg-[#DFE2DA]/50 dark:hover:bg-[#263336]/50 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+              className="w-full min-h-[44px] py-2.5 flex items-center justify-between border-b border-[#5E706F]/35 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
             >
               <span>Rincian Kertas Kerja Perhitungan</span>
               <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#4F6160] dark:text-[#E8EAE4]/75">
