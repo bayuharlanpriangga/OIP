@@ -80,7 +80,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
               <button
                 type="button"
                 onClick={() => onSelectCategory('semua')}
-                className="text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                className="min-h-[44px] inline-flex items-center text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] underline underline-offset-4 decoration-[#D9B92E]/70 hover:decoration-[#D9B92E] active:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
               >
                 Tampilkan semua jenis pajak
               </button>
@@ -107,7 +107,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
               type="button"
               onClick={() => setSearchQuery('')}
               aria-label="Bersihkan pencarian"
-              className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4]"
+              className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] hover:bg-[#5E706F]/15 active:bg-[#D9B92E]/30 active:text-[#1F2A2C] dark:active:text-[#E8EAE4] transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -128,7 +128,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
           <button
             type="button"
             onClick={handleResetFilters}
-            className="min-h-[44px] px-5 py-2 text-sm font-semibold bg-[#D9B92E] text-[#1F2A2C] facet-cut-sm hover:brightness-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2C]"
+            className="min-h-[44px] px-5 py-2 text-sm font-semibold bg-[#D9B92E] text-[#1F2A2C] facet-cut-sm hover:brightness-95 active:brightness-90 active:scale-[0.99] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2C]"
           >
             Tampilkan semua aturan
           </button>
@@ -153,7 +153,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
                     <button
                       type="button"
                       onClick={() => onOpenArticle(article)}
-                      className="w-full text-left py-4 px-2 sm:px-3 -mx-2 sm:-mx-3 flex items-start justify-between gap-4 hover:bg-[#DFE2DA]/70 dark:hover:bg-[#263336]/70 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      className="w-full text-left py-4 px-2.5 sm:px-3 -mx-2.5 sm:-mx-3 flex items-start justify-between gap-4 shadow-[inset_3px_0_0_0_transparent] hover:shadow-[inset_3px_0_0_0_#D9B92E] active:shadow-[inset_3px_0_0_0_#D9B92E] hover:bg-[#DFE2DA]/75 dark:hover:bg-[#263336]/75 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
                     >
                       <div className="space-y-1.5 max-w-3xl">
                         <div className="text-xs font-medium text-[#4F6160] dark:text-[#E8EAE4]/70">
@@ -161,7 +161,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
                           <span className="mx-2">/</span>
                           <span>Berlaku {article.effectiveDate}</span>
                         </div>
-                        <h3 className="text-base sm:text-lg font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] group-hover:text-[#6B5A00] dark:group-hover:text-[#D9B92E] transition-colors leading-snug">
+                        <h3 className="text-base sm:text-lg font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] group-hover:text-[#6B5A00] dark:group-hover:text-[#D9B92E] group-active:text-[#6B5A00] dark:group-active:text-[#D9B92E] transition-colors leading-snug">
                           {article.title}
                         </h3>
                         <p className="text-sm text-[#4F6160] dark:text-[#E8EAE4]/80 leading-relaxed">
@@ -170,7 +170,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
                       </div>
                       <span
                         aria-hidden="true"
-                        className="shrink-0 mt-1 text-[#4F6160] dark:text-[#E8EAE4]/70 group-hover:text-[#1F2A2C] dark:group-hover:text-[#D9B92E] transition-colors"
+                        className="shrink-0 mt-1 text-[#5E706F] dark:text-[#E8EAE4]/70 group-hover:text-[#6B5A00] dark:group-hover:text-[#D9B92E] group-active:text-[#6B5A00] dark:group-active:text-[#D9B92E] group-hover:translate-x-0.5 group-active:translate-x-0.5 transition-all"
                       >
                         <ChevronRight className="w-5 h-5" />
                       </span>
@@ -224,7 +224,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
           <button
             type="button"
             onClick={onBackToDirectory}
-            className="min-h-[44px] pr-3 inline-flex items-center gap-2 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+            className="min-h-[44px] px-2.5 -ml-2.5 inline-flex items-center gap-2 text-sm font-semibold text-[#1F2A2C] dark:text-[#E8EAE4] hover:bg-[#DFE2DA]/75 dark:hover:bg-[#263336]/75 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>Kembali ke Pustaka Aturan</span>
@@ -350,7 +350,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
                 type="button"
                 onClick={() => setSidebarQuery('')}
                 aria-label="Bersihkan pencarian artikel"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 min-w-[32px] min-h-[32px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4]"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#1F2A2C] dark:hover:text-[#E8EAE4] hover:bg-[#5E706F]/15 active:bg-[#D9B92E]/30 active:text-[#1F2A2C] dark:active:text-[#E8EAE4] transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -367,7 +367,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
             <button
               type="button"
               onClick={() => setSidebarQuery('')}
-              className="text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] hover:underline"
+              className="min-h-[44px] inline-flex items-center text-xs font-semibold text-[#6B5A00] dark:text-[#D9B92E] underline underline-offset-4 active:opacity-70 transition-opacity"
             >
               Bersihkan pencarian
             </button>
@@ -384,21 +384,29 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
                       if (!isCurrent) onSelectArticle(item);
                     }}
                     aria-current={isCurrent ? 'page' : undefined}
-                    className={`w-full text-left py-3.5 px-3 -mx-3 transition-colors flex items-start justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E] ${
+                    className={`w-full text-left py-3.5 px-3 -mx-3 transition-colors flex items-start justify-between gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E] ${
                       isCurrent
                         ? 'bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] facet-cut-sm cursor-default'
-                        : 'text-[#1F2A2C]/85 dark:text-[#E8EAE4]/80 hover:bg-[#DFE2DA]/60 dark:hover:bg-[#263336]/60'
+                        : 'text-[#1F2A2C]/85 dark:text-[#E8EAE4]/80 shadow-[inset_3px_0_0_0_transparent] hover:shadow-[inset_3px_0_0_0_#D9B92E] active:shadow-[inset_3px_0_0_0_#D9B92E] hover:bg-[#DFE2DA]/70 dark:hover:bg-[#263336]/70 active:bg-[#D6DAD0] dark:active:bg-[#2E3D40]'
                     }`}
                   >
                     <div className="space-y-1">
                       <div className="text-xs font-medium text-[#4F6160] dark:text-[#E8EAE4]/70">
                         {item.legalBasis}
                       </div>
-                      <div className="text-sm font-semibold leading-snug">{item.title}</div>
+                      <div
+                        className={`text-sm font-semibold leading-snug transition-colors ${
+                          !isCurrent
+                            ? 'group-hover:text-[#6B5A00] dark:group-hover:text-[#D9B92E] group-active:text-[#6B5A00] dark:group-active:text-[#D9B92E]'
+                            : ''
+                        }`}
+                      >
+                        {item.title}
+                      </div>
                     </div>
                     {!isCurrent && (
                       <ChevronRight
-                        className="w-4 h-4 shrink-0 mt-1 text-[#4F6160] dark:text-[#E8EAE4]/70"
+                        className="w-4 h-4 shrink-0 mt-1 text-[#5E706F] dark:text-[#E8EAE4]/70 group-hover:text-[#6B5A00] dark:group-hover:text-[#D9B92E] group-active:text-[#6B5A00] dark:group-active:text-[#D9B92E] group-hover:translate-x-0.5 group-active:translate-x-0.5 transition-all"
                         aria-hidden="true"
                       />
                     )}

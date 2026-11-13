@@ -55,6 +55,16 @@
   input, select, textarea {
     font-size: 1rem;
   }
+
+  /* Responsive touch feedback & theme-aligned tap highlight on mobile */
+  button, [role="button"], [role="tab"], [role="menuitem"], a, select, label {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(217, 185, 46, 0.28);
+  }
+
+  button:not(:disabled), [role="button"], [role="tab"], [role="menuitem"], a {
+    cursor: pointer;
+  }
 }
 
 /* Signature Orias Facet Geometry */
