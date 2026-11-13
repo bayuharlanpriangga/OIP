@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --basalt: #1F2A2C;
+  --kapur: #E8EAE4;
+  --kapur-elevated: #DFE2DA;
+  --kapur-hover: #D6DAD0;
+  --batu: #5E706F;
+  --batu-text: #4F6160;
+  --belerang: #D9B92E;
+  --belerang-text: #6B5A00;
+  --status-success: #2F7048;
+  --status-warning: #A8530E;
+  --status-error: #A93226;
+}
+
+.dark {
+  --basalt: #1F2A2C;
+  --kapur: #E8EAE4;
+  --basalt-elevated: #263336;
+  --basalt-hover: #2E3D40;
+  --batu: #5E706F;
+  --belerang: #D9B92E;
+  --status-success: #4E9A6B;
+  --status-warning: #D9772B;
+  --status-error: #D4564A;
+}
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
+    background-color: var(--kapur);
+    color: var(--basalt);
+  }
+
+  html.dark {
+    background-color: var(--basalt);
+    color: var(--kapur);
+  }
+
+  h1, h2, .font-editorial {
+    font-family: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', serif;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Ensure inputs are >= 16px on mobile to avoid iOS Safari auto-zoom */
+  input, select, textarea {
+    font-size: 1rem;
+  }
+}
+
+/* Signature Orias Facet Geometry */
+.facet-cut {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.facet-cut-sm {
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+}
+
+.facet-cut-both {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+/* Custom subtle scrollbar for wide data tables */
+.table-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(94, 112, 111, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
