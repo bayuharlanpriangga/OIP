@@ -32,11 +32,13 @@
   html {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     scroll-behavior: smooth;
+    color-scheme: light;
     background-color: var(--kapur);
     color: var(--basalt);
   }
 
   html.dark {
+    color-scheme: dark;
     background-color: var(--basalt);
     color: var(--kapur);
   }
@@ -68,7 +70,67 @@
   clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 
-/* Custom subtle scrollbar for wide data tables */
+/* Global & Table Scrollbar aligned with Orias Kapur / Basalt / Batu palette */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(94, 112, 111, 0.55) var(--kapur);
+  }
+
+  html.dark * {
+    scrollbar-color: rgba(94, 112, 111, 0.65) var(--basalt);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--kapur);
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: var(--basalt);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--kapur);
+}
+
+html.dark ::-webkit-scrollbar-corner {
+  background: var(--basalt);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(94, 112, 111, 0.45);
+  border: 2px solid var(--kapur);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(31, 42, 44, 0.68);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--basalt);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(94, 112, 111, 0.55);
+  border: 2px solid var(--basalt);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(217, 185, 46, 0.72);
+}
+
+html.dark ::-webkit-scrollbar-thumb:active {
+  background-color: var(--belerang);
+}
+
+/* Compact horizontal scrollbar for wide data tables & tax tab bars */
 .table-scroll::-webkit-scrollbar {
   height: 6px;
 }
@@ -78,7 +140,17 @@
 }
 
 .table-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(94, 112, 111, 0.35);
+  background-color: rgba(94, 112, 111, 0.4);
+  border: 0;
+}
+
+html.dark .table-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(94, 112, 111, 0.5);
+  border: 0;
+}
+
+html.dark .table-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(217, 185, 46, 0.72);
 }
 
 @media (prefers-reduced-motion: reduce) {
