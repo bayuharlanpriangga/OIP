@@ -149,13 +149,13 @@ const TER_CATEGORY_C: TerBracket[] = [
   { max: Infinity, rate: 34 },
 ];
 
-function getTerCategory(status: PtkpStatus): 'A' | 'B' | 'C' {
+export function getTerCategory(status: PtkpStatus): 'A' | 'B' | 'C' {
   if (status === 'TK/0' || status === 'TK/1' || status === 'K/0') return 'A';
   if (status === 'K/3') return 'C';
   return 'B';
 }
 
-function lookupTerRate(brutoBulanan: number, status: PtkpStatus): number {
+export function lookupTerRate(brutoBulanan: number, status: PtkpStatus): number {
   const category = getTerCategory(status);
   const table =
     category === 'A' ? TER_CATEGORY_A : category === 'B' ? TER_CATEGORY_B : TER_CATEGORY_C;

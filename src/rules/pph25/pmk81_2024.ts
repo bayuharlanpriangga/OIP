@@ -120,7 +120,7 @@ export const pph25Pmk81_2024Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
       steps,
       notes: [
         'Penyetoran dilakukan paling lambat tanggal 15 bulan berikutnya setelah masa pajak berakhir.',
-        'Untuk bank, BUMN/BUMD, perusahaan masuk bursa, dan WP tertentu, dasar angsuran menggunakan laporan keuangan berkala sesuai PMK 215/PMK.03/2018.',
+        'Untuk bank, BUMN/BUMD, perusahaan masuk bursa, dan WP tertentu, dasar angsuran menggunakan laporan keuangan berkala sesuai Pasal 226–237 PMK 81 Tahun 2024.',
       ],
     };
   },

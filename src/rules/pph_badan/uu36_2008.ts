@@ -7,7 +7,7 @@ const regime: TaxRegime = {
   taxType: 'pph_badan',
   name: 'UU Nomor 36 Tahun 2008 (TP 2010–2019)',
   shortName: '2010–2019 (25%)',
-  legalBasis: 'Pasal 17 ayat (1) huruf b & ayat (2a) UU 36/2008',
+  legalBasis: 'Pasal 17 ayat (1) huruf b, ayat (2a), ayat (2b) & Pasal 31E UU 36/2008',
   effectivePeriod: 'Tahun Pajak 2010 – 2019',
   isCurrent: false,
   summary:
@@ -20,7 +20,7 @@ const article: TaxArticle = {
   taxType: 'pph_badan',
   taxTypeLabel: 'PPh Badan',
   title: 'Struktur Tarif Tunggal PPh Badan 25% dan Insentif Emiten Tbk Era UU 36/2008',
-  legalBasis: 'Pasal 17 ayat (1) huruf b & ayat (2b) UU Nomor 36 Tahun 2008',
+  legalBasis: 'Pasal 17 ayat (1) huruf b, ayat (2a), ayat (2b) & Pasal 31E UU Nomor 36 Tahun 2008',
   effectiveDate: '1 Januari 2010',
   readMinutes: 4,
   summary:

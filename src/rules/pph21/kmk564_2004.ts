@@ -30,7 +30,7 @@ const article: TaxArticle = {
       heading: 'Mengakhiri PTKP Rp 240 ribu per bulan yang tertinggal inflasi',
       paragraphs: [
         'Selama 2001–2004, PTKP TK/0 hanya Rp 2.880.000/tahun (Rp 240.000/bulan), jauh di bawah upah minimum provinsi setelah krisis moneter 1998. Melalui KMK 564/KMK.03/2004, pemerintah menaikkan PTKP TK/0 mulai 1 Januari 2005 menjadi Rp 12.000.000 per tahun (Rp 1.000.000/bulan).',
-        'Tambahan untuk status kawin dan tiap tanggungan juga dinaikkan dari Rp 1.440.000/tahun menjadi Rp 1.200.000/tahun? Ya, meski nominal tambahan status sedikit turun dari Rp 1,44 juta ke Rp 1,2 juta, total PTKP K/3 melonjak dari Rp 8,64 juta menjadi Rp 16,8 juta setahun.',
+        'Sementara itu, tambahan PTKP untuk status kawin dan tiap tanggungan disesuaikan dari Rp 1.440.000 menjadi Rp 1.200.000/tahun; meski nominal tambahan per tanggungan turun, total PTKP K/3 tetap melonjak dari Rp 8,64 juta menjadi Rp 16,8 juta setahun.',
       ],
     },
     {

@@ -67,6 +67,16 @@
   }
 }
 
+/* Suppress native browser clear (X) icon on search inputs so custom clear button is never duplicated */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
 /* Signature Orias Facet Geometry */
 .facet-cut {
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);

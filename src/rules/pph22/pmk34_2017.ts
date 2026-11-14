@@ -12,15 +12,22 @@ import { SRC } from '../sources';
 const regime: TaxRegime = {
   id: 'pph22_pmk34_2017',
   taxType: 'pph22',
-  name: 'PMK 34/2017 jo. PMK 110/2018 & PMK 41/2022',
+  name: 'PMK 34/2017 jo. PMK 110/2018, PMK 41/2022 & PMK 48/2023',
   shortName: '2017–2024 (PMK 34/2017)',
   legalBasis:
-    'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018 & PMK 41/PMK.010/2022 (Dicabut PMK 81/2024)',
+    'PMK 34/PMK.010/2017 stdd PMK 110/2018, PMK 41/2022 & PMK 48/2023 (Dicabut PMK 81/2024)',
   effectivePeriod: '1 Maret 2017 – 31 Desember 2024',
   isCurrent: false,
   summary:
-    'Aturan pemungutan PPh Pasal 22 atas impor (API umum 2,5%, non-API 7,5%, barang konsumsi tertentu 7,5%–10%), belanja instansi/BUMN (1,5%), dan barang sangat mewah (1%–5%) sebelum dicabut PMK 81/2024 per 1 Januari 2025.',
-  sources: [SRC.PMK_34_2017, SRC.PMK_110_2018, SRC.PMK_41_2022, SRC.PMK_59_2022, SRC.PMK_92_2019],
+    'Aturan pemungutan PPh Pasal 22 atas impor (API umum 2,5%, non-API 7,5%, barang konsumsi tertentu 7,5%–10%), belanja instansi/BUMN (1,5%), emas batangan (0,45% lalu 0,25% per PMK 48/2023), dan barang sangat mewah (1%–5%) sebelum dicabut PMK 81/2024.',
+  sources: [
+    SRC.PMK_34_2017,
+    SRC.PMK_110_2018,
+    SRC.PMK_41_2022,
+    SRC.PMK_48_2023,
+    SRC.PMK_59_2022,
+    SRC.PMK_92_2019,
+  ],
   verifiedAt: '14 November 2026',
 };
 
@@ -29,7 +36,8 @@ const article: TaxArticle = {
   taxType: 'pph22',
   taxTypeLabel: 'PPh Pasal 22',
   title: 'Pemungutan PPh Pasal 22 Impor, Belanja Bendahara Pemerintah, dan Barang Sangat Mewah',
-  legalBasis: 'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018 & PMK 41/PMK.010/2022',
+  legalBasis:
+    'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018, PMK 41/PMK.010/2022 & PMK 48/2023',
   effectiveDate: '1 Maret 2017 – 31 Desember 2024',
   readMinutes: 5,
   summary:
@@ -112,8 +120,8 @@ function getPph22Rate(objectType: Pph22ObjectType): { rate: number; label: strin
       };
     case 'bulion_emas':
       return {
-        rate: 0.45,
-        label: 'Penjualan emas batangan oleh produsen di PMK 34/2017 jo. PMK 48/2023 (sebelum tarif bulion 0,25% PMK 51/2025)',
+        rate: 0.25,
+        label: 'Penjualan emas batangan (0,25% per PMK 48/2023 eff. 1 Mei 2023; sebelumnya 0,45% di PMK 34/2017)',
         exemptLimit: 0,
       };
     case 'barang_sangat_mewah':
@@ -171,6 +179,11 @@ export const pph22Pmk34_2017Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = {
     } else if (!input.hasNpwp && nilaiDasar > 0) {
       notes.push(
         'Karena pihak yang dipungut tidak ber-NPWP, tarif PPh Pasal 22 dikenakan 100% lebih tinggi (dua kali lipat tarif normal).'
+      );
+    }
+    if (input.objectType === 'bulion_emas') {
+      notes.push(
+        'Tarif PPh 22 atas penjualan emas batangan dalam periode ini diturunkan dari 0,45% (PMK 34/2017) menjadi 0,25% mulai 1 Mei 2023 berdasarkan PMK Nomor 48 Tahun 2023.'
       );
     }
     notes.push(

@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Aturan pemungutan PPh 22 era UU 17/2000: impor API 2,5%, non-API 7,5%, kedelai/gandum API 0,5%, bendahara 1,5% dengan batas pengecualian Rp 1 juta, dan tarif 5% barang sangat mewah mulai Desember 2008.',
-  sources: [SRC.KMK_254_2001, SRC.PMK_210_2008, SRC.PMK_253_2008],
+  sources: [SRC.KMK_254_2001, SRC.PMK_210_2008, SRC.PMK_253_2008, SRC.UU_36_2008],
 };
 
 const article: TaxArticle = {
@@ -137,7 +137,7 @@ export const pph22Kmk254_2001Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = 
         label: 'Tarif setelah faktor NPWP',
         formula: input.hasNpwp
           ? 'Ber-NPWP (100%)'
-          : 'Non-NPWP (200% — mulai 1 Jan 2009 via UU 36/2008)',
+          : 'Non-NPWP (200% — khusus 1 Jan 2009–30 Ags 2010 via UU 36/2008)',
         value: effectiveRate,
         format: 'percent',
       },
@@ -150,8 +150,13 @@ export const pph22Kmk254_2001Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = 
     ];
 
     const notes: string[] = [
-      'Pada era KMK 254/2001 s.d. PMK 210/2008, batas pengecualian belanja bendahara pemerintah hanya Rp 1.000.000 (sebelum naik ke Rp 2.000.000 di PMK 154/2010), serta sanksi tarif +100% non-NPWP baru berlaku efektif 1 Januari 2009.',
+      'Pada era KMK 254/2001 s.d. PMK 210/2008, batas pengecualian belanja bendahara pemerintah hanya Rp 1.000.000 (sebelum naik ke Rp 2.000.000 di PMK 154/2010), serta sanksi tarif +100% non-NPWP baru berlaku efektif 1 Januari 2009 melalui UU 36/2008.',
     ];
+    if (!input.hasNpwp && nilaiDasar > 0) {
+      notes.unshift(
+        'Simulasi non-NPWP di atas menerapkan sanksi +100% (tarif 200%) yang mulai berlaku 1 Januari 2009 berdasarkan UU 36/2008; untuk transaksi 30 April 2001 – 31 Desember 2008, WP tanpa NPWP masih dikenai tarif normal (100%).'
+      );
+    }
     if (isExempt) {
       notes.unshift(
         'Pembayaran bendaharawan paling banyak Rp 1.000.000 (tidak dipecah-pecah) dikecualikan dari pemungutan PPh 22 di era KMK 254/2001.'

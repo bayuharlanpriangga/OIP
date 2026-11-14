@@ -12,7 +12,7 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Pemotongan menggunakan tarif 15% dikalikan Perkiraan Penghasilan Neto: 4,5% efektif untuk jasa teknik/manajemen, 7,5% untuk konsultan, dan 3% untuk sewa.',
-  sources: [SRC.UU_17_2000, SRC.KEP_170_2002_DJP],
+  sources: [SRC.UU_17_2000, SRC.PER_70_PJ_2007],
 };
 
 const article: TaxArticle = {

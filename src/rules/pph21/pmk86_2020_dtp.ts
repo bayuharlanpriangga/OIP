@@ -20,7 +20,14 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Insentif pandemi Covid-19: PPh Pasal 21 Ditanggung Pemerintah (DTP) dan dibayarkan tunai kepada pegawai ber-NPWP di sektor KLU tertentu apabila penghasilan bruto tetap & teratur disetahunkan <= Rp 200 juta.',
-  sources: [SRC.PMK_86_2020, SRC.PMK_110_2020, SRC.PMK_9_2021, SRC.PMK_82_2021],
+  sources: [
+    SRC.PMK_23_2020,
+    SRC.PMK_44_2020,
+    SRC.PMK_86_2020,
+    SRC.PMK_110_2020,
+    SRC.PMK_9_2021,
+    SRC.PMK_82_2021,
+  ],
 };
 
 const article: TaxArticle = {
@@ -28,7 +35,7 @@ const article: TaxArticle = {
   taxType: 'pph21',
   taxTypeLabel: 'PPh Pasal 21',
   title: 'Insentif PPh 21 DTP Pandemi (PMK 86/2020 hingga PMK 82/2021)',
-  legalBasis: 'PMK 86/PMK.03/2020 jo. PMK 110/2020, PMK 9/2021 & PMK 82/2021',
+  legalBasis: 'PMK 23/2020, PMK 44/2020, PMK 86/PMK.03/2020 jo. PMK 110/2020, PMK 9/2021 & PMK 82/2021',
   effectiveDate: 'April 2020 – Desember 2021',
   readMinutes: 4,
   summary:

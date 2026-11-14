@@ -6,12 +6,12 @@ const regime: TaxRegime = {
   taxType: 'pph23',
   name: 'PMK 141/2015 & UU HPP',
   shortName: '2015–Sekarang',
-  legalBasis: 'PMK 141/PMK.03/2015 jo. UU Nomor 7 Tahun 2021',
-  effectivePeriod: '24 Agustus 2015 – Sekarang',
+  legalBasis: 'PMK 141/PMK.03/2015 jo. UU Nomor 6 Tahun 2023 & UU Nomor 7 Tahun 2021',
+  effectivePeriod: '26 Agustus 2015 – Sekarang',
   isCurrent: true,
   summary:
     'Tarif 2% atas 62 jenis jasa dan sewa harta; 15% atas royalti. Dividen WP Badan dalam negeri dikecualikan dari objek PPh sejak UU Cipta Kerja.',
-  sources: [SRC.PMK_141_2015, SRC.UU_7_2021_HPP, SRC.UU_36_2008],
+  sources: [SRC.PMK_141_2015, SRC.UU_6_2023_CK, SRC.UU_7_2021_HPP, SRC.UU_36_2008],
   verifiedAt: '14 November 2026',
 };
 
@@ -21,7 +21,7 @@ const article: TaxArticle = {
   taxTypeLabel: 'PPh Pasal 23',
   title: 'Perluasan Jenis Jasa PMK 141/2015 dan Penghapusan Perkiraan Neto',
   legalBasis: 'PMK 141/PMK.03/2015 vs PMK 244/2008 & PER-70/PJ/2007',
-  effectiveDate: '24 Agustus 2015',
+  effectiveDate: '26 Agustus 2015',
   readMinutes: 5,
   summary:
     'Peralihan dari skema perkiraan penghasilan neto (PER-70/2007) menjadi tarif langsung 2% dari jumlah bruto tidak termasuk PPN serta perluasan daftar jasa menjadi 62 jenis.',

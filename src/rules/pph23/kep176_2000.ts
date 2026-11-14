@@ -11,7 +11,7 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Aturan PPh Pasal 23 era UU 10/1994 hingga KEP-176/PJ./2000: dividen/bunga/royalti 15% bruto, sedangkan jasa konsultan (neto 50% -> 7,5%), jasa teknik/manajemen (40% -> 6%), dan sewa harta umum (30% -> 4,5%).',
-  sources: [SRC.UU_10_1994, SRC.KEP_170_2002_DJP],
+  sources: [SRC.UU_10_1994, SRC.KEP_176_PJ_2000],
 };
 
 const article: TaxArticle = {

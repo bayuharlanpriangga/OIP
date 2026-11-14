@@ -6,12 +6,12 @@ const regime: TaxRegime = {
   id: 'pph26_uu7_1983',
   taxType: 'pph26',
   name: 'UU Nomor 7 Tahun 1983 (Pasal 26)',
-  shortName: '1984–1994 (UU 7/1983 — 20%)',
+  shortName: '1984–1994 (UU 7/1983 — 20% Bruto)',
   legalBasis: 'Pasal 26 UU Nomor 7 Tahun 1983',
   effectivePeriod: '1 Januari 1984 – 31 Desember 1994',
   isCurrent: false,
   summary:
-    'Ketentuan awal pemotongan final 20% atas penghasilan yang bersumber dari Indonesia bagi Wajib Pajak Luar Negeri selain BUT (dividen, bunga, royalti, sewa, jasa, dan laba setelah pajak BUT), kecuali ada P3B.',
+    'Era awal pemotongan final 20% atas penghasilan bruto Wajib Pajak Luar Negeri (dividen, bunga, royalti, imbalan jasa, dan branch profit tax BUT) sebelum perluasan objek Pasal 26 ayat (2) pada UU 10/1994.',
   sources: [SRC.UU_7_1983, SRC.UU_10_1994],
 };
 
@@ -19,31 +19,31 @@ const article: TaxArticle = {
   id: 'pph26-uu7-1983',
   taxType: 'pph26',
   taxTypeLabel: 'PPh Pasal 26',
-  title: 'Konstruksi Perdana Pemotongan WPLN 20% dalam Pasal 26 UU 7/1983 (1984–1994)',
+  title: 'Pemotongan 20% Bruto WPLN di Era Awal Pasal 26 UU 7/1983 (1984–1994)',
   legalBasis: 'Pasal 26 UU Nomor 7 Tahun 1983',
   effectiveDate: '1 Januari 1984',
   readMinutes: 3,
   summary:
-    'Kelahiran Pasal 26 dalam sistem PPh modern Indonesia yang mematok tarif pemotongan final 20% atas penghasilan lintas batas ke Wajib Pajak Luar Negeri non-BUT.',
+    'Konstruksi perdana PPh Pasal 26 dalam reformasi perpajakan 1983 yang mengenakan tarif final 20% dari jumlah bruto atas arus pembayaran ke Wajib Pajak Luar Negeri, kecuali diatur lebih rendah oleh P3B.',
   sections: [
     {
-      heading: 'Prinsip withholding final 20% atas arus kas ke luar negeri',
+      heading: 'Tarif tunggal 20% final atas penghasilan pasif, jasa, dan laba BUT',
       paragraphs: [
-        'Melalui UU Nomor 7 Tahun 1983, Indonesia menetapkan mekanisme pemotongan di sumber (withholding tax) sebesar 20% yang bersifat final atas pembayaran dividen, bunga, royalti, sewa, serta imbalan jasa kepada Wajib Pajak Luar Negeri selain Bentuk Usaha Tetap (BUT).',
-        'Tarif 20% tersebut juga dikenakan atas Penghasilan Kena Pajak sesudah dikurangi pajak dari suatu BUT di Indonesia (branch profit tax), yang tetap menjadi ciri khas sistem pajak internasional Indonesia hingga era UU HPP.',
+        'Sejak berlakunya UU Nomor 7 Tahun 1983 pada 1 Januari 1984, Pasal 26 menetapkan pemotongan bersifat final sebesar 20% dari jumlah bruto atas dividen, bunga, royalti, sewa, imbalan jasa/pekerjaan, hadiah, serta Penghasilan Kena Pajak sesudah dikurangi pajak dari Bentuk Usaha Tetap (branch profit tax) apabila tidak ditanamkan kembali di Indonesia.',
+        'Apabila penerima penghasilan berkedudukan di negara mitra Persetujuan Penghindaran Pajak Berganda (P3B / Tax Treaty) yang telah berlaku, tarif pemotongan dapat menyesuaikan batas tarif treaty sepanjang persyaratan administratif dipenuhi.',
       ],
     },
     {
-      heading: 'Keterbukaan terhadap tarif P3B (Tax Treaty)',
+      heading: 'Sebelum lahirnya Pasal 26 ayat (2) di UU 10/1994',
       paragraphs: [
-        'Sejak 1984, tarif domestik 20% tunduk pada Persetujuan Penghindaran Pajak Berganda (P3B) bilateral sebagai lex specialis apabila penerima di luar negeri berasal dari negara mitra perjanjian.',
+        'Pada periode 1984–1994, rumusan Pasal 26 belum memuat ketentuan ayat (2) mengenai pemotongan atas keuntungan penjualan harta di Indonesia maupun premi asuransi yang dibayarkan kepada perusahaan asuransi di luar negeri beserta norma perkiraan penghasilan neto 50% (yang baru diperkenalkan oleh UU Nomor 10 Tahun 1994 jo. KMK 624/KMK.04/1994).',
       ],
     },
   ],
   caseExample: {
-    title: 'Pembayaran royalti Rp 150 juta ke WPLN non-treaty pada tahun 1990',
+    title: 'Pembayaran royalti Rp 150 juta ke WPLN tanpa P3B di bawah UU 7/1983',
     scenario:
-      'Perusahaan Indonesia membayar royalti paten sebesar Rp 150.000.000 ke pemberi lisensi di luar negeri tanpa P3B sehingga dipotong PPh Pasal 26 final 20% atau Rp 30.000.000.',
+      'Perusahaan Indonesia membayar royalti Rp 150.000.000 kepada pemilik lisensi di luar negeri (non-P3B) pada tahun 1990 sehingga dipotong PPh Pasal 26 final sebesar 20% atau Rp 30.000.000.',
     presetRegime: 'pph26_uu7_1983',
     presetInput: {
       pph26: {
@@ -66,12 +66,15 @@ export const pph26Uu7_1983Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {
     let effectiveRate = 20;
     let basisLabel = 'Tarif domestik Pasal 26 UU 7/1983 (20% bruto)';
 
-    if (input.hasSkdP3b) {
+    if (input.objectType === 'premi_asuransi_ln') {
+      effectiveRate = 0;
+      basisLabel = 'Objek premi asuransi luar negeri Pasal 26 ayat (2) belum ada di era UU 7/1983 (baru berlaku mulai UU 10/1994)';
+    } else if (input.hasSkdP3b) {
       effectiveRate = treatyRate;
-      basisLabel = `Tarif P3B dengan surat keterangan domisili (${formatPersen(treatyRate)})`;
-    } else if (input.objectType === 'premi_asuransi_ln') {
+      basisLabel = `Tarif P3B dengan SKD (${formatPersen(treatyRate)})`;
+    } else if (input.objectType === 'bunga_obligasi_wpln') {
       effectiveRate = 20;
-      basisLabel = 'Tarif umum 20% bruto (norma 50% KMK 624/1994 baru terbit Desember 1994)';
+      basisLabel = 'Bunga obligasi WPLN era UU 7/1983 (20% bruto)';
     }
 
     const pph26 = Math.round((bruto * effectiveRate) / 100);
@@ -96,7 +99,9 @@ export const pph26Uu7_1983Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {
       takeHomeOrNetAmount: Math.max(0, bruto - pph26),
       steps,
       notes: [
-        'Sejak UU 7/1983 (berlaku 1984), tarif domestik pemotongan final PPh Pasal 26 ditetapkan 20% atas penghasilan pasif maupun imbalan jasa WPLN selain BUT, tunduk pada batas maksimal tarif P3B (Tax Treaty) yang berlaku.',
+        input.objectType === 'premi_asuransi_ln'
+          ? 'Pada era UU 7/1983 (1984–1994), Pasal 26 ayat (2) atas premi asuransi ke luar negeri beserta norma KMK 624/1994 (efektif 10%) belum diberlakukan.'
+          : 'Pasal 26 UU 7/1983 mengenakan tarif final 20% atas jumlah bruto pembayaran dividen, bunga, royalti, dan jasa kepada WPLN kecuali terdapat tarif lebih rendah dalam P3B.',
       ],
     };
   },

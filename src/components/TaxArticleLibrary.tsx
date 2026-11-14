@@ -95,9 +95,18 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
               aria-hidden="true"
             />
             <input
-              type="search"
+              type="text"
+              role="searchbox"
+              inputMode="search"
+              enterKeyHint="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape' && searchQuery) {
+                  e.preventDefault();
+                  setSearchQuery('');
+                }
+              }}
               placeholder="Cari pasal, PP, PMK, atau topik"
               aria-label="Cari artikel aturan pajak"
               className="w-full min-h-[44px] pl-10 pr-10 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] placeholder:text-[#4F6160]/75 dark:placeholder:text-[#E8EAE4]/50 border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
@@ -430,9 +439,18 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
               aria-hidden="true"
             />
             <input
-              type="search"
+              type="text"
+              role="searchbox"
+              inputMode="search"
+              enterKeyHint="search"
               value={sidebarQuery}
               onChange={(e) => setSidebarQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape' && sidebarQuery) {
+                  e.preventDefault();
+                  setSidebarQuery('');
+                }
+              }}
               placeholder={`Cari aturan ${article.taxTypeLabel}`}
               aria-label={`Cari artikel ${article.taxTypeLabel}`}
               className="w-full min-h-[44px] pl-9 pr-9 py-1.5 text-base lg:text-sm bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] placeholder:text-[#4F6160]/75 dark:placeholder:text-[#E8EAE4]/50 border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"

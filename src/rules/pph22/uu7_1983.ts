@@ -12,14 +12,14 @@ import { SRC } from '../sources';
 const regime: TaxRegime = {
   id: 'pph22_uu7_1983',
   taxType: 'pph22',
-  name: 'UU 7/1983 & KMK 983/1983 / KMK 848/1992',
+  name: 'UU 7/1983 & KMK 965/1983 / KMK 382/1989',
   shortName: '1984–1994 (UU 7/1983)',
-  legalBasis: 'Pasal 22 UU Nomor 7 Tahun 1983, KMK 983/KMK.04/1983 & KMK 848/KMK.04/1992',
+  legalBasis: 'Pasal 22 UU Nomor 7 Tahun 1983, KMK 965/KMK.04/1983 & KMK 382/KMK.04/1989',
   effectivePeriod: '1 Januari 1984 – 31 Desember 1994',
   isCurrent: false,
   summary:
     'Era awal pemungutan PPh Pasal 22 pasca-reformasi 1983: impor dengan API 2,5%, impor tanpa API 7,5%, dan pembayaran bendaharawan/badan tertentu 1,5% sebelum pembaruan UU 10/1994.',
-  sources: [SRC.UU_7_1983, SRC.KMK_599_1994],
+  sources: [SRC.UU_7_1983, SRC.KMK_965_1983, SRC.KMK_382_1989, SRC.KMK_599_1994],
 };
 
 const article: TaxArticle = {
@@ -27,7 +27,7 @@ const article: TaxArticle = {
   taxType: 'pph22',
   taxTypeLabel: 'PPh Pasal 22',
   title: 'Fondasi PPh Pasal 22 di Awal Reformasi Pajak 1983 (1984–1994)',
-  legalBasis: 'Pasal 22 UU Nomor 7 Tahun 1983 & KMK 983/KMK.04/1983 jo. KMK 848/1992',
+  legalBasis: 'Pasal 22 UU Nomor 7 Tahun 1983 & KMK 965/KMK.04/1983 jo. KMK 382/KMK.04/1989',
   effectiveDate: '1 Januari 1984',
   readMinutes: 3,
   summary:
@@ -37,7 +37,7 @@ const article: TaxArticle = {
       heading: 'Dari MPO pra-reformasi ke Pasal 22 UU 7/1983',
       paragraphs: [
         'Sebelum reformasi perpajakan 1983, Indonesia mengenal mekanisme Menghitung Pajak Orang Lain (MPO) yang luas. UU Nomor 7 Tahun 1983 memangkas praktik tersebut dan menyalurkan pemungutan khusus kegiatan impor serta pembayaran dari APBN/APBD melalui Pasal 22.',
-        'Melalui KMK 983/KMK.04/1983 hingga KMK 848/KMK.04/1992, Direktorat Jenderal Bea dan Cukai serta Bank Devisa ditunjuk memungut 2,5% atas impor pemegang API dan 7,5% bagi non-API sebagai kredit pajak tahunan.',
+        'Melalui KMK 965/KMK.04/1983 hingga KMK 382/KMK.04/1989, Direktorat Jenderal Bea dan Cukai serta Bank Devisa ditunjuk memungut 2,5% atas impor pemegang API dan 7,5% bagi non-API sebagai kredit pajak tahunan.',
       ],
     },
     {
@@ -81,7 +81,7 @@ function getUu7Pph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
     case 'bendahara_bumn':
       return {
         rate: 1.5,
-        label: 'Pembayaran dari APBN/APBD oleh Bendaharawan (1,5% — KMK 848/1992)',
+        label: 'Pembayaran dari APBN/APBD oleh Bendaharawan (1,5% — KMK 382/KMK.04/1989)',
       };
     case 'bulion_emas':
       return {

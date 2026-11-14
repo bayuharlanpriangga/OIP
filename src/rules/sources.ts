@@ -12,6 +12,11 @@ export const SRC = {
     url: 'https://peraturan.go.id/id/uu-no-7-tahun-2021',
     publisher: 'peraturan.go.id',
   },
+  UU_6_2023_CK: {
+    title: 'UU Nomor 6 Tahun 2023 tentang Penetapan Perppu Nomor 2 Tahun 2022 tentang Cipta Kerja',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-6-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
   UU_2_2020: {
     title: 'UU Nomor 2 Tahun 2020 (Penetapan Perppu 1 Tahun 2020)',
     url: 'https://jdih.kemenkeu.go.id/dok/uu-2-tahun-2020',
@@ -68,6 +73,16 @@ export const SRC = {
     title: 'PER-16/PJ/2016 tentang Pedoman Teknis Tata Cara Pemotongan PPh Pasal 21/26',
     url: 'https://www.pajak.go.id/id/peraturan-direktur-jenderal-pajak-nomor-16pj2016',
     publisher: 'Direktorat Jenderal Pajak',
+  },
+  PMK_23_2020: {
+    title: 'PMK Nomor 23/PMK.03/2020 tentang Insentif Pajak untuk Wajib Pajak Terdampak Wabah Virus Corona',
+    url: 'https://jdih.kemenkeu.go.id/dok/23-pmk-03-2020',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_44_2020: {
+    title: 'PMK Nomor 44/PMK.03/2020 tentang Insentif Pajak untuk Wajib Pajak Terdampak Pandemi COVID-19',
+    url: 'https://jdih.kemenkeu.go.id/dok/44-pmk-03-2020',
+    publisher: 'JDIH Kemenkeu',
   },
   PMK_86_2020: {
     title: 'PMK Nomor 86/PMK.03/2020 tentang Insentif Pajak Terdampak Pandemi COVID-19',
@@ -128,6 +143,11 @@ export const SRC = {
     title: 'KMK Nomor 49/KMK.04/1994 tentang Besarnya Biaya Jabatan',
     url: 'https://jdih.kemenkeu.go.id/dok/49-kmk-04-1994',
     publisher: 'JDIH Kemenkeu',
+  },
+  KMK_980_1983: {
+    title: 'KMK Nomor 980/KMK.04/1983 tentang Besarnya Biaya Jabatan Sehubungan dengan Pekerjaan',
+    url: 'https://pajak.go.id/id/peraturan/besarnya-biaya-untuk-mendapatkan-menagih-dan-memelihara-penghasilan-teratur-sehubungan-0',
+    publisher: 'Direktorat Jenderal Pajak',
   },
   PP_68_2009: {
     title: 'PP Nomor 68 Tahun 2009 tentang Tarif PPh Pasal 21 atas Uang Pesangon dan Manfaat Pensiun/THT/JHT',
@@ -194,6 +214,11 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/41-pmk-010-2022',
     publisher: 'JDIH Kemenkeu',
   },
+  PMK_48_2023: {
+    title: 'PMK Nomor 48 Tahun 2023 tentang PPh dan/atau PPN atas Penjualan/Penyerahan Emas Perhiasan & Emas Batangan',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-48-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
   PMK_59_2022: {
     title: 'PMK Nomor 59/PMK.03/2022 tentang Perubahan PMK 231/PMK.03/2019 (Instansi Pemerintah)',
     url: 'https://jdih.kemenkeu.go.id/dok/59-pmk-03-2022',
@@ -207,6 +232,11 @@ export const SRC = {
   PMK_175_2013: {
     title: 'PMK Nomor 175/PMK.011/2013 tentang Perubahan Ketiga PMK 154/PMK.03/2010',
     url: 'https://jdih.kemenkeu.go.id/dok/175-pmk-011-2013',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_107_2015: {
+    title: 'PMK Nomor 107/PMK.010/2015 tentang Perubahan Keempat atas PMK 154/PMK.03/2010',
+    url: 'https://jdih.kemenkeu.go.id/dok/107-pmk-010-2015',
     publisher: 'JDIH Kemenkeu',
   },
   KMK_254_2001: {
@@ -234,6 +264,16 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/599-kmk-04-1994',
     publisher: 'JDIH Kemenkeu',
   },
+  KMK_382_1989: {
+    title: 'KMK Nomor 382/KMK.04/1989 tentang Penunjukan Pemungut PPh Pasal 22, Dasar Pemungutan, Tarif Serta Tata Cara Pelaksanaannya',
+    url: 'https://jdih.kemenkeu.go.id/dok/382-kmk-04-1989',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_965_1983: {
+    title: 'KMK Nomor 965/KMK.04/1983 tentang Badan-Badan Tertentu sebagai Pemungut PPh Pasal 22',
+    url: 'https://jdih.kemenkeu.go.id/dok/965-kmk-04-1983',
+    publisher: 'JDIH Kemenkeu',
+  },
 
   // PPh Pasal 23
   PMK_141_2015: {
@@ -246,9 +286,19 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/244-pmk-03-2008',
     publisher: 'JDIH Kemenkeu',
   },
+  PER_70_PJ_2007: {
+    title: 'PER-70/PJ/2007 tentang Jenis Jasa Lain dan Perkiraan Penghasilan Neto PPh Pasal 23',
+    url: 'https://www.pajak.go.id/en/node/60839',
+    publisher: 'Direktorat Jenderal Pajak',
+  },
   KEP_170_2002_DJP: {
     title: 'KEP-170/PJ./2002 tentang Jenis Jasa Lain dan Perkiraan Penghasilan Neto PPh 23',
     url: 'https://pajak.go.id/id/peraturan/jenis-jasa-lain-dan-perkiraan-penghasilan-neto-sebagaimana-dimaksud-dalam-pasal-23-ayat-2',
+    publisher: 'Direktorat Jenderal Pajak',
+  },
+  KEP_176_PJ_2000: {
+    title: 'KEP-176/PJ./2000 tentang Jenis Jasa Lain dan Perkiraan Penghasilan Neto PPh Pasal 23',
+    url: 'https://www.pajak.go.id/id/node/58990',
     publisher: 'Direktorat Jenderal Pajak',
   },
 
@@ -516,6 +566,11 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/pp-20-tahun-1996',
     publisher: 'JDIH Kemenkeu',
   },
+  PP_59_1999: {
+    title: 'PP Nomor 59 Tahun 1999 tentang Perubahan Ketiga atas PP 50/1994 (PPnBM)',
+    url: 'https://peraturan.bpk.go.id/Details/54381/pp-no-59-tahun-1999',
+    publisher: 'JDIH BPK RI',
+  },
   PP_22_1985: {
     title: 'PP Nomor 22 Tahun 1985 tentang Pelaksanaan Undang-Undang Pajak Pertambahan Nilai 1984',
     url: 'https://peraturan.bpk.go.id/Details/64580/pp-no-22-tahun-1985',
@@ -637,6 +692,479 @@ export const SRC = {
   UU_13_1985: {
     title: 'UU Nomor 13 Tahun 1985 tentang Bea Meterai',
     url: 'https://jdih.kemenkeu.go.id/dok/uu-13-tahun-1985',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // Tambahan Regulasi Historis & Terbaru Lintas Jenis Pajak (Audit Kelengkapan 2026)
+  // PPh Pasal 21
+  PMK_10_2025: {
+    title: 'PMK Nomor 10 Tahun 2025 tentang PPh Pasal 21 Ditanggung Pemerintah (DTP) Stimulus Ekonomi 2025',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-10-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_72_2025: {
+    title: 'PMK Nomor 72 Tahun 2025 tentang Perubahan atas PMK 10/2025 (Perluasan Sektor PPh 21 DTP 2025)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-72-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_66_2023: {
+    title: 'PMK Nomor 66 Tahun 2023 tentang Perlakuan PPh atas Penggantian atau Imbalan dalam Bentuk Natura dan/atau Kenikmatan',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-66-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_80_2010: {
+    title: 'PP Nomor 80 Tahun 2010 tentang Tarif Pemotongan dan Pengenaan PPh Pasal 21 Beban APBN/APBD',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-80-tahun-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_31_PJ_2009: {
+    title: 'PER-31/PJ/2009 tentang Pedoman Teknis Tata Cara Pemotongan PPh Pasal 21/26',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-31-pj-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_31_PJ_2012: {
+    title: 'PER-31/PJ/2012 tentang Pedoman Teknis Tata Cara Pemotongan, Penyetoran dan Pelaporan PPh Pasal 21/26',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-31-pj-2012',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_32_PJ_2015: {
+    title: 'PER-32/PJ/2015 tentang Pedoman Teknis Tata Cara Pemotongan, Penyetoran dan Pelaporan PPh Pasal 21/26',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-32-pj-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_9_1970_PPD: {
+    title: 'UU Nomor 9 Tahun 1970 tentang Perubahan dan Tambahan Ordonansi Pajak Pendapatan 1944',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-9-tahun-1970',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // PPh Pasal 22 & 23
+  PMK_50_2025: {
+    title: 'PMK Nomor 50 Tahun 2025 tentang PPN dan PPh atas Transaksi Perdagangan Aset Kripto (Berlaku 1 Agustus 2025)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-50-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_68_2022: {
+    title: 'PMK Nomor 68/PMK.03/2022 tentang PPN dan PPh atas Transaksi Perdagangan Aset Kripto (Dicabut PMK 50/2025)',
+    url: 'https://jdih.kemenkeu.go.id/dok/68-pmk-03-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_58_2022: {
+    title: 'PMK Nomor 58/PMK.03/2022 tentang Penunjukan Pihak Lain sebagai Pemungut Pajak Pengadaan Pemerintah (SIPP)',
+    url: 'https://jdih.kemenkeu.go.id/dok/58-pmk-03-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_90_2015: {
+    title: 'PMK Nomor 90/PMK.03/2015 tentang Perubahan atas PMK 253/PMK.03/2008 (Barang Sangat Mewah)',
+    url: 'https://jdih.kemenkeu.go.id/dok/90-pmk-03-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_69_2022: {
+    title: 'PMK Nomor 69/PMK.03/2022 tentang Pajak Penghasilan dan PPN atas Penyelenggaraan Teknologi Finansial (Fintech)',
+    url: 'https://jdih.kemenkeu.go.id/dok/69-pmk-03-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KEP_128_PJ_1997: {
+    title: 'KEP-128/PJ./1997 tentang Jenis Jasa Lain dan Perkiraan Penghasilan Neto PPh Pasal 23',
+    url: 'https://jdih.kemenkeu.go.id/dok/kep-128-pj-1997',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KEP_02_PJ_1995: {
+    title: 'KEP-02/PJ./1995 tentang Petunjuk Pelaksanaan Pemotongan PPh Pasal 21 dan Pasal 26',
+    url: 'https://jdih.kemenkeu.go.id/dok/kep-02-pj-1995',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // PPh Pasal 4(2) Final
+  PP_131_2000: {
+    title: 'PP Nomor 131 Tahun 2000 tentang PPh atas Bunga Deposito dan Tabungan serta Diskonto SBI',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-131-tahun-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_123_2015: {
+    title: 'PP Nomor 123 Tahun 2015 tentang Perubahan atas PP 131/2000 (Insentif PPh Deposito Devisa Hasil Ekspor)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-123-tahun-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_51_1994: {
+    title: 'PP Nomor 51 Tahun 1994 tentang PPh atas Bunga Deposito dan Tabungan serta Diskonto SBI',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-51-tahun-1994',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_91_2021: {
+    title: 'PP Nomor 91 Tahun 2021 tentang PPh atas Penghasilan Berupa Bunga Obligasi yang Diterima WPDN dan BUT',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-91-tahun-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_55_2019: {
+    title: 'PP Nomor 55 Tahun 2019 tentang Perubahan Kedua atas PP 16/2009 tentang PPh Bunga Obligasi',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-55-tahun-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_139_2000: {
+    title: 'PP Nomor 139 Tahun 2000 tentang PPh atas Penghasilan Berupa Bunga Obligasi yang Diperdagangkan di Bursa',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-139-tahun-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_41_1994: {
+    title: 'PP Nomor 41 Tahun 1994 tentang PPh atas Penghasilan dari Transaksi Penjualan Saham di Bursa Efek',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-41-tahun-1994',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_14_1997: {
+    title: 'PP Nomor 14 Tahun 1997 tentang Perubahan atas PP 41/1994 (Tambahan 0,5% Saham Pendiri)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-14-tahun-1997',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_19_2009: {
+    title: 'PP Nomor 19 Tahun 2009 tentang PPh atas Dividen yang Diterima Wajib Pajak Orang Pribadi Dalam Negeri',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-19-tahun-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_18_2021: {
+    title: 'PMK Nomor 18/PMK.03/2021 tentang Pelaksanaan UU Cipta Kerja di Bidang PPh, PPN/PPnBM, serta KUP (Reinvestasi Dividen)',
+    url: 'https://jdih.kemenkeu.go.id/dok/18-pmk-03-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_132_2000: {
+    title: 'PP Nomor 132 Tahun 2000 tentang PPh atas Hadiah Undian (Tarif Final 25%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-132-tahun-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_42_1994: {
+    title: 'PP Nomor 42 Tahun 1994 tentang PPh atas Hadiah Undian (Dicabut PP 132/2000)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-42-tahun-1994',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_15_2009: {
+    title: 'PP Nomor 15 Tahun 2009 tentang PPh atas Bunga Simpanan Koperasi Kepada Anggota Orang Pribadi',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-15-tahun-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // UMKM / NPPN, PPh 25, 26, 15, Badan
+  KEP_536_PJ_2000: {
+    title: 'KEP-536/PJ./2000 tentang Norma Penghitungan Penghasilan Neto (NPPN)',
+    url: 'https://jdih.kemenkeu.go.id/dok/kep-536-pj-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_17_PJ_2015: {
+    title: 'PER-17/PJ/2015 tentang Norma Penghitungan Penghasilan Neto (NPPN)',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-17-pj-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_522_2000: {
+    title: 'KMK Nomor 522/KMK.04/2000 tentang Penghitungan Angsuran PPh WP Tertentu & OPPT',
+    url: 'https://jdih.kemenkeu.go.id/dok/522-kmk-04-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_255_2008: {
+    title: 'PMK Nomor 255/PMK.03/2008 tentang Penghitungan Besarnya Angsuran PPh dalam Tahun Berjalan WP Tertentu',
+    url: 'https://jdih.kemenkeu.go.id/dok/255-pmk-03-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_208_2009: {
+    title: 'PMK Nomor 208/PMK.03/2009 tentang Perubahan atas PMK 255/PMK.03/2008 (Angsuran OPPT 0,75%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/208-pmk-03-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_80_2008: {
+    title: 'PP Nomor 80 Tahun 2008 tentang PPh Bagi WP Orang Pribadi Dalam Negeri yang Bertolak ke Luar Negeri (FLN)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-80-tahun-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_61_PJ_2009: {
+    title: 'PER-61/PJ/2009 tentang Tata Cara Penerapan Persetujuan Penghindaran Pajak Berganda (P3B)',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-61-pj-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_14_2011: {
+    title: 'PMK Nomor 14/PMK.03/2011 tentang Perlakuan Perpajakan atas Penghasilan Kena Pajak Sesudah Pajak dari BUT',
+    url: 'https://jdih.kemenkeu.go.id/dok/14-pmk-03-2011',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_258_2008: {
+    title: 'PMK Nomor 258/PMK.03/2008 tentang Pemotongan PPh Pasal 26 atas Penjualan/Pengalihan Saham SPC Pasal 18(3c)',
+    url: 'https://jdih.kemenkeu.go.id/dok/258-pmk-03-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_634_1994: {
+    title: 'KMK Nomor 634/KMK.04/1994 tentang Norma Penghitungan Khusus Bagi WPLN dengan Kantor Perwakilan Dagang',
+    url: 'https://jdih.kemenkeu.go.id/dok/634-kmk-04-1994',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KEP_667_PJ_2001: {
+    title: 'KEP-667/PJ./2001 tentang Norma Penghitungan Khusus Penghasilan Neto Bagi Kantor Perwakilan Dagang Asing (0,44%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/kep-667-pj-2001',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_543_2002: {
+    title: 'KMK Nomor 543/KMK.03/2002 tentang Norma Penghitungan Khusus Jasa Maklon Internasional Produksi Mainan Anak',
+    url: 'https://jdih.kemenkeu.go.id/dok/543-kmk-03-2002',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_181_1995: {
+    title: 'KMK Nomor 181/KMK.04/1995 tentang Norma Penghitungan Khusus Usaha Pelayaran dan/atau Penerbangan',
+    url: 'https://jdih.kemenkeu.go.id/dok/181-kmk-04-1995',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_136_2024: {
+    title: 'PMK Nomor 136 Tahun 2024 tentang Pengenaan Pajak Minimum Global Berdasarkan Kesepakatan Internasional (Pilar 2)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-136-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_30_2020: {
+    title: 'PP Nomor 30 Tahun 2020 tentang Penurunan Tarif PPh Bagi Wajib Pajak Badan Dalam Negeri Berbentuk Perseroan Terbuka',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-30-tahun-2020',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_77_2013: {
+    title: 'PP Nomor 77 Tahun 2013 tentang Penurunan Tarif PPh Bagi Wajib Pajak Badan Perseroan Terbuka',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-77-tahun-2013',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_78_2019: {
+    title: 'PP Nomor 78 Tahun 2019 tentang Fasilitas PPh untuk Penanaman Modal di Bidang/Daerah Tertentu (Tax Allowance)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-78-tahun-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_130_2020: {
+    title: 'PMK Nomor 130/PMK.010/2020 tentang Pemberian Fasilitas Pengurangan PPh Badan (Tax Holiday)',
+    url: 'https://jdih.kemenkeu.go.id/dok/130-pmk-010-2020',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_69_2024: {
+    title: 'PMK Nomor 69 Tahun 2024 tentang Perubahan atas PMK 130/2020 (Perpanjangan Tax Holiday & Klausul GMT)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-69-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_45_2019: {
+    title: 'PP Nomor 45 Tahun 2019 tentang Penghitungan Penghasilan Kena Pajak (Super Deduction R&D 300% & Vokasi 200%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-45-tahun-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_72_2023: {
+    title: 'PMK Nomor 72 Tahun 2023 tentang Penyusutan Harta Berwujud dan/atau Amortisasi Harta Tak Berwujud',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-72-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_8_1970_PPS: {
+    title: 'UU Nomor 8 Tahun 1970 tentang Perubahan dan Tambahan Ordonansi Pajak Perseroan 1925',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-8-tahun-1970',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // PPN, PPnBM, PBB, Daerah, & Bea Meterai
+  PMK_11_2025: {
+    title: 'PMK Nomor 11 Tahun 2025 tentang Ketentuan Nilai Lain sebagai DPP dan Besaran Tertentu PPN',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-11-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_60_2022: {
+    title: 'PMK Nomor 60/PMK.03/2022 tentang Tata Cara Penunjukan Pemungut, Pemungutan, Penyetoran & Pelaporan PPN PMSE',
+    url: 'https://jdih.kemenkeu.go.id/dok/60-pmk-03-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_48_2020: {
+    title: 'PMK Nomor 48/PMK.03/2020 tentang PPN atas Pemanfaatan BKP Tidak Berwujud/JKP Luar Daerah Pabean via PMSE',
+    url: 'https://jdih.kemenkeu.go.id/dok/48-pmk-03-2020',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_197_2013: {
+    title: 'PMK Nomor 197/PMK.03/2013 tentang Perubahan atas PMK 68/PMK.03/2010 (Batasan Pengusaha Kecil PPN Rp 4,8 M)',
+    url: 'https://jdih.kemenkeu.go.id/dok/197-pmk-03-2013',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_68_2010: {
+    title: 'PMK Nomor 68/PMK.03/2010 tentang Batasan Pengusaha Kecil PPN (Rp 600 Juta)',
+    url: 'https://jdih.kemenkeu.go.id/dok/68-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_164_2023: {
+    title: 'PMK Nomor 164 Tahun 2023 tentang Tata Cara Pengenaan PPh Usaha Beromzet Tertentu dan Pengukuhan PKP',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-164-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_DARURAT_19_1951: {
+    title: 'UU Darurat Nomor 19 Tahun 1951 tentang Pemungutan Pajak Penjualan (PPn 1951)',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-darurat-19-tahun-1951',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_12_2025: {
+    title: 'PMK Nomor 12 Tahun 2025 tentang PPN DTP KBLBB & PPnBM DTP 3% Kendaraan Emisi Karbon Rendah (Hybrid) TA 2025',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-12-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_9_2024: {
+    title: 'PMK Nomor 9 Tahun 2024 tentang PPnBM Ditanggung Pemerintah atas KBLBB Roda Empat CBU/CKD Tertentu TA 2024',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-9-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_20_2021: {
+    title: 'PMK Nomor 20/PMK.010/2021 tentang PPnBM DTP Kendaraan Bermotor Tertentu TA 2021',
+    url: 'https://jdih.kemenkeu.go.id/dok/20-pmk-010-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_31_2021: {
+    title: 'PMK Nomor 31/PMK.010/2021 tentang PPnBM DTP Kendaraan Bermotor (Perluasan s.d. 2.500 cc) TA 2021',
+    url: 'https://jdih.kemenkeu.go.id/dok/31-pmk-010-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_5_2022: {
+    title: 'PMK Nomor 5/PMK.010/2022 tentang PPnBM DTP Kendaraan Bermotor Tertentu (LCGC & Mobil Terjangkau) TA 2022',
+    url: 'https://jdih.kemenkeu.go.id/dok/5-pmk-010-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_620_2004: {
+    title: 'PMK Nomor 620/PMK.03/2004 tentang Jenis BKP Tergolong Mewah Selain Kendaraan Bermotor',
+    url: 'https://jdih.kemenkeu.go.id/dok/620-pmk-03-2004',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_186_2019: {
+    title: 'PMK Nomor 186/PMK.03/2019 tentang Klasifikasi Objek Pajak dan Tata Cara Penetapan NJOP PBB (PBB-P3)',
+    url: 'https://jdih.kemenkeu.go.id/dok/186-pmk-03-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_234_2022: {
+    title: 'PMK Nomor 234/PMK.03/2022 tentang Perubahan atas PMK 186/PMK.03/2019 (Penyelarasan PBB-P3 & UU HKPD)',
+    url: 'https://jdih.kemenkeu.go.id/dok/234-pmk-03-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_23_2014: {
+    title: 'PMK Nomor 23/PMK.03/2014 tentang Penyesuaian Besarnya NJOPTKP PBB (Rp 12 Juta PBB-P3)',
+    url: 'https://jdih.kemenkeu.go.id/dok/23-pmk-03-2014',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_46_2000: {
+    title: 'PP Nomor 46 Tahun 2000 tentang Penetapan Besarnya NJKP pada PBB (20% dan 40%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-46-tahun-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_201_2000: {
+    title: 'KMK Nomor 201/KMK.04/2000 tentang Penyesuaian Besarnya NJOPTKP sebagai Dasar Penghitungan PBB',
+    url: 'https://jdih.kemenkeu.go.id/dok/201-kmk-04-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PERPU_11_1959_IPEDA: {
+    title: 'Perpu Nomor 11 Tahun 1959 tentang Pajak Hasil Bumi (Landasan Historis IPEDA Pra-UU PBB)',
+    url: 'https://jdih.kemenkeu.go.id/dok/perpu-11-tahun-1959',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_35_2023: {
+    title: 'PP Nomor 35 Tahun 2023 tentang Ketentuan Umum Pajak Daerah dan Retribusi Daerah (Pelaksana UU HKPD)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-35-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_DARURAT_11_1957: {
+    title: 'UU Darurat Nomor 11 Tahun 1957 jo. UU 1/1961 tentang Peraturan Umum Pajak Daerah',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-darurat-11-tahun-1957',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_1_1961: {
+    title: 'UU Nomor 1 Tahun 1961 tentang Penetapan UU Darurat Pajak Daerah Menjadi Undang-Undang',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-1-tahun-1961',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_78_2024: {
+    title: 'PMK Nomor 78 Tahun 2024 tentang Ketentuan Pelaksanaan Bea Meterai (Mencabut PMK 134/2021)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-78-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_86_2021: {
+    title: 'PP Nomor 86 Tahun 2021 tentang Pengadaan, Pengelolaan, dan Penjualan Meterai',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-86-tahun-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_3_2022: {
+    title: 'PP Nomor 3 Tahun 2022 tentang Pemberian Fasilitas Pembebasan dari Pengenaan Bea Meterai',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-3-tahun-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_134_2021: {
+    title: 'PMK Nomor 134/PMK.03/2021 tentang Pembayaran Bea Meterai & Pemeteraian Kemudian (Dicabut PMK 78/2024)',
+    url: 'https://jdih.kemenkeu.go.id/dok/134-pmk-03-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // Tambahan Rujukan Kelengkapan Bagian B (Aturan Khusus Terkini & Jejak Historis Pra-1984 / Pra-2010)
+  PMK_13_2025: {
+    title: 'PMK Nomor 13 Tahun 2025 tentang PPN Ditanggung Pemerintah atas Penyerahan Rumah Tapak & Satuan Rumah Susun TA 2025',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-13-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_61_2024: {
+    title: 'PMK Nomor 61 Tahun 2024 tentang PPN Ditanggung Pemerintah Rumah Tapak & Rusun Periode September–Desember 2024',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-61-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_7_2024: {
+    title: 'PMK Nomor 7 Tahun 2024 tentang PPN Ditanggung Pemerintah atas Penyerahan Rumah Tapak & Satuan Rumah Susun TA 2024',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-7-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_8_2024: {
+    title: 'PMK Nomor 8 Tahun 2024 tentang PPN Ditanggung Pemerintah atas Penyerahan KBLBB Roda Empat dan Bus Tertentu TA 2024',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-8-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_49_2022: {
+    title: 'PP Nomor 49 Tahun 2022 tentang PPN Dibebaskan dan PPN/PPnBM Tidak Dipungut atas Impor/Penyerahan BKP & JKP Strategis',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-49-tahun-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_571_2003: {
+    title: 'KMK Nomor 571/KMK.03/2003 tentang Perubahan atas KMK 552/KMK.04/2000 (Batasan Pengusaha Kecil PPN Rp 600 Juta)',
+    url: 'https://jdih.kemenkeu.go.id/dok/571-kmk-03-2003',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_552_2000: {
+    title: 'KMK Nomor 552/KMK.04/2000 tentang Batasan Pengusaha Kecil Pajak Pertambahan Nilai (Rp 360 Jt BKP / Rp 180 Jt JKP)',
+    url: 'https://jdih.kemenkeu.go.id/dok/552-kmk-04-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_648_1994: {
+    title: 'KMK Nomor 648/KMK.04/1994 tentang Batasan Pengusaha Kecil PPN (Rp 240 Jt BKP / Rp 120 Jt JKP)',
+    url: 'https://jdih.kemenkeu.go.id/dok/648-kmk-04-1994',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_8_1967: {
+    title: 'UU Nomor 8 Tahun 1967 tentang Perubahan Tata Cara Pemungutan PPd 1944, PKk 1932, dan PPs 1925 (MPS & MPO)',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-8-tahun-1967',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_10_1970_PBDR: {
+    title: 'UU Nomor 10 Tahun 1970 tentang Perubahan Ordonansi Pajak Dividen 1959 (Pajak atas Bunga, Dividen, dan Royalty / PBDR)',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-10-tahun-1970',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_27_2008: {
+    title: 'PP Nomor 27 Tahun 2008 tentang Pajak Penghasilan atas Diskonto Surat Perbendaharaan Negara (SPN)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-27-tahun-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_36_2023: {
+    title: 'PP Nomor 36 Tahun 2023 tentang Devisa Hasil Ekspor dari Kegiatan Pengusahaan, Pengelolaan, dan/atau Pengolahan SDA',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-36-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_8_2025: {
+    title: 'PP Nomor 8 Tahun 2025 tentang Perubahan atas PP 36/2023 (Penempatan DHE SDA 100% Selama 12 Bulan)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-8-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_42_2000: {
+    title: 'PP Nomor 42 Tahun 2000 tentang Pembayaran PPh Orang Pribadi yang Akan Bertolak ke Luar Negeri (Fiskal Luar Negeri)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-42-tahun-2000',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_82_2009: {
+    title: 'PMK Nomor 82/PMK.03/2009 tentang Pemotongan PPh Pasal 26 atas Penghasilan Penjualan/Pengalihan Harta di Indonesia oleh WPLN',
+    url: 'https://jdih.kemenkeu.go.id/dok/82-pmk-03-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_628_1991: {
+    title: 'KMK Nomor 628/KMK.04/1991 tentang Norma Penghitungan Khusus BUT Perusahaan Pengeboran Minyak dan Gas Bumi Asing',
+    url: 'https://jdih.kemenkeu.go.id/dok/628-kmk-04-1991',
     publisher: 'JDIH Kemenkeu',
   },
 } satisfies Record<string, TaxSource>;

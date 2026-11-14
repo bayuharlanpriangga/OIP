@@ -12,7 +12,7 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Era awal reformasi UU PPh: tarif 3 lapis 15% (<= 10jt), 25% (10–50jt), 35% (> 50jt), PTKP TK/0 Rp 960 ribu (+Rp 480 rb/tanggungan), dan Biaya Jabatan maks Rp 360 ribu/thn.',
-  sources: [SRC.UU_7_1983, SRC.UU_7_1991, SRC.KMK_49_1994],
+  sources: [SRC.UU_7_1983, SRC.UU_7_1991, SRC.KMK_980_1983, SRC.KMK_49_1994],
 };
 
 const article: TaxArticle = {

@@ -7,7 +7,7 @@ const regime: TaxRegime = {
   taxType: 'pph_badan',
   name: 'UU Nomor 36 Tahun 2008 (TP 2009)',
   shortName: '2009 (28%)',
-  legalBasis: 'Pasal 17 ayat (1) huruf b & ayat (2b) UU 36/2008',
+  legalBasis: 'Pasal 17 ayat (1) huruf b, ayat (2b) & Pasal 31E UU 36/2008',
   effectivePeriod: 'Tahun Pajak 2009',
   isCurrent: false,
   summary:

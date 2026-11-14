@@ -7,7 +7,7 @@ const regime: TaxRegime = {
   name: 'UU 36/2008 & PMK 244/2008',
   shortName: '2009–2015',
   legalBasis: 'UU Nomor 36 Tahun 2008 & PMK 244/PMK.03/2008',
-  effectivePeriod: '1 Januari 2009 – 23 Agustus 2015',
+  effectivePeriod: '1 Januari 2009 – 25 Agustus 2015',
   isCurrent: false,
   summary:
     'Tarif 2% berlaku atas 27 jenis jasa tertentu; dividen yang diterima WP Badan dengan kepemilikan saham di bawah 25% masih dipotong PPh 23 sebesar 15%.',

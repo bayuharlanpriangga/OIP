@@ -119,6 +119,12 @@ export interface TaxCalculatorInput {
     hasNpwp: boolean;
     pesangonBruto?: number;
     pesangonType?: 'pesangon' | 'pensiun_tht_jht';
+    naturaBulanan?: number;
+    honorariumApbn?: number;
+    golonganAsn?: 'gol_1_2' | 'gol_3' | 'gol_4_pejabat';
+    honorariumBukanPegawai?: number;
+    bukanPegawaiBerkesinambungan?: boolean;
+    skemaNonPegawai?: 'bukan_pegawai_pmk168' | 'harian_ter_pp58';
   };
   pph22: {
     nilaiDasar: number;
@@ -126,16 +132,52 @@ export interface TaxCalculatorInput {
     hasNpwp: boolean;
     akumulasiOmzetSebelumnya?: number;
     marketplaceTaxStatus?: 'umkm_final' | 'umum_kredit' | 'op_surat_pernyataan_dibawah_500jt';
+    kriptoChannel?: 'dalam_negeri_ojk' | 'luar_negeri';
+    sektorIndustri?:
+      | 'bbm_spbu_pertamina'
+      | 'bbm_spbu_non_pertamina'
+      | 'bbg_pelumas'
+      | 'semen'
+      | 'kertas'
+      | 'baja'
+      | 'otomotif'
+      | 'farmasi';
+    jenisMewah?: 'hunian_mewah' | 'kendaraan_yacht_pesawat';
+    eraMewah?: 'pmk92_2019' | 'pmk90_2015' | 'pmk253_2008';
+    skemaEmas?:
+      | 'pabrikan_ke_pedagang_pkp'
+      | 'pabrikan_ke_konsumen'
+      | 'pedagang_punya_fp'
+      | 'pedagang_tanpa_fp'
+      | 'emas_batangan';
   };
   pph23: {
     nilaiBruto: number;
     objectType: Pph23ObjectType;
     hasNpwp: boolean;
+    fintechRecipientType?: 'wpdn_but' | 'wpln_pph26' | 'umkm_skb';
   };
   pph4_2: {
     nilaiBruto: number;
     objectType: Pph4_2ObjectType;
     sewaSubjectType?: 'orang_pribadi' | 'badan_usaha';
+    depositoSkema?:
+      | 'reguler'
+      | 'dhe_idr_1bln'
+      | 'dhe_idr_3bln'
+      | 'dhe_idr_6bln_lebih'
+      | 'dhe_usd_1bln'
+      | 'dhe_usd_3bln'
+      | 'dhe_usd_6bln'
+      | 'dhe_usd_lebih_6bln'
+      | 'historis_pp51_1994';
+    nilaiDepositoPokok?: number;
+    eraObligasi?: 'pp91_2021' | 'pp16_2009' | 'pp139_2000';
+    isSahamPendiri?: boolean;
+    isDividenReinvested?: boolean;
+    undianAtauKoperasi?: 'hadiah_undian' | 'simpanan_koperasi';
+    skemaPhtbKhusus?: 'umum_2_5' | 'rumah_sederhana_1' | 'pemerintah_bumn_0';
+    skemaSpnDhe?: 'diskonto_spn_20' | 'dhe_nonmigas_pp8_2025_12bln' | 'dhe_migas_pp36_2023_3bln';
   };
   pph_umkm: {
     omzetBulanan: number;
@@ -144,17 +186,24 @@ export interface TaxCalculatorInput {
     isEntityInTransition?: boolean;
     isFreeProfession?: boolean;
     omzetTerkaitSebelumnya?: number;
+    nppnPersen?: number;
   };
   pph25: {
     pphTerutangTahunLalu: number;
     kreditPajakTahunLalu: number;
     bulanBerjalan: number;
+    diskonPandemiPersen?: 30 | 50;
+    omzetOpptBulanan?: number;
+    flnTransport?: 'udara' | 'laut' | 'punya_npwp';
+    isKondisiTurun25?: boolean;
+    estimasiPphSetahunBaru?: number;
   };
   pph26: {
     nilaiBruto: number;
     objectType: Pph26ObjectType;
     hasSkdP3b: boolean;
     tarifP3bPersen: number;
+    isBptReinvested?: boolean;
   };
   pph15: {
     peredaranBruto: number;
@@ -164,26 +213,50 @@ export interface TaxCalculatorInput {
     peredaranBrutoTahunan: number;
     penghasilanKenaPajak: number;
     isTbk: boolean;
+    etrSetelahInsentifPersen?: number;
+    tbkEra?: 'pp30_2020' | 'pp77_2013' | 'pp81_2007';
+    skemaInsentif?: 'tax_holiday_100' | 'tax_holiday_50' | 'tax_allowance' | 'supertax_rnd';
+    nilaiInvestasiAtauRnd?: number;
   };
   ppn: {
     hargaJualDpp: number;
     goodsType: PpnGoodsType;
     termasukPpn: boolean;
+    besaranTertentuType?:
+      | 'kms_2_2'
+      | 'paket_wisata_1_1'
+      | 'pengiriman_paket_1_1'
+      | 'kendaraan_bekas_1_1'
+      | 'freight_forwarding_1_1'
+      | 'agen_asuransi_1_1';
+    pmseChannel?: 'pmse_jasa_digital' | 'aset_kripto_pmk50_2025' | 'aset_kripto_pmk68_2022';
+    eraPkp?: 'pmk197_2013' | 'pmk68_2010';
+    periodePropertiDtp?: 'jan_jun_2025_100' | 'jul_des_2025_50';
+    skemaEvDtp?: 'kblbb_tkdn40_pmk12_2025' | 'bus_tkdn20_pmk12_2025' | 'kblbb_tkdn40_pmk8_2024';
+    skemaStrategis?:
+      | 'bkp_jkp_dibebaskan_pp49'
+      | 'tidak_dipungut_kawasan'
+      | 'wapu_diatas_2jt'
+      | 'wapu_dibawah_2jt';
+    eraPkpLama?: 'kmk571_2003' | 'kmk552_2000_bkp' | 'kmk552_2000_jkp' | 'kmk648_1994_bkp' | 'kmk648_1994_jkp';
   };
   ppnbm: {
     hargaJual: number;
     categoryType: PpnbmCategoryType;
+    dtpDiscountPersen?: 100 | 50 | 25;
   };
   pbb: {
     njopBumi: number;
     njopBangunan: number;
     njoptkpPilihan: number;
     tierRate: PbbTierRate;
+    sektorPp46?: 'perkebunan_kehutanan' | 'pertambangan' | 'lainnya_umum';
   };
   bphtb: {
     hargaTransaksi: number;
     njopObjek: number;
     acquisitionType: BphtbAcquisitionType;
+    isRumahMbr?: boolean;
   };
   pbjt: {
     nilaiTransaksi: number;
@@ -192,6 +265,8 @@ export interface TaxCalculatorInput {
   bea_meterai: {
     nilaiDokumen: number;
     jumlahDokumen: number;
+    isPemeteraianKemudian?: boolean;
+    isBebasMeteraiPp3?: boolean;
   };
 }
 

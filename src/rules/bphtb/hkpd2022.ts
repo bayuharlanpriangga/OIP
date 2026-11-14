@@ -37,7 +37,7 @@ const article: TaxArticle = {
       heading: 'Penentuan NPOP dan kenaikan NPOPTKP menjadi Rp 80 juta',
       paragraphs: [
         'Nilai Perolehan Objek Pajak (NPOP) pada transaksi jual beli adalah harga transaksi. Namun apabila harga transaksi tidak diketahui atau lebih rendah dari NJOP PBB tahun terjadinya perolehan, maka dasar penghitungannya memakai NJOP tersebut.',
-        'Berdasarkan Pasal 46 UU HKPD, Nilai Perolehan Objek Pajak Tidak Kena Pajak (NPOPTKP) ditetapkan paling rendah Rp 80.000.000 untuk perolehan hak pertama Wajib Pajak di wilayah daerah tempat objek berada (naik Rp 20 juta dibanding batas minimal Rp 60.000.000 di UU PDRD 2009).',
+        'Berdasarkan Pasal 46 ayat (5) UU HKPD, Nilai Perolehan Objek Pajak Tidak Kena Pajak (NPOPTKP) ditetapkan paling rendah Rp 80.000.000 hanya untuk perolehan hak pertama Wajib Pajak di wilayah daerah tempat objek berada (naik Rp 20 juta dibanding batas minimal Rp 60.000.000 di UU PDRD 2009), sedangkan perolehan hak kedua dan seterusnya tidak memperoleh pengurangan NPOPTKP (Rp 0).',
       ],
     },
     {
@@ -53,8 +53,13 @@ const article: TaxArticle = {
     rows: [
       {
         aspek: 'NPOPTKP minimal jual beli pertama',
-        aturanLama: 'Rp 60.000.000',
-        aturanBaru: 'Rp 80.000.000',
+        aturanLama: 'Rp 60.000.000 (tiap perolehan)',
+        aturanBaru: 'Rp 80.000.000 (khusus perolehan pertama)',
+      },
+      {
+        aspek: 'NPOPTKP perolehan kedua dan seterusnya',
+        aturanLama: 'Minimal Rp 60.000.000 (berulang)',
+        aturanBaru: 'Rp 0 (Pasal 46 ayat 5 UU HKPD)',
       },
       {
         aspek: 'Tarif maksimal BPHTB',
@@ -96,7 +101,7 @@ export const bphtbHkpd2022Rule: TaxRuleModule<TaxCalculatorInput['bphtb']> = {
         ? 300000000
         : input.acquisitionType === 'jual_beli_pertama'
           ? 80000000
-          : 60000000;
+          : 0;
 
     const npopKenaPajak = Math.max(0, npop - npoptkp);
     const tarif = 5;
@@ -116,7 +121,7 @@ export const bphtbHkpd2022Rule: TaxRuleModule<TaxCalculatorInput['bphtb']> = {
             ? 'NPOPTKP Waris / Hibah Wasiat (Rp 300 jt)'
             : input.acquisitionType === 'jual_beli_pertama'
               ? 'NPOPTKP Perolehan Pertama UU HKPD (Rp 80 jt)'
-              : 'NPOPTKP Perolehan Lainnya (Rp 60 jt)',
+              : 'NPOPTKP Perolehan Kedua dst. UU HKPD (Rp 0)',
         value: -Math.min(npop, npoptkp),
         isNegative: true,
       },
@@ -138,6 +143,11 @@ export const bphtbHkpd2022Rule: TaxRuleModule<TaxCalculatorInput['bphtb']> = {
     } else if (njop > harga && harga > 0) {
       notes.push(
         `Karena NJOP (${formatRupiah(njop)}) lebih tinggi dari harga transaksi (${formatRupiah(harga)}), perhitungan NPOP otomatis menggunakan NJOP.`
+      );
+    }
+    if (input.acquisitionType === 'jual_beli_lainnya') {
+      notes.push(
+        'Sesuai Pasal 46 ayat (5) UU Nomor 1 Tahun 2022 (HKPD), NPOPTKP Rp 80 juta hanya diberikan untuk perolehan hak pertama di daerah yang sama, sehingga perolehan hak kedua dan seterusnya dikenai BPHTB 5% penuh tanpa NPOPTKP (Rp 0).'
       );
     }
 

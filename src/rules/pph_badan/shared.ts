@@ -33,11 +33,13 @@ export function calculateCorporateTaxWith31E(
     {
       label: `PKP mendapat fasilitas Pasal 31E (tarif ${formatPersen(facilityRate)})`,
       formula:
-        omzet <= 4800000000
-          ? '100% PKP (Omzet <= Rp 4,8 M)'
-          : omzet <= 50000000000
-            ? `(4,8 M ÷ ${formatRupiah(omzet)}) x PKP`
-            : 'Tidak memenuhi (Omzet > Rp 50 M)',
+        omzet === 0
+          ? 'Belum ada peredaran bruto (Rp 0 — tarif normal)'
+          : omzet <= 4800000000
+            ? '100% PKP (Omzet <= Rp 4,8 M)'
+            : omzet <= 50000000000
+              ? `(4,8 M ÷ ${formatRupiah(omzet)}) x PKP`
+              : 'Tidak memenuhi (Omzet > Rp 50 M)',
       value: pkpFasilitas,
     },
     { label: `Pajak atas PKP fasilitas (${formatPersen(facilityRate)})`, value: taxFasilitas },
@@ -47,7 +49,11 @@ export function calculateCorporateTaxWith31E(
   ];
 
   const notes: string[] = [];
-  if (omzet > 50000000000) {
+  if (omzet === 0) {
+    notes.push(
+      `Karena peredaran bruto tahunan tercatat Rp 0, fasilitas diskon 50% Pasal 31E tidak dapat diterapkan sehingga seluruh PKP dikenai tarif normal ${formatPersen(normalRate)}.`
+    );
+  } else if (omzet > 50000000000) {
     notes.push(
       `Karena omzet melebihi Rp 50 miliar, perusahaan tidak memperoleh fasilitas Pasal 31E dan seluruh PKP dikenai tarif ${formatPersen(normalRate)}.`
     );

@@ -14,12 +14,12 @@ const regime: TaxRegime = {
   taxType: 'pph22',
   name: 'PMK Nomor 154/PMK.03/2010',
   shortName: '2010–2017 (PMK 154/2010)',
-  legalBasis: 'PMK Nomor 154/PMK.03/2010 jo. PMK Nomor 175/PMK.011/2013',
+  legalBasis: 'PMK Nomor 154/PMK.03/2010 stdd PMK 175/PMK.011/2013 & PMK 107/PMK.010/2015',
   effectivePeriod: '31 Agustus 2010 – 28 Februari 2017',
   isCurrent: false,
   summary:
     'Aturan pendahulu PMK 34/2017 untuk pemungutan PPh 22 impor (API 2,5%, non-API 7,5%) dan bendahara pemerintah (1,5%) sebelum penyederhanaan tarif komoditas serta barang sangat mewah.',
-  sources: [SRC.PMK_154_2010, SRC.PMK_175_2013, SRC.PMK_253_2008],
+  sources: [SRC.PMK_154_2010, SRC.PMK_175_2013, SRC.PMK_107_2015, SRC.PMK_253_2008],
 };
 
 const article: TaxArticle = {
@@ -27,7 +27,7 @@ const article: TaxArticle = {
   taxType: 'pph22',
   taxTypeLabel: 'PPh Pasal 22',
   title: 'PMK 154/2010: Pemungutan PPh Pasal 22 Impor, Bendahara & BUMN (2010–2017)',
-  legalBasis: 'PMK 154/PMK.03/2010 stdd PMK 175/PMK.011/2013 & PMK 253/PMK.03/2008',
+  legalBasis: 'PMK 154/PMK.03/2010 stdd PMK 175/PMK.011/2013, PMK 107/PMK.010/2015 & PMK 253/PMK.03/2008',
   effectiveDate: '31 Agustus 2010',
   readMinutes: 4,
   summary:
@@ -106,7 +106,7 @@ function getOldPph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
     case 'bulion_emas':
       return {
         rate: 0.45,
-        label: 'Penjualan emas batangan oleh badan usaha produsen (0,45% pada perubahan PMK 154/2010, sebelum tarif bulion 0,25%)',
+        label: 'Penjualan emas batangan oleh badan usaha produsen (0,45% mulai PMK 107/PMK.010/2015, sebelum tarif 0,25% PMK 48/2023)',
         exemptLimit: 0,
       };
     case 'barang_sangat_mewah':
@@ -147,7 +147,7 @@ export const pph22Pmk154_2010Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = 
     ];
 
     const notes: string[] = [
-      'Pada era PMK 154/2010 awal, pemungutan barang sangat mewah masih diatur terpisah di PMK 253/PMK.03/2008 dan BUMN tertentu baru diperluas pemungutannya melalui perubahan PMK 154/2010.',
+      'Pada era PMK 154/2010 awal, pemungutan barang sangat mewah masih diatur terpisah di PMK 253/PMK.03/2008, sementara pemungutan 0,45% atas penjualan emas batangan baru ditambahkan melalui perubahan keempat dalam PMK 107/PMK.010/2015.',
     ];
     if (isExempt) {
       notes.unshift(
