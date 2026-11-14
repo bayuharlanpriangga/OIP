@@ -1,0 +1,139 @@
+import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import { formatPersen, formatRupiah } from '../../utils/formatters';
+
+const regime: TaxRegime = {
+  id: 'pph26_pp9_2021',
+  taxType: 'pph26',
+  name: 'Pasal 26 UU PPh jo. PP 9/2021 & PMK 81/2024',
+  shortName: '2021–Kini (PP 9/2021)',
+  legalBasis: 'Pasal 26 UU PPh stdd UU HPP, PP 9/2021 & PER-25/PJ/2018',
+  effectivePeriod: '2 Agustus 2021 – Sekarang',
+  isCurrent: true,
+  summary:
+    'Tarif umum pemotongan WP Luar Negeri sebesar 20% (atau tarif preferensial P3B dengan SKD DGT), dengan penurunan tarif bunga obligasi WPLN menjadi 10% sesuai PP 9/2021.',
+};
+
+const article: TaxArticle = {
+  id: 'pph26-pp9-2021',
+  taxType: 'pph26',
+  taxTypeLabel: 'PPh Pasal 26',
+  title: 'Pemotongan PPh Pasal 26 atas Wajib Pajak Luar Negeri, Tarif P3B, dan Bunga Obligasi 10%',
+  legalBasis: 'Pasal 26 UU PPh, PP Nomor 9 Tahun 2021, & PER-25/PJ/2018',
+  effectiveDate: '2 Agustus 2021',
+  readMinutes: 5,
+  summary:
+    'Penghasilan yang dibayarkan kepada Wajib Pajak Luar Negeri (non-BUT) umumnya dipotong 20% final dari bruto, kecuali tersedia SKD (DGT Form) untuk menerapkan tarif P3B/Tax Treaty atau ketentuan bunga obligasi 10%.',
+  sections: [
+    {
+      heading: 'Tarif umum 20%, bunga obligasi 10%, dan perkiraan penghasilan neto',
+      paragraphs: [
+        'Atas dividen, royalti, imbalan jasa, hadiah, dan bunga umum yang dibayarkan kepada Wajib Pajak Luar Negeri selain Bentuk Usaha Tetap (BUT), pemotong dalam negeri wajib memotong PPh Pasal 26 bersifat final sebesar 20% dari jumlah bruto.',
+        'Khusus bunga obligasi (termasuk diskonto) yang diterima WPLN, PP 9/2021 (efektif 2 Agustus 2021) menurunkan tarif domestik dari 20% menjadi 10% guna meningkatkan daya saing pasar surat utang. Sementara premi asuransi yang dibayarkan ke perusahaan asuransi luar negeri dikenai perkiraan penghasilan neto 50% (premi tertanggung langsung -> efektif 10%) atau 10%–5% untuk reasuransi, dengan skema standar 25% x 20% = 5% pada transaksi tertentu.',
+      ],
+    },
+    {
+      heading: 'Pemanfaatan Persetujuan Penghindaran Pajak Berganda (P3B / Tax Treaty)',
+      paragraphs: [
+        'Apabila penerima penghasilan berdomisili di negara mitra P3B dan menyerahkan Surat Keterangan Domisili (SKD / Form DGT) sesuai PER-25/PJ/2018 sebelum batas pelaporan SPT Masa, pemotong dapat menerapkan tarif P3B (misalnya 10% atau 15%, bahkan 0% untuk jasa teknis tanpa BUT) sepanjang lolos uji anti-abuse (beneficial owner).',
+      ],
+    },
+  ],
+  comparisonTable: {
+    oldHeader: 'UU 36/2008 & PP 16/2009 (2009–2021)',
+    newHeader: 'PP 9/2021 & PMK 81/2024 (Kini)',
+    rows: [
+      {
+        aspek: 'Dividen, royalti, & jasa tanpa P3B',
+        aturanLama: '20% dari jumlah bruto',
+        aturanBaru: '20% dari jumlah bruto',
+      },
+      {
+        aspek: 'Bunga obligasi WPLN (tanpa P3B)',
+        aturanLama: '20% final',
+        aturanBaru: '10% final (PP 9/2021)',
+      },
+      {
+        aspek: 'Batas setor masa (PMK 81/2024)',
+        aturanLama: 'Tanggal 10 bulan berikutnya',
+        aturanBaru: 'Tanggal 15 bulan berikutnya (Coretax)',
+      },
+    ],
+  },
+  caseExample: {
+    title: 'Pembayaran royalti perangkat lunak ke mitra luar negeri dengan P3B 10%',
+    scenario:
+      'PT di Indonesia membayar lisensi perangkat lunak senilai Rp 250 juta ke vendor Singapura yang melampirkan Form DGT sah (tarif P3B 10%).',
+    presetRegime: 'pph26_pp9_2021',
+    presetInput: {
+      pph26: {
+        nilaiBruto: 250000000,
+        objectType: 'dividen_royalti_jasa',
+        hasSkdP3b: true,
+        tarifP3bPersen: 10,
+      },
+    },
+  },
+};
+
+export const pph26Pp9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {
+  regime,
+  article,
+  calculate(input) {
+    const bruto = Math.max(0, input.nilaiBruto);
+    const treatyRate = Math.min(20, Math.max(0, input.tarifP3bPersen));
+
+    let effectiveRate = 20;
+    let basisLabel = 'Tarif domestik Pasal 26 (20% x bruto)';
+
+    if (input.objectType === 'premi_asuransi_ln') {
+      const basePremiRate = 10; // 50% perkiraan neto x 20% = 10% (tertanggung langsung)
+      if (input.hasSkdP3b && treatyRate < basePremiRate) {
+        effectiveRate = treatyRate;
+        basisLabel = `Tarif P3B dengan SKD DGT (${formatPersen(treatyRate)})`;
+      } else {
+        effectiveRate = basePremiRate;
+        basisLabel = 'Perkiraan penghasilan neto 50% x tarif 20% = 10% (KMK 624/1994)';
+      }
+    } else if (input.objectType === 'bunga_obligasi_wpln') {
+      const domesticBondRate = 10;
+      if (input.hasSkdP3b && treatyRate < domesticBondRate) {
+        effectiveRate = treatyRate;
+        basisLabel = `Tarif P3B lebih rendah dari 10% (${formatPersen(treatyRate)})`;
+      } else {
+        effectiveRate = domesticBondRate;
+        basisLabel = 'Bunga obligasi WPLN — PP 9/2021 (10% final)';
+      }
+    } else if (input.hasSkdP3b) {
+      effectiveRate = treatyRate;
+      basisLabel = `Tarif P3B (Tax Treaty) dengan SKD DGT (${formatPersen(treatyRate)})`;
+    }
+
+    const pph26 = Math.round((bruto * effectiveRate) / 100);
+
+    const steps: CalculationStep[] = [
+      { label: 'Nilai bruto penghasilan dibayar ke WPLN', value: bruto },
+      { label: 'Dasar tarif pemotongan', formula: basisLabel, value: effectiveRate, format: 'percent' },
+      {
+        label: 'PPh Pasal 26 final dipotong',
+        formula: `${formatRupiah(bruto)} x ${formatPersen(effectiveRate)}`,
+        value: pph26,
+        isHighlight: true,
+      },
+    ];
+
+    return {
+      regime,
+      primaryTaxLabel: 'PPh Pasal 26 Dipotong (Final)',
+      primaryTaxAmount: pph26,
+      effectiveRatePercent: effectiveRate,
+      takeHomeOrNetLabel: 'Pembayaran Bersih Ditransfer ke WPLN',
+      takeHomeOrNetAmount: Math.max(0, bruto - pph26),
+      steps,
+      notes: [
+        input.hasSkdP3b
+          ? 'Penerapan tarif P3B mensyaratkan dokumen SKD (Form DGT) yang sah dan diunggah pada sistem DJP sebelum jatuh tempo pelaporan SPT Masa.'
+          : 'Tanpa SKD/Form DGT yang sah, pemotong wajib mengenakan tarif domestik (20% umum atau 10% khusus bunga obligasi).',
+      ],
+    };
+  },
+};

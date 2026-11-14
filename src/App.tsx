@@ -10,12 +10,20 @@ type ActiveView = 'pustaka' | 'artikel' | 'kalkulator';
 
 const DEFAULT_REGIME_BY_TYPE: Record<TaxTypeId, string> = {
   pph21: 'pph21_ter_2024',
+  pph22: 'pph22_pmk34_2017',
   pph23: 'pph23_pmk141_2015',
+  pph4_2: 'pph4_2_pp9_2022',
   pph_umkm: 'umkm_pp55_2022',
+  pph25: 'pph25_pmk81_2024',
+  pph26: 'pph26_pp9_2021',
+  pph15: 'pph15_kmk416_1996',
   pph_badan: 'badan_hpp_2022',
   ppn: 'ppn_pmk131_2025',
+  ppnbm: 'ppnbm_pp74_2021',
   pbb: 'pbb_hkpd_2022',
   bphtb: 'bphtb_hkpd_2022',
+  pbjt: 'pbjt_hkpd_2022',
+  bea_meterai: 'meterai_uu10_2020',
 };
 
 export default function App() {
@@ -132,7 +140,7 @@ export default function App() {
                 <div
                   role="menu"
                   aria-label="Filter jenis pajak"
-                  className="absolute left-0 top-full w-64 bg-[#DFE2DA] dark:bg-[#263336] border border-[#5E706F]/45 py-1.5 z-50 facet-cut"
+                  className="absolute left-0 top-full w-64 max-h-[75vh] overflow-y-auto table-scroll bg-[#DFE2DA] dark:bg-[#263336] border border-[#5E706F]/45 py-1.5 z-50 facet-cut"
                 >
                   <button
                     type="button"
@@ -233,7 +241,7 @@ export default function App() {
           <nav
             id="mobile-header-dropdown"
             aria-label="Navigasi seluler"
-            className="md:hidden absolute left-0 right-0 top-full bg-[#DFE2DA] dark:bg-[#263336] border-b border-[#5E706F]/45 px-4 py-4 space-y-4 z-50"
+            className="md:hidden absolute left-0 right-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto bg-[#DFE2DA] dark:bg-[#263336] border-b border-[#5E706F]/45 px-4 py-4 space-y-4 z-50"
           >
             <div className="space-y-1.5">
               <button

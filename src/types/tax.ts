@@ -1,11 +1,19 @@
 export type TaxTypeId =
   | 'pph21'
+  | 'pph22'
   | 'pph23'
+  | 'pph4_2'
   | 'pph_umkm'
+  | 'pph25'
+  | 'pph26'
+  | 'pph15'
   | 'pph_badan'
   | 'ppn'
+  | 'ppnbm'
   | 'pbb'
-  | 'bphtb';
+  | 'bphtb'
+  | 'pbjt'
+  | 'bea_meterai';
 
 export type PtkpStatus =
   | 'TK/0'
@@ -17,12 +25,52 @@ export type PtkpStatus =
   | 'K/2'
   | 'K/3';
 
+export type Pph22ObjectType =
+  | 'impor_api'
+  | 'impor_non_api'
+  | 'impor_komoditas_tertentu'
+  | 'bendahara_bumn'
+  | 'barang_sangat_mewah';
+
 export type Pph23ObjectType =
   | 'jasa_teknik_manajemen'
   | 'jasa_konsultan'
   | 'sewa_harta'
   | 'royalti'
   | 'dividen_badan';
+
+export type Pph4_2ObjectType =
+  | 'sewa_tanah_bangunan'
+  | 'konstruksi_kecil'
+  | 'konstruksi_menengah_besar'
+  | 'konstruksi_tanpa_sbu'
+  | 'konsultansi_konstruksi_sbu'
+  | 'pengalihan_tanah_bangunan';
+
+export type Pph26ObjectType =
+  | 'dividen_royalti_jasa'
+  | 'bunga_obligasi_wpln'
+  | 'premi_asuransi_ln';
+
+export type Pph15SectorType =
+  | 'pelayaran_dn'
+  | 'penerbangan_dn_charter'
+  | 'pelayaran_penerbangan_ln';
+
+export type PpnbmCategoryType =
+  | 'listrik_bev'
+  | 'lcgc_hybrid_hemat'
+  | 'sedan_suv_menengah'
+  | 'kendaraan_emisi_tinggi'
+  | 'hunian_mewah_kapal_pesawat';
+
+export type PbjtSectorType =
+  | 'makanan_minuman'
+  | 'perhotelan'
+  | 'parkir'
+  | 'hiburan_umum'
+  | 'hiburan_khusus'
+  | 'tenaga_listrik';
 
 export type UmkmSubjectType = 'orang_pribadi' | 'badan_usaha';
 
@@ -52,15 +100,39 @@ export interface TaxCalculatorInput {
     ptkpStatus: PtkpStatus;
     hasNpwp: boolean;
   };
+  pph22: {
+    nilaiDasar: number;
+    objectType: Pph22ObjectType;
+    hasNpwp: boolean;
+  };
   pph23: {
     nilaiBruto: number;
     objectType: Pph23ObjectType;
     hasNpwp: boolean;
   };
+  pph4_2: {
+    nilaiBruto: number;
+    objectType: Pph4_2ObjectType;
+  };
   pph_umkm: {
     omzetBulanan: number;
     akumulasiOmzetSebelumnya: number;
     subjectType: UmkmSubjectType;
+  };
+  pph25: {
+    pphTerutangTahunLalu: number;
+    kreditPajakTahunLalu: number;
+    bulanBerjalan: number;
+  };
+  pph26: {
+    nilaiBruto: number;
+    objectType: Pph26ObjectType;
+    hasSkdP3b: boolean;
+    tarifP3bPersen: number;
+  };
+  pph15: {
+    peredaranBruto: number;
+    sectorType: Pph15SectorType;
   };
   pph_badan: {
     peredaranBrutoTahunan: number;
@@ -72,6 +144,10 @@ export interface TaxCalculatorInput {
     goodsType: PpnGoodsType;
     termasukPpn: boolean;
   };
+  ppnbm: {
+    hargaJual: number;
+    categoryType: PpnbmCategoryType;
+  };
   pbb: {
     njopBumi: number;
     njopBangunan: number;
@@ -82,6 +158,14 @@ export interface TaxCalculatorInput {
     hargaTransaksi: number;
     njopObjek: number;
     acquisitionType: BphtbAcquisitionType;
+  };
+  pbjt: {
+    nilaiTransaksi: number;
+    sectorType: PbjtSectorType;
+  };
+  bea_meterai: {
+    nilaiDokumen: number;
+    jumlahDokumen: number;
   };
 }
 

@@ -4,7 +4,7 @@ import { calculateCorporateTaxWith31E } from './shared';
 const regime: TaxRegime = {
   id: 'badan_uu36_2008',
   taxType: 'pph_badan',
-  name: 'UU Nomor 36 Tahun 2008',
+  name: 'UU Nomor 36 Tahun 2008 (TP 2010–2019)',
   shortName: '2010–2019 (25%)',
   legalBasis: 'Pasal 17 ayat (1) huruf b & ayat (2a) UU 36/2008',
   effectivePeriod: 'Tahun Pajak 2010 – 2019',

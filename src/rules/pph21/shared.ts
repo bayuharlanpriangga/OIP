@@ -1,9 +1,13 @@
 import { CalculationResult, CalculationStep, PtkpStatus, TaxCalculatorInput, TaxRegime } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
 
-export function getPtkpAmount(status: PtkpStatus, era: 'pmk101_2016' | 'pmk162_2012'): number {
-  const base = era === 'pmk101_2016' ? 54000000 : 24300000;
-  const step = era === 'pmk101_2016' ? 4500000 : 2025000;
+export type PtkpEra = 'pmk101_2016' | 'pmk122_2015' | 'pmk162_2012';
+
+export function getPtkpAmount(status: PtkpStatus, era: PtkpEra): number {
+  const base =
+    era === 'pmk101_2016' ? 54000000 : era === 'pmk122_2015' ? 36000000 : 24300000;
+  const step =
+    era === 'pmk101_2016' ? 4500000 : era === 'pmk122_2015' ? 3000000 : 2025000;
 
   switch (status) {
     case 'TK/0':
@@ -76,7 +80,7 @@ export function computeProgressivePph21(
 export function calculateAnnualizedPph21(
   input: TaxCalculatorInput['pph21'],
   regime: TaxRegime,
-  ptkpEra: 'pmk101_2016' | 'pmk162_2012',
+  ptkpEra: PtkpEra,
   bracketMode: 'hpp' | 'uu36_2008'
 ): CalculationResult {
   const gaji = Math.max(0, input.gajiBulanan);
@@ -125,7 +129,12 @@ export function calculateAnnualizedPph21(
     },
     {
       label: `PTKP (${input.ptkpStatus})`,
-      formula: ptkpEra === 'pmk162_2012' ? 'PMK 162/2012 (TK/0 Rp 24,3 jt)' : 'PMK 101/2016 (TK/0 Rp 54 jt)',
+      formula:
+        ptkpEra === 'pmk162_2012'
+          ? 'PMK 162/2012 (TK/0 Rp 24,3 jt)'
+          : ptkpEra === 'pmk122_2015'
+            ? 'PMK 122/2015 (TK/0 Rp 36 jt)'
+            : 'PMK 101/2016 (TK/0 Rp 54 jt)',
       value: -ptkp,
       isNegative: true,
     },
@@ -160,7 +169,11 @@ export function calculateAnnualizedPph21(
 
   if (ptkpEra === 'pmk162_2012') {
     notes.push(
-      `Dengan PTKP era 2013–2015 yang lebih rendah (${formatRupiah(ptkp)}), PKP menjadi jauh lebih besar dibanding aturan 2016 ke atas.`
+      `Dengan PTKP era 2013–2014 yang lebih rendah (${formatRupiah(ptkp)}), PKP menjadi jauh lebih besar dibanding aturan 2015 ke atas.`
+    );
+  } else if (ptkpEra === 'pmk122_2015') {
+    notes.push(
+      `Menggunakan PTKP Tahun Pajak 2015 sebesar ${formatRupiah(ptkp)} sesuai PMK 122/PMK.010/2015 sebelum kenaikan ke Rp 54 juta pada 2016.`
     );
   }
 

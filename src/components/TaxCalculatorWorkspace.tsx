@@ -15,8 +15,14 @@ import {
 import {
   BphtbAcquisitionType,
   PbbTierRate,
+  PbjtSectorType,
+  Pph15SectorType,
+  Pph22ObjectType,
   Pph23ObjectType,
+  Pph26ObjectType,
+  Pph4_2ObjectType,
   PpnGoodsType,
+  PpnbmCategoryType,
   PtkpStatus,
   TaxCalculatorInput,
   TaxTypeId,
@@ -45,12 +51,58 @@ const PTKP_OPTIONS: { value: PtkpStatus; label: string }[] = [
   { value: 'K/3', label: 'K/3 — Kawin, 3 tanggungan' },
 ];
 
+const PPH22_OBJECTS: { value: Pph22ObjectType; label: string }[] = [
+  { value: 'impor_api', label: 'Impor barang umum dengan API (2,5%)' },
+  { value: 'impor_non_api', label: 'Impor barang tanpa API (7,5%)' },
+  { value: 'impor_komoditas_tertentu', label: 'Impor kedelai, gandum, atau tepung terigu API (0,5%)' },
+  { value: 'bendahara_bumn', label: 'Belanja barang Bendahara Pemerintah / BUMN (1,5%)' },
+  { value: 'barang_sangat_mewah', label: 'Penjualan barang sangat mewah tertentu (5%)' },
+];
+
 const PPH23_OBJECTS: { value: Pph23ObjectType; label: string }[] = [
   { value: 'jasa_konsultan', label: 'Jasa konsultan, akuntansi & hukum' },
   { value: 'jasa_teknik_manajemen', label: 'Jasa teknik, manajemen & konstruksi' },
   { value: 'sewa_harta', label: 'Sewa & penggunaan harta (selain tanah/bangunan)' },
   { value: 'royalti', label: 'Royalti, bunga & hadiah penghargaan' },
   { value: 'dividen_badan', label: 'Dividen diterima WP Badan dalam negeri' },
+];
+
+const PPH4_2_OBJECTS: { value: Pph4_2ObjectType; label: string }[] = [
+  { value: 'sewa_tanah_bangunan', label: 'Persewaan tanah dan/atau bangunan (10%)' },
+  { value: 'konstruksi_kecil', label: 'Pelaksana konstruksi SBU Kecil (1,75% / 2%)' },
+  { value: 'konstruksi_menengah_besar', label: 'Pelaksana konstruksi SBU Menengah/Besar (2,65% / 3%)' },
+  { value: 'konstruksi_tanpa_sbu', label: 'Pelaksana konstruksi tanpa SBU (4%)' },
+  { value: 'konsultansi_konstruksi_sbu', label: 'Jasa konsultansi konstruksi ber-SBU (3,5% / 4%)' },
+  { value: 'pengalihan_tanah_bangunan', label: 'Pengalihan hak tanah & bangunan umum (2,5% / 5%)' },
+];
+
+const PPH26_OBJECTS: { value: Pph26ObjectType; label: string }[] = [
+  { value: 'dividen_royalti_jasa', label: 'Dividen, royalti, jasa teknik, & hadiah WPLN (20%)' },
+  { value: 'bunga_obligasi_wpln', label: 'Bunga obligasi diterima WPLN (10% PP 9/2021 / 20% lama)' },
+  { value: 'premi_asuransi_ln', label: 'Premi asuransi dibayar ke perusahaan asuransi LN (eff. 10%)' },
+];
+
+const PPH15_SECTORS: { value: Pph15SectorType; label: string }[] = [
+  { value: 'pelayaran_dn', label: 'Pelayaran dalam negeri (1,2% final — KMK 416/1996)' },
+  { value: 'penerbangan_dn_charter', label: 'Penerbangan dalam negeri / charter (1,8% — KMK 475/1996)' },
+  { value: 'pelayaran_penerbangan_ln', label: 'Pelayaran / penerbangan luar negeri BUT (2,64% final — KMK 417/1996)' },
+];
+
+const PPNBM_CATEGORIES: { value: PpnbmCategoryType; label: string }[] = [
+  { value: 'listrik_bev', label: 'Kendaraan listrik murni BEV/FCEV (0% PP 74/2021 / 10% PP 41/2013)' },
+  { value: 'lcgc_hybrid_hemat', label: 'LCGC / Hybrid sangat hemat emisi (3% efektif PP 74/2021 / 0% PP 41/2013)' },
+  { value: 'sedan_suv_menengah', label: 'Mobil penumpang / SUV menengah s.d. 3.000 cc (20% / 30%)' },
+  { value: 'kendaraan_emisi_tinggi', label: 'Kendaraan emisi tinggi / > 3.000 cc (40% / 125%)' },
+  { value: 'hunian_mewah_kapal_pesawat', label: 'Kapal pesiar, yacht, & pesawat pribadi (75%)' },
+];
+
+const PBJT_SECTORS: { value: PbjtSectorType; label: string }[] = [
+  { value: 'makanan_minuman', label: 'Makanan dan/atau minuman / restoran (maks 10%)' },
+  { value: 'perhotelan', label: 'Jasa perhotelan (maks 10%)' },
+  { value: 'parkir', label: 'Jasa parkir (maks 10% HKPD / 30% PDRD)' },
+  { value: 'hiburan_umum', label: 'Kesenian & hiburan umum (maks 10% HKPD / 35% PDRD)' },
+  { value: 'hiburan_khusus', label: 'Hiburan khusus: diskotek, karaoke, kelab, spa (40%–75%)' },
+  { value: 'tenaga_listrik', label: 'Tenaga listrik konsumsi umum (maks 10%)' },
 ];
 
 export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
@@ -627,6 +679,408 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                       Waris / hibah wasiat keluarga sedarah (NPOPTKP Rp 300 jt)
                     </option>
                   </select>
+                </div>
+              </>
+            )}
+
+            {activeTaxType === 'pph22' && (
+              <>
+                <CurrencyInput
+                  id="pph22-dasar"
+                  label="Nilai impor (CIF + Bea Masuk) atau harga beli non-PPN"
+                  value={calcInput.pph22.nilaiDasar}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pph22: { ...prev.pph22, nilaiDasar: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="pph22-object"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Jenis objek pemungutan PPh Pasal 22
+                  </label>
+                  <select
+                    id="pph22-object"
+                    value={calcInput.pph22.objectType}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph22: { ...prev.pph22, objectType: e.target.value as Pph22ObjectType },
+                      }))
+                    }
+                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  >
+                    {PPH22_OBJECTS.map((obj) => (
+                      <option key={obj.value} value={obj.value}>
+                        {obj.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={calcInput.pph22.hasNpwp}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph22: { ...prev.pph22, hasNpwp: e.target.checked },
+                      }))
+                    }
+                    className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                  />
+                  <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                    Importir / rekanan memiliki NPWP (hindari sanksi +100%)
+                  </span>
+                </label>
+              </>
+            )}
+
+            {activeTaxType === 'pph4_2' && (
+              <>
+                <CurrencyInput
+                  id="pph42-bruto"
+                  label="Nilai bruto transaksi / nilai kontrak / harga pengalihan (non-PPN)"
+                  value={calcInput.pph4_2.nilaiBruto}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pph4_2: { ...prev.pph4_2, nilaiBruto: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="pph42-object"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Jenis objek PPh Final Pasal 4(2)
+                  </label>
+                  <select
+                    id="pph42-object"
+                    value={calcInput.pph4_2.objectType}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph4_2: { ...prev.pph4_2, objectType: e.target.value as Pph4_2ObjectType },
+                      }))
+                    }
+                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  >
+                    {PPH4_2_OBJECTS.map((obj) => (
+                      <option key={obj.value} value={obj.value}>
+                        {obj.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
+            {activeTaxType === 'pph25' && (
+              <>
+                <CurrencyInput
+                  id="pph25-terutang"
+                  label="PPh terutang menurut SPT Tahunan tahun pajak lalu"
+                  value={calcInput.pph25.pphTerutangTahunLalu}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pph25: { ...prev.pph25, pphTerutangTahunLalu: val },
+                    }))
+                  }
+                  helperText="Hanya atas penghasilan teratur non-final dari SPT Tahunan tahun sebelumnya."
+                />
+                <CurrencyInput
+                  id="pph25-kredit"
+                  label="Kredit pajak tahun lalu (PPh 21, 22, 23, dan 24)"
+                  value={calcInput.pph25.kreditPajakTahunLalu}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pph25: { ...prev.pph25, kreditPajakTahunLalu: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="pph25-bulan"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Pembagi jumlah bulan dalam tahun pajak lalu (1–12)
+                  </label>
+                  <input
+                    id="pph25-bulan"
+                    type="number"
+                    min={1}
+                    max={12}
+                    step={1}
+                    value={calcInput.pph25.bulanBerjalan}
+                    onChange={(e) => {
+                      const raw = Number(e.target.value);
+                      const clamped = Number.isNaN(raw) ? 12 : Math.min(12, Math.max(1, Math.round(raw)));
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph25: { ...prev.pph25, bulanBerjalan: clamped },
+                      }));
+                    }}
+                    className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  />
+                </div>
+              </>
+            )}
+
+            {activeTaxType === 'pph26' && (
+              <>
+                <CurrencyInput
+                  id="pph26-bruto"
+                  label="Nilai bruto penghasilan dibayar ke WPLN"
+                  value={calcInput.pph26.nilaiBruto}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pph26: { ...prev.pph26, nilaiBruto: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="pph26-object"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Jenis penghasilan Wajib Pajak Luar Negeri
+                  </label>
+                  <select
+                    id="pph26-object"
+                    value={calcInput.pph26.objectType}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph26: { ...prev.pph26, objectType: e.target.value as Pph26ObjectType },
+                      }))
+                    }
+                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  >
+                    {PPH26_OBJECTS.map((obj) => (
+                      <option key={obj.value} value={obj.value}>
+                        {obj.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={calcInput.pph26.hasSkdP3b}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph26: { ...prev.pph26, hasSkdP3b: e.target.checked },
+                      }))
+                    }
+                    className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                  />
+                  <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                    Memiliki SKD / Form DGT sah untuk tarif P3B (Tax Treaty)
+                  </span>
+                </label>
+                {calcInput.pph26.hasSkdP3b && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph26-p3b-rate"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Tarif preferensial P3B / Tax Treaty (%)
+                    </label>
+                    <input
+                      id="pph26-p3b-rate"
+                      type="number"
+                      min={0}
+                      max={20}
+                      step={0.5}
+                      value={calcInput.pph26.tarifP3bPersen}
+                      onChange={(e) => {
+                        const raw = Number(e.target.value);
+                        const clamped = Number.isNaN(raw) ? 0 : Math.min(20, Math.max(0, raw));
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph26: { ...prev.pph26, tarifP3bPersen: clamped },
+                        }));
+                      }}
+                      className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    />
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTaxType === 'pph15' && (
+              <>
+                <CurrencyInput
+                  id="pph15-bruto"
+                  label="Peredaran bruto jasa pengangkutan / charter (non-PPN)"
+                  value={calcInput.pph15.peredaranBruto}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pph15: { ...prev.pph15, peredaranBruto: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="pph15-sector"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Sektor norma penghitungan khusus Pasal 15
+                  </label>
+                  <select
+                    id="pph15-sector"
+                    value={calcInput.pph15.sectorType}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph15: { ...prev.pph15, sectorType: e.target.value as Pph15SectorType },
+                      }))
+                    }
+                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  >
+                    {PPH15_SECTORS.map((sec) => (
+                      <option key={sec.value} value={sec.value}>
+                        {sec.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
+            {activeTaxType === 'ppnbm' && (
+              <>
+                <CurrencyInput
+                  id="ppnbm-harga"
+                  label="Harga jual penyerahan pabrikan / nilai impor (sebelum pajak)"
+                  value={calcInput.ppnbm.hargaJual}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      ppnbm: { ...prev.ppnbm, hargaJual: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="ppnbm-category"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Kelompok barang tergolong mewah
+                  </label>
+                  <select
+                    id="ppnbm-category"
+                    value={calcInput.ppnbm.categoryType}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        ppnbm: {
+                          ...prev.ppnbm,
+                          categoryType: e.target.value as PpnbmCategoryType,
+                        },
+                      }))
+                    }
+                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  >
+                    {PPNBM_CATEGORIES.map((cat) => (
+                      <option key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
+            {activeTaxType === 'pbjt' && (
+              <>
+                <CurrencyInput
+                  id="pbjt-transaksi"
+                  label="Nilai transaksi / pembayaran konsumen (sebelum pajak daerah)"
+                  value={calcInput.pbjt.nilaiTransaksi}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      pbjt: { ...prev.pbjt, nilaiTransaksi: val },
+                    }))
+                  }
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="pbjt-sector"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Sektor barang & jasa tertentu (PBJT)
+                  </label>
+                  <select
+                    id="pbjt-sector"
+                    value={calcInput.pbjt.sectorType}
+                    onChange={(e) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pbjt: { ...prev.pbjt, sectorType: e.target.value as PbjtSectorType },
+                      }))
+                    }
+                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  >
+                    {PBJT_SECTORS.map((sec) => (
+                      <option key={sec.value} value={sec.value}>
+                        {sec.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
+            {activeTaxType === 'bea_meterai' && (
+              <>
+                <CurrencyInput
+                  id="meterai-nominal"
+                  label="Nilai nominal uang yang tercantum dalam dokumen"
+                  value={calcInput.bea_meterai.nilaiDokumen}
+                  onChange={(val) =>
+                    onChangeInput((prev) => ({
+                      ...prev,
+                      bea_meterai: { ...prev.bea_meterai, nilaiDokumen: val },
+                    }))
+                  }
+                  helperText="UU 10/2020 menetapkan batas bebas di bawah atau sama dengan Rp 5.000.000; PP 24/2000 memiliki lapis Rp 250 ribu & Rp 1 juta."
+                />
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="meterai-jumlah"
+                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                  >
+                    Jumlah rangkap / dokumen asli yang ditandatangani
+                  </label>
+                  <input
+                    id="meterai-jumlah"
+                    type="number"
+                    min={0}
+                    step={1}
+                    value={calcInput.bea_meterai.jumlahDokumen}
+                    onChange={(e) => {
+                      const raw = Number(e.target.value);
+                      const clean = Number.isNaN(raw) ? 0 : Math.max(0, Math.round(raw));
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        bea_meterai: { ...prev.bea_meterai, jumlahDokumen: clean },
+                      }));
+                    }}
+                    className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                  />
                 </div>
               </>
             )}

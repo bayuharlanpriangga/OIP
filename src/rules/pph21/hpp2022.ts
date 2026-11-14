@@ -39,7 +39,7 @@ const article: TaxArticle = {
     },
   ],
   comparisonTable: {
-    oldHeader: 'UU 36/2008 & PMK 162/2012 (2013–2015)',
+    oldHeader: 'UU 36/2008 & PMK 162/2012 (2013–2014)',
     newHeader: 'UU HPP & PMK 101/2016 (2022–Kini)',
     rows: [
       {
