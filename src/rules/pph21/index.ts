@@ -4,6 +4,7 @@ import { pph21Kmk564_2004Rule } from './kmk564_2004';
 import { pph21Pmk122_2015Rule } from './pmk122_2015';
 import { pph21Pmk137_2005Rule } from './pmk137_2005';
 import { pph21Pmk162_2013Rule } from './pmk162_2013';
+import { pph21Pmk86_2020DtpRule } from './pmk86_2020_dtp';
 import { pph21Pp149_2000Rule } from './pp149_2000';
 import { pph21Pp68_2009Rule } from './pp68_2009';
 import { pph21Ter2024Rule } from './ter2024';
@@ -16,6 +17,7 @@ import { pph21Uu7_1983Rule } from './uu7_1983';
 export const PPH21_RULES: TaxRuleModule<TaxCalculatorInput['pph21']>[] = [
   pph21Ter2024Rule,
   pph21Hpp2022Rule,
+  pph21Pmk86_2020DtpRule,
   pph21Uu36_2016Rule,
   pph21Pmk122_2015Rule,
   pph21Pmk162_2013Rule,

@@ -1,11 +1,13 @@
 import {
   CalculationStep,
   Pph4_2ObjectType,
+  TaxArticle,
   TaxCalculatorInput,
   TaxRegime,
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph4_2_pp51_2008',
@@ -17,6 +19,47 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Skema PPh Final Pasal 4(2) sebelum PP 34/2016: pengalihan hak tanah/bangunan 5% (PP 71/2008), konstruksi 2%/3%/4%/6% (PP 51/2008), dan sewa tanah/bangunan 10% (PP 5/2002).',
+  sources: [SRC.PP_51_2008, SRC.PP_40_2009, SRC.PP_71_2008, SRC.PP_5_2002],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'pph4-2-pp51-2008',
+  taxType: 'pph4_2',
+  taxTypeLabel: 'PPh Pasal 4(2) Final',
+  title: 'PP 51/2008 & PP 71/2008: Finalisasi Penuh Jasa Konstruksi dan PHTB 5% (2008–2016)',
+  legalBasis: 'PP Nomor 51 Tahun 2008 jo. PP 40/2009, PP 5/2002, & PP 71/2008',
+  effectiveDate: '1 Januari 2008',
+  readMinutes: 4,
+  summary:
+    'Tonggak pengenaan PPh Final atas seluruh kualifikasi jasa konstruksi berdasarkan kepemilikan SBU (2%–6%), beriringan dengan tarif PHTB umum 5% dan sewa 10%.',
+  sections: [
+    {
+      heading: 'Berlakunya tarif berjenjang konstruksi berdasarkan SBU (LPJK)',
+      paragraphs: [
+        'Berbeda dari PP 140/2000 yang hanya mengenakan PPh Final bagi usaha kecil berbatas kontrak Rp 1 miliar, PP Nomor 51 Tahun 2008 (berlaku surut sejak 1 Januari 2008 dan disesuaikan oleh PP 40/2009) mengembalikan seluruh penghasilan usaha jasa konstruksi ke skema PPh Final.',
+        'Struktur tarifnya dikaitkan langsung dengan Sertifikat Badan Usaha (SBU): pelaksana kualifikasi kecil 2%, pelaksana menengah/besar 3%, pelaksana tanpa SBU 4%, konsultansi ber-SBU 4%, dan konsultansi tanpa SBU 6%.',
+      ],
+    },
+    {
+      heading: 'Tarif 5% PHTB era PP 71/2008',
+      paragraphs: [
+        'Di sektor properti, PP Nomor 71 Tahun 2008 (efektif 1 Januari 2009) mempertegas sifat final tarif 5% atas pengalihan hak tanah dan/atau bangunan bagi seluruh Wajib Pajak Orang Pribadi maupun Badan sebelum akhirnya dipangkas menjadi 2,5% pada September 2016.',
+      ],
+    },
+  ],
+  caseExample: {
+    title: 'Kontrak konstruksi SBU menengah Rp 800 juta di era PP 51/2008',
+    scenario:
+      'Kontraktor kualifikasi menengah mengerjakan proyek senilai Rp 800.000.000 (non-PPN) pada tahun 2013 dan dipotong PPh Final Pasal 4(2) sebesar 3% atau Rp 24.000.000.',
+    presetRegime: 'pph4_2_pp51_2008',
+    presetInput: {
+      pph4_2: {
+        nilaiBruto: 800000000,
+        objectType: 'konstruksi_menengah_besar',
+      },
+    },
+  },
 };
 
 function getOldPph4_2Meta(objectType: Pph4_2ObjectType): { rate: number; label: string } {
@@ -40,6 +83,7 @@ function getOldPph4_2Meta(objectType: Pph4_2ObjectType): { rate: number; label: 
 
 export const pph4_2Pp51_2008Rule: TaxRuleModule<TaxCalculatorInput['pph4_2']> = {
   regime,
+  article,
   calculate(input) {
     const nilaiBruto = Math.max(0, input.nilaiBruto);
     const meta = getOldPph4_2Meta(input.objectType);

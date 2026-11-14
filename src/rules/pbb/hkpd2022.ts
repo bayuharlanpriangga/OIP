@@ -6,6 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbb_hkpd_2022',
@@ -17,6 +18,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'PBB-P2 menggunakan NJOPTKP minimal Rp 10 juta per Wajib Pajak, penilaian NJKP daerah 20%–100%, serta batas tarif maksimal naik menjadi 0,5%.',
+  sources: [SRC.UU_1_2022_HKPD, SRC.UU_28_2009_PDRD],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

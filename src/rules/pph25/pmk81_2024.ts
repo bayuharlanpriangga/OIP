@@ -1,5 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph25_pmk81_2024',
@@ -11,6 +12,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Angsuran PPh bulanan sebesar 1/12 dari selisih PPh terutang tahun lalu dikurangi kredit pajak (PPh 21/22/23/24). PMK 81/2024 tetap mematok jatuh tempo PPh 25 tanggal 15 sekaligus mencabut PMK 215/2018.',
+  sources: [SRC.PMK_81_2024, SRC.UU_7_2021_HPP, SRC.KEP_537_2000_DJP],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

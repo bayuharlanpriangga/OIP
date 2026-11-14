@@ -1,11 +1,13 @@
 import {
   CalculationStep,
   PbjtSectorType,
+  TaxArticle,
   TaxCalculatorInput,
   TaxRegime,
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbjt_uu34_2000',
@@ -17,6 +19,41 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Aturan otonomi daerah generasi pertama atas pajak konsumsi daerah: Hotel (maks 10%), Restoran (maks 10%), Hiburan (maks 35%), Penerangan Jalan (maks 10%), dan Parkir (maks 20% sesuai PP 65/2001).',
+  sources: [SRC.UU_34_2000, SRC.PP_65_2001, SRC.UU_18_1997],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'pbjt-uu34-2000',
+  taxType: 'pbjt',
+  taxTypeLabel: 'PBJT (Pajak Daerah)',
+  title: 'UU 34/2000 & PP 65/2001: Pemisahan Pajak Hotel, Restoran, dan Lahirnya Pajak Parkir (2001–2009)',
+  legalBasis: 'UU Nomor 34 Tahun 2000 jo. PP Nomor 65 Tahun 2001',
+  effectiveDate: '1 Januari 2001',
+  readMinutes: 3,
+  summary:
+    'Pembaruan UU Pajak Daerah di awal otonomi daerah yang memisahkan Pajak Hotel dan Pajak Restoran serta memperkenalkan Pajak Parkir (batas maksimal 20%) sebelum era UU PDRD 28/2009.',
+  sections: [
+    {
+      heading: 'Pemekaran pajak kabupaten/kota di era desentralisasi 2001',
+      paragraphs: [
+        'Melalui UU Nomor 34 Tahun 2000 (mengubah UU 18/1997) beserta PP Nomor 65 Tahun 2001, pemerintah daerah kabupaten/kota memperoleh kewenangan lebih luas dalam memungut pajak konsumsi lokal. Pajak Hotel dan Pajak Restoran dipecah menjadi dua pos pajak mandiri dengan plafon tarif masing-masing tetap maksimal 10%.',
+        'Selain itu, Pajak Parkir resmi ditetapkan sebagai jenis pajak daerah tersendiri dengan batas tarif maksimal 20% pada PP 65/2001, sementara Pajak Hiburan (termasuk hiburan malam) masih dibatasi seragam paling tinggi 35% sebelum tarif khusus 75% lahir pada UU PDRD 28/2009.',
+      ],
+    },
+  ],
+  caseExample: {
+    title: 'Omzet jasa parkir Rp 10 juta di bawah batas PP 65/2001 (20%)',
+    scenario:
+      'Penyelenggaraan tempat parkir di luar badan jalan dengan omzet Rp 10.000.000 pada periode 2001–2009 dikenai batas maksimal Pajak Parkir sebesar 20% atau Rp 2.000.000.',
+    presetRegime: 'pbjt_uu34_2000',
+    presetInput: {
+      pbjt: {
+        nilaiTransaksi: 10000000,
+        sectorType: 'parkir',
+      },
+    },
+  },
 };
 
 function getUu34SectorMeta(sector: PbjtSectorType): { rate: number; label: string } {
@@ -41,6 +78,7 @@ function getUu34SectorMeta(sector: PbjtSectorType): { rate: number; label: strin
 
 export const pbjtUu34_2000Rule: TaxRuleModule<TaxCalculatorInput['pbjt']> = {
   regime,
+  article,
   calculate(input) {
     const nilaiTransaksi = Math.max(0, input.nilaiTransaksi);
     const meta = getUu34SectorMeta(input.sectorType);

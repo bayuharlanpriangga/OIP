@@ -1,11 +1,13 @@
 import {
   CalculationStep,
   PpnbmCategoryType,
+  TaxArticle,
   TaxCalculatorInput,
   TaxRegime,
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppnbm_pp145_2000',
@@ -17,6 +19,47 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Struktur PPnBM awal pasca-UU 18/2000: kendaraan 10% (minibus/4x2 <= 1.500 cc), 20% (1.500–2.500 cc), 30% (sedan <= 1.500 cc), 40% (> 2.500 cc / sedan 1.500–3.000 cc), hingga 75% (> 3.000 cc, kapal pesiar & pesawat); belum ada insentif LCGC maupun BEV.',
+  sources: [SRC.PP_145_2000, SRC.PP_12_2006, SRC.UU_18_2000],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'ppnbm-pp145-2000',
+  taxType: 'ppnbm',
+  taxTypeLabel: 'PPnBM',
+  title: 'PP 145/2000: Puncak Tarif 75% Era UU 18/2000 dan Ketiadaan Insentif LCGC (2001–2013)',
+  legalBasis: 'PP Nomor 145 Tahun 2000 stdd PP Nomor 12 Tahun 2006',
+  effectiveDate: '1 Januari 2001',
+  readMinutes: 4,
+  summary:
+    'Rezim PPnBM 2001–2013 yang menyatukan aturan barang mewah kendaraan dan non-kendaraan dalam satu PP, dengan plafon tarif tertinggi naik dari 50% menjadi 75%.',
+  sections: [
+    {
+      heading: 'Kenaikan batas atas PPnBM menjadi 75% di awal tahun 2001',
+      paragraphs: [
+        'Mengikuti perubahan UU 18/2000 yang menaikkan batas atas tarif PPnBM dalam undang-undang menjadi 75%, PP Nomor 145 Tahun 2000 menetapkan tarif progresif otomotif mulai 10% (minibus 4x2 <= 1.500 cc), 20% (1.500–2.500 cc), 30% (sedan <= 1.500 cc), 40% (sedan/4x4 1.500–3.000 cc), hingga 75% untuk kendaraan mewah di atas 3.000 cc.',
+        'Berbagai barang konsumsi mewah selain kendaraan—mulai dari kapal pesiar, pesawat pribadi, alat elektronik rumah tangga kelas atas, hingga hunian mewah—masih tergabung langsung dalam lampiran PP 145/2000 hingga revisinya (PP 12/2006).',
+      ],
+    },
+    {
+      heading: 'Belum mengenal mobil listrik maupun LCGC',
+      paragraphs: [
+        'Pada masa ini belum ada fasilitas tarif 0% untuk kendaraan bermotor listrik (BEV) maupun LCGC; seluruh mobil berkapasitas di bawah 1.500 cc non-sedan minimal terkena PPnBM 10% di tingkat pabrikan atau impor.',
+      ],
+    },
+  ],
+  caseExample: {
+    title: 'Mobil keluarga 1.800 cc harga pabrikan Rp 250 juta di era PP 145/2000',
+    scenario:
+      'Penyerahan kendaraan penumpang 4x2 1.500–2.500 cc senilai Rp 250.000.000 pada tahun 2008 dikenai PPnBM sebesar 20% atau Rp 50.000.000.',
+    presetRegime: 'ppnbm_pp145_2000',
+    presetInput: {
+      ppnbm: {
+        hargaJual: 250000000,
+        categoryType: 'hybrid_full',
+      },
+    },
+  },
 };
 
 function getPp145Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
@@ -61,6 +104,7 @@ function getPp145Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
 
 export const ppnbmPp145_2000Rule: TaxRuleModule<TaxCalculatorInput['ppnbm']> = {
   regime,
+  article,
   calculate(input) {
     const hargaJual = Math.max(0, input.hargaJual);
     const meta = getPp145Meta(input.categoryType);

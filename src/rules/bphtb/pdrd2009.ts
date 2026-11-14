@@ -6,6 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'bphtb_pdrd_2009',
@@ -17,6 +18,8 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'BPHTB menjadi pajak daerah dengan NPOPTKP minimal Rp 60 juta untuk transaksi umum dan Rp 300 juta untuk waris/hibah wasiat, bertarif maksimal 5%.',
+  sources: [SRC.UU_28_2009_PDRD, SRC.UU_20_2000],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

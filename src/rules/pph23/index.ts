@@ -4,6 +4,7 @@ import { pph23Kep176_2000Rule } from './kep176_2000';
 import { pph23Per70_2007Rule } from './per70_2007';
 import { pph23Pmk141_2015Rule } from './pmk141_2015';
 import { pph23Pmk244_2009Rule } from './pmk244_2009';
+import { pph23Uu7_1983Rule } from './uu7_1983';
 
 export const PPH23_RULES: TaxRuleModule<TaxCalculatorInput['pph23']>[] = [
   pph23Pmk141_2015Rule,
@@ -11,4 +12,5 @@ export const PPH23_RULES: TaxRuleModule<TaxCalculatorInput['pph23']>[] = [
   pph23Per70_2007Rule,
   pph23Kep170_2002Rule,
   pph23Kep176_2000Rule,
+  pph23Uu7_1983Rule,
 ];

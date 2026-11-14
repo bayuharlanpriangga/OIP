@@ -1,4 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -11,6 +12,8 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Belum menggunakan TER. Potongan bulanan disetahunkan langsung memakai tarif progresif UU HPP (lapisan 5% diperluas s.d. Rp 60 jt; lapisan baru 35% di atas Rp 5 M).',
+  sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG, SRC.PER_16_PJ_2016, SRC.PMK_101_2016],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

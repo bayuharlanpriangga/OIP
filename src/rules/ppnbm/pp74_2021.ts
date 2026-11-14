@@ -7,6 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppnbm_pp74_2021',
@@ -19,6 +20,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'PPnBM kendaraan bermotor berbasis emisi CO2 (BEV 0%, LCGC 3% efektif, full hybrid efisien 6% efektif, konvensional 15%–40%), serta barang mewah non-kendaraan 20% (hunian >= Rp 30M) s.d. 75% (kapal/pesawat).',
+  sources: [SRC.PP_74_2021, SRC.PP_73_2019, SRC.PMK_141_2021, SRC.PMK_96_2021, SRC.PMK_15_2023],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -1,5 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph26_pp9_2021',
@@ -11,6 +12,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Tarif umum pemotongan WP Luar Negeri sebesar 20% (atau tarif preferensial P3B dengan SKD DGT), dengan penurunan tarif bunga obligasi WPLN menjadi 10% sesuai PP 9/2021.',
+  sources: [SRC.PP_9_2021, SRC.PER_25_PJ_2018_DJP, SRC.UU_7_2021_HPP],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

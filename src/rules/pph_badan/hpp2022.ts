@@ -1,4 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 import { calculateCorporateTaxWith31E } from './shared';
 
 const regime: TaxRegime = {
@@ -11,6 +12,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Tarif tunggal 22% (19% untuk Perseroan Terbuka dengan kepemilikan publik >= 40%) dan fasilitas pengurangan tarif 50% Pasal 31E (tarif efektif 11%).',
+  sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG, SRC.UU_36_2008],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

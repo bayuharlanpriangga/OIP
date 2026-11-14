@@ -7,6 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 import { computeProgressivePph21, getPtkpAmount } from './shared';
 
 interface TerBracket {
@@ -172,6 +173,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Masa Januari–November memakai Tarif Efektif Rata-Rata (TER) bulanan kategori A, B, atau C; Masa Desember direkonsiliasi ulang dengan tarif Pasal 17 UU HPP.',
+  sources: [SRC.PP_58_2023, SRC.PMK_168_2023, SRC.PP_58_2023_BPK, SRC.UU_7_2021_HPP],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

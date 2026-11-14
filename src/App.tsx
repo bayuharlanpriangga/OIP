@@ -13,7 +13,7 @@ const DEFAULT_REGIME_BY_TYPE: Record<TaxTypeId, string> = {
   pph22: 'pph22_pmk34_2017',
   pph23: 'pph23_pmk141_2015',
   pph4_2: 'pph4_2_pp9_2022',
-  pph_umkm: 'umkm_pp55_2022',
+  pph_umkm: 'umkm_pp20_2026',
   pph25: 'pph25_pmk81_2024',
   pph26: 'pph26_pp9_2021',
   pph15: 'pph15_kmk416_1996',

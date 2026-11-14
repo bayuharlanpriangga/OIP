@@ -76,13 +76,23 @@ export type PbjtSectorType =
   | 'hiburan_khusus'
   | 'tenaga_listrik';
 
-export type UmkmSubjectType = 'orang_pribadi' | 'badan_usaha';
+export type UmkmSubjectType =
+  | 'orang_pribadi'
+  | 'perseroan_perorangan'
+  | 'koperasi'
+  | 'badan_usaha';
 
 export type PpnGoodsType = 'umum' | 'barang_mewah';
 
 export type PbbTierRate = 'rendah' | 'menengah' | 'tinggi' | 'maksimal';
 
 export type BphtbAcquisitionType = 'jual_beli_pertama' | 'jual_beli_lainnya' | 'waris_hibah_wasiat';
+
+export interface TaxSource {
+  title: string;
+  url: string;
+  publisher?: string;
+}
 
 export interface TaxRegime {
   id: string;
@@ -93,6 +103,8 @@ export interface TaxRegime {
   effectivePeriod: string;
   isCurrent: boolean;
   summary: string;
+  sources: TaxSource[];
+  verifiedAt: string;
 }
 
 export interface TaxCalculatorInput {
@@ -110,6 +122,8 @@ export interface TaxCalculatorInput {
     nilaiDasar: number;
     objectType: Pph22ObjectType;
     hasNpwp: boolean;
+    akumulasiOmzetSebelumnya?: number;
+    marketplaceTaxStatus?: 'umkm_final' | 'umum_kredit' | 'op_surat_pernyataan_dibawah_500jt';
   };
   pph23: {
     nilaiBruto: number;
@@ -119,6 +133,7 @@ export interface TaxCalculatorInput {
   pph4_2: {
     nilaiBruto: number;
     objectType: Pph4_2ObjectType;
+    sewaSubjectType?: 'orang_pribadi' | 'badan_usaha';
   };
   pph_umkm: {
     omzetBulanan: number;
@@ -227,6 +242,8 @@ export interface TaxArticle {
     presetRegime: string;
     presetInput: Partial<TaxCalculatorInput>;
   };
+  sources?: TaxSource[];
+  verifiedAt?: string;
 }
 
 export interface TaxRuleModule<TInput> {

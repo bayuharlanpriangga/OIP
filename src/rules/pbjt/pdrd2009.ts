@@ -1,11 +1,13 @@
 import {
   CalculationStep,
   PbjtSectorType,
+  TaxArticle,
   TaxCalculatorInput,
   TaxRegime,
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbjt_pdrd_2009',
@@ -17,6 +19,57 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Lima jenis pajak konsumsi daerah yang terpisah: Pajak Hotel (maks 10%), Restoran (maks 10%), Parkir (maks 30%), Hiburan umum (maks 35%) & khusus (maks 75%), dan Penerangan Jalan (maks 10%).',
+  sources: [SRC.UU_28_2009_PDRD, SRC.UU_1_2022_HKPD],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'pbjt-pdrd-2009',
+  taxType: 'pbjt',
+  taxTypeLabel: 'PBJT (Pajak Daerah)',
+  title: 'UU PDRD 28/2009: Tarif Parkir Maksimal 30% dan Hiburan Khusus 75% Sebelum PBJT',
+  legalBasis: 'UU Nomor 28 Tahun 2009 tentang Pajak Daerah dan Retribusi Daerah',
+  effectiveDate: '1 Januari 2010',
+  readMinutes: 4,
+  summary:
+    'Mengatur lima pajak konsumsi daerah secara terpisah sebelum dilebur ke dalam PBJT UU HKPD, dengan plafon Pajak Parkir hingga 30% dan Pajak Hiburan khusus hingga 75%.',
+  sections: [
+    {
+      heading: 'Pemisahan lima objek pajak konsumsi dan plafon tarif tinggi',
+      paragraphs: [
+        'Sebelum disatukan ke dalam Pajak Barang dan Jasa Tertentu (PBJT) di bawah UU HKPD pada Januari 2024, UU Nomor 28 Tahun 2009 (PDRD) mengatur Pajak Hotel, Pajak Restoran, Pajak Hiburan, Pajak Penerangan Jalan (PPJ), dan Pajak Parkir sebagai lima jenis pajak terpisah.',
+        'Pada masa ini, batas maksimal tarif Pajak Parkir dinaikkan dari 20% (UU 34/2000) menjadi paling tinggi 30%, sedangkan untuk penyelenggaraan hiburan malam seperti diskotek, karaoke, kelab malam, dan spa diperbolehkan tarif hingga 75% (hiburan umum seperti bioskop dan konser tetap maksimal 35%).',
+      ],
+    },
+  ],
+  comparisonTable: {
+    oldHeader: 'UU PDRD 28/2009 (2010–2023)',
+    newHeader: 'UU HKPD 1/2022 (2024–Kini)',
+    rows: [
+      {
+        aspek: 'Batas maksimal Pajak / PBJT Parkir',
+        aturanLama: 'Maksimal 30%',
+        aturanBaru: 'Maksimal 10%',
+      },
+      {
+        aspek: 'Hiburan umum (bioskop, konser, tontonan)',
+        aturanLama: 'Maksimal 35%',
+        aturanBaru: 'Maksimal 10%',
+      },
+    ],
+  },
+  caseExample: {
+    title: 'Pendapatan parkir gedung Rp 10 juta dengan batas maksimal PDRD 30%',
+    scenario:
+      'Dengan dasar pengenaan Rp 10.000.000 di daerah yang menerapkan plafon tertinggi Pajak Parkir UU PDRD (30%), pajak daerah terutang mencapai Rp 3.000.000 (tiga kali batas 10% UU HKPD).',
+    presetRegime: 'pbjt_pdrd_2009',
+    presetInput: {
+      pbjt: {
+        nilaiTransaksi: 10000000,
+        sectorType: 'parkir',
+      },
+    },
+  },
 };
 
 function getPdrdSectorMeta(sector: PbjtSectorType): { rate: number; label: string } {
@@ -41,6 +94,7 @@ function getPdrdSectorMeta(sector: PbjtSectorType): { rate: number; label: strin
 
 export const pbjtPdrd2009Rule: TaxRuleModule<TaxCalculatorInput['pbjt']> = {
   regime,
+  article,
   calculate(input) {
     const nilaiTransaksi = Math.max(0, input.nilaiTransaksi);
     const meta = getPdrdSectorMeta(input.sectorType);

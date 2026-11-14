@@ -1,5 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppn_pmk131_2025',
@@ -11,6 +12,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Tarif undang-undang 12%. Barang/jasa umum memakai DPP Nilai Lain (11/12 x Harga Jual) sehingga efektif tetap 11%; Barang Mewah memakai DPP 100% (efektif 12%).',
+  sources: [SRC.PMK_131_2024, SRC.UU_7_2021_HPP],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

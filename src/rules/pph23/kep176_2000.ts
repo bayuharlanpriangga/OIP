@@ -1,4 +1,5 @@
-import { CalculationStep, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph23_kep176_2000',
@@ -10,10 +11,53 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Aturan PPh Pasal 23 era UU 10/1994 hingga KEP-176/PJ./2000: dividen/bunga/royalti 15% bruto, sedangkan jasa konsultan (neto 50% -> 7,5%), jasa teknik/manajemen (40% -> 6%), dan sewa harta umum (30% -> 4,5%).',
+  sources: [SRC.UU_10_1994, SRC.KEP_170_2002_DJP],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'pph23-kep176-2000',
+  taxType: 'pph23',
+  taxTypeLabel: 'PPh Pasal 23',
+  title: 'Pengenalan Perkiraan Neto PPh 23: UU 10/1994 & KEP-176/PJ./2000 (1995–2002)',
+  legalBasis: 'Pasal 23 UU Nomor 10 Tahun 1994 & KEP-176/PJ./2000',
+  effectiveDate: '1 Januari 1995',
+  readMinutes: 4,
+  summary:
+    'Peralihan bersejarah pada 1995 ketika sewa harta dan jasa teknik tidak lagi dipotong penuh 15% dari bruto, melainkan 15% dikalikan Perkiraan Penghasilan Neto.',
+  sections: [
+    {
+      heading: 'Mengapa UU 10/1994 memecah dasar pengenaan Pasal 23?',
+      paragraphs: [
+        'Selama berlakunya UU 7/1983, tarif 15% langsung dari penghasilan bruto atas sewa alat dan jasa kerap menimbulkan pajak lebih bayar karena margin laba bersih penyedia jasa jauh di bawah 100%.',
+        'UU Nomor 10 Tahun 1994 membedakan Pasal 23 ayat (1) menjadi kelompok penghasilan pasif (dividen, bunga, royalti, hadiah) yang tetap 15% dari bruto, serta kelompok sewa harta dan imbalan jasa yang dikenai 15% dari Perkiraan Penghasilan Neto (dirinci berturut-turut hingga KEP-176/PJ./2000).',
+      ],
+    },
+    {
+      heading: 'Tarif efektif era 1995–2002 tanpa penalti non-NPWP',
+      paragraphs: [
+        'Dalam praktik era ini, sewa harta selain tanah/bangunan terkena tarif efektif 4,5%, jasa teknik/manajemen 6%, dan konsultan 7,5%—berlaku sama bagi penerima yang sudah maupun belum ber-NPWP.',
+      ],
+    },
+  ],
+  caseExample: {
+    title: 'Sewa alat berat Rp 30 juta pada era UU 10/1994 & KEP-176',
+    scenario:
+      'Sewa mesin dan alat berat senilai Rp 30.000.000 terkena 15% × Perkiraan Neto 30% atau efektif 4,5% sebesar Rp 1.350.000.',
+    presetRegime: 'pph23_kep176_2000',
+    presetInput: {
+      pph23: {
+        nilaiBruto: 30000000,
+        objectType: 'sewa_harta',
+        hasNpwp: true,
+      },
+    },
+  },
 };
 
 export const pph23Kep176_2000Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {
   regime,
+  article,
   calculate(input) {
     const bruto = Math.max(0, input.nilaiBruto);
     const notes: string[] = [];

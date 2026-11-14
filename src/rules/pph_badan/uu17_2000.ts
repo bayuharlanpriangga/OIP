@@ -1,5 +1,12 @@
-import { CalculationStep, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import {
+  CalculationStep,
+  TaxArticle,
+  TaxCalculatorInput,
+  TaxRegime,
+  TaxRuleModule,
+} from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'badan_uu17_2000',
@@ -11,10 +18,74 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Sebelum tarif tunggal berlaku di 2009, PPh Badan menggunakan tarif progresif tiga lapis: 10% (s.d. Rp 50 jt), 15% (> Rp 50 jt–100 jt), dan 30% (> Rp 100 jt) tanpa Pasal 31E; khusus TP 2008 emiten Tbk mendapat diskon 5% di PP 81/2007.',
+  sources: [SRC.UU_17_2000, SRC.PP_81_2007],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'pph-badan-uu17-2000',
+  taxType: 'pph_badan',
+  taxTypeLabel: 'PPh Badan',
+  title: 'Tarif Progresif Badan 10%/15%/30% dan Lahirnya Diskon Tbk di PP 81/2007',
+  legalBasis: 'Pasal 17 ayat (1) huruf b UU 17/2000 jo. PP Nomor 81 Tahun 2007',
+  effectiveDate: 'Tahun Pajak 2001 – 2008',
+  readMinutes: 4,
+  summary:
+    'Selama 2001–2008, Wajib Pajak Badan masih dikenai tiga lapisan progresif berdasarkan besarnya PKP (10%, 15%, 30%) tanpa memandang besaran omzet, dan pada 2008 pertama kali diperkenalkan insentif penurunan tarif 5% bagi perusahaan terbuka.',
+  sections: [
+    {
+      heading: 'Pemisahan tabel tarif Badan dari Orang Pribadi di UU 17/2000',
+      paragraphs: [
+        'Berbeda dari UU 7/1983 dan UU 10/1994 yang menyatukan lapisan tarif Orang Pribadi dan Badan, UU Nomor 17 Tahun 2000 memisahkan Pasal 17 ayat (1) huruf a (OP 5 lapis) dan huruf b (WP Badan 3 lapis).',
+        'Untuk WP Badan dan BUT, tarifnya adalah 10% atas PKP sampai Rp 50 juta, 15% atas PKP di atas Rp 50 juta s.d. Rp 100 juta, dan 30% atas PKP di atas Rp 100 juta—tanpa fasilitas Pasal 31E maupun batas omzet Rp 4,8 miliar.',
+      ],
+    },
+    {
+      heading: 'Insentif awal pasar modal melalui PP 81/2007',
+      paragraphs: [
+        'Guna mendorong emiten melepas saham ke publik, pemerintah menerbitkan PP 81/2007 yang mulai efektif Tahun Pajak 2008 dengan memberikan penurunan tarif sebesar 5% (menjadi 5%/10%/25%) apabila minimal 40% saham dimiliki masyarakat publik melalui bursa efek.',
+      ],
+    },
+  ],
+  comparisonTable: {
+    oldHeader: 'UU 10/1994 (1995–2000)',
+    newHeader: 'UU 17/2000 (2001–2008)',
+    rows: [
+      {
+        aspek: 'Batas lapisan tarif 10%',
+        aturanLama: 'PKP s.d. Rp 25.000.000',
+        aturanBaru: 'Diperluas s.d. Rp 50.000.000',
+      },
+      {
+        aspek: 'Batas lapisan tarif 15%',
+        aturanLama: 'PKP > Rp 25 jt s.d. Rp 50 jt',
+        aturanBaru: 'PKP > Rp 50 jt s.d. Rp 100 jt',
+      },
+      {
+        aspek: 'Tarif puncak & diskon Tbk',
+        aturanLama: '30% (> Rp 50 jt), tanpa diskon Tbk',
+        aturanBaru: '30% (> Rp 100 jt), diskon 5% Tbk (TP 2008)',
+      },
+    ],
+  },
+  caseExample: {
+    title: 'Perusahaan dengan laba fiskal Rp 350 juta pada tahun 2006',
+    scenario:
+      'Menghitung PPh Badan ber-PKP Rp 350 juta di tahun 2006 yang terbagi ke lapis 10% (Rp 50 jt), 15% (Rp 50 jt), dan 30% (Rp 250 jt).',
+    presetRegime: 'badan_uu17_2000',
+    presetInput: {
+      pph_badan: {
+        peredaranBrutoTahunan: 4000000000,
+        penghasilanKenaPajak: 350000000,
+        isTbk: false,
+      },
+    },
+  },
 };
 
 export const badanUu17_2000Rule: TaxRuleModule<TaxCalculatorInput['pph_badan']> = {
   regime,
+  article,
   calculate(input) {
     const pkpRaw = Math.max(0, input.penghasilanKenaPajak);
     const pkp = Math.floor(pkpRaw / 1000) * 1000;

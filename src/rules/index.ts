@@ -37,7 +37,7 @@ export const TAX_CATEGORIES: {
     id: 'pph22',
     label: 'PPh Pasal 22',
     shortLabel: 'PPh 22',
-    scope: 'Pemungutan atas impor, belanja bendahara/BUMN, dan barang sangat mewah',
+    scope: 'Pemungutan atas impor, belanja bendahara/BUMN, transaksi marketplace, dan barang sangat mewah',
   },
   {
     id: 'pph23',
@@ -134,6 +134,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     nilaiDasar: 0,
     objectType: 'impor_api',
     hasNpwp: true,
+    akumulasiOmzetSebelumnya: 0,
+    marketplaceTaxStatus: 'umkm_final',
   },
   pph23: {
     nilaiBruto: 0,
@@ -143,6 +145,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
   pph4_2: {
     nilaiBruto: 0,
     objectType: 'sewa_tanah_bangunan',
+    sewaSubjectType: 'orang_pribadi',
   },
   pph_umkm: {
     omzetBulanan: 0,

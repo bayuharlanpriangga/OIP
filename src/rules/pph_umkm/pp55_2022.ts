@@ -1,16 +1,19 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'umkm_pp55_2022',
   taxType: 'pph_umkm',
   name: 'PP 55/2022 & UU HPP',
-  shortName: '2022–Sekarang (Bebas 500 Jt)',
+  shortName: '2022–Apr 2026 (PP 55/2022)',
   legalBasis: 'PP Nomor 55 Tahun 2022 & Pasal 7 ayat (2a) UU HPP',
-  effectivePeriod: '1 Januari 2022 – Sekarang',
-  isCurrent: true,
+  effectivePeriod: '1 Januari 2022 – 21 April 2026',
+  isCurrent: false,
   summary:
-    'Tarif final 0,5% dari omzet bruto, disertai pembebasan pajak (0%) untuk akumulasi omzet sampai dengan Rp 500 juta setahun khusus bagi Wajib Pajak Orang Pribadi.',
+    'Tarif final 0,5% dari omzet bruto, disertai pembebasan pajak (0%) untuk akumulasi omzet sampai dengan Rp 500 juta setahun khusus bagi Wajib Pajak Orang Pribadi; CV/PT masih tercakup dengan batas waktu Pasal 59 sebelum diubah PP 20/2026.',
+  sources: [SRC.PP_55_2022, SRC.PP_55_2022_SETNEG, SRC.UU_7_2021_HPP],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {
@@ -22,13 +25,13 @@ const article: TaxArticle = {
   effectiveDate: '1 Januari 2022',
   readMinutes: 4,
   summary:
-    'Pelaku usaha Orang Pribadi beromzet hingga Rp 500 juta setahun kini dibebaskan sepenuhnya dari PPh Final 0,5%, berbeda signifikan dibanding PP 23/2018 dan PP 46/2013.',
+    'Pelaku usaha Orang Pribadi beromzet hingga Rp 500 juta setahun dibebaskan sepenuhnya dari PPh Final 0,5% sejak 2022 (sebelum diperketat subjeknya oleh PP 20/2026 mulai 22 April 2026).',
   sections: [
     {
-      heading: 'Tiga fase regulasi PPh Final UMKM di Indonesia',
+      heading: 'Tiga fase regulasi awal PPh Final UMKM di Indonesia',
       paragraphs: [
         'Skema pajak sederhana berbasis omzet dimulai pada Juli 2013 melalui PP 46/2013 dengan tarif 1% dari peredaran bruto bulanan bagi usaha yang omzet tahunannya tidak melebihi Rp 4,8 miliar. Pada Juli 2018, PP 23/2018 memangkas tarif menjadi separuhnya (0,5%) disertai batas jangka waktu pemanfaatan (7 tahun untuk OP, 4 tahun untuk CV/Firma/Koperasi, 3 tahun untuk PT).',
-        'Mulai Tahun Pajak 2022 melalui UU HPP dan aturan pelaksana PP 55/2022, Wajib Pajak Orang Pribadi UMKM mendapat lapisan bebas pajak (PTKP omzet) sampai dengan Rp 500.000.000 akumulasi peredaran bruto dalam satu tahun pajak. Pajak 0,5% baru mulai dihitung atas bagian omzet yang melewati Rp 500 juta.',
+        'Mulai Tahun Pajak 2022 melalui UU HPP dan aturan pelaksana PP 55/2022, Wajib Pajak Orang Pribadi UMKM mendapat lapisan bebas pajak (PTKP omzet) sampai dengan Rp 500.000.000 akumulasi peredaran bruto dalam satu tahun pajak. Pajak 0,5% baru mulai dihitung atas bagian omzet yang melewati Rp 500 juta. Ketentuan ini kemudian diubah kembali oleh PP 20/2026 sejak 22 April 2026.',
       ],
     },
     {
@@ -40,7 +43,7 @@ const article: TaxArticle = {
   ],
   comparisonTable: {
     oldHeader: 'PP 46/2013 (2013–2018)',
-    newHeader: 'PP 55/2022 (2022–Sekarang)',
+    newHeader: 'PP 55/2022 (2022–Apr 2026)',
     rows: [
       {
         aspek: 'Tarif PPh Final',

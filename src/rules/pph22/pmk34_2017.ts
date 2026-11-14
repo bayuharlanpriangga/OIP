@@ -7,6 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_pmk34_2017',
@@ -18,6 +19,8 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Aturan pemungutan PPh Pasal 22 atas impor (API umum 2,5%, non-API 7,5%, barang konsumsi tertentu 7,5%–10% sejak PMK 110/2018), belanja instansi pemerintah/BUMN (1,5%), dan barang sangat mewah (1%–5%).',
+  sources: [SRC.PMK_34_2017, SRC.PMK_110_2018, SRC.PMK_41_2022, SRC.PMK_59_2022],
+  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -1,11 +1,13 @@
 import {
   CalculationStep,
   Pph22ObjectType,
+  TaxArticle,
   TaxCalculatorInput,
   TaxRegime,
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
+import { REGIME_VERIFIED_AT, SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_kmk254_2001',
@@ -18,6 +20,65 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Aturan pemungutan PPh 22 era UU 17/2000: impor API 2,5%, non-API 7,5%, kedelai/gandum API 0,5%, bendahara 1,5% dengan batas pengecualian Rp 1 juta, dan tarif 5% barang sangat mewah mulai Desember 2008.',
+  sources: [SRC.KMK_254_2001, SRC.PMK_210_2008, SRC.PMK_253_2008],
+  verifiedAt: REGIME_VERIFIED_AT,
+};
+
+const article: TaxArticle = {
+  id: 'pph22-kmk254-2001',
+  taxType: 'pph22',
+  taxTypeLabel: 'PPh Pasal 22',
+  title: 'Era KMK 254/2001 & Lahirnya PPh 22 Barang Sangat Mewah (2001–2010)',
+  legalBasis: 'KMK 254/KMK.03/2001 stdd PMK 210/PMK.03/2008 & PMK 253/PMK.03/2008',
+  effectiveDate: '30 April 2001',
+  readMinutes: 4,
+  summary:
+    'Aturan PPh Pasal 22 era UU 17/2000 yang menetapkan ambang bebas pungut bendahara Rp 1 juta, insentif impor komoditas pangan 0,5%, serta lahirnya pungutan 5% atas barang sangat mewah pada akhir 2008.',
+  sections: [
+    {
+      heading: 'Ambang belanja bendahara Rp 1 juta dan pergeseran ke 2009',
+      paragraphs: [
+        'KMK Nomor 254/KMK.03/2001 menggantikan rezim 1994–1997 dan menyesuaikan batas pengecualian belanja barang oleh bendaharawan pemerintah dari di bawah Rp 500.000 menjadi paling banyak Rp 1.000.000 (dan bukan pembayaran terpecah-pecah).',
+        'Selama hampir satu dekade keberlakuannya, ketentuan ini mengalami beberapa perubahan hingga PMK 210/PMK.03/2008, termasuk pengenaan sanksi tarif 100% lebih tinggi bagi WP tanpa NPWP sejak 1 Januari 2009 mengikuti amanat UU 36/2008.',
+      ],
+    },
+    {
+      heading: 'Kelahiran PPh 22 barang sangat mewah dan diskon impor pangan',
+      paragraphs: [
+        'Pada tahun 2008, pemerintah merespons gejolak harga pangan global dengan memangkas tarif impor kedelai, gandum, dan tepung terigu bagi pemegang API dari 2,5% menjadi 0,5%.',
+        'Di penghujung tahun yang sama terbit PMK 253/PMK.03/2008 yang untuk pertama kalinya menunjuk badan usaha penjual barang tergolong sangat mewah—seperti pesawat pribadi, kapal pesiar, dan hunian mewah—untuk memungut PPh Pasal 22 sebesar 5%.',
+      ],
+    },
+  ],
+  comparisonTable: {
+    oldHeader: 'KMK 450/1997 (1995–2001)',
+    newHeader: 'KMK 254/2001 jo. PMK 253/2008',
+    rows: [
+      {
+        aspek: 'Batas bebas pungut bendahara',
+        aturanLama: 'Di bawah Rp 500.000',
+        aturanBaru: 'Paling banyak Rp 1.000.000',
+      },
+      {
+        aspek: 'Pungutan barang sangat mewah',
+        aturanLama: 'Belum diatur',
+        aturanBaru: 'Tarif 5% (PMK 253/2008 mulai Des 2008)',
+      },
+    ],
+  },
+  caseExample: {
+    title: 'Impor bahan baku tanpa API Rp 200 juta di era KMK 254/2001',
+    scenario:
+      'Importir ber-NPWP namun tidak memiliki API mengimpor mesin dengan nilai impor Rp 200.000.000 sehingga dipungut PPh 22 sebesar 7,5% atau Rp 15.000.000.',
+    presetRegime: 'pph22_kmk254_2001',
+    presetInput: {
+      pph22: {
+        nilaiDasar: 200000000,
+        objectType: 'impor_non_api',
+        hasNpwp: true,
+      },
+    },
+  },
 };
 
 function getKmk254Rate(objectType: Pph22ObjectType): { rate: number; label: string; exemptLimit: number } {
@@ -55,6 +116,7 @@ function getKmk254Rate(objectType: Pph22ObjectType): { rate: number; label: stri
 
 export const pph22Kmk254_2001Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = {
   regime,
+  article,
   calculate(input) {
     const nilaiDasar = Math.max(0, input.nilaiDasar);
     const meta = getKmk254Rate(input.objectType);
