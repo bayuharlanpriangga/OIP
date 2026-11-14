@@ -127,6 +127,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     iuranPensiunBulanan: 0,
     ptkpStatus: 'TK/0',
     hasNpwp: true,
+    pesangonBruto: 0,
+    pesangonType: 'pesangon',
   },
   pph22: {
     nilaiDasar: 0,

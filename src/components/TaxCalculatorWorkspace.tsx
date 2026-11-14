@@ -142,20 +142,21 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
   };
 
   return (
-    <section id="kalkulator" aria-labelledby="heading-kalkulator" className="py-6 sm:py-8">
-      {/* Section Header */}
-      <div className="pb-5 border-b border-[#5E706F]/25 space-y-1.5 max-w-2xl">
-        <h1
-          id="heading-kalkulator"
-          className="font-editorial text-2xl sm:text-3xl font-semibold tracking-tight text-[#1F2A2C] dark:text-[#E8EAE4]"
-        >
-          Kalkulator Pajak Multi-Aturan
-        </h1>
-        <p className="text-sm sm:text-base text-[#4F6160] dark:text-[#E8EAE4]/75 leading-relaxed">
-          Pilih jenis pajak lalu tentukan aturan yang berlaku saat ini atau aturan periode
-          terdahulu untuk mensimulasikan perhitungannya.
-        </p>
+    <section id="kalkulator" aria-labelledby="heading-kalkulator" className="pb-6 sm:pb-8">
+      <h1 id="heading-kalkulator" className="sr-only">
+        Kalkulator Pajak Multi-Aturan
+      </h1>
+
+      {/* Full-bleed Section Banner flush to header & edges */}
+      <div className="w-full border-b border-[#5E706F]/25 bg-[#E8EAE4] dark:bg-[#263336]">
+        <img
+          src="/assets/banner/Banner_Kalkulator_8e633373.jpg"
+          alt="Kalkulator Pajak Multi-Aturan"
+          className="w-full h-auto block"
+        />
       </div>
+
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
 
       {/* Tax Type Selector Tabs */}
       <div
@@ -225,98 +226,147 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
 
           {/* Dynamic Inputs per Tax Type */}
           <div className="space-y-4 pt-4 border-t border-[#5E706F]/25">
-            {activeTaxType === 'pph21' && (
-              <>
-                <CurrencyInput
-                  id="pph21-gaji"
-                  label="Gaji pokok per bulan"
-                  value={calcInput.pph21.gajiBulanan}
-                  onChange={(val) =>
-                    onChangeInput((prev) => ({
-                      ...prev,
-                      pph21: { ...prev.pph21, gajiBulanan: val },
-                    }))
-                  }
-                />
-                <CurrencyInput
-                  id="pph21-tunjangan"
-                  label="Tunjangan tetap & premi bulanan"
-                  value={calcInput.pph21.tunjanganTetap}
-                  onChange={(val) =>
-                    onChangeInput((prev) => ({
-                      ...prev,
-                      pph21: { ...prev.pph21, tunjanganTetap: val },
-                    }))
-                  }
-                  helperText="Termasuk tunjangan jabatan, transport, atau premi JKK/JKM dari pemberi kerja."
-                />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {activeTaxType === 'pph21' &&
+              (regimeId === 'pph21_pp68_2009' || regimeId === 'pph21_pp149_2000' ? (
+                <>
                   <CurrencyInput
-                    id="pph21-bonus"
-                    label="THR & bonus setahun"
-                    value={calcInput.pph21.bonusTahunan}
+                    id="pph21-pesangon-bruto"
+                    label="Nilai bruto pesangon / tebusan pensiun / THT / JHT"
+                    value={calcInput.pph21.pesangonBruto ?? 0}
                     onChange={(val) =>
                       onChangeInput((prev) => ({
                         ...prev,
-                        pph21: { ...prev.pph21, bonusTahunan: val },
+                        pph21: { ...prev.pph21, pesangonBruto: val },
+                      }))
+                    }
+                    helperText="Pembayaran sekaligus (atau bertahap maksimal 2 tahun kalender). Pajak bersifat final tanpa sanksi non-NPWP."
+                  />
+                  {regimeId === 'pph21_pp68_2009' && (
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="pph21-pesangon-type"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Jenis penghasilan sekaligus (PP 68/2009)
+                      </label>
+                      <select
+                        id="pph21-pesangon-type"
+                        value={calcInput.pph21.pesangonType ?? 'pesangon'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph21: {
+                              ...prev.pph21,
+                              pesangonType: e.target.value as 'pesangon' | 'pensiun_tht_jht',
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="pesangon">
+                          Uang Pesangon (0% / 5% / 15% / 25%)
+                        </option>
+                        <option value="pensiun_tht_jht">
+                          Uang Manfaat Pensiun, THT, atau JHT (0% / 5%)
+                        </option>
+                      </select>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <CurrencyInput
+                    id="pph21-gaji"
+                    label="Gaji pokok per bulan"
+                    value={calcInput.pph21.gajiBulanan}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph21: { ...prev.pph21, gajiBulanan: val },
                       }))
                     }
                   />
                   <CurrencyInput
-                    id="pph21-pensiun"
-                    label="Iuran pensiun/JHT pegawai (/bln)"
-                    value={calcInput.pph21.iuranPensiunBulanan}
+                    id="pph21-tunjangan"
+                    label="Tunjangan tetap & premi bulanan"
+                    value={calcInput.pph21.tunjanganTetap}
                     onChange={(val) =>
                       onChangeInput((prev) => ({
                         ...prev,
-                        pph21: { ...prev.pph21, iuranPensiunBulanan: val },
+                        pph21: { ...prev.pph21, tunjanganTetap: val },
                       }))
                     }
+                    helperText="Termasuk tunjangan jabatan, transport, atau premi JKK/JKM dari pemberi kerja."
                   />
-                </div>
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="pph21-ptkp"
-                    className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
-                  >
-                    Status PTKP
-                  </label>
-                  <select
-                    id="pph21-ptkp"
-                    value={calcInput.pph21.ptkpStatus}
-                    onChange={(e) =>
-                      onChangeInput((prev) => ({
-                        ...prev,
-                        pph21: { ...prev.pph21, ptkpStatus: e.target.value as PtkpStatus },
-                      }))
-                    }
-                    className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
-                  >
-                    {PTKP_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={calcInput.pph21.hasNpwp}
-                    onChange={(e) =>
-                      onChangeInput((prev) => ({
-                        ...prev,
-                        pph21: { ...prev.pph21, hasNpwp: e.target.checked },
-                      }))
-                    }
-                    className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
-                  />
-                  <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
-                    Memiliki NPWP / NIK sudah padan (tidak kena sanksi +20%)
-                  </span>
-                </label>
-              </>
-            )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <CurrencyInput
+                      id="pph21-bonus"
+                      label="THR & bonus setahun"
+                      value={calcInput.pph21.bonusTahunan}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, bonusTahunan: val },
+                        }))
+                      }
+                    />
+                    <CurrencyInput
+                      id="pph21-pensiun"
+                      label="Iuran pensiun/JHT pegawai (/bln)"
+                      value={calcInput.pph21.iuranPensiunBulanan}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, iuranPensiunBulanan: val },
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph21-ptkp"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Status PTKP
+                    </label>
+                    <select
+                      id="pph21-ptkp"
+                      value={calcInput.pph21.ptkpStatus}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, ptkpStatus: e.target.value as PtkpStatus },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      {PTKP_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {!['pph21_pmk137_2005', 'pph21_kmk564_2004', 'pph21_uu17_2000', 'pph21_uu10_1994', 'pph21_uu7_1983'].includes(regimeId) && (
+                    <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={calcInput.pph21.hasNpwp}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph21: { ...prev.pph21, hasNpwp: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Memiliki NPWP / NIK sudah padan (tidak kena sanksi +20%)
+                      </span>
+                    </label>
+                  )}
+                </>
+              ))}
 
             {activeTaxType === 'pph23' && (
               <>
@@ -430,18 +480,20 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
 
             {activeTaxType === 'pph_badan' && (
               <>
-                <CurrencyInput
-                  id="badan-omzet"
-                  label="Peredaran bruto (omzet) setahun"
-                  value={calcInput.pph_badan.peredaranBrutoTahunan}
-                  onChange={(val) =>
-                    onChangeInput((prev) => ({
-                      ...prev,
-                      pph_badan: { ...prev.pph_badan, peredaranBrutoTahunan: val },
-                    }))
-                  }
-                  helperText="Menentukan fasilitas diskon 50% Pasal 31E (berlaku untuk omzet s.d. Rp 50 miliar)."
-                />
+                {!['badan_uu17_2000', 'badan_uu10_1994', 'badan_uu7_1983'].includes(regimeId) && (
+                  <CurrencyInput
+                    id="badan-omzet"
+                    label="Peredaran bruto (omzet) setahun"
+                    value={calcInput.pph_badan.peredaranBrutoTahunan}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph_badan: { ...prev.pph_badan, peredaranBrutoTahunan: val },
+                      }))
+                    }
+                    helperText="Menentukan fasilitas diskon 50% Pasal 31E (berlaku untuk omzet s.d. Rp 50 miliar)."
+                  />
+                )}
                 <CurrencyInput
                   id="badan-pkp"
                   label="Penghasilan Kena Pajak (laba fiskal setahun)"
@@ -453,22 +505,24 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     }))
                   }
                 />
-                <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={calcInput.pph_badan.isTbk}
-                    onChange={(e) =>
-                      onChangeInput((prev) => ({
-                        ...prev,
-                        pph_badan: { ...prev.pph_badan, isTbk: e.target.checked },
-                      }))
-                    }
-                    className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
-                  />
-                  <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
-                    Perseroan Terbuka (Tbk) dengan saham publik minimal 40%
-                  </span>
-                </label>
+                {!['badan_uu10_1994', 'badan_uu7_1983'].includes(regimeId) && (
+                  <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={calcInput.pph_badan.isTbk}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph_badan: { ...prev.pph_badan, isTbk: e.target.checked },
+                        }))
+                      }
+                      className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                    />
+                    <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                      Perseroan Terbuka (Tbk) dengan saham publik minimal 40%
+                    </span>
+                  </label>
+                )}
               </>
             )}
 
@@ -1263,6 +1317,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
             )}
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

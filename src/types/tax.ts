@@ -103,6 +103,8 @@ export interface TaxCalculatorInput {
     iuranPensiunBulanan: number;
     ptkpStatus: PtkpStatus;
     hasNpwp: boolean;
+    pesangonBruto?: number;
+    pesangonType?: 'pesangon' | 'pensiun_tht_jht';
   };
   pph22: {
     nilaiDasar: number;

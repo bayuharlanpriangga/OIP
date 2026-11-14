@@ -54,29 +54,28 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
   };
 
   return (
-    <section aria-labelledby="heading-pustaka" className="py-6 sm:py-8 space-y-6">
-      {/* Directory Header & Search */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-[#5E706F]/30">
-        <div className="space-y-1.5 max-w-2xl">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1
-              id="heading-pustaka"
-              className="font-editorial text-2xl sm:text-3xl font-semibold tracking-tight text-[#1F2A2C] dark:text-[#E8EAE4]"
-            >
-              Pustaka Aturan Pajak
-            </h1>
-            {selectedCategory !== 'semua' && (
+    <section aria-labelledby="heading-pustaka" className="pb-6 sm:pb-8 space-y-6">
+      <h1 id="heading-pustaka" className="sr-only">
+        Pustaka Aturan Pajak
+      </h1>
+
+      {/* Full-bleed Directory Banner flush to header & edges */}
+      <div className="w-full border-b border-[#5E706F]/30 bg-[#E8EAE4] dark:bg-[#263336]">
+        <img
+          src="/assets/banner/Banner_Pustaka_Aturan_92f07498.jpg"
+          alt="Pustaka Aturan Pajak"
+          className="w-full h-auto block"
+        />
+      </div>
+
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 space-y-6">
+        {/* Category indicator & Search */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-5 border-b border-[#5E706F]/30">
+          {selectedCategory !== 'semua' ? (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span className="text-sm font-semibold text-[#6B5A00] dark:text-[#D9B92E]">
-                / {activeCategoryLabel}
+                Kategori: {activeCategoryLabel}
               </span>
-            )}
-          </div>
-          <p className="text-sm sm:text-base text-[#4F6160] dark:text-[#E8EAE4]/75 leading-relaxed">
-            Ringkasan ketentuan perpajakan Indonesia dikelompokkan per jenis pajak. Pilih salah satu
-            artikel untuk membaca naskah lengkap dan menguji perhitungannya.
-          </p>
-          {selectedCategory !== 'semua' && (
-            <div className="pt-1">
               <button
                 type="button"
                 onClick={() => onSelectCategory('semua')}
@@ -85,35 +84,36 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
                 Tampilkan semua jenis pajak
               </button>
             </div>
+          ) : (
+            <div />
           )}
-        </div>
 
-        {/* Search input */}
-        <div className="relative w-full md:w-80 shrink-0">
-          <Search
-            className="w-4 h-4 text-[#4F6160] dark:text-[#E8EAE4]/70 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-            aria-hidden="true"
-          />
-          <input
-            type="search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cari pasal, PP, PMK, atau topik"
-            aria-label="Cari artikel aturan pajak"
-            className="w-full min-h-[44px] pl-10 pr-10 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] placeholder:text-[#4F6160]/75 dark:placeholder:text-[#E8EAE4]/50 border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery('')}
-              aria-label="Bersihkan pencarian"
-              className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
+          {/* Search input */}
+          <div className="relative w-full md:w-80 shrink-0">
+            <Search
+              className="w-4 h-4 text-[#4F6160] dark:text-[#E8EAE4]/70 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+              aria-hidden="true"
+            />
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari pasal, PP, PMK, atau topik"
+              aria-label="Cari artikel aturan pajak"
+              className="w-full min-h-[44px] pl-10 pr-10 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] placeholder:text-[#4F6160]/75 dark:placeholder:text-[#E8EAE4]/50 border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label="Bersihkan pencarian"
+                className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[36px] min-h-[36px] flex items-center justify-center text-[#4F6160] dark:text-[#E8EAE4]/75 hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
-      </div>
 
       {/* Empty State */}
       {groupedArticles.length === 0 ? (
@@ -182,6 +182,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
           ))}
         </div>
       )}
+      </div>
     </section>
   );
 };
@@ -217,7 +218,7 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
   }, [article.taxType, sidebarQuery]);
 
   return (
-    <div className="py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
       <article aria-labelledby="article-page-title" className="lg:col-span-8 space-y-7">
         {/* Back navigation */}
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#5E706F]/25">

@@ -316,7 +316,7 @@ export default function App() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-10">
+      <main className="flex-1 w-full">
         {activeView === 'pustaka' && (
           <TaxArticleDirectory
             selectedCategory={selectedArticleCategory}

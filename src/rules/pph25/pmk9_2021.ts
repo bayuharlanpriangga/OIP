@@ -62,6 +62,7 @@ export const pph25Pmk9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
       steps,
       notes: [
         'Diskon 50% berlaku mulai Masa Pajak Juli 2020 (PMK 110/2020 yang menaikkan diskon 30% dari PMK 86/2020), diperpanjang Jan–Jun 2021 (PMK 9/2021), lalu disambung Jul–Des 2021 (PMK 82/2021) untuk KLU tertentu.',
+        'Mulai Masa Pajak Juli 2021 lewat PMK 82/PMK.03/2021, jumlah sektor yang berhak menyusut dari 1.018 menjadi 216 KLU (sebelum disesuaikan kembali lewat PMK 149/2021), serta WP fasilitas KITE dan Kawasan Berikat tidak lagi otomatis memperoleh pengurangan angsuran ini.',
         'Pengurangan PPh 25 ini bukan merupakan pajak ditanggung pemerintah (DTP), sehingga kekurangan bayar tetap diperhitungkan pada SPT Tahunan.',
       ],
     };
