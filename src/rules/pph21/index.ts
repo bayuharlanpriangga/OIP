@@ -9,7 +9,9 @@ import { pph21Pmk122_2015Rule } from './pmk122_2015';
 import { pph21Pmk137_2005Rule } from './pmk137_2005';
 import { pph21Pmk162_2013Rule } from './pmk162_2013';
 import { pph21Pmk168_2023DesemberRule } from './pmk168_2023_desember';
+import { pph21Pmk168_2023GrossUpRule } from './pmk168_2023_gross_up';
 import { pph21Pmk168_2023KhususRule } from './pmk168_2023_khusus';
+import { pph21Pmk168_2023MultiPemberiKerjaRule } from './pmk168_2023_multi_pemberi_kerja';
 import { pph21Pmk168_2023NonPegawaiRule } from './pmk168_2023_nonpegawai';
 import { pph21Pmk168_2023TengahTahunRule } from './pmk168_2023_tengah_tahun';
 import { pph21Pmk18_2021WnaRule } from './pmk18_2021_wna_teritorial';
@@ -30,6 +32,8 @@ import { pph21Uu7_1983Rule } from './uu7_1983';
 export const PPH21_RULES: TaxRuleModule<TaxCalculatorInput['pph21']>[] = [
   pph21Ter2024Rule,
   pph21Pmk168_2023DesemberRule,
+  pph21Pmk168_2023GrossUpRule,
+  pph21Pmk168_2023MultiPemberiKerjaRule,
   pph21Pmk168_2023TengahTahunRule,
   pph21Pmk168_2023NonPegawaiRule,
   pph21Pmk168_2023KhususRule,

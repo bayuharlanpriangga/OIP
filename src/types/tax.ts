@@ -136,6 +136,7 @@ export interface TaxCalculatorInput {
     isEligibleIknPmk28?: boolean;
     jumlahBulanKerja?: number;
     skemaTengahTahun?: 'lokal_berhenti_tidak_setahun' | 'expat_meninggal_tinggal_ri_setahun';
+    gajiPemberiKerja2?: number;
   };
   pph22: {
     nilaiDasar: number;
@@ -172,6 +173,8 @@ export interface TaxCalculatorInput {
     fintechRecipientType?: 'wpdn_but' | 'wpln_pph26' | 'umkm_skb';
     isSuketUmkm?: boolean;
     isPengecualianPasal23_4?: boolean;
+    nilaiReimbursement?: number;
+    isPembuktianFakturTerpisah?: boolean;
   };
   pph4_2: {
     nilaiBruto: number;
@@ -213,6 +216,7 @@ export interface TaxCalculatorInput {
       | 'pps_k2_12'
       | 'pps_k2_14'
       | 'pps_k2_18';
+    skemaSkbPhtb?: 'waris' | 'hibah_garis_lurus' | 'op_bawah_ptkp_60jt' | 'hibah_non_garis_lurus_tanpa_skb';
   };
   pph_umkm: {
     omzetBulanan: number;
@@ -242,6 +246,7 @@ export interface TaxCalculatorInput {
     labaTriwulanAtauRkap?: number;
     flnEra1994?: 'pp46_1994' | 'pp17_1998';
     skemaWpBaruTransisi?: 'wp_baru_umum' | 'masa_sebelum_spt' | 'penggabungan_peleburan' | 'wp_baru_oppt';
+    penghasilanTidakTeraturNeto?: number;
   };
   pph26: {
     nilaiBruto: number;
@@ -275,6 +280,18 @@ export interface TaxCalculatorInput {
     koreksiPositifNonDeductible?: number;
     koreksiNegatif?: number;
     kompensasiKerugianFiskal?: number;
+    penghasilanLuarNegeri?: number;
+    rugiLuarNegeri?: number;
+    pphDibayarLuarNegeri?: number;
+    persenKepemilikanCfc?: number;
+    penghasilanPasifNetoCfc?: number;
+    labaAktifUsahaCfc?: number;
+    eraCfc?: 'pmk93_2019' | 'pmk107_2017';
+    nilaiAfiliasiBarang?: number;
+    nilaiAfiliasiJasaLain?: number;
+    omzetGrupKonsolidasi?: number;
+    koreksiKewajaranTp?: number;
+    isRepatriasiTpBeforeSkp?: boolean;
   };
   ppn: {
     hargaJualDpp: number;
@@ -309,6 +326,15 @@ export interface TaxCalculatorInput {
     skemaKekRefund?: 'kek_tidak_dipungut_pp40' | 'vat_refund_turis_pmk120';
     skemaWapu81?: 'bumn_pmk8_diatas_10jt' | 'bumn_pmk8_sd_10jt' | 'kkks_diatas_10jt' | 'instansi_diatas_2jt';
     statusPkpJln?: 'pkp_dapat_kredit' | 'non_pkp_beban_biaya';
+    skemaPasal16d?: 'aktiva_pm_dapat_kredit' | 'aktiva_non_kredit_9_8_b' | 'sedan_station_wagon_9_8_c';
+    persenZEstimasi?: number;
+    persenZRealisasi?: number;
+    masaManfaatPpn?: 1 | 4 | 10;
+    jenisEksporJkp?: 'maklon_desain_it' | 'konsultansi_konstruksi_hukum' | 'riset_perdagangan_interkoneksi' | 'jasa_lain_non_list';
+    isMemenuhiSyaratEksporJkp?: boolean;
+    skemaAyda?: 'jual_ayda_pembeli' | 'pengambilalihan_debitur';
+    skemaNilaiLainRetur?: 'pemakaian_cuma_cuma' | 'nota_retur_bkp_jkp' | 'film_cerita_nilai_lain';
+    persenLabaKotor?: number;
   };
   ppnbm: {
     hargaJual: number;
@@ -340,6 +366,8 @@ export interface TaxCalculatorInput {
     jenisOpsenHkpd?: 'opsen_pkb_66' | 'opsen_bbnkb_66';
     jenisPajakDaerahLain?: 'reklame_25' | 'air_tanah_20' | 'minerba_mblb_20' | 'pab_alat_berat_0_2';
     jenisPajakProvinsiHkpd?: 'pkb_non_dki' | 'pkb_dki' | 'bbnkb_non_dki' | 'bbnkb_dki' | 'pbbkb_10' | 'rokok_10';
+    skemaProgresifMblb?: 'pkb_progresif_non_dki' | 'pkb_progresif_dki' | 'opsen_mblb_25';
+    tingkatKepemilikanPkb?: 1 | 2 | 3 | 4 | 5;
   };
   bea_meterai: {
     nilaiDokumen: number;
@@ -348,6 +376,7 @@ export interface TaxCalculatorInput {
     isBebasMeteraiPp3?: boolean;
     jenisTransisiMeterai?: 'transisi_3000_6000_9000' | 'pemungut_emeterai_pmk151';
     skemaPemungutNonObjek?: 'non_objek_pasal7' | 'pemungut_1000_pmk78' | 'nominal_sd_5jt';
+    jenisDokumenNonNominal?: 'perjanjian_akta_notaris' | 'surat_keterangan_pernyataan' | 'surat_biasa_non_perdata' | 'alat_bukti_pengadilan';
   };
 }
 

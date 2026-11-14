@@ -1,5 +1,6 @@
 import { TaxCalculatorInput, TaxRuleModule } from '../../types/tax';
 import { pph25Kep537_2000Rule } from './kep537_2000';
+import { pph25Kep537_2000TidakTeraturRule } from './kep537_2000_tidak_teratur';
 import { pph25Kmk522_2000OpptRule } from './kmk522_2000_oppt';
 import { pph25MpsUu8_1967Rule } from './mps_uu8_1967';
 import { pph25Pmk215_2018Rule } from './pmk215_2018';
@@ -22,6 +23,7 @@ export const PPH25_RULES: TaxRuleModule<TaxCalculatorInput['pph25']>[] = [
   pph25Pmk9_2021Rule,
   pph25Pmk23_2020Rule,
   pph25Kep537_2000Rule,
+  pph25Kep537_2000TidakTeraturRule,
   pph25Uu7_1983Rule,
   pph25MpsUu8_1967Rule,
   pph25Pp80_2008FlnRule,

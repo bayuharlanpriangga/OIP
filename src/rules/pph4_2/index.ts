@@ -8,6 +8,7 @@ import { pph42Pp27_2008SpnDheRule } from './pp27_2008_spn_dhe';
 import { pph4_2Pp29_1996Rule } from './pp29_1996';
 import { pph4_2Pp34_2016Rule } from './pp34_2016';
 import { pph42Pp34_2016PhtbKhususRule } from './pp34_2016_phtb_khusus';
+import { pph4_2SkbWarisHibahRule } from './pp34_2016_skb_waris_hibah';
 import { pph4_2Pp40_2016DireRule } from './pp40_2016_dire';
 import { pph4_2SahamPp41_1994Rule } from './pp41_1994_saham';
 import { pph4_2Pp4_1995VenturaRule } from './pp4_1995_ventura';
@@ -21,6 +22,7 @@ export const PPH4_2_RULES: TaxRuleModule<TaxCalculatorInput['pph4_2']>[] = [
   pph4_2Pp9_2022Rule,
   pph4_2Pp34_2016Rule,
   pph42Pp34_2016PhtbKhususRule,
+  pph4_2SkbWarisHibahRule,
   pph4_2DepositoPp131_2000Rule,
   pph4_2ObligasiPp91_2021Rule,
   pph42Pp27_2008SpnDheRule,

@@ -1459,4 +1459,79 @@ export const SRC = {
     url: 'https://jdih.pu.go.id/detail-dokumen/Keputusan-Bersama-Menteri-PU-Mendagri-Menteri-PKP-2024-Tiga-Juta-Rumah',
     publisher: 'JDIH Kementerian PU / PKP / Kemendagri',
   },
+  PMK_192_2018: {
+    title: 'PMK Nomor 192/PMK.03/2018 tentang Pelaksanaan Pengkreditan Pajak atas Penghasilan dari Luar Negeri (PPh Pasal 24)',
+    url: 'https://jdih.kemenkeu.go.id/dok/192-pmk-03-2018',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_164_2002: {
+    title: 'KMK Nomor 164/KMK.03/2002 tentang Kredit Pajak Luar Negeri',
+    url: 'https://jdih.kemenkeu.go.id/dok/164-kmk-03-2002',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_107_2017: {
+    title: 'PMK Nomor 107/PMK.03/2017 tentang Penetapan Saat Diperolehnya Dividen atas Penyertaan Modal pada BULN Non-Bursa (CFC Rules)',
+    url: 'https://jdih.kemenkeu.go.id/dok/107-pmk-03-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_93_2019: {
+    title: 'PMK Nomor 93/PMK.03/2019 tentang Perubahan atas PMK 107/PMK.03/2017 mengenai Deemed Dividend atas Penghasilan Pasif CFC',
+    url: 'https://jdih.kemenkeu.go.id/dok/93-pmk-03-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_172_2023: {
+    title: 'PMK Nomor 172 Tahun 2023 tentang Penerapan Prinsip Kewajaran dan Kelaziman Usaha dalam Transaksi Afiliasi (Transfer Pricing & TP Doc)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-172-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_213_2016: {
+    title: 'PMK Nomor 213/PMK.03/2016 tentang Jenis Dokumen Penentuan Harga Transfer (Master File, Local File, & CbCR)',
+    url: 'https://jdih.kemenkeu.go.id/dok/213-pmk-03-2016',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_186_2022: {
+    title: 'PMK Nomor 186/PMK.03/2022 tentang Pedoman Pengkreditan Pajak Masukan bagi PKP dengan Penyerahan Terutang & Tidak Terutang Pajak',
+    url: 'https://jdih.kemenkeu.go.id/dok/186-pmk-03-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_78_2010: {
+    title: 'PMK Nomor 78/PMK.03/2010 stdd PMK 135/PMK.011/2014 tentang Pedoman Penghitungan Pengkreditan Pajak Masukan Proporsional',
+    url: 'https://jdih.kemenkeu.go.id/dok/78-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_32_2019: {
+    title: 'PMK Nomor 32/PMK.010/2019 tentang Batasan Kegiatan dan Jenis JKP yang Atas Ekspornya Dikenai PPN Tarif 0%',
+    url: 'https://jdih.kemenkeu.go.id/dok/32-pmk-010-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_70_2010: {
+    title: 'PMK Nomor 70/PMK.03/2010 tentang Batasan Kegiatan dan Jenis Jasa Kena Pajak yang Atas Ekspornya Dikenai PPN',
+    url: 'https://jdih.kemenkeu.go.id/dok/70-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_41_2023: {
+    title: 'PMK Nomor 41 Tahun 2023 tentang Pajak Pertambahan Nilai atas Penyerahan Agunan yang Diambil Alih (AYDA) oleh Kreditur kepada Pembeli',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-41-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_75_2010: {
+    title: 'PMK Nomor 75/PMK.03/2010 tentang Nilai Lain Sebagai Dasar Pengenaan Pajak',
+    url: 'https://jdih.kemenkeu.go.id/dok/75-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_121_2015: {
+    title: 'PMK Nomor 121/PMK.03/2015 tentang Perubahan Ketiga atas PMK 75/PMK.03/2010 tentang Nilai Lain Sebagai DPP PPN',
+    url: 'https://jdih.kemenkeu.go.id/dok/121-pmk-03-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_65_2010: {
+    title: 'PMK Nomor 65/PMK.03/2010 tentang Tata Cara Pengurangan PPN/PPnBM atas BKP yang Dikembalikan dan PPN atas JKP yang Dibatalkan (Nota Retur)',
+    url: 'https://jdih.kemenkeu.go.id/dok/65-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_30_PJ_2009: {
+    title: 'PER-30/PJ/2009 tentang Tata Cara Pemberian Pengecualian (SKB) Pembayaran PPh atas Pengalihan Hak atas Tanah dan/atau Bangunan',
+    url: 'https://www.pajak.go.id/id/peraturan-direktur-jenderal-pajak-nomor-30pj2009',
+    publisher: 'Direktorat Jenderal Pajak',
+  },
 } satisfies Record<string, TaxSource>;

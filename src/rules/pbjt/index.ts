@@ -3,6 +3,7 @@ import { pbjtHkpd2022Rule } from './hkpd2022';
 import { pbjtHkpdOpsenRule } from './hkpd_opsen_pkb_bbnkb';
 import { pbjtHkpdDaerahLainRule } from './hkpd_pajak_daerah_lain';
 import { pbjtHkpdProvinsiOtotarifRule } from './hkpd_pkb_bbnkb_pbbkb_rokok';
+import { pbjtHkpdPkbProgresifOpsenMblbRule } from './hkpd_pkb_progresif_opsen_mblb';
 import { pbjtPdrd2009Rule } from './pdrd2009';
 import { pbjtPp35_2023DaerahRule } from './pp35_2023_daerah';
 import { pbjtUu11_1957Rule } from './uu11_1957';
@@ -13,6 +14,7 @@ export const PBJT_RULES: TaxRuleModule<TaxCalculatorInput['pbjt']>[] = [
   pbjtHkpd2022Rule,
   pbjtHkpdOpsenRule,
   pbjtHkpdProvinsiOtotarifRule,
+  pbjtHkpdPkbProgresifOpsenMblbRule,
   pbjtHkpdDaerahLainRule,
   pbjtPp35_2023DaerahRule,
   pbjtPdrd2009Rule,

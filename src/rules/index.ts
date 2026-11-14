@@ -142,6 +142,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     isEligibleIknPmk28: true,
     jumlahBulanKerja: 6,
     skemaTengahTahun: 'lokal_berhenti_tidak_setahun',
+    gajiPemberiKerja2: 0,
   },
   pph22: {
     nilaiDasar: 0,
@@ -163,6 +164,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     fintechRecipientType: 'wpdn_but',
     isSuketUmkm: true,
     isPengecualianPasal23_4: false,
+    nilaiReimbursement: 0,
+    isPembuktianFakturTerpisah: true,
   },
   pph4_2: {
     nilaiBruto: 0,
@@ -181,6 +184,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     nilaiBukuFiskal: 0,
     skemaRevaluasi: 'reguler_10_pmk79',
     skemaTaPps: 'pps_k2_14',
+    skemaSkbPhtb: 'waris',
   },
   pph_umkm: {
     omzetBulanan: 0,
@@ -206,6 +210,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     labaTriwulanAtauRkap: 0,
     flnEra1994: 'pp17_1998',
     skemaWpBaruTransisi: 'wp_baru_umum',
+    penghasilanTidakTeraturNeto: 0,
   },
   pph26: {
     nilaiBruto: 0,
@@ -239,6 +244,18 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     koreksiPositifNonDeductible: 0,
     koreksiNegatif: 0,
     kompensasiKerugianFiskal: 0,
+    penghasilanLuarNegeri: 0,
+    rugiLuarNegeri: 0,
+    pphDibayarLuarNegeri: 0,
+    persenKepemilikanCfc: 60,
+    penghasilanPasifNetoCfc: 0,
+    labaAktifUsahaCfc: 0,
+    eraCfc: 'pmk93_2019',
+    nilaiAfiliasiBarang: 0,
+    nilaiAfiliasiJasaLain: 0,
+    omzetGrupKonsolidasi: 0,
+    koreksiKewajaranTp: 0,
+    isRepatriasiTpBeforeSkp: false,
   },
   ppn: {
     hargaJualDpp: 0,
@@ -256,6 +273,15 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     skemaKekRefund: 'kek_tidak_dipungut_pp40',
     skemaWapu81: 'bumn_pmk8_diatas_10jt',
     statusPkpJln: 'pkp_dapat_kredit',
+    skemaPasal16d: 'aktiva_pm_dapat_kredit',
+    persenZEstimasi: 70,
+    persenZRealisasi: 85,
+    masaManfaatPpn: 4,
+    jenisEksporJkp: 'maklon_desain_it',
+    isMemenuhiSyaratEksporJkp: true,
+    skemaAyda: 'jual_ayda_pembeli',
+    skemaNilaiLainRetur: 'pemakaian_cuma_cuma',
+    persenLabaKotor: 20,
   },
   ppnbm: {
     hargaJual: 0,
@@ -287,6 +313,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     jenisOpsenHkpd: 'opsen_pkb_66',
     jenisPajakDaerahLain: 'reklame_25',
     jenisPajakProvinsiHkpd: 'pkb_non_dki',
+    skemaProgresifMblb: 'pkb_progresif_non_dki',
+    tingkatKepemilikanPkb: 2,
   },
   bea_meterai: {
     nilaiDokumen: 0,
@@ -295,6 +323,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     isBebasMeteraiPp3: true,
     jenisTransisiMeterai: 'transisi_3000_6000_9000',
     skemaPemungutNonObjek: 'non_objek_pasal7',
+    jenisDokumenNonNominal: 'perjanjian_akta_notaris',
   },
 };
 
