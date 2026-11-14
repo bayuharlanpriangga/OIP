@@ -4,11 +4,13 @@ import { pph15Kmk416_1996Rule } from './kmk416_1996';
 import { pph15Kmk543_2002MaklonRule } from './kmk543_2002_maklon';
 import { pph15Kmk628_1991MigasRule } from './kmk628_1991_migas';
 import { pph15Kmk634_1994KpdRule } from './kmk634_1994_kpd';
+import { pph15Pmk112_2025ResiprokalRule } from './pmk112_2025_resiprokal';
 
 export const PPH15_RULES: TaxRuleModule<TaxCalculatorInput['pph15']>[] = [
   pph15Kmk416_1996Rule,
   pph15Kmk634_1994KpdRule,
   pph15Kmk543_2002MaklonRule,
   pph15Kmk628_1991MigasRule,
+  pph15Pmk112_2025ResiprokalRule,
   pph15Kmk181_1995Rule,
 ];

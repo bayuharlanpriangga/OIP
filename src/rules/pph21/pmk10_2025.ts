@@ -20,9 +20,9 @@ const regime: TaxRegime = {
   name: 'PMK 10/2025 jo. PMK 72/2025 (PPh 21 DTP 2025)',
   shortName: '2025 (DTP Padat Karya PMK 10/2025)',
   legalBasis: 'PMK Nomor 10 Tahun 2025 jo. PMK Nomor 72 Tahun 2025',
-  effectivePeriod: 'Januari 2025 – Desember 2025',
-  isCurrent: true,
-  currentScopeLabel: 'Insentif DTP 2025 — Sektor padat karya & pariwisata (≤ Rp 10 jt)',
+  effectivePeriod: 'Januari 2025 – Desember 2025 (Dilanjutkan PMK 105/2025 di TA 2026)',
+  isCurrent: false,
+  currentScopeLabel: 'Stimulus 2025 — Sektor padat karya & pariwisata (≤ Rp 10 jt)',
   summary:
     'Insentif stimulus ekonomi 2025: PPh Pasal 21 ditanggung pemerintah (DTP) 100% bagi pekerja sektor alas kaki, tekstil/pakaian jadi, furnitur, kulit, dan pariwisata (PMK 72/2025) dengan penghasilan bruto tetap dan teratur ≤ Rp 10.000.000/bulan.',
   sources,

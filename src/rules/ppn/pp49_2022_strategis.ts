@@ -46,7 +46,7 @@ const article: TaxArticle = {
     {
       heading: 'Kewajiban Pemungut PPN (WAPU) Instansi Pemerintah di PMK 59/2022',
       paragraphs: [
-        'Dalam transaksi pengadaan barang/jasa kepada Bendahara/Instansi Pemerintah, apabila nilai pembayaran termasuk PPN paling banyak Rp 2.000.000 (atau DPP <= Rp 2 juta sesuai mekanisme verifikasi PMK 59/2022), PPN tidak dipungut oleh instansi pemerintah melainkan tetap dipungut dan disetor oleh PKP rekanan. Bila melebihi ambang Rp 2.000.000, Instansi Pemerintah bertindak sebagai WAPU yang memotong/menyetor langsung PPN efektif 11% atas nama rekanan.',
+        'Dalam transaksi pengadaan barang/jasa kepada Bendahara/Instansi Pemerintah, Pasal 18 ayat (1) huruf a PMK 59/PMK.03/2022 menetapkan bahwa apabila jumlah pembayaran paling banyak Rp 2.000.000 TIDAK termasuk PPN dan/atau PPnBM (serta bukan merupakan pembayaran yang dipecah-pecah), PPN tidak dipungut oleh instansi pemerintah melainkan tetap dipungut dan disetor oleh PKP rekanan (Kode Faktur 01). Bila nilai DPP melebihi Rp 2.000.000, Instansi Pemerintah bertindak sebagai WAPU yang memungut dan menyetor langsung PPN efektif 11% atas nama rekanan (Kode Faktur 02).',
       ],
     },
   ],
@@ -96,14 +96,27 @@ export const ppnPp49_2022StrategisRule: TaxRuleModule<TaxCalculatorInput['ppn']>
     const ppnAmount = isFacilityZero ? 0 : Math.round(dpp * 0.11);
     const total = dpp + ppnAmount;
 
+    const isWapuDiatas =
+      skema === 'wapu_diatas_2jt' ? dpp === 0 || dpp > 2000000 : dpp > 2000000;
     const collectorDesc =
       skema === 'bkp_jkp_dibebaskan_pp49'
         ? 'PPN Dibebaskan (Kode Faktur 08) — Tarif 0%, Pajak Masukan tidak dapat dikreditkan'
         : skema === 'tidak_dipungut_kawasan'
         ? 'PPN Tidak Dipungut (Kode Faktur 07) — Tarif 0%, Pajak Masukan DAPAT dikreditkan'
-        : dpp > 2000000 || skema === 'wapu_diatas_2jt'
-        ? 'Dipungut oleh Instansi Pemerintah / WAPU (Kode Faktur 02, nilai > Rp 2 juta)'
-        : 'Dipungut & Disetor sendiri oleh PKP Rekanan (Kode 01, nilai <= Rp 2 juta)';
+        : isWapuDiatas
+        ? 'Dipungut oleh Instansi Pemerintah / WAPU (Kode Faktur 02, nilai DPP > Rp 2 juta)'
+        : 'Dipungut & Disetor sendiri oleh PKP Rekanan (Kode 01, nilai DPP <= Rp 2 juta)';
+
+    const notes: string[] = [collectorDesc];
+    if (skema === 'wapu_dibawah_2jt' && dpp > 2000000) {
+      notes.push(
+        'Peringatan: Nilai penyerahan (tidak termasuk PPN) melampaui batas Rp 2.000.000, sehingga sesuai Pasal 18 PMK 59/2022 kewajiban pungut PPN otomatis beralih kepada Instansi Pemerintah (Kode 02).'
+      );
+    } else if (skema === 'wapu_diatas_2jt' && dpp > 0 && dpp <= 2000000) {
+      notes.push(
+        'Peringatan: Nilai penyerahan paling banyak Rp 2.000.000 (tidak termasuk PPN), sehingga sesuai Pasal 18 PMK 59/2022 PPN dipungut dan disetor sendiri oleh PKP Rekanan (Kode 01) kecuali merupakan pembayaran terpecah.'
+      );
+    }
 
     const steps: CalculationStep[] = [
       { label: 'Nilai penyerahan BKP/JKP (DPP)', value: dpp },
@@ -125,7 +138,7 @@ export const ppnPp49_2022StrategisRule: TaxRuleModule<TaxCalculatorInput['ppn']>
       takeHomeOrNetLabel: 'Total Nilai Transaksi',
       takeHomeOrNetAmount: total,
       steps,
-      notes: [collectorDesc],
+      notes,
     };
   },
 };

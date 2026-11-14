@@ -12,7 +12,7 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Tarif tunggal 22% (19% untuk Perseroan Terbuka dengan kepemilikan publik >= 40%) dan fasilitas pengurangan tarif 50% Pasal 31E (tarif efektif 11%).',
-  sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG, SRC.UU_36_2008],
+  sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG, SRC.UU_36_2008, SRC.PMK_81_2024],
   verifiedAt: '14 November 2026',
 };
 
@@ -39,6 +39,12 @@ const article: TaxArticle = {
       paragraphs: [
         'Wajib Pajak Badan dalam negeri dengan peredaran bruto sampai Rp 50 miliar memperoleh pengurangan tarif sebesar 50% atas Penghasilan Kena Pajak (PKP) yang merupakan bagian dari peredaran bruto hingga Rp 4,8 miliar.',
         'Bila omzet <= Rp 4,8 miliar, seluruh PKP dikenai tarif efektif 11% (50% × 22%). Bila omzet antara Rp 4,8 miliar hingga Rp 50 miliar, bagian PKP yang mendapat fasilitas dihitung dengan rumus (Rp 4,8 miliar ÷ Peredaran Bruto) × PKP, sedangkan sisanya dikenai tarif normal 22%.',
+      ],
+    },
+    {
+      heading: 'Penyelarasan administrasi Coretax mulai 2025 (PMK 81/2024)',
+      paragraphs: [
+        'Mulai Tahun Pajak 2025, pelaporan SPT Tahunan PPh Badan dan pengkreditan bukti potong PPh Pasal 22/23 dari lawan transaksi terintegrasi otomatis melalui sistem Coretax (PMK Nomor 81 Tahun 2024) menggunakan NPWP 16 digit atau NIK terpadan, tanpa mengubah besaran tarif 22%/19% maupun rumus fasilitas Pasal 31E UU HPP.',
       ],
     },
   ],

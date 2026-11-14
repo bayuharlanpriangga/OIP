@@ -16,11 +16,10 @@ const regime: TaxRegime = {
   name: 'PMK 12/2025 jo. PMK 9/2024 (PPnBM DTP Hybrid 3% & EV KBLBB)',
   shortName: '2024–2025 (DTP Hybrid 3% & EV)',
   legalBasis: 'PMK Nomor 12 Tahun 2025 & PMK Nomor 9 Tahun 2024 jo. PP 74/2021',
-  effectivePeriod: 'Januari 2024 – 31 Desember 2025',
-  isCurrent: true,
-  currentScopeLabel: 'Insentif 2025 — PPnBM DTP Hybrid 3% & Pembebasan KBLBB',
+  effectivePeriod: '1 Januari 2024 – 31 Desember 2025 (Stimulus Berakhir 31 Des 2025)',
+  isCurrent: false,
   summary:
-    'Insentif pajak otomotif elektrifikasi terkini: (1) PPnBM Ditanggung Pemerintah sebesar 3% untuk kendaraan bermotor roda empat Low Carbon Emission Vehicle (Hybrid / Mild Hybrid / Plug-in Hybrid) di dalam PMK 12/2025 — memangkas beban efektif Full Hybrid PP 74/2021 dari 6% menjadi 3%; dan (2) Pembebasan PPnBM 100% (0%) atas impor CBU/CKD kendaraan listrik baterai (KBLBB/BEV) dengan komitmen TKDN (PMK 9/2024 jo. PMK 12/2025).',
+    'Insentif pajak otomotif elektrifikasi TA 2024–2025 (berakhir 31 Desember 2025): (1) PPnBM Ditanggung Pemerintah sebesar 3% untuk kendaraan bermotor roda empat Low Carbon Emission Vehicle (Hybrid / Mild Hybrid / Plug-in Hybrid) di dalam PMK 12/2025 — memangkas beban efektif Full Hybrid PP 74/2021 dari 6% menjadi 3%; dan (2) Pembebasan PPnBM 100% (0%) atas impor CBU/CKD kendaraan listrik baterai (KBLBB/BEV) dengan komitmen TKDN (PMK 9/2024 jo. PMK 12/2025).',
   sources,
   verifiedAt: '14 November 2026',
 };

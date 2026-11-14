@@ -8,7 +8,7 @@ import {
 import { formatPersen, formatRupiah } from '../../utils/formatters';
 import { SRC } from '../sources';
 
-const sources = [SRC.PMK_48_2023, SRC.PMK_51_2025, SRC.PMK_41_2022];
+const sources = [SRC.PMK_48_2023, SRC.PMK_51_2025, SRC.PMK_11_2025, SRC.PMK_41_2022];
 
 const regime: TaxRegime = {
   id: 'pph22_pmk48_2023_emas',
@@ -116,6 +116,16 @@ export const pph22Pmk48_2023EmasRule: TaxRuleModule<TaxCalculatorInput['pph22']>
         pph22Rate: 0.25,
         ppnRate: 1.1,
       },
+      pedagang_punya_fp_konsumen: {
+        label: 'Pedagang emas (punya Faktur Pajak perolehan) -> Konsumen Akhir (PPh 22 0% + PPN 1,1%)',
+        pph22Rate: 0,
+        ppnRate: 1.1,
+      },
+      pedagang_tanpa_fp_usaha: {
+        label: 'Pedagang emas (tanpa Faktur Pajak perolehan) -> Pelaku Usaha (PPh 22 0,25% + PPN 1,65%)',
+        pph22Rate: 0.25,
+        ppnRate: 1.65,
+      },
       pedagang_tanpa_fp: {
         label: 'Pedagang emas (tanpa Faktur Pajak perolehan) -> Konsumen Akhir (PPh 22 0% + PPN 1,65%)',
         pph22Rate: 0,
@@ -164,7 +174,7 @@ export const pph22Pmk48_2023EmasRule: TaxRuleModule<TaxCalculatorInput['pph22']>
       steps,
       notes: [
         'PPh Pasal 22 sebesar 0,25% bersifat tidak final (kredit pajak pembeli) dan dibebaskan apabila penjualan dilakukan kepada konsumen akhir atau pembeli pemegang SKB/UMKM.',
-        'Atas PPN Besaran Tertentu 1,1% atau 1,65% emas perhiasan, Pajak Masukan perolehan tidak dapat dikreditkan.',
+        'Sesuai PMK 48/2023 jo. PMK 11/2025, PPN Besaran Tertentu emas perhiasan tetap efektif 1,1% (10% x 11/12 x 12%) atau 1,65% (15% x 11/12 x 12%) dan Pajak Masukan perolehan tidak dapat dikreditkan.',
       ],
     };
   },

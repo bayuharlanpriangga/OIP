@@ -113,7 +113,7 @@ export const pph21Pmk168_2023NonPegawaiRule: TaxRuleModule<TaxCalculatorInput['p
         formula = `${formatRupiah(bruto)} x 0,5% (TER Harian PP 58/2023)`;
       } else {
         const dpp50 = Math.round(bruto * 0.5);
-        const res = computeProgressivePph21(dpp50, 'hpp2022', input.hasNpwp);
+        const res = computeProgressivePph21(dpp50, 'hpp', input.hasNpwp);
         tax = res.tax;
         formula = `Bruto > Rp 2,5 jt/hari -> 50% x Bruto (${formatRupiah(dpp50)}) x Pasal 17 (${res.breakdown})`;
       }
@@ -148,7 +148,7 @@ export const pph21Pmk168_2023NonPegawaiRule: TaxRuleModule<TaxCalculatorInput['p
     }
 
     const dpp50 = Math.floor((bruto * 0.5) / 1000) * 1000;
-    const { tax, breakdown } = computeProgressivePph21(dpp50, 'hpp2022', input.hasNpwp);
+    const { tax, breakdown } = computeProgressivePph21(dpp50, 'hpp', input.hasNpwp);
     const netReceived = Math.max(0, bruto - tax);
     const effRate = bruto > 0 ? (tax / bruto) * 100 : 0;
 

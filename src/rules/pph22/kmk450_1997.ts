@@ -86,6 +86,18 @@ function getKmk450Rate(objectType: Pph22ObjectType): { rate: number; label: stri
         label: 'Pembelian oleh Bendaharawan Pemerintah / BUMN tertentu (1,5%)',
         exemptLimit: 500000,
       };
+    case 'ekspor_tambang_1_5':
+      return {
+        rate: 0,
+        label: 'PPh 22 ekspor komoditas tambang 1,5% belum ada pada era 1995–2001',
+        exemptLimit: 0,
+      };
+    case 'pengumpul_kehutanan_perkebunan_0_25':
+      return {
+        rate: 0,
+        label: 'PPh 22 pedagang pengumpul 0,25% belum ada pada era 1995–2001',
+        exemptLimit: 0,
+      };
     case 'bulion_emas':
       return {
         rate: 0,

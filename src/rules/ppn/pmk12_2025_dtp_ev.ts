@@ -16,11 +16,10 @@ const regime: TaxRegime = {
   name: 'PMK 12/2025 jo. PMK 8/2024 (PPN DTP Kendaraan Listrik Berbasis Baterai / KBLBB)',
   shortName: '2024–2025 (PPN DTP Mobil/Bus Listrik)',
   legalBasis: 'PMK Nomor 12 Tahun 2025 jo. PMK Nomor 8 Tahun 2024',
-  effectivePeriod: '1 Januari 2025 – 31 Desember 2025',
-  isCurrent: true,
-  currentScopeLabel: 'Berlaku 2025 — KBLBB Roda 4 TKDN >= 40% (bayar 2%) & Bus TKDN >= 20% (bayar 7%)',
+  effectivePeriod: '1 Januari 2024 – 31 Desember 2025 (Stimulus Berakhir 31 Des 2025)',
+  isCurrent: false,
   summary:
-    'Insentif PPN DTP Kendaraan Listrik (KBLBB) Tahun Anggaran 2025 dalam PMK 12/2025: mobil listrik & bus dengan TKDN >= 40% mendapat DTP 10% dari tarif PPN 12% (pembeli bayar 2%), sedangkan bus TKDN 20%–<40% mendapat DTP 5% (pembeli bayar 7%).',
+    'Insentif PPN DTP Kendaraan Listrik (KBLBB) Tahun Anggaran 2025 dalam PMK 12/2025 (berakhir 31 Desember 2025): mobil listrik & bus dengan TKDN >= 40% mendapat DTP 10% dari tarif PPN 12% (pembeli bayar 2%), sedangkan bus TKDN 20%–<40% mendapat DTP 5% (pembeli bayar 7%).',
   sources,
   verifiedAt: '14 November 2026',
 };

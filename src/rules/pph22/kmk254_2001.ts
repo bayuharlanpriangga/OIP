@@ -104,6 +104,18 @@ function getKmk254Rate(objectType: Pph22ObjectType): { rate: number; label: stri
         label: 'Pembayaran oleh Bendaharawan Pemerintah / BUMN tertentu (1,5%)',
         exemptLimit: 1000000,
       };
+    case 'ekspor_tambang_1_5':
+      return {
+        rate: 0,
+        label: 'PPh 22 ekspor komoditas tambang 1,5% belum berlaku di era KMK 254/2001 (baru mulai PMK 107/2015)',
+        exemptLimit: 0,
+      };
+    case 'pengumpul_kehutanan_perkebunan_0_25':
+      return {
+        rate: 0,
+        label: 'PPh 22 pedagang pengumpul 0,25% belum berlaku di era KMK 254/2001 (baru mulai era PMK 154/2010 jo. PMK 16/2016)',
+        exemptLimit: 0,
+      };
     case 'bulion_emas':
       return {
         rate: 0,

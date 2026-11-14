@@ -103,6 +103,18 @@ function getOldPph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
         label: 'Pembelian oleh Bendaharawan Pemerintah / DJPB (1,5%)',
         exemptLimit: 2000000,
       };
+    case 'ekspor_tambang_1_5':
+      return {
+        rate: 1.5,
+        label: 'Ekspor komoditas batubara, mineral logam, & bukan logam (1,5% sejak PMK 107/2015)',
+        exemptLimit: 0,
+      };
+    case 'pengumpul_kehutanan_perkebunan_0_25':
+      return {
+        rate: 0.25,
+        label: 'Pembelian hasil kehutanan, perkebunan, pertanian, & perikanan dari pedagang pengumpul (0,25% — PMK 16/2016)',
+        exemptLimit: 0,
+      };
     case 'bulion_emas':
       return {
         rate: 0.45,

@@ -8,11 +8,13 @@ import { pph23Pmk141_2015Rule } from './pmk141_2015';
 import { pph23Pmk244_2009Rule } from './pmk244_2009';
 import { pph23Pmk69_2022FintechRule } from './pmk69_2022_fintech';
 import { pph23Pmk81_2024Rule } from './pmk81_2024_coretax';
+import { pph23SuketPengecualianRule } from './pp55_2022_suket_pengecualian';
 import { pph23Uu7_1983Rule } from './uu7_1983';
 
 export const PPH23_RULES: TaxRuleModule<TaxCalculatorInput['pph23']>[] = [
   pph23Pmk81_2024Rule,
   pph23Pmk141_2015Rule,
+  pph23SuketPengecualianRule,
   pph23Pmk69_2022FintechRule,
   pph23Pmk244_2009Rule,
   pph23Per70_2007Rule,

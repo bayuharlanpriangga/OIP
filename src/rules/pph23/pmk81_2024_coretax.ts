@@ -94,9 +94,10 @@ export const pph23Pmk81_2024Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {
   article,
   calculate(input) {
     const bruto = Math.max(0, input.nilaiBruto);
-    const is15Percent = input.objectType === 'royalti' || input.objectType === 'dividen_badan';
-    const baseRate = is15Percent ? 15 : 2;
-    const rate = input.hasNpwp ? baseRate : baseRate * 2;
+    const isExemptDividend = input.objectType === 'dividen_badan';
+    const is15Percent = input.objectType === 'royalti';
+    const baseRate = isExemptDividend ? 0 : is15Percent ? 15 : 2;
+    const rate = isExemptDividend ? 0 : input.hasNpwp ? baseRate : baseRate * 2;
     const tax = Math.round((bruto * rate) / 100);
     const netReceived = Math.max(0, bruto - tax);
 
@@ -104,9 +105,11 @@ export const pph23Pmk81_2024Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {
       { label: `Penghasilan bruto (${getPph23Label(input.objectType)})`, value: bruto },
       {
         label: 'Tarif PPh 23 Era Coretax',
-        formula: input.hasNpwp
-          ? `Tarif normal Pasal 23 (${formatPersen(baseRate)})`
-          : `Tarif +100% tanpa NPWP/NIK valid (${formatPersen(baseRate)} x 2)`,
+        formula: isExemptDividend
+          ? 'Dikecualikan dari objek PPh 23 (0% sesuai UU HPP / UU Cipta Kerja)'
+          : input.hasNpwp
+            ? `Tarif normal Pasal 23 (${formatPersen(baseRate)})`
+            : `Tarif +100% tanpa NPWP/NIK valid (${formatPersen(baseRate)} x 2)`,
         value: rate,
         format: 'percent',
       },
@@ -129,8 +132,8 @@ export const pph23Pmk81_2024Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {
       steps,
       notes: [
         'Di era PMK 81/2024, batas penyetoran PPh Pasal 23 diseragamkan menjadi tanggal 15 bulan berikutnya dan pelaporan melalui SPT Masa Unifikasi Coretax paling lambat tanggal 20.',
-        is15Percent && input.objectType === 'dividen_badan'
-          ? 'Dividen yang diterima PT/Badan Dalam Negeri dikecualikan dari pemotongan PPh 23 (0%) sejak UU Cipta Kerja/UU HPP tanpa syarat kepemilikan minimum 25%.'
+        isExemptDividend
+          ? 'Dividen yang diterima PT/Badan Dalam Negeri dikecualikan dari objek PPh (0%, tidak dipotong PPh 23) sejak UU Cipta Kerja/UU HPP tanpa syarat kepemilikan minimum 25%.'
           : 'Pastikan NIK atau NPWP 16 digit rekanan tervalidasi pada sistem Coretax untuk menghindari pemotongan tarif ganda.',
       ],
     };

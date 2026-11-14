@@ -114,6 +114,18 @@ function getPmk81Rate(objectType: Pph22ObjectType): {
         label: 'Belanja Instansi Pemerintah / Bendahara / BUMN (1,5%)',
         exemptLimit: 2000000,
       };
+    case 'ekspor_tambang_1_5':
+      return {
+        rate: 1.5,
+        label: 'Ekspor komoditas pertambangan batubara, mineral logam, & bukan logam (1,5% — PMK 81/2024)',
+        exemptLimit: 0,
+      };
+    case 'pengumpul_kehutanan_perkebunan_0_25':
+      return {
+        rate: 0.25,
+        label: 'Pembelian hasil kehutanan, perkebunan, pertanian, peternakan, & perikanan dari pedagang pengumpul (0,25%)',
+        exemptLimit: 0,
+      };
     case 'bulion_emas':
       return {
         rate: 0.25,

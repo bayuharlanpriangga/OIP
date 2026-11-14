@@ -135,6 +135,10 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     honorariumBukanPegawai: 0,
     bukanPegawaiBerkesinambungan: false,
     skemaNonPegawai: 'bukan_pegawai_pmk168',
+    bulanBayarBonus: 'jan_nov',
+    pmk168KhususType: 'dewan_komisaris',
+    wnaTahunKe: 1,
+    tahunPesangonLama: 'kmk462_1998',
   },
   pph22: {
     nilaiDasar: 0,
@@ -153,6 +157,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     objectType: 'jasa_konsultan',
     hasNpwp: true,
     fintechRecipientType: 'wpdn_but',
+    isSuketUmkm: true,
+    isPengecualianPasal23_4: false,
   },
   pph4_2: {
     nilaiBruto: 0,
@@ -166,6 +172,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     undianAtauKoperasi: 'hadiah_undian',
     skemaPhtbKhusus: 'rumah_sederhana_1',
     skemaSpnDhe: 'diskonto_spn_20',
+    skemaPph42Historis: 'deposito_15_pp51_1994',
+    skemaDireVentura: 'kik_dire_0_5',
   },
   pph_umkm: {
     omzetBulanan: 0,
@@ -175,6 +183,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     isFreeProfession: false,
     omzetTerkaitSebelumnya: 0,
     nppnPersen: 50,
+    marginLabaPersen: 10,
   },
   pph25: {
     pphTerutangTahunLalu: 0,
@@ -185,6 +194,9 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     flnTransport: 'udara',
     isKondisiTurun25: false,
     estimasiPphSetahunBaru: 0,
+    skemaWpTertentu: 'bank_ojk',
+    labaTriwulanAtauRkap: 0,
+    flnEra1994: 'pp17_1998',
   },
   pph26: {
     nilaiBruto: 0,
@@ -192,10 +204,14 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     hasSkdP3b: false,
     tarifP3bPersen: 10,
     isBptReinvested: false,
+    skemaButPpt: 'beneficial_owner_valid',
+    nilaiPenyerahanJasaBut: 0,
+    hariDiIndonesia: 75,
   },
   pph15: {
     peredaranBruto: 0,
     sectorType: 'pelayaran_dn',
+    hasSkdP3bArticle8: true,
   },
   pph_badan: {
     peredaranBrutoTahunan: 0,
@@ -205,6 +221,11 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     tbkEra: 'pp30_2020',
     skemaInsentif: 'tax_holiday_100',
     nilaiInvestasiAtauRnd: 500000000000,
+    utangBerbunga: 0,
+    ekuitasFiskal: 0,
+    kelompokHartaPenyusutan: 'kel_2_8thn',
+    skemaEkstraktif: 'batubara_iupk_pp15_18',
+    skemaIknPfii: 'ikn_tax_holiday_100',
   },
   ppn: {
     hargaJualDpp: 0,
@@ -213,15 +234,19 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     besaranTertentuType: 'kms_2_2',
     pmseChannel: 'pmse_jasa_digital',
     eraPkp: 'pmk197_2013',
-    periodePropertiDtp: 'jan_jun_2025_100',
+    periodePropertiDtp: 'ta_2026_100_pmk90',
+    periodeTiketDtp: 'pmk77_nataru_2026',
     skemaEvDtp: 'kblbb_tkdn40_pmk12_2025',
     skemaStrategis: 'bkp_jkp_dibebaskan_pp49',
     eraPkpLama: 'kmk571_2003',
+    skemaKmsLama: 'pmk163_2012_2persen',
+    skemaKekRefund: 'kek_tidak_dipungut_pp40',
   },
   ppnbm: {
     hargaJual: 0,
     categoryType: 'sedan_suv_menengah',
     dtpDiscountPersen: 100,
+    isPembebasanPmk141: true,
   },
   pbb: {
     njopBumi: 0,
@@ -229,22 +254,27 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     njoptkpPilihan: 10000000,
     tierRate: 'menengah',
     sektorPp46: 'perkebunan_kehutanan',
+    sektorP3Lama: 'migas_panas_bumi_pmk76',
   },
   bphtb: {
     hargaTransaksi: 0,
     njopObjek: 0,
     acquisitionType: 'jual_beli_pertama',
     isRumahMbr: false,
+    tingkatPenguranganBphtb: 'pengurangan_50',
   },
   pbjt: {
     nilaiTransaksi: 0,
     sectorType: 'makanan_minuman',
+    jenisOpsenHkpd: 'opsen_pkb_66',
+    jenisPajakDaerahLain: 'reklame_25',
   },
   bea_meterai: {
     nilaiDokumen: 0,
     jumlahDokumen: 0,
     isPemeteraianKemudian: false,
     isBebasMeteraiPp3: true,
+    jenisTransisiMeterai: 'transisi_3000_6000_9000',
   },
 };
 

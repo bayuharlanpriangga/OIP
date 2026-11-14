@@ -16,7 +16,7 @@ const regime: TaxRegime = {
   name: 'PP 42/2000 (Fiskal Luar Negeri Rp 1 Jt / Rp 500 Rb — Era 2000–2008)',
   shortName: '2000–2008 (Fiskal LN PP 42/2000)',
   legalBasis: 'PP Nomor 42 Tahun 2000 jo. PP Nomor 41 Tahun 2001 & Pasal 25 ayat (8) UU PPh',
-  effectivePeriod: '1 Juli 2000 – 31 Desember 2008',
+  effectivePeriod: '23 Juni 2000 – 31 Desember 2008',
   isCurrent: false,
   summary:
     'Ketentuan Fiskal Luar Negeri (exit tax sebagai angsuran PPh 25 ayat 8) sebelum era PP 80/2008: seluruh pelancong ke luar negeri (tanpa pengecualian NPWP) dikenai Rp 1.000.000 per keberangkatan pesawat udara dan Rp 500.000 per kapal laut.',
@@ -30,7 +30,7 @@ const article: TaxArticle = {
   taxTypeLabel: 'PPh Pasal 25',
   title: 'Fiskal Luar Negeri Era PP 42/2000 (Rp 1 Juta / Rp 500 Ribu) Sebelum Bebas NPWP 2009',
   legalBasis: 'PP Nomor 42 Tahun 2000 jo. PP Nomor 41 Tahun 2001',
-  effectiveDate: '1 Juli 2000 – 31 Desember 2008',
+  effectiveDate: '23 Juni 2000 – 31 Desember 2008',
   readMinutes: 4,
   summary:
     'Mengulas perbedaan krusial Fiskal Luar Negeri era PP 42/2000 (Rp 1 juta pesawat & Rp 500 ribu kapal laut tanpa pembebasan bagi pemilik NPWP) dibanding PP 80/2008 yang membebaskan pemegang NPWP.',

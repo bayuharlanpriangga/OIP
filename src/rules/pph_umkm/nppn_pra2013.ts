@@ -38,10 +38,10 @@ const article: TaxArticle = {
     'Sebelum PP 46/2013 hadir pada Juli 2013, seluruh pedagang dan pengusaha kecil Orang Pribadi memakai pembukuan atau Norma Penghitungan Penghasilan Neto (NPPN); hingga kini NPPN tetap menjadi jalur resmi bagi profesi pekerjaan bebas dan WP OP yang memilih tarif progresif.',
   sections: [
     {
-      heading: 'Cara kerja NPPN dan pergeseran persentase dari KEP-536/2000 ke PER-17/2015',
+      heading: 'Cara kerja NPPN, pemberitahuan 3 bulan awal, & varian norma kota PER-17/PJ/2015',
       paragraphs: [
-        'Berdasarkan Pasal 14 UU PPh, Wajib Pajak Orang Pribadi beromzet di bawah Rp 4,8 miliar dalam setahun (yang memberitahukan penggunaan NPPN dalam 3 bulan pertama tahun pajak) cukup menyelenggarakan pencatatan omzet bruto tanpa pembukuan neraca/laba rugi penuh.',
-        'Pada era KEP-536/PJ./2000 (sebelum PP 46/2013), pedagang eceran kecil rata-rata memakai norma 20%–30% sedangkan profesi jasa menggunakan 40%–55%. Setelah diperbarui lewat PER-17/PJ/2015 untuk pekerjaan bebas dan WP OP yang dikecualikan dari PPh Final UMKM (dokter, konsultan, arsitek, notaris, seniman, kreator konten), mayoritas pekerjaan bebas menggunakan norma sekitar 50% (di ibu kota provinsi maupun kota lain) sebelum dikurangi PTKP Rp 54 juta dan dikali tarif Pasal 17.',
+        'Berdasarkan Pasal 14 UU PPh jo. PER-17/PJ/2015, Wajib Pajak Orang Pribadi beromzet di bawah Rp 4,8 miliar dalam setahun yang ingin menggunakan NPPN wajib menyampaikan pemberitahuan penggunaan NPPN kepada DJP paling lambat 3 bulan pertama dari tahun pajak yang bersangkutan (atau lewat fitur Coretax); bila terlambat, dianggap memilih pembukuan.',
+        'Pada era KEP-536/PJ./2000 (sebelum PP 46/2013), pedagang eceran kecil rata-rata memakai norma 20%–30% sedangkan profesi jasa menggunakan 40%–55%. Setelah diselaraskan dalam PER-17/PJ/2015, persentase norma dikelompokkan berdasarkan 10 ibu kota provinsi, ibu kota provinsi lainnya, dan daerah lainnya (misalnya jasa dokter/pengacara/konsultan/akuntan sebesar 50%, perdagangan eceran makanan/minuman ~20%–25%, dan industri pakaian/kulit ~12,5%–20%) sebelum dikurangi PTKP dan dikali tarif progresif Pasal 17.',
       ],
     },
   ],

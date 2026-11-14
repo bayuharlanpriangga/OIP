@@ -83,6 +83,16 @@ function getUu7Pph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
         rate: 1.5,
         label: 'Pembayaran dari APBN/APBD oleh Bendaharawan (1,5% — KMK 382/KMK.04/1989)',
       };
+    case 'ekspor_tambang_1_5':
+      return {
+        rate: 0,
+        label: 'PPh 22 ekspor tambang 1,5% belum ada pada era UU 7/1983',
+      };
+    case 'pengumpul_kehutanan_perkebunan_0_25':
+      return {
+        rate: 0,
+        label: 'PPh 22 pedagang pengumpul 0,25% belum ada pada era UU 7/1983',
+      };
     case 'bulion_emas':
       return {
         rate: 0,

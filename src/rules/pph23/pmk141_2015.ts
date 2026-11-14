@@ -1,5 +1,20 @@
-import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
+import { CalculationStep, Pph23ObjectType, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { SRC } from '../sources';
+
+export function getPph23Label(objectType: Pph23ObjectType): string {
+  switch (objectType) {
+    case 'jasa_konsultan':
+      return 'Jasa konsultan, akuntansi & hukum';
+    case 'jasa_teknik_manajemen':
+      return 'Jasa teknik, manajemen & konstruksi';
+    case 'sewa_harta':
+      return 'Sewa & penggunaan harta (selain tanah/bangunan)';
+    case 'royalti':
+      return 'Royalti, bunga & hadiah penghargaan';
+    case 'dividen_badan':
+      return 'Dividen diterima WP Badan dalam negeri';
+  }
+}
 
 const regime: TaxRegime = {
   id: 'pph23_pmk141_2015',

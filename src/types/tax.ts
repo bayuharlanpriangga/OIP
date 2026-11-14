@@ -31,6 +31,8 @@ export type Pph22ObjectType =
   | 'impor_komoditas_tertentu'
   | 'impor_konsumsi_10'
   | 'bendahara_bumn'
+  | 'ekspor_tambang_1_5'
+  | 'pengumpul_kehutanan_perkebunan_0_25'
   | 'bulion_emas'
   | 'barang_sangat_mewah';
 
@@ -125,6 +127,10 @@ export interface TaxCalculatorInput {
     honorariumBukanPegawai?: number;
     bukanPegawaiBerkesinambungan?: boolean;
     skemaNonPegawai?: 'bukan_pegawai_pmk168' | 'harian_ter_pp58';
+    bulanBayarBonus?: 'jan_nov' | 'desember';
+    pmk168KhususType?: 'dewan_komisaris' | 'peserta_kegiatan' | 'penarikan_dapen' | 'mantan_pegawai';
+    wnaTahunKe?: number;
+    tahunPesangonLama?: 'kmk462_1998' | 'kmk600_1995';
   };
   pph22: {
     nilaiDasar: number;
@@ -148,6 +154,8 @@ export interface TaxCalculatorInput {
       | 'pabrikan_ke_pedagang_pkp'
       | 'pabrikan_ke_konsumen'
       | 'pedagang_punya_fp'
+      | 'pedagang_punya_fp_konsumen'
+      | 'pedagang_tanpa_fp_usaha'
       | 'pedagang_tanpa_fp'
       | 'emas_batangan';
   };
@@ -156,6 +164,8 @@ export interface TaxCalculatorInput {
     objectType: Pph23ObjectType;
     hasNpwp: boolean;
     fintechRecipientType?: 'wpdn_but' | 'wpln_pph26' | 'umkm_skb';
+    isSuketUmkm?: boolean;
+    isPengecualianPasal23_4?: boolean;
   };
   pph4_2: {
     nilaiBruto: number;
@@ -178,6 +188,8 @@ export interface TaxCalculatorInput {
     undianAtauKoperasi?: 'hadiah_undian' | 'simpanan_koperasi';
     skemaPhtbKhusus?: 'umum_2_5' | 'rumah_sederhana_1' | 'pemerintah_bumn_0';
     skemaSpnDhe?: 'diskonto_spn_20' | 'dhe_nonmigas_pp8_2025_12bln' | 'dhe_migas_pp36_2023_3bln';
+    skemaPph42Historis?: 'deposito_15_pp51_1994' | 'undian_20_pp42_1994';
+    skemaDireVentura?: 'kik_dire_0_5' | 'modal_ventura_0_1';
   };
   pph_umkm: {
     omzetBulanan: number;
@@ -187,6 +199,7 @@ export interface TaxCalculatorInput {
     isFreeProfession?: boolean;
     omzetTerkaitSebelumnya?: number;
     nppnPersen?: number;
+    marginLabaPersen?: number;
   };
   pph25: {
     pphTerutangTahunLalu: number;
@@ -197,6 +210,9 @@ export interface TaxCalculatorInput {
     flnTransport?: 'udara' | 'laut' | 'punya_npwp';
     isKondisiTurun25?: boolean;
     estimasiPphSetahunBaru?: number;
+    skemaWpTertentu?: 'bank_ojk' | 'bumn_bumd_rkap' | 'emiten_berkala';
+    labaTriwulanAtauRkap?: number;
+    flnEra1994?: 'pp46_1994' | 'pp17_1998';
   };
   pph26: {
     nilaiBruto: number;
@@ -204,10 +220,14 @@ export interface TaxCalculatorInput {
     hasSkdP3b: boolean;
     tarifP3bPersen: number;
     isBptReinvested?: boolean;
+    skemaButPpt?: 'beneficial_owner_valid' | 'ppt_fragmentasi_ditolak' | 'conduit_gagal_bo';
+    nilaiPenyerahanJasaBut?: number;
+    hariDiIndonesia?: number;
   };
   pph15: {
     peredaranBruto: number;
     sectorType: Pph15SectorType;
+    hasSkdP3bArticle8?: boolean;
   };
   pph_badan: {
     peredaranBrutoTahunan: number;
@@ -217,6 +237,11 @@ export interface TaxCalculatorInput {
     tbkEra?: 'pp30_2020' | 'pp77_2013' | 'pp81_2007';
     skemaInsentif?: 'tax_holiday_100' | 'tax_holiday_50' | 'tax_allowance' | 'supertax_rnd';
     nilaiInvestasiAtauRnd?: number;
+    utangBerbunga?: number;
+    ekuitasFiskal?: number;
+    kelompokHartaPenyusutan?: 'kel_1_4thn' | 'kel_2_8thn' | 'kel_3_16thn' | 'kel_4_20thn' | 'bangunan_20thn';
+    skemaEkstraktif?: 'batubara_iupk_pp15_18' | 'mineral_pp37_2018' | 'migas_gross_split_pp53';
+    skemaIknPfii?: 'ikn_tax_holiday_100' | 'ikn_supertax_350' | 'financial_center_ikn';
   };
   ppn: {
     hargaJualDpp: number;
@@ -231,7 +256,15 @@ export interface TaxCalculatorInput {
       | 'agen_asuransi_1_1';
     pmseChannel?: 'pmse_jasa_digital' | 'aset_kripto_pmk50_2025' | 'aset_kripto_pmk68_2022';
     eraPkp?: 'pmk197_2013' | 'pmk68_2010';
-    periodePropertiDtp?: 'jan_jun_2025_100' | 'jul_des_2025_50';
+    periodePropertiDtp?: 'ta_2026_100_pmk90' | 'jan_jun_2025_100' | 'jul_des_2025_100_pmk60' | 'jul_des_2025_50';
+    periodeTiketDtp?:
+      | 'pmk77_nataru_2026'
+      | 'pmk43_libur_2026'
+      | 'pmk4_lebaran_2026'
+      | 'pmk18_mudik_2025'
+      | 'pmk36_libur_2025'
+      | 'pmk71_nataru_2025'
+      | 'reguler_non_dtp';
     skemaEvDtp?: 'kblbb_tkdn40_pmk12_2025' | 'bus_tkdn20_pmk12_2025' | 'kblbb_tkdn40_pmk8_2024';
     skemaStrategis?:
       | 'bkp_jkp_dibebaskan_pp49'
@@ -239,11 +272,14 @@ export interface TaxCalculatorInput {
       | 'wapu_diatas_2jt'
       | 'wapu_dibawah_2jt';
     eraPkpLama?: 'kmk571_2003' | 'kmk552_2000_bkp' | 'kmk552_2000_jkp' | 'kmk648_1994_bkp' | 'kmk648_1994_jkp';
+    skemaKmsLama?: 'pmk163_2012_2persen' | 'pmk61_2022_2_2persen' | 'pmk64_pertanian_1_1persen';
+    skemaKekRefund?: 'kek_tidak_dipungut_pp40' | 'vat_refund_turis_pmk120';
   };
   ppnbm: {
     hargaJual: number;
     categoryType: PpnbmCategoryType;
     dtpDiscountPersen?: 100 | 50 | 25;
+    isPembebasanPmk141?: boolean;
   };
   pbb: {
     njopBumi: number;
@@ -251,22 +287,27 @@ export interface TaxCalculatorInput {
     njoptkpPilihan: number;
     tierRate: PbbTierRate;
     sektorPp46?: 'perkebunan_kehutanan' | 'pertambangan' | 'lainnya_umum';
+    sektorP3Lama?: 'migas_panas_bumi_pmk76' | 'perkebunan_hutanan_pmk139';
   };
   bphtb: {
     hargaTransaksi: number;
     njopObjek: number;
     acquisitionType: BphtbAcquisitionType;
     isRumahMbr?: boolean;
+    tingkatPenguranganBphtb?: 'pengurangan_25' | 'pengurangan_50' | 'pengurangan_75';
   };
   pbjt: {
     nilaiTransaksi: number;
     sectorType: PbjtSectorType;
+    jenisOpsenHkpd?: 'opsen_pkb_66' | 'opsen_bbnkb_66';
+    jenisPajakDaerahLain?: 'reklame_25' | 'air_tanah_20' | 'minerba_mblb_20' | 'pab_alat_berat_0_2';
   };
   bea_meterai: {
     nilaiDokumen: number;
     jumlahDokumen: number;
     isPemeteraianKemudian?: boolean;
     isBebasMeteraiPp3?: boolean;
+    jenisTransisiMeterai?: 'transisi_3000_6000_9000' | 'pemungut_emeterai_pmk151';
   };
 }
 

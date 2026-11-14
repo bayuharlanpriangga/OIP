@@ -1,4 +1,5 @@
 import { TaxCalculatorInput, TaxRuleModule } from '../../types/tax';
+import { beaMeteraiPmk134_2021TransisiRule } from './pmk134_2021_transisi';
 import { beaMeteraiPmk78_2024Rule } from './pmk78_2024_pelaksana';
 import { beaMeteraiPp24_2000Rule } from './pp24_2000';
 import { beaMeteraiPp3_2022Rule } from './pp3_2022_fasilitas';
@@ -11,6 +12,7 @@ export const BEA_METERAI_RULES: TaxRuleModule<TaxCalculatorInput['bea_meterai']>
   beaMeteraiUu10_2020Rule,
   beaMeteraiPmk78_2024Rule,
   beaMeteraiPp3_2022Rule,
+  beaMeteraiPmk134_2021TransisiRule,
   beaMeteraiPp24_2000Rule,
   beaMeteraiPp7_1995Rule,
   beaMeteraiUu13_1985Rule,

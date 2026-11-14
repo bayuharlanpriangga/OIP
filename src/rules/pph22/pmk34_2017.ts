@@ -118,6 +118,18 @@ function getPph22Rate(objectType: Pph22ObjectType): { rate: number; label: strin
         label: 'Pembelian barang oleh Bendahara Pemerintah / BUMN (1,5%)',
         exemptLimit: 2000000,
       };
+    case 'ekspor_tambang_1_5':
+      return {
+        rate: 1.5,
+        label: 'Ekspor komoditas tambang batubara, mineral logam, & bukan logam (1,5% — PMK 34/2017)',
+        exemptLimit: 0,
+      };
+    case 'pengumpul_kehutanan_perkebunan_0_25':
+      return {
+        rate: 0.25,
+        label: 'Pembelian hasil kehutanan, perkebunan, pertanian, peternakan, & perikanan dari pengumpul (0,25%)',
+        exemptLimit: 0,
+      };
     case 'bulion_emas':
       return {
         rate: 0.25,
