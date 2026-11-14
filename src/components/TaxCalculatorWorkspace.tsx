@@ -150,7 +150,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
       {/* Full-bleed Section Banner flush to header & edges */}
       <div className="w-full border-b border-[#5E706F]/25 bg-[#E8EAE4] dark:bg-[#263336]">
         <img
-          src="/assets/banner/Banner_Kalkulator_8e633373.jpg"
+          src={`${import.meta.env.BASE_URL}assets/banner/Banner_Kalkulator.jpg`}
           alt="Kalkulator Pajak Multi-Aturan"
           className="w-full h-auto block"
         />

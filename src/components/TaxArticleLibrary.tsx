@@ -62,7 +62,7 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
       {/* Full-bleed Directory Banner flush to header & edges */}
       <div className="w-full border-b border-[#5E706F]/30 bg-[#E8EAE4] dark:bg-[#263336]">
         <img
-          src="/assets/banner/Banner_Pustaka_Aturan_92f07498.jpg"
+          src={`${import.meta.env.BASE_URL}assets/banner/Banner_Pustaka_Aturan.jpg`}
           alt="Pustaka Aturan Pajak"
           className="w-full h-auto block"
         />
