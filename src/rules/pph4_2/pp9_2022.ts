@@ -41,8 +41,8 @@ const article: TaxArticle = {
     {
       heading: 'Persewaan tanah/bangunan 10% dan Pengalihan Hak (PHTB) 2,5%',
       paragraphs: [
-        'Atas penghasilan dari persewaan tanah dan/atau bangunan (rumah, ruko, kantor, gudang, lahan kosong), PP 34/2017 menetapkan PPh Final 10% dari jumlah bruto nilai sewa termasuk biaya perawatan/keamanan yang ditagih pemilik.',
-        'Sementara atas penjualan atau pengalihan hak atas tanah dan/atau bangunan, PP 34/2016 menurunkan tarif umum PHTB dari 5% (era PP 71/2008) menjadi 2,5% dari nilai bruto pengalihan (dan 1% khusus untuk rumah sederhana/rusun sederhana).',
+        'Atas penghasilan dari persewaan tanah dan/atau bangunan (rumah, ruko, kantor, gudang, lahan kosong), PP 34/2017 (yang secara resmi mencabut PP 29/1996 jo. PP 5/2002 dan berlaku sejak 2 Januari 2018) tetap menetapkan PPh Final 10% dari jumlah bruto nilai sewa termasuk biaya perawatan/keamanan dan perjanjian Bangun Guna Serah (BGS).',
+        'Sementara atas penjualan atau pengalihan hak atas tanah dan/atau bangunan, PP 34/2016 (efektif 7 September 2016) menurunkan tarif umum PHTB dari 5% (era PP 71/2008) menjadi 2,5% dari nilai bruto pengalihan (dan 1% khusus untuk rumah sederhana/rusun sederhana).',
       ],
     },
   ],
@@ -61,19 +61,19 @@ const article: TaxArticle = {
         aturanBaru: '2,65%',
       },
       {
-        aspek: 'Konsultansi konstruksi ber-SBU',
-        aturanLama: '4%',
-        aturanBaru: '3,5%',
+        aspek: 'Konsultansi konstruksi ber-SBU / tanpa SBU',
+        aturanLama: '4% (ber-SBU) / 6% (tanpa SBU)',
+        aturanBaru: '3,5% (ber-SBU) / 6% (tanpa SBU)',
       },
       {
         aspek: 'Pengalihan hak tanah & bangunan umum',
-        aturanLama: '5% (PP 71/2008)',
-        aturanBaru: '2,5% (PP 34/2016)',
+        aturanLama: '5% (PP 71/2008, s.d. 6 Sep 2016)',
+        aturanBaru: '2,5% (PP 34/2016, sejak 7 Sep 2016)',
       },
       {
         aspek: 'Persewaan tanah dan/atau bangunan',
         aturanLama: '10% (PP 5/2002)',
-        aturanBaru: '10% (PP 34/2017)',
+        aturanBaru: '10% (PP 34/2017, mencabut PP 5/2002)',
       },
     ],
   },
@@ -106,6 +106,8 @@ function getCurrentPph4_2Meta(objectType: Pph4_2ObjectType): { rate: number; lab
       return { rate: 4, label: 'Pekerjaan konstruksi tanpa SBU — PP 9/2022 (4%)' };
     case 'konsultansi_konstruksi_sbu':
       return { rate: 3.5, label: 'Jasa konsultansi konstruksi ber-SBU — PP 9/2022 (3,5%)' };
+    case 'konsultansi_konstruksi_tanpa_sbu':
+      return { rate: 6, label: 'Jasa konsultansi konstruksi tanpa SBU — PP 9/2022 (6%)' };
     case 'pengalihan_tanah_bangunan':
       return { rate: 2.5, label: 'Pengalihan hak tanah & bangunan (umum) — PP 34/2016 (2,5%)' };
   }

@@ -6,11 +6,11 @@ const regime: TaxRegime = {
   taxType: 'pph25',
   name: 'Pasal 25 UU PPh jo. PMK 81 Tahun 2024',
   shortName: '2025–Kini (PMK 81/2024)',
-  legalBasis: 'Pasal 25 UU PPh stdd UU HPP & Pasal 94 PMK Nomor 81 Tahun 2024',
+  legalBasis: 'Pasal 25 UU PPh stdd UU HPP, Pasal 94 ayat (2) & Pasal 226–237 PMK 81 Tahun 2024',
   effectivePeriod: '1 Januari 2025 – Sekarang',
   isCurrent: true,
   summary:
-    'Angsuran PPh bulanan sebesar 1/12 dari selisih PPh terutang tahun lalu dikurangi kredit pajak (PPh 21/22/23/24), dengan jatuh tempo setor seragam tanggal 15 bulan berikutnya di Coretax.',
+    'Angsuran PPh bulanan sebesar 1/12 dari selisih PPh terutang tahun lalu dikurangi kredit pajak (PPh 21/22/23/24). PMK 81/2024 tetap mematok jatuh tempo PPh 25 tanggal 15 sekaligus mencabut PMK 215/2018.',
 };
 
 const article: TaxArticle = {
@@ -18,44 +18,45 @@ const article: TaxArticle = {
   taxType: 'pph25',
   taxTypeLabel: 'PPh Pasal 25',
   title: 'Penghitungan Angsuran Bulanan PPh Pasal 25 dan Penyelarasan Jatuh Tempo PMK 81/2024',
-  legalBasis: 'Pasal 25 UU PPh & PMK Nomor 81 Tahun 2024',
+  legalBasis: 'Pasal 25 UU PPh & Pasal 94 ayat (2), Pasal 226–237 PMK Nomor 81 Tahun 2024',
   effectiveDate: '1 Januari 2025',
   readMinutes: 4,
   summary:
-    'PPh Pasal 25 berfungsi meringankan beban pembayaran pajak tahunan dengan mencicil setiap bulan berdasarkan SPT Tahunan tahun pajak sebelumnya, dengan batas setor tanggal 15 di era Coretax.',
+    'PPh Pasal 25 mencicil pajak terutang berdasarkan SPT Tahunan tahun pajak sebelumnya. Di era Coretax (PMK 81/2024), jatuh tempo PPh 25 tetap tanggal 15 sementara PPh 21/22/23/26/4(2)/15 diseragamkan ikut menjadi tanggal 15.',
   sections: [
     {
       heading: 'Rumus dasar angsuran PPh Pasal 25 reguler',
       paragraphs: [
         'Besarnya angsuran pajak yang harus dibayar sendiri setiap bulan dihitung dari Pajak Penghasilan yang terutang menurut SPT Tahunan tahun pajak yang lalu, dikurangi PPh yang telah dipotong/dipungut pihak lain (PPh 21, 22, 23) serta pajak luar negeri yang boleh dikreditkan (PPh 24), lalu dibagi 12 atau banyaknya bulan dalam bagian tahun pajak.',
-        'Jika kredit pajak tahun sebelumnya melebihi atau sama dengan PPh terutang, angsuran PPh Pasal 25 menjadi nihil (Rp 0). Selain itu, penghasilan bersifat final dan penghasilan tidak teratur dikeluarkan dari dasar penghitungan angsuran.',
+        'Jika kredit pajak tahun sebelumnya melebihi atau sama dengan PPh terutang, angsuran PPh Pasal 25 menjadi nihil (Rp 0). Penghasilan bersifat final dan penghasilan tidak teratur dikeluarkan dari dasar penghitungan angsuran.',
       ],
     },
     {
-      heading: 'Kewajiban setor & lapor di era Coretax (PMK 81/2024)',
+      heading: 'Jatuh tempo Pasal 94 dan pencabutan PMK 215/2018 (Pasal 226–237)',
       paragraphs: [
-        'Melalui PMK 81 Tahun 2024, batas waktu penyetoran PPh Pasal 25 tetap paling lambat tanggal 15 bulan berikutnya setelah masa pajak berakhir. Wajib Pajak yang telah menyetor PPh Pasal 25 sesuai validasi NTPN dianggap telah menyampaikan SPT Masa PPh Pasal 25.',
+        'Pasal 94 ayat (2) PMK 81 Tahun 2024 menyeragamkan batas penyetoran seluruh PPh masa—baik yang sebelumnya jatuh tempo tanggal 10 (PPh 21, 23, 26, 4(2), 15) maupun yang sejak awal tanggal 15 (PPh 25)—menjadi paling lambat tanggal 15 bulan berikutnya. Penyetoran PPh 25 yang telah divalidasi NTPN diakui sekaligus sebagai penyampaian SPT Masa PPh 25.',
+        'Selain itu, PMK 81/2024 secara resmi mencabut PMK 215/PMK.03/2018 dan mengintegrasikan ketentuan angsuran khusus bagi Wajib Pajak Baru, Bank, BUMN/BUMD, Perusahaan Masuk Bursa, WP Lembaga Keuangan Lainnya, serta WP OPPT (0,75% omzet) ke dalam Pasal 226–237 PMK 81/2024.',
       ],
     },
   ],
   comparisonTable: {
-    oldHeader: 'KEP-537/PJ./2000 & PMK 215/2018',
+    oldHeader: 'PMK 242/2014 & PMK 215/2018 (Pra-2025)',
     newHeader: 'PMK 81 Tahun 2024 (Era Coretax)',
     rows: [
       {
-        aspek: 'Formula dasar angsuran',
-        aturanLama: '(PPh Terutang - Kredit Pajak) ÷ 12',
-        aturanBaru: '(PPh Terutang - Kredit Pajak) ÷ 12',
+        aspek: 'Formula dasar angsuran WP reguler',
+        aturanLama: '(PPh Terutang - Kredit Pajak) ÷ 12 (Pasal 25 UU PPh)',
+        aturanBaru: '(PPh Terutang - Kredit Pajak) ÷ 12 (tidak berubah)',
       },
       {
-        aspek: 'Batas penyetoran bulanan',
-        aturanLama: 'Tanggal 15 bulan berikutnya',
-        aturanBaru: 'Tanggal 15 bulan berikutnya (terintegrasi Coretax)',
+        aspek: 'Jatuh tempo setor PPh 25 vs PPh potong/pungut',
+        aturanLama: 'PPh 25 tanggal 15; PPh 21/23/26 tanggal 10',
+        aturanBaru: 'Seragam tanggal 15 bulan berikutnya (Pasal 94 ayat 2)',
       },
       {
-        aspek: 'Tarif acuan PPh Badan',
-        aturanLama: '25% (pra-2020) / 22%',
-        aturanBaru: '22% (UU HPP)',
+        aspek: 'Angsuran WP Bank, BUMN, Tbk, & OPPT',
+        aturanLama: 'Diatur terpisah di PMK 215/PMK.03/2018',
+        aturanBaru: 'Diintegrasikan ke Pasal 226–237 PMK 81/2024',
       },
     ],
   },

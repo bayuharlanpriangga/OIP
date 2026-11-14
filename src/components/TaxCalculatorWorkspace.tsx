@@ -55,6 +55,7 @@ const PPH22_OBJECTS: { value: Pph22ObjectType; label: string }[] = [
   { value: 'impor_api', label: 'Impor barang umum dengan API (2,5%)' },
   { value: 'impor_non_api', label: 'Impor barang tanpa API (7,5%)' },
   { value: 'impor_komoditas_tertentu', label: 'Impor kedelai, gandum, atau tepung terigu API (0,5%)' },
+  { value: 'impor_konsumsi_10', label: 'Impor barang konsumsi tertentu Lampiran I (10% PMK 110/2018)' },
   { value: 'bendahara_bumn', label: 'Belanja barang Bendahara Pemerintah / BUMN (1,5%)' },
   { value: 'barang_sangat_mewah', label: 'Penjualan barang sangat mewah tertentu (5%)' },
 ];
@@ -73,6 +74,7 @@ const PPH4_2_OBJECTS: { value: Pph4_2ObjectType; label: string }[] = [
   { value: 'konstruksi_menengah_besar', label: 'Pelaksana konstruksi SBU Menengah/Besar (2,65% / 3%)' },
   { value: 'konstruksi_tanpa_sbu', label: 'Pelaksana konstruksi tanpa SBU (4%)' },
   { value: 'konsultansi_konstruksi_sbu', label: 'Jasa konsultansi konstruksi ber-SBU (3,5% / 4%)' },
+  { value: 'konsultansi_konstruksi_tanpa_sbu', label: 'Jasa konsultansi konstruksi tanpa SBU (6%)' },
   { value: 'pengalihan_tanah_bangunan', label: 'Pengalihan hak tanah & bangunan umum (2,5% / 5%)' },
 ];
 
@@ -84,16 +86,18 @@ const PPH26_OBJECTS: { value: Pph26ObjectType; label: string }[] = [
 
 const PPH15_SECTORS: { value: Pph15SectorType; label: string }[] = [
   { value: 'pelayaran_dn', label: 'Pelayaran dalam negeri (1,2% final — KMK 416/1996)' },
-  { value: 'penerbangan_dn_charter', label: 'Penerbangan dalam negeri / charter (1,8% — KMK 475/1996)' },
+  { value: 'penerbangan_dn_charter', label: 'Penerbangan dalam negeri / charter (1,8% tidak final — KMK 475/1996)' },
   { value: 'pelayaran_penerbangan_ln', label: 'Pelayaran / penerbangan luar negeri BUT (2,64% final — KMK 417/1996)' },
 ];
 
 const PPNBM_CATEGORIES: { value: PpnbmCategoryType; label: string }[] = [
   { value: 'listrik_bev', label: 'Kendaraan listrik murni BEV/FCEV (0% PP 74/2021 / 10% PP 41/2013)' },
-  { value: 'lcgc_hybrid_hemat', label: 'LCGC / Hybrid sangat hemat emisi (3% efektif PP 74/2021 / 0% PP 41/2013)' },
+  { value: 'lcgc', label: 'LCGC / KBH2 (3% efektif PP 74/2021 / 0% PP 41/2013)' },
+  { value: 'hybrid_full', label: 'Full Hybrid hemat emisi <= 3.000 cc (6% efektif PP 74/2021 / 20% lama)' },
   { value: 'sedan_suv_menengah', label: 'Mobil penumpang / SUV menengah s.d. 3.000 cc (20% / 30%)' },
   { value: 'kendaraan_emisi_tinggi', label: 'Kendaraan emisi tinggi / > 3.000 cc (40% / 125%)' },
-  { value: 'hunian_mewah_kapal_pesawat', label: 'Kapal pesiar, yacht, & pesawat pribadi (75%)' },
+  { value: 'hunian_mewah', label: 'Hunian mewah: rumah / apartemen >= Rp 30 miliar (20%)' },
+  { value: 'kapal_pesiar_pesawat', label: 'Kapal pesiar, yacht, & pesawat pribadi non-niaga (75%)' },
 ];
 
 const PBJT_SECTORS: { value: PbjtSectorType; label: string }[] = [

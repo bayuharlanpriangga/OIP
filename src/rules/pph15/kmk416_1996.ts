@@ -35,7 +35,7 @@ const article: TaxArticle = {
       heading: 'Tarif efektif pelayaran dalam negeri, charter penerbangan, dan BUT luar negeri',
       paragraphs: [
         'Berdasarkan KMK 416/KMK.04/1996, perusahaan pelayaran dalam negeri dikenai PPh Final sebesar 1,2% dari peredaran bruto (berasal dari norma penghasilan neto 4% dikali tarif PPh tertinggi kala itu 30%), baik untuk pengangkutan antar-pelabuhan Indonesia maupun rute dari/ke luar negeri.',
-        'Sementara untuk perusahaan penerbangan dalam negeri berdasarkan perjanjian charter (KMK 475/KMK.04/1996), dikenai PPh sebesar 1,8% dari peredaran bruto (norma neto 6% x 30%) yang bersifat tidak final (kredit pajak). Untuk perusahaan pelayaran atau penerbangan luar negeri melalui BUT di Indonesia (KMK 417/KMK.04/1996), tarifnya sebesar 2,64% final (norma neto 6% x 44%).',
+        'Sementara untuk perusahaan penerbangan dalam negeri berdasarkan perjanjian charter (KMK 475/KMK.04/1996 jo. SE-35/PJ.4/1996), dikenai PPh sebesar 1,8% dari peredaran bruto (norma neto 6% x 30%) yang bersifat tidak final dan dapat dikreditkan pada SPT Tahunan Badan. Untuk perusahaan pelayaran atau penerbangan luar negeri melalui BUT (KMK 417/KMK.04/1996), tarifnya 2,64% final (norma neto 6% x 44%). Ketiga tarif norma khusus ini tidak berubah sejak 1996; hanya batas penyetorannya yang diseragamkan ke tanggal 15 oleh Pasal 94 ayat (2) PMK 81/2024.',
       ],
     },
   ],

@@ -29,6 +29,7 @@ export type Pph22ObjectType =
   | 'impor_api'
   | 'impor_non_api'
   | 'impor_komoditas_tertentu'
+  | 'impor_konsumsi_10'
   | 'bendahara_bumn'
   | 'barang_sangat_mewah';
 
@@ -45,6 +46,7 @@ export type Pph4_2ObjectType =
   | 'konstruksi_menengah_besar'
   | 'konstruksi_tanpa_sbu'
   | 'konsultansi_konstruksi_sbu'
+  | 'konsultansi_konstruksi_tanpa_sbu'
   | 'pengalihan_tanah_bangunan';
 
 export type Pph26ObjectType =
@@ -59,10 +61,12 @@ export type Pph15SectorType =
 
 export type PpnbmCategoryType =
   | 'listrik_bev'
-  | 'lcgc_hybrid_hemat'
+  | 'lcgc'
+  | 'hybrid_full'
   | 'sedan_suv_menengah'
   | 'kendaraan_emisi_tinggi'
-  | 'hunian_mewah_kapal_pesawat';
+  | 'hunian_mewah'
+  | 'kapal_pesiar_pesawat';
 
 export type PbjtSectorType =
   | 'makanan_minuman'

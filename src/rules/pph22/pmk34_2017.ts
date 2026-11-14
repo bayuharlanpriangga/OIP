@@ -11,13 +11,13 @@ import { formatPersen, formatRupiah } from '../../utils/formatters';
 const regime: TaxRegime = {
   id: 'pph22_pmk34_2017',
   taxType: 'pph22',
-  name: 'PMK 34/2017 jo. PMK 41/2022 & PMK 59/2022',
+  name: 'PMK 34/2017 jo. PMK 110/2018 & PMK 41/2022',
   shortName: '2017–Kini (PMK 34/2017)',
-  legalBasis: 'PMK Nomor 34/PMK.010/2017 stdd PMK 41/PMK.010/2022 & PMK 59/PMK.03/2022',
+  legalBasis: 'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018, PMK 41/PMK.010/2022 & PMK 59/2022',
   effectivePeriod: '1 Maret 2017 – Sekarang',
   isCurrent: true,
   summary:
-    'Aturan pemungutan PPh Pasal 22 atas impor (API 2,5%, non-API 7,5%, komoditas tertentu 0,5% s.d. 10%), belanja instansi pemerintah/BUMN (1,5%), dan barang sangat mewah (1%–5%).',
+    'Aturan pemungutan PPh Pasal 22 atas impor (API umum 2,5%, non-API 7,5%, barang konsumsi tertentu 7,5%–10% sejak PMK 110/2018), belanja instansi pemerintah/BUMN (1,5%), dan barang sangat mewah (1%–5%).',
 };
 
 const article: TaxArticle = {
@@ -25,17 +25,17 @@ const article: TaxArticle = {
   taxType: 'pph22',
   taxTypeLabel: 'PPh Pasal 22',
   title: 'Pemungutan PPh Pasal 22 Impor, Belanja Bendahara Pemerintah, dan Barang Sangat Mewah',
-  legalBasis: 'PMK Nomor 34/PMK.010/2017 stdd PMK Nomor 41/PMK.010/2022',
+  legalBasis: 'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018 & PMK 41/PMK.010/2022',
   effectiveDate: '1 Maret 2017',
   readMinutes: 5,
   summary:
-    'PPh Pasal 22 merupakan kredit pajak atas aktivitas impor, penyerahan barang kepada instansi pemerintah/BUMN, serta pembelian barang tergolong sangat mewah yang kini diselaraskan batas setornya ke tanggal 15 lewat PMK 81/2024.',
+    'PPh Pasal 22 merupakan kredit pajak atas aktivitas impor, penyerahan barang kepada instansi pemerintah/BUMN, serta pembelian barang sangat mewah, dengan batas setor non-impor diseragamkan ke tanggal 15 lewat Pasal 94 ayat (2) PMK 81/2024.',
   sections: [
     {
       heading: 'Klaster tarif impor dan kepemilikan Angka Pengenal Impor (API)',
       paragraphs: [
         'Atas kegiatan impor barang, tarif standar bagi importir pemegang Angka Pengenal Impor (API) adalah 2,5% dari nilai impor (CIF ditambah bea masuk). Bagi importir tanpa API, tarifnya naik tiga kali lipat menjadi 7,5% dari nilai impor.',
-        'Khusus impor kedelai, gandum, dan tepung terigu oleh pemegang API dikenakan tarif 0,5%, sedangkan sejumlah barang konsumsi tertentu (seperti kendaraan mewah atau barang bermerek tertentu sesuai Lampiran PMK 41/2022) dikenakan tarif 7,5% hingga 10% meskipun menggunakan API.',
+        'Khusus impor kedelai, gandum, dan tepung terigu oleh pemegang API dikenakan tarif 0,5%. Melalui PMK 110/PMK.010/2018 (lalu diperbarui kode HS-nya lewat Lampiran PMK 41/PMK.010/2022), tarif impor atas sekitar 1.147 barang konsumsi tertentu dan barang mewah dinaikkan menjadi 7,5% hingga 10% meskipun menggunakan API.',
       ],
     },
     {
@@ -92,6 +92,12 @@ function getPph22Rate(objectType: Pph22ObjectType): { rate: number; label: strin
       return {
         rate: 0.5,
         label: 'Impor kedelai, gandum, atau tepung terigu dengan API (0,5%)',
+        exemptLimit: 0,
+      };
+    case 'impor_konsumsi_10':
+      return {
+        rate: 10,
+        label: 'Impor barang konsumsi tertentu Lampiran I (10% — PMK 110/2018 jo. PMK 41/2022)',
         exemptLimit: 0,
       };
     case 'bendahara_bumn':

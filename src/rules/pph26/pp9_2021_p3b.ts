@@ -28,7 +28,7 @@ const article: TaxArticle = {
       heading: 'Tarif umum 20%, bunga obligasi 10%, dan perkiraan penghasilan neto',
       paragraphs: [
         'Atas dividen, royalti, imbalan jasa, hadiah, dan bunga umum yang dibayarkan kepada Wajib Pajak Luar Negeri selain Bentuk Usaha Tetap (BUT), pemotong dalam negeri wajib memotong PPh Pasal 26 bersifat final sebesar 20% dari jumlah bruto.',
-        'Khusus bunga obligasi (termasuk diskonto) yang diterima WPLN, PP 9/2021 (efektif 2 Agustus 2021) menurunkan tarif domestik dari 20% menjadi 10% guna meningkatkan daya saing pasar surat utang. Sementara premi asuransi yang dibayarkan ke perusahaan asuransi luar negeri dikenai perkiraan penghasilan neto 50% (premi tertanggung langsung -> efektif 10%) atau 10%–5% untuk reasuransi, dengan skema standar 25% x 20% = 5% pada transaksi tertentu.',
+        'Khusus bunga obligasi (termasuk diskonto) yang diterima WPLN, PP Nomor 9 Tahun 2021 (diundangkan 2 Februari 2021; khusus penurunan bunga obligasi dalam Pasal 3 ayat (8) berlaku 6 bulan setelah diundangkan, yaitu mulai 2 Agustus 2021) menurunkan tarif domestik dari 20% menjadi 10%. Sementara premi asuransi yang dibayarkan ke perusahaan asuransi luar negeri dikenai perkiraan penghasilan neto 50% (efektif 10%) untuk tertanggung langsung sesuai KMK 624/1994.',
       ],
     },
     {

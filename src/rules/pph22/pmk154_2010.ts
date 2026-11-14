@@ -31,6 +31,12 @@ function getOldPph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
         label: 'Impor kedelai, gandum, tepung terigu ber-API (0,5%)',
         exemptLimit: 0,
       };
+    case 'impor_konsumsi_10':
+      return {
+        rate: 2.5,
+        label: 'Impor barang konsumsi ber-API sebelum PMK 110/2018 (2,5% umum / 7,5% barang tertentu)',
+        exemptLimit: 0,
+      };
     case 'bendahara_bumn':
       return {
         rate: 1.5,
