@@ -84,6 +84,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPmk81Rate(objectType: Pph22ObjectType): {

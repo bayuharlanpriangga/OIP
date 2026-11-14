@@ -1389,4 +1389,74 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/151-pmk-03-2021',
     publisher: 'JDIH Kemenkeu',
   },
+  PMK_28_2024: {
+    title: 'PMK Nomor 28 Tahun 2024 tentang Fasilitas Perpajakan dan Kepabeanan di Ibu Kota Nusantara (IKN)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-28-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_79_2008: {
+    title: 'PMK Nomor 79/PMK.03/2008 tentang Penilaian Kembali Aktiva Tetap Perusahaan untuk Tujuan Perpajakan',
+    url: 'https://jdih.kemenkeu.go.id/dok/79-pmk-03-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_191_2015: {
+    title: 'PMK Nomor 191/PMK.010/2015 tentang Penilaian Kembali Aktiva Tetap (Insentif Tarif 3%/4%/6%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/191-pmk-010-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_233_2015: {
+    title: 'PMK Nomor 233/PMK.03/2015 tentang Perubahan atas PMK 191/2015 mengenai Penilaian Kembali Aktiva Tetap',
+    url: 'https://jdih.kemenkeu.go.id/dok/233-pmk-03-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_11_2016: {
+    title: 'UU Nomor 11 Tahun 2016 tentang Pengampunan Pajak (Tax Amnesty)',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-11-tahun-2016',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_118_2016: {
+    title: 'PMK Nomor 118/PMK.03/2016 tentang Pelaksanaan UU Nomor 11 Tahun 2016 tentang Pengampunan Pajak',
+    url: 'https://jdih.kemenkeu.go.id/dok/118-pmk-03-2016',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_196_2021: {
+    title: 'PMK Nomor 196/PMK.03/2021 tentang Tata Cara Pelaksanaan Program Pengungkapan Sukarela (PPS)',
+    url: 'https://jdih.kemenkeu.go.id/dok/196-pmk-03-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_93_2010: {
+    title: 'PP Nomor 93 Tahun 2010 tentang Sumbangan Penanggulangan Bencana, Litbang, Pendidikan & Olahraga (Maks 5%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-93-tahun-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_105_2009: {
+    title: 'PMK Nomor 105/PMK.03/2009 stdd PMK 207/PMK.010/2015 tentang Piutang yang Nyata-Nyata Tidak Dapat Ditagih',
+    url: 'https://jdih.kemenkeu.go.id/dok/105-pmk-03-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_02_2010: {
+    title: 'PMK Nomor 02/PMK.03/2010 tentang Biaya Promosi yang Dapat Dikurangkan dari Penghasilan Bruto',
+    url: 'https://jdih.kemenkeu.go.id/dok/02-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_8_2021: {
+    title: 'PMK Nomor 8/PMK.03/2021 tentang Tata Cara Pemungutan PPN/PPnBM oleh BUMN & Anak Usaha Tertentu (WAPU)',
+    url: 'https://jdih.kemenkeu.go.id/dok/8-pmk-03-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_73_2010: {
+    title: 'PMK Nomor 73/PMK.03/2010 tentang Penunjukan Kontraktor Kontrak Kerja Sama Migas & Panas Bumi sebagai WAPU PPN',
+    url: 'https://jdih.kemenkeu.go.id/dok/73-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_40_2010: {
+    title: 'PMK Nomor 40/PMK.03/2010 tentang Tata Cara Penghitungan, Pemungutan, & Penyetoran PPN atas Pemanfaatan BKP TB/JKP dari Luar Daerah Pabean',
+    url: 'https://jdih.kemenkeu.go.id/dok/40-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  SKB_3_MENTERI_2024_MBR: {
+    title: 'Keputusan Bersama 3 Menteri Nomor 3015/KPTS/M/2024, 600.10-4849/2024 & 03.HK/KPTS/Mn/2024 (Pembebasan BPHTB & PBG Rumah Pertama MBR)',
+    url: 'https://jdih.pu.go.id/detail-dokumen/Keputusan-Bersama-Menteri-PU-Mendagri-Menteri-PKP-2024-Tiga-Juta-Rumah',
+    publisher: 'JDIH Kementerian PU / PKP / Kemendagri',
+  },
 } satisfies Record<string, TaxSource>;

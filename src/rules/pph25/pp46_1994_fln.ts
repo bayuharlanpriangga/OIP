@@ -16,7 +16,7 @@ const regime: TaxRegime = {
   name: 'PP 46/1994 & PP 17/1998 (Fiskal Luar Negeri 1995–2000)',
   shortName: '1995–2000 (Fiskal LN PP 46/1994 & PP 17/1998)',
   legalBasis: 'PP Nomor 46 Tahun 1994 (1995–1998) & PP Nomor 17 Tahun 1998 (1998–2000)',
-  effectivePeriod: '1 Januari 1995 – 31 Desember 2000',
+  effectivePeriod: '1 Januari 1995 – 22 Juni 2000',
   isCurrent: false,
   summary:
     'Rantai historis Fiskal Luar Negeri (FLN) sebelum PP 42/2000 dan PP 80/2008: pada PP 46/1994 tarifnya Rp 250.000 (pesawat udara) dan Rp 100.000 (kapal laut); lalu dinaikkan 4–5 kali lipat saat krisis moneter 1998 melalui PP 17/1998 menjadi Rp 1.000.000 (pesawat udara) dan Rp 500.000 (kapal laut).',
@@ -30,7 +30,7 @@ const article: TaxArticle = {
   taxTypeLabel: 'PPh Pasal 25',
   title: 'Sejarah Awal Fiskal Luar Negeri (1995–2000): Lonjakan Krisis Moneter PP 46/1994 ke PP 17/1998',
   legalBasis: 'PP Nomor 46 Tahun 1994 & PP Nomor 17 Tahun 1998',
-  effectiveDate: '1 Januari 1995 – 31 Desember 2000',
+  effectiveDate: '1 Januari 1995 – 22 Juni 2000',
   readMinutes: 4,
   summary:
     'Mendokumentasikan evolusi tarif Fiskal Luar Negeri per keberangkatan sebelum era Rp 1 juta/500 ribu dipertegas ulang di PP 42/2000 dan dinaikkan lagi menjadi Rp 2,5 juta di PP 80/2008.',
@@ -87,12 +87,11 @@ export const pph25Pp46_1994FlnRule: TaxRuleModule<TaxCalculatorInput['pph25']> =
     const jumlahKeberangkatan = Math.max(1, Math.round(input.bulanBerjalan || 1));
 
     let tarifSatuan = 0;
-    if (moda === 'punya_npwp') {
-      tarifSatuan = 0;
-    } else if (era === 'pp46_1994') {
-      tarifSatuan = moda === 'udara' ? 250000 : 100000;
+    const effectiveModa = moda === 'laut' || moda === 'darat' ? moda : 'udara';
+    if (era === 'pp46_1994') {
+      tarifSatuan = effectiveModa === 'udara' ? 250000 : effectiveModa === 'laut' ? 100000 : 50000;
     } else {
-      tarifSatuan = moda === 'udara' ? 1000000 : 500000;
+      tarifSatuan = effectiveModa === 'udara' ? 1000000 : effectiveModa === 'laut' ? 500000 : 200000;
     }
 
     const totalFln = tarifSatuan * jumlahKeberangkatan;

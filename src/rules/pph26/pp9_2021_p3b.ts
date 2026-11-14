@@ -76,6 +76,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph26Pp9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {

@@ -90,11 +90,11 @@ export const pph23SuketPengecualianRule: TaxRuleModule<TaxCalculatorInput['pph23
   article,
   calculate(input) {
     const bruto = Math.max(0, input.nilaiBruto);
-    const isExempt = Boolean(input.isPengecualianPasal23_4);
+    const isDividenBadanExempt = input.objectType === 'dividen_badan';
+    const isExempt = isDividenBadanExempt || Boolean(input.isPengecualianPasal23_4);
     const hasSuket = !isExempt && Boolean(input.isSuketUmkm);
 
-    const normalRate =
-      input.objectType === 'royalti' || input.objectType === 'dividen_badan' ? 15 : 2;
+    const normalRate = isDividenBadanExempt ? 0 : input.objectType === 'royalti' ? 15 : 2;
     const appliedRate = isExempt ? 0 : hasSuket ? 0.5 : normalRate;
     const taxNormal = Math.round((bruto * normalRate) / 100);
     const taxApplied = Math.round((bruto * appliedRate) / 100);
@@ -103,12 +103,16 @@ export const pph23SuketPengecualianRule: TaxRuleModule<TaxCalculatorInput['pph23
     const steps: CalculationStep[] = [
       { label: 'Nilai bruto pembayaran jasa / objek PPh 23', value: bruto },
       {
-        label: `Simulasi pemotongan PPh 23 normal (${formatPersen(normalRate)})`,
+        label: isDividenBadanExempt
+          ? 'Tarif normal PPh 23 dividen badan DN (Dikecualikan 0% UU HPP / Cipta Kerja)'
+          : `Simulasi pemotongan PPh 23 normal (${formatPersen(normalRate)})`,
         value: taxNormal,
       },
       {
         label: isExempt
-          ? 'Status: Dikecualikan Pasal 23 ayat (4) UU PPh (Bank / SGU Hak Opsi)'
+          ? isDividenBadanExempt
+            ? 'Status: Dividen Badan DN Dikecualikan dari Objek Pajak (0% UU HPP)'
+            : 'Status: Dikecualikan Pasal 23 ayat (4) UU PPh (Bank / SGU Hak Opsi)'
           : hasSuket
             ? 'Status: Validasi Suket PP 55/2022 / PP 20/2026 (0,5% Final)'
             : 'Status: Tanpa Suket UMKM (Tarif Normal)',

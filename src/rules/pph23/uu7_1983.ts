@@ -12,6 +12,7 @@ const regime: TaxRegime = {
   summary:
     'Era awal PPh Pasal 23 sebelum skema Perkiraan Penghasilan Neto di UU 10/1994: tarif tunggal 15% dari jumlah bruto atas dividen, bunga, royalti, hadiah, sewa, serta imbalan jasa teknik dan manajemen.',
   sources: [SRC.UU_7_1983, SRC.UU_10_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -52,6 +53,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph23Uu7_1983Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {

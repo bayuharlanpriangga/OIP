@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Skema PPh Final Pasal 4(2) sebelum PP 34/2016: pengalihan hak tanah/bangunan 5% (PP 71/2008), konstruksi 2%/3%/4%/6% (PP 51/2008), dan sewa tanah/bangunan 10% (PP 5/2002).',
   sources: [SRC.PP_51_2008, SRC.PP_40_2009, SRC.PP_71_2008, SRC.PP_5_2002],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -59,6 +60,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getOldPph4_2Meta(objectType: Pph4_2ObjectType): { rate: number; label: string } {

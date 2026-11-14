@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan PPnBM lama berbasis kapasitas isi silinder (cc), tipe bodi (sedan vs minibus), dan 4x2/4x4 (0% LCGC, 10%–125%), serta 20% hunian mewah / 75% kapal & pesawat.',
   sources: [SRC.PP_41_2013, SRC.PP_22_2014, SRC.PMK_106_2015, SRC.PMK_35_2017],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -75,6 +76,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getOldPpnbmMeta(cat: PpnbmCategoryType): { rate: number; label: string } {
@@ -99,6 +102,16 @@ function getOldPpnbmMeta(cat: PpnbmCategoryType): { rate: number; label: string 
       return {
         rate: 20,
         label: 'Hunian mewah (rumah >= Rp 20M / apartemen >= Rp 10M) — PMK 106/2015 jo. PMK 35/2017 (20%)',
+      };
+    case 'balon_udara_peluru':
+      return {
+        rate: 40,
+        label: 'Balon udara, pesawat udara tanpa penggerak, & peluru — PMK 106/2015 jo. PP 41/2013 (40%)',
+      };
+    case 'helikopter_senjata_api':
+      return {
+        rate: 50,
+        label: 'Pesawat udara/helikopter non-angkutan umum & senjata api — PMK 106/2015 (50%)',
       };
     case 'kapal_pesiar_pesawat':
       return {

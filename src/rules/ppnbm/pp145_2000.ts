@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Struktur PPnBM awal pasca-UU 18/2000: kendaraan 10% (minibus/4x2 <= 1.500 cc), 20% (1.500–2.500 cc), 30% (sedan <= 1.500 cc), 40% (> 2.500 cc / sedan 1.500–3.000 cc), hingga 75% (> 3.000 cc, kapal pesiar & pesawat); belum ada insentif LCGC maupun BEV.',
   sources: [SRC.PP_145_2000, SRC.PP_12_2006, SRC.UU_18_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -59,6 +60,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPp145Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
@@ -92,6 +95,16 @@ function getPp145Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
       return {
         rate: 20,
         label: 'Hunian mewah tertentu sesuai kriteria PMK pelaksana PP 145/2000 (20%)',
+      };
+    case 'balon_udara_peluru':
+      return {
+        rate: 40,
+        label: 'Balon udara, peluru, & barang mewah kelompok 40% — PP 145/2000',
+      };
+    case 'helikopter_senjata_api':
+      return {
+        rate: 50,
+        label: 'Pesawat udara/helikopter non-niaga & senjata api — kelompok 50% PP 145/2000',
       };
     case 'kapal_pesiar_pesawat':
       return {

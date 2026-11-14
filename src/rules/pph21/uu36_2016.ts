@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'PTKP TK/0 sudah Rp 54 juta, namun lapisan tarif 5% masih berakhir di Rp 50 juta dan tarif tertinggi berhenti di 30% untuk PKP di atas Rp 500 juta.',
   sources: [SRC.UU_36_2008, SRC.PMK_101_2016, SRC.PER_16_PJ_2016],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -78,6 +79,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Uu36_2016Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

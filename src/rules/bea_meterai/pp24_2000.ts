@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Skema historis Bea Meterai bertingkat: bebas s.d. Rp 250 ribu, tarif Rp 3.000 untuk > Rp 250 ribu s.d. Rp 1 juta, dan tarif Rp 6.000 untuk nominal di atas Rp 1 juta.',
   sources: [SRC.PP_24_2000, SRC.UU_13_1985],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -79,6 +80,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const beaMeteraiPp24_2000Rule: TaxRuleModule<TaxCalculatorInput['bea_meterai']> = {

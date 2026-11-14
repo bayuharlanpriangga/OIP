@@ -1,6 +1,6 @@
 # Audit Menyeluruh Aturan Perpajakan (OIP)
 
-Dokumen ini memuat daftar lengkap dan hasil audit seluruh **177 modul aturan/artikel perpajakan** lintas **15 jenis pajak** pada direktori `src/rules/`, disusun berurutan mulai dari **PPh Pasal 21** hingga **Bea Meterai** (79 aturan awal + 48 perluasan pertama + 21 aturan Bagian B + **29 modul pelengkap 2026 & jejak historis terperinci**).
+Dokumen ini memuat daftar lengkap dan hasil audit seluruh **191 modul aturan/artikel perpajakan** lintas **15 jenis pajak** pada direktori `src/rules/`, disusun berurutan mulai dari **PPh Pasal 21** hingga **Bea Meterai** (79 aturan awal + 48 perluasan pertama + 21 aturan Bagian B + 29 modul pelengkap 2026 & jejak historis + **14 modul aturan terbaru & operasional khusus**).
 
 ## Kriteria Penilaian & Konvensi Checkbox
 
@@ -20,26 +20,26 @@ Setiap aturan diaudit pada 5 aspek utama:
 
 | No | Jenis Pajak | Jumlah Aturan | Sesuai (`[x]`) | Perlu Perbaikan (`[ ]`) | Catatan Utama |
 | :-: | :--- | :-: | :-: | :-: | :--- |
-| 1 | PPh Pasal 21 (`pph21`) | 25 | 25 | 0 | +4 modul: PPh 21 DTP TA 2026 (`PMK 105/2025`), Subjek Khusus `PMK 168/2023`, WNA Teritorial (`PMK 18/2021`), & Pesangon `KMK 600/1995–KMK 462/1998`. |
-| 2 | PPh Pasal 22 (`pph22`) | 15 | 15 | 0 | Meliputi objek lengkap ekspor tambang 1,5% & pengumpul 0,25%, Emas `PMK 48/2023`, Kripto `PMK 68/2022` & `PMK 50/2025`, serta `MPO` pra-1984. |
+| 1 | PPh Pasal 21 (`pph21`) | 27 | 27 | 0 | +2 modul baru: PPh 21 DTP Final IKN s.d. 2035 (`PMK 28/2024`) & Pegawai Masuk/Berhenti Tengah Tahun Disetahunkan vs Tidak Disetahunkan (`PMK 168/2023`). |
+| 2 | PPh Pasal 22 (`pph22`) | 16 | 16 | 0 | +1 modul baru: Pengecualian Otomatis <= Rp 2 jt / KITE / KEK & SKB DJP (`PMK 51/2025` Pasal 3 jo. `PER-21/PJ/2014`). |
 | 3 | PPh Pasal 23 (`pph23`) | 11 | 11 | 0 | +1 modul: Suket UMKM 0,5% & Pengecualian Pasal 23 ayat (4) UU PPh (`PP 55/2022` jo. `PP 20/2026`). |
-| 4 | PPh Pasal 4(2) Final (`pph4_2`) | 15 | 15 | 0 | +3 modul: KIK-DIRE 0,5% (`PP 40/2016`), Modal Ventura 0,1% (`PP 4/1995`), & Deposito 15%/Undian 20% era 1994–2000 (`PP 51/1994` & `PP 42/1994`). |
-| 5 | PPh Final UMKM (`pph_umkm`) | 7 | 7 | 0 | +1 modul: Simulasi Transisi UMKM Badan `PP 20/2026` (0,5% vs Pasal 31E 11%). |
-| 6 | PPh Pasal 25 (`pph25`) | 12 | 12 | 0 | +3 modul: Angsuran WP Tertentu Bank/BUMN/Emiten (`PMK 215/2018`), `MPS` pra-1984 (`UU 8/1967`), & FLN `PP 46/1994`–`PP 17/1998`. |
-| 7 | PPh Pasal 26 (`pph26`) | 11 | 11 | 0 | +2 modul: Uji Beneficial Owner & PPT (`PMK 112/2025`) serta Time Test BUT Jasa 60 Hari (`PMK 35/2019`). |
+| 4 | PPh Pasal 4(2) Final (`pph4_2`) | 17 | 17 | 0 | +2 modul baru: Revaluasi Aktiva Tetap 10%/3%/4%/6% (`PMK 79/2008` & `PMK 191/2015`) & Historis Tax Amnesty 2016 (`UU 11/2016`) / PPS 2022 (`PMK 196/2021`). |
+| 5 | PPh Final UMKM (`pph_umkm`) | 8 | 8 | 0 | +1 modul baru: Tata Cara Suket UMKM 0,5%, Surat Pernyataan <= Rp 500 jt, & Relaksasi PKP Akhir Tahun Buku (`PMK 164/2023`). |
+| 6 | PPh Pasal 25 (`pph25`) | 13 | 13 | 0 | +1 modul baru: Angsuran WP Baru Nihil Rp 0, Masa Sebelum SPT (Des Lalu), Merger, & WP Baru OPPT (`PMK 215/2018` jo. `PMK 81/2024`). |
+| 7 | PPh Pasal 26 (`pph26`) | 12 | 12 | 0 | +1 modul baru: Tarif Efektif Premi Asuransi & Reasuransi ke Luar Negeri 10% / 2% / 1% (`KMK 624/KMK.04/1994`). |
 | 8 | PPh Pasal 15 (`pph15`) | 6 | 6 | 0 | +1 modul: Pembebasan Resiprokal P3B Article 8 & `PMK 112/2025` untuk pelayaran/penerbangan asing. |
-| 9 | PPh Badan (`pph_badan`) | 15 | 15 | 0 | +4 modul: Tax Holiday IKN (`PP 12/2023` jo. `PP 29/2024`), DER 4:1 (`PMK 169/2015`), Penyusutan >20 thn (`PMK 72/2023`), & Sektor Ekstraktif (`PP 15/2022` jo. `PP 18/2025`). |
-| 10 | PPN (`ppn`) | 19 | 19 | 0 | +4 modul & update 2026: Pertanian 1,1% (`PMK 64/2022`), KEK & VAT Refund (`PP 40/2021` & `PMK 120/2019`), KMS Lama (`PMK 163/2012`), BKP Strategis 2001–2022, serta Properti `PMK 90/2025` & Tiket Pesawat 100% DTP 2026 (`PMK 4/43/77`). |
+| 9 | PPh Badan (`pph_badan`) | 16 | 16 | 0 | +1 modul baru: Rekonsiliasi Koreksi Fiskal Positif/Negatif (`PP 93/2010`, `PMK 105/2009`, `PMK 02/2010`) & Kompensasi Kerugian 5 Tahun. |
+| 10 | PPN (`ppn`) | 21 | 21 | 0 | +2 modul baru: WAPU PPN BUMN/KKKS > Rp 10 jt Kode 030 vs Instansi > Rp 2 jt Kode 020 (`PMK 81/2024`) & PPN Jasa Luar Negeri Self-Assessed 11% (`PMK 40/2010`–`PMK 81/2024`). |
 | 11 | PPnBM (`ppnbm`) | 9 | 9 | 0 | +1 modul: Pembebasan PPnBM Kendaraan Dinas/Umum/Khusus (`PMK 141/2021`). |
 | 12 | PBB (`pbb`) | 9 | 9 | 0 | +1 modul: Penatausahaan PBB-P3 Hulu Migas & Panas Bumi (`PMK 76/2013`, `PMK 139/2014` & `PMK 122/2019`). |
-| 13 | BPHTB (`bphtb`) | 7 | 7 | 0 | +1 modul: Pengurangan BPHTB 25%/50%/75% (`KMK 561/2004` jo. `PMK 91/2006`). |
-| 14 | PBJT / Pajak Daerah (`pbjt`) | 8 | 8 | 0 | +2 modul: Opsen PKB & BBNKB 66% (`UU HKPD` Pasal 83–84) serta Pajak Alat Berat, Reklame, Air Tanah & MBLB. |
-| 15 | Bea Meterai (`bea_meterai`) | 8 | 8 | 0 | +1 modul: Transisi Meterai Lama Rp 3.000/Rp 6.000/Rp 9.000 & Pemungut e-Meterai (`PMK 4/2021`, `PMK 134/2021`, `PMK 151/2021`). |
-| **Total** | **15 Jenis Pajak** | **177** | **177** | **0** | **100% Sesuai (177 modul aturan, rujukan resmi & pengujian unit deterministik terverifikasi per 14 November 2026)** |
+| 13 | BPHTB (`bphtb`) | 8 | 8 | 0 | +1 modul baru: Pembebasan BPHTB 100% Rumah Pertama MBR Program 3 Juta Rumah (`SKB 3 Menteri Nov 2024` + Perkada). |
+| 14 | PBJT / Pajak Daerah (`pbjt`) | 9 | 9 | 0 | +1 modul baru: Pajak Provinsi UU HKPD — Pokok PKB 1,2% / BBNKB 12% (+ Opsen 66%), BBNKB Bekas 0%, PBBKB 10%, & Rokok 10%. |
+| 15 | Bea Meterai (`bea_meterai`) | 9 | 9 | 0 | +1 modul baru: Dokumen Non-Objek Pasal 7 `UU 10/2020` & Kewajiban Pemungut > 1.000 Dokumen (`PMK 78/2024`). |
+| **Total** | **15 Jenis Pajak** | **191** | **191** | **0** | **100% Sesuai (191 modul aturan, rujukan resmi & pengujian unit deterministik terverifikasi per 14 November 2026)** |
 
 ---
 
-## 1. PPh Pasal 21 (`pph21` — 25 Aturan)
+## 1. PPh Pasal 21 (`pph21` — 27 Aturan)
 
 - [x] **1.1 PP 58/2023 & PMK 168/2023 (TER)** (`src/rules/pph21/ter2024.ts`)
   - **Regime ID / Article ID**: `pph21_ter_2024` / `pph21-ter-2024`
@@ -191,9 +191,21 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.KMK_462_1998`, `SRC.KMK_600_1995`, `SRC.PP_45_1994`, `SRC.PP_149_2000`
   - **Hasil Audit**: Lapisan historis PPh Final pesangon pra-PP 149/2000 (KMK 600/1995: bebas s.d. Rp 5,184 jt, 10% s.d. 25 jt, 15% > 25 jt; KMK 462/1998: bebas s.d. Rp 17,28 jt, 10% s.d. 25 jt, 15% > 25 jt) akurat.
 
+- [x] **1.26 PMK 28/2024 Pasal 123–126 (PPh 21 DTP Final Ibu Kota Nusantara s.d. 2035)** (`src/rules/pph21/pmk28_2024_ikn.ts`)
+  - **Regime ID / Article ID**: `pph21_pmk28_2024_ikn` / `pph21-pmk28-2024-ikn`
+  - **Periode Berlaku**: `16 Mei 2024 – 31 Desember 2035`
+  - **`sources`**: `SRC.PMK_28_2024`, `SRC.PP_12_2023`, `SRC.PP_29_2024`
+  - **Hasil Audit**: Pembebasan PPh 21 DTP 100% bersifat final tanpa plafon gaji Rp 10 juta hingga Tahun Pajak 2035 bagi Pegawai Tertentu yang berdomisili dan ber-NPWP/NIK KPP wilayah IKN serta bekerja pada Pemberi Kerja Tertentu di IKN akurat.
+
+- [x] **1.27 PMK 168/2023 Pasal 16 (Pegawai Masuk / Berhenti Tengah Tahun: Disetahunkan vs Tidak Disetahunkan)** (`src/rules/pph21/pmk168_2023_tengah_tahun.ts`)
+  - **Regime ID / Article ID**: `pph21_pmk168_2023_tengah_tahun` / `pph21-pmk168-2023-tengah-tahun`
+  - **Periode Berlaku**: `1 Januari 2024 – Sekarang`
+  - **`sources`**: `SRC.PMK_168_2023`, `SRC.PMK_168_2023_BPK`, `SRC.UU_7_2021_HPP`
+  - **Hasil Audit**: Pemisahan akurat antara pegawai lokal yang resign/pensiun di dalam negeri (penghasilan n bulan TIDAK disetahunkan namun tetap dikurangi PTKP penuh setahun) vs WNA baru datang/pegawai meninggal dunia/meninggalkan RI selamanya (neto disetahunkan 12/n lalu PPh diprorata n/12).
+
 ---
 
-## 2. PPh Pasal 22 (`pph22` — 15 Aturan)
+## 2. PPh Pasal 22 (`pph22` — 16 Aturan)
 
 - [x] **2.1 PMK 51/2025 (Pemungutan PPh 22 Terkini) jo. PMK 92/2019** (`src/rules/pph22/pmk51_2025.ts`)
   - **Regime ID / Article ID**: `pph22_pmk51_2025` / `pph22-pmk51-2025`
@@ -211,7 +223,7 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **Regime ID / Article ID**: `pph22_pmk81_2024` / `pph22-pmk81-2024`
   - **Periode Berlaku**: `1 Januari 2025 – 31 Juli 2025`
   - **`sources`**: `SRC.PMK_81_2024`, `SRC.PMK_54_2025`, `SRC.PMK_92_2019`
-  - **Hasil Audit**: Rujukan, periode sebelum dicabut PMK 54/2025, tarif bulion emas 0,25% (meneruskan PMK 48/2023), serta tidak adanya penalti +100% non-NPWP di era Coretax akurat.
+  - **Hasil Audit**: Rujukan, periode sebelum dicabut PMK 54/2025, tarif bulion emas 0,25% (meneruskan PMK 48/2023), serta penerapan sanksi +100% (200% tarif normal) apabila wajib pajak belum ber-NPWP/NIK 16 digit (sebagaimana diimplementasikan pada kalkulasi `!hasNpwp`) akurat.
 
 - [x] **2.4 PMK 34/2017 jo. PMK 110/2018, PMK 41/2022 & PMK 48/2023** (`src/rules/pph22/pmk34_2017.ts`)
   - **Regime ID / Article ID**: `pph22_pmk34_2017` / `pph22-pmk34-2017`
@@ -285,6 +297,12 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.UU_8_1967`, `SRC.UU_7_1983`, `SRC.KMK_965_1983`
   - **Hasil Audit**: Jejak historis cikal bakal PPh 22 melalui sistem pemungutan MPO (2% atas nilai niaga/impor, 4% tanpa identitas fiskal) sesuai UU 8/1967 jo. PP 11/1967 sebelum digantikan UU 7/1983 akurat.
 
+- [x] **2.16 Pengecualian Otomatis & SKB PPh Pasal 22 (PMK 51/2025 Pasal 3 jo. PER-21/PJ/2014)** (`src/rules/pph22/pembebasan_skb.ts`)
+  - **Regime ID / Article ID**: `pph22_pembebasan_skb` / `pph22-pembebasan-skb`
+  - **Periode Berlaku**: `1 Agustus 2025 – Sekarang`
+  - **`sources`**: `SRC.PMK_51_2025`, `SRC.PMK_81_2024`, `SRC.PMK_34_2017`
+  - **Hasil Audit**: Pembedaan akurat transaksi pengecualian otomatis tanpa SKB (belanja instansi pemerintah <= Rp 2 jt non-PPN, impor fasilitas KITE Pembebasan/KEK/Kawasan Berikat, bantuan bencana/sosial) vs pembebasan ber-SKB DJP rugi fiskal serta pengalihan ke PPh Final UMKM 0,5% bagi rekanan ber-Suket.
+
 ---
 
 ## 3. PPh Pasal 23 (`pph23` — 11 Aturan)
@@ -357,7 +375,7 @@ Setiap aturan diaudit pada 5 aspek utama:
 
 ---
 
-## 4. PPh Pasal 4(2) Final (`pph4_2` — 15 Aturan)
+## 4. PPh Pasal 4(2) Final (`pph4_2` — 17 Aturan)
 
 - [x] **4.1 PP 9/2022, PP 34/2017 & PP 34/2016** (`src/rules/pph4_2/pp9_2022.ts`)
   - **Regime ID / Article ID**: `pph4_2_pp9_2022` / `pph4-2-pp9-2022`
@@ -449,9 +467,21 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.PP_51_1994`, `SRC.PP_42_1994`, `SRC.PP_131_2000`, `SRC.PP_132_2000`
   - **Hasil Audit**: Tarif historis bunga deposito/tabungan 15% (PP 51/1994 sebelum naik menjadi 20% di PP 131/2000) dan hadiah undian 20% (PP 42/1994 sebelum naik menjadi 25% di PP 132/2000) akurat.
 
+- [x] **4.16 PMK 79/2008 (10% Reguler) & PMK 191/2015 jo. PMK 233/2015 (Revaluasi Aktiva Tetap)** (`src/rules/pph4_2/pmk191_2015_revaluasi.ts`)
+  - **Regime ID / Article ID**: `pph4_2_pmk191_2015_revaluasi` / `pph4-2-pmk191-2015-revaluasi`
+  - **Periode Berlaku**: `23 Mei 2008 – Sekarang (Insentif Khusus Okt 2015 – Des 2016)`
+  - **`sources`**: `SRC.PMK_79_2008`, `SRC.PMK_191_2015`, `SRC.PMK_233_2015`
+  - **Hasil Audit**: Tarif final 10% reguler (`PMK 79/2008`) atas selisih lebih penilaian kembali aktiva tetap (Nilai Pasar Wajar dikurangi Nilai Sisa Buku Fiskal) beserta insentif diskon sementara 3%/4%/6% pada Paket Kebijakan Ekonomi V (`PMK 191/2015` jo. `PMK 233/2015`) akurat.
+
+- [x] **4.17 UU 11/2016 (Tax Amnesty 2016–2017) & PMK 196/2021 (PPS 2022)** (`src/rules/pph4_2/pps_tax_amnesty.ts`)
+  - **Regime ID / Article ID**: `pph4_2_pps_tax_amnesty` / `pph4-2-pps-tax-amnesty`
+  - **Periode Berlaku**: `1 Juli 2016 – 31 Maret 2017 (TA) & 1 Januari – 30 Juni 2022 (PPS)`
+  - **`sources`**: `SRC.UU_11_2016`, `SRC.PMK_118_2016`, `SRC.UU_7_2021_HPP`, `SRC.PMK_196_2021`
+  - **Hasil Audit**: Lengkap memuat seluruh 14 lapisan tarif historis Uang Tebusan Tax Amnesty 2016–2017 (2/3/5% DN/Repatriasi, 4/6/10% LN, 0,5/2% UMKM) serta PPh Final PPS Kebijakan I (6/8/11%) & Kebijakan II OP (12/14/18%) sesuai UU HPP jo. PMK 196/2021.
+
 ---
 
-## 5. PPh Final UMKM (`pph_umkm` — 7 Aturan)
+## 5. PPh Final UMKM (`pph_umkm` — 8 Aturan)
 
 - [x] **5.1 PP 20/2026 (Perubahan PP 55/2022)** (`src/rules/pph_umkm/pp20_2026.ts`)
   - **Regime ID / Article ID**: `umkm_pp20_2026` / `umkm-pp20-2026`
@@ -495,9 +525,15 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.PP_20_2026`, `SRC.PP_55_2022`, `SRC.UU_7_2021_HPP`
   - **Hasil Audit**: Pemodelan titik impas (break-even margin laba ~4,55%) dan simulasi perbandingan beban pajak tahunan bagi WP Badan (CV/Firma/PT) saat beralih dari PPh Final 0,5% omzet ke tarif normal Pasal 31E (11% laba neto) sesuai PP 20/2026 akurat.
 
+- [x] **5.8 PMK 164 Tahun 2023 (Suket UMKM 0,5%, Surat Pernyataan Rp 500 Jt, & Relaksasi PKP)** (`src/rules/pph_umkm/pmk164_2023_suket.ts`)
+  - **Regime ID / Article ID**: `umkm_pmk164_2023_suket` / `umkm-pmk164-2023-suket`
+  - **Periode Berlaku**: `29 Desember 2023 – Sekarang`
+  - **`sources`**: `SRC.PMK_164_2023`, `SRC.PP_55_2022`, `SRC.PMK_197_2013`
+  - **Hasil Audit**: Skema operasional pemotongan pihak ketiga (Suket valid 0,5%, tanpa Suket 2% PPh 23, OP kuota <= Rp 500 jt dengan Surat Pernyataan 0%) serta reformasi tenggat lapor PKP saat omzet melewati Rp 4,8 miliar menjadi paling lambat akhir tahun buku (PPN mulai tahun buku berikutnya) akurat.
+
 ---
 
-## 6. PPh Pasal 25 (`pph25` — 12 Aturan)
+## 6. PPh Pasal 25 (`pph25` — 13 Aturan)
 
 - [x] **6.1 Pasal 25 UU PPh jo. PMK 81 Tahun 2024** (`src/rules/pph25/pmk81_2024.ts`)
   - **Regime ID / Article ID**: `pph25_pmk81_2024` / `pph25-pmk81-2024`
@@ -571,9 +607,15 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.PP_46_1994`, `SRC.PP_17_1998`, `SRC.PP_42_2000`, `SRC.PP_80_2008`
   - **Hasil Audit**: Tarif historis Fiskal Luar Negeri pra-2000: PP 46/1994 (Rp 250 rb udara / Rp 100 rb laut / Rp 50 rb darat) dan kenaikan era krismon PP 17/1998 (Rp 1 jt udara / Rp 500 rb laut / Rp 200 rb darat) akurat.
 
+- [x] **6.13 PMK 215/2018 & Pasal 25(2) UU PPh jo. PMK 81/2024 (WP Baru Nihil, Masa Sebelum SPT, & Merger)** (`src/rules/pph25/pmk81_2024_wp_baru_transisi.ts`)
+  - **Regime ID / Article ID**: `pph25_pmk81_2024_wp_baru_transisi` / `pph25-pmk81-2024-wp-baru-transisi`
+  - **Periode Berlaku**: `31 Desember 2018 – Sekarang (Jatuh Tempo Tgl 15)`
+  - **`sources`**: `SRC.PMK_215_2018`, `SRC.PMK_81_2024`, `SRC.KEP_537_2000_DJP`
+  - **Hasil Audit**: Penetapan angsuran PPh 25 Nihil (Rp 0) bagi Wajib Pajak Baru umum (Pasal 10 PMK 215/2018), pemakaian angka bulan Desember tahun lalu pada masa sebelum batas SPT Tahunan (Pasal 25 ayat 2 UU PPh), akumulasi angsuran peserta merger, serta pengecualian OPPT baru 0,75% akurat.
+
 ---
 
-## 7. PPh Pasal 26 (`pph26` — 11 Aturan)
+## 7. PPh Pasal 26 (`pph26` — 12 Aturan)
 
 - [x] **7.1 Pasal 26 UU PPh jo. PP 9/2021, PMK 81/2024 & PMK 112/2025** (`src/rules/pph26/pp9_2021_p3b.ts`)
   - **Regime ID / Article ID**: `pph26_pp9_2021` / `pph26-pp9-2021`
@@ -641,6 +683,12 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.PMK_35_2019`, `SRC.PMK_112_2025`, `SRC.UU_36_2008`
   - **Hasil Audit**: Simulasi pemenuhan ambang *time test* jasa WPLN 60 hari dalam 12 bulan sesuai PMK 35/2019 (di atas 60 hari terbit status BUT: PPh Badan 22% neto + BPT vs <= 60 hari non-BUT dipotong PPh 26/P3B) akurat.
 
+- [x] **7.12 KMK 624/KMK.04/1994 (Premi Asuransi & Reasuransi ke Luar Negeri: 10% / 2% / 1%)** (`src/rules/pph26/kmk624_1994_asuransi.ts`)
+  - **Regime ID / Article ID**: `pph26_kmk624_1994_asuransi` / `pph26-kmk624-1994-asuransi`
+  - **Periode Berlaku**: `1 Januari 1995 – Sekarang`
+  - **`sources`**: `SRC.KMK_624_1994`, `SRC.UU_10_1994`, `SRC.UU_36_2008`
+  - **Hasil Audit**: Rumus khusus Pasal 26 ayat (2) UU PPh atas pembayaran premi asuransi/reasuransi ke perusahaan asuransi luar negeri dengan perkiraan penghasilan neto 50% (efektif 10% bila dibayar tertanggung RI), 10% (efektif 2% oleh perusahaan asuransi RI), dan 5% (efektif 1% oleh perusahaan reasuransi RI) beserta opsi P3B akurat.
+
 ---
 
 ## 8. PPh Pasal 15 (`pph15` — 6 Aturan)
@@ -683,7 +731,7 @@ Setiap aturan diaudit pada 5 aspek utama:
 
 ---
 
-## 9. PPh Badan (`pph_badan` — 15 Aturan)
+## 9. PPh Badan (`pph_badan` — 16 Aturan)
 
 - [x] **9.1 UU Nomor 7 Tahun 2021 (HPP)** (`src/rules/pph_badan/hpp2022.ts`)
   - **Regime ID / Article ID**: `badan_hpp_2022` / `pph-badan-31e`
@@ -775,9 +823,15 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.PP_15_2022`, `SRC.PP_18_2025`, `SRC.PP_37_2018`, `SRC.PP_53_2017`
   - **Hasil Audit**: Perlakuan PPh Badan dan tambahan iuran produksi/bagian pemerintah daerah (4% Pusat + 6% Daerah pada IUPK eks-PKP2B PP 15/2022 jo. PP 18/2025, IUPK Mineral PP 37/2018, dan Kontrak Bagi Hasil Gross Split Hulu Migas PP 53/2017) akurat.
 
+- [x] **9.16 Pasal 6(2) & Pasal 9 UU PPh (Koreksi Fiskal Positif/Negatif & Kompensasi Rugi 5 Tahun)** (`src/rules/pph_badan/koreksi_fiskal_kerugian.ts`)
+  - **Regime ID / Article ID**: `badan_koreksi_fiskal_kerugian` / `pph-badan-koreksi-fiskal-kerugian`
+  - **Periode Berlaku**: `1 Januari 2009 – Sekarang (UU 36/2008 stdd UU HPP)`
+  - **`sources`**: `SRC.PP_93_2010`, `SRC.PMK_105_2009`, `SRC.PMK_02_2010`, `SRC.UU_7_2021_HPP`
+  - **Hasil Audit**: Alur rekonsiliasi fiskal tahunan dari laba komersial ke PhKP (koreksi positif sumbangan/promosi tanpa daftar nominatif PMK 02/2010/piutang non-syarat PMK 105/2009, koreksi negatif PPh Final/non-objek, pengurang kompensasi kerugian 5 tahun Pasal 6 ayat 2, lalu penerapan tarif 22% / Pasal 31E & diskon Tbk) akurat.
+
 ---
 
-## 10. PPN (`ppn` — 19 Aturan)
+## 10. PPN (`ppn` — 21 Aturan)
 
 - [x] **10.1 PMK 131/2024 & UU HPP** (`src/rules/ppn/pmk131_2025.ts`)
   - **Regime ID / Article ID**: `ppn_pmk131_2025` / `ppn-pmk131-2025`
@@ -892,6 +946,18 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **Periode Berlaku**: `1 Januari 2001 – 11 Desember 2022`
   - **`sources`**: `SRC.PP_81_2015`, `SRC.PP_48_2020`, `SRC.PP_12_2001`, `SRC.PP_49_2022`
   - **Hasil Audit**: Rezim historis BKP strategis dibebaskan PPN (mesin pabrik, sembako, pakan ternak, air bersih, listrik rumah tangga <= 6.600 VA) sebelum dikonsolidasikan menjadi PP 49/2022 akurat.
+
+- [x] **10.20 PMK 81/2024 Bab IV (WAPU BUMN, KKKS Migas, & Instansi Pemerintah — Pencabut PMK 8/2021 & PMK 73/2010)** (`src/rules/ppn/pmk81_2024_wapu_bumn_kkks.ts`)
+  - **Regime ID / Article ID**: `ppn_pmk81_2024_wapu_bumn_kkks` / `ppn-pmk81-2024-wapu-bumn-kkks`
+  - **Periode Berlaku**: `1 Januari 2025 – Sekarang`
+  - **`sources`**: `SRC.PMK_81_2024`, `SRC.PMK_8_2021`, `SRC.PMK_73_2010`, `SRC.PMK_131_2024`
+  - **Hasil Audit**: Konsolidasi WAPU Coretax PMK 81/2024 dengan pembedaan tepat ambang BUMN/KKKS (> Rp 10 juta termasuk PPN -> Kode 030 dipungut WAPU vs <= Rp 10 juta -> Kode 040/010 dipungut PKP penjual) dan Instansi Pemerintah (> Rp 2 juta tidak termasuk PPN -> Kode 020) beserta pemisahan arus kas diterima vendor akurat.
+
+- [x] **10.21 PMK 40/2010 jo. PMK 81/2024 & PMK 131/2024 (PPN Jasa & BKP Tidak Berwujud Luar Negeri / Self-Assessed)** (`src/rules/ppn/pmk40_2010_jln.ts`)
+  - **Regime ID / Article ID**: `ppn_pmk40_2010_jln` / `ppn-pmk40-2010-jln`
+  - **Periode Berlaku**: `1 April 2010 – Sekarang (PPN 11% Efektif Sejak 2022/2025)`
+  - **`sources`**: `SRC.PMK_40_2010`, `SRC.PMK_81_2024`, `SRC.PMK_131_2024`
+  - **Hasil Audit**: Mekanisme self-assessment penyetoran PPN JLN 11% efektif oleh pemanfaat di Indonesia (baik PKP maupun Non-PKP) maksimal tgl 15 bulan berikutnya beserta hak pengkreditan Pajak Masukan (PKP) vs komponen biaya (Non-PKP) akurat.
 
 ---
 
@@ -1011,7 +1077,7 @@ Setiap aturan diaudit pada 5 aspek utama:
 
 ---
 
-## 13. BPHTB (`bphtb` — 7 Aturan)
+## 13. BPHTB (`bphtb` — 8 Aturan)
 
 - [x] **13.1 UU Nomor 1 Tahun 2022 (HKPD)** (`src/rules/bphtb/hkpd2022.ts`)
   - **Regime ID / Article ID**: `bphtb_hkpd_2022` / `bphtb-hkpd-2022`
@@ -1055,9 +1121,15 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.KMK_561_2004`, `SRC.PMK_91_2006`, `SRC.UU_20_2000`, `SRC.PP_35_2023`
   - **Hasil Audit**: Tingkat pengurangan BPHTB terutang (25% rumah dinas/hibah badan sosial, 50% waris/bencana/veteran, dan 75% relokasi bencana/kepentingan sosial tertentu) sebelum dan sesudah pengalihan ke Perda/Perkada akurat.
 
+- [x] **13.8 SKB 3 Menteri Nov 2024 & Perkada MBR (Pembebasan BPHTB 100% Rumah Pertama MBR Program 3 Juta Rumah)** (`src/rules/bphtb/skb3menteri_2024_mbr.ts`)
+  - **Regime ID / Article ID**: `bphtb_skb3menteri_2024_mbr` / `bphtb-skb3menteri-2024-mbr`
+  - **Periode Berlaku**: `25 November 2024 – Sekarang`
+  - **`sources`**: `SRC.SKB_3_MENTERI_2024_MBR`, `SRC.UU_1_2022_HKPD`, `SRC.PP_35_2023`
+  - **Hasil Audit**: Simulasi syarat pembebasan 100% BPHTB (Rp 0) untuk pembeli rumah pertama MBR berdasarkan SKB Mendagri, MenPKP & MenPU tgl 25 November 2024 jo. Perkada setempat (rumah pertama, penghasilan <= Rp 8 juta/bulan umum, dan adanya Perkada pembebasan) akurat.
+
 ---
 
-## 14. PBJT / Pajak Daerah (`pbjt` — 8 Aturan)
+## 14. PBJT / Pajak Daerah (`pbjt` — 9 Aturan)
 
 - [x] **14.1 UU Nomor 1 Tahun 2022 (HKPD)** (`src/rules/pbjt/hkpd2022.ts`)
   - **Regime ID / Article ID**: `pbjt_hkpd_2022` / `pbjt-hkpd-2022`
@@ -1107,9 +1179,15 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **`sources`**: `SRC.UU_1_2022_HKPD`, `SRC.PP_35_2023`, `SRC.UU_28_2009_PDRD`
   - **Hasil Audit**: Simulasi plafon tarif pajak daerah non-PBJT dalam UU HKPD: Pajak Alat Berat maks 0,2%, Pajak Reklame maks 25%, Pajak Air Tanah maks 20%, dan Pajak MBLB maks 20% (beserta ketentuan Opsen MBLB 25%) akurat.
 
+- [x] **14.9 UU HKPD 1/2022 & PP 35/2023 (Pajak Provinsi: PKB 1,2%, BBNKB Baru 12% + Opsen 66%, PBBKB, & Rokok)** (`src/rules/pbjt/hkpd_pkb_bbnkb_pbbkb_rokok.ts`)
+  - **Regime ID / Article ID**: `pbjt_hkpd_provinsi_ototarif` / `pbjt-hkpd-provinsi-ototarif`
+  - **Periode Berlaku**: `5 Januari 2025 – Sekarang`
+  - **`sources`**: `SRC.UU_1_2022_HKPD`, `SRC.PP_35_2023`, `SRC.UU_28_2009_PDRD`
+  - **Hasil Audit**: Tarif pokok PKB Non-DKI 1,2% (+ Opsen 66% = 1,992%) vs DKI 2%, BBNKB kendaraan baru Non-DKI 12% (+ Opsen 66% = 19,92%) vs DKI 20% (beserta pembebasan 0% kendaraan bekas), PBBKB maks 10%, dan Pajak Rokok 10% cukai akurat.
+
 ---
 
-## 15. Bea Meterai (`bea_meterai` — 8 Aturan)
+## 15. Bea Meterai (`bea_meterai` — 9 Aturan)
 
 - [x] **15.1 UU Nomor 10 Tahun 2020 (Tarif Tunggal)** (`src/rules/bea_meterai/uu10_2020.ts`)
   - **Regime ID / Article ID**: `meterai_uu10_2020` / `bea-meterai-uu10-2020`
@@ -1158,6 +1236,12 @@ Setiap aturan diaudit pada 5 aspek utama:
   - **Periode Berlaku**: `1 Januari 2021 – 17 Oktober 2024 (Masa Transisi Meterai Lama s.d. 31 Des 2021)`
   - **`sources`**: `SRC.PMK_4_2021`, `SRC.PMK_134_2021`, `SRC.PMK_151_2021`, `SRC.UU_10_2020`
   - **Hasil Audit**: Masa transisi penggunaan meterai tempel lama Rp 3.000 + Rp 6.000 = paling sedikit Rp 9.000 s.d. 31 Desember 2021 serta skema pemungut Bea Meterai elektronik (`PMK 151/2021`) sebelum dikonsolidasikan ke `PMK 78/2024` akurat.
+
+- [x] **15.9 Pasal 7 UU 10/2020 & Pasal 28–37 PMK 78/2024 (Dokumen Non-Objek & Pemungut > 1.000 Dokumen)** (`src/rules/bea_meterai/uu10_2020_pemungut_nonobjek.ts`)
+  - **Regime ID / Article ID**: `meterai_uu10_2020_pemungut_nonobjek` / `bea-meterai-uu10-2020-pemungut-nonobjek`
+  - **Periode Berlaku**: `1 Januari 2021 – Sekarang (Pembaruan PMK 78/2024 per 18 Okt 2024)`
+  - **`sources`**: `SRC.UU_10_2020`, `SRC.PMK_78_2024`, `SRC.PMK_151_2021`
+  - **Hasil Audit**: Identifikasi dokumen Non-Objek Pasal 7 UU 10/2020 (ijazah, slip gaji/pensiun, konosemen/B/L, tanda terima intern, kuitansi pajak/bank) = Rp 0, ambang nominal <= Rp 5 jt = Rp 0, serta kewajiban Pemungut Bea Meterai bagi penerbit > 1.000 dokumen/bulan di PMK 78/2024 akurat (termasuk edge-case `jumlahDokumen = 0`).
 
 ---
 
@@ -1220,4 +1304,29 @@ Setiap aturan diaudit pada 5 aspek utama:
   6. **PPh Badan Khusus (`pp12_2023_ikn_pfii.ts`, `pmk169_2015_der.ts`, `pmk72_2023_penyusutan.ts`, `pp15_2022_ekstraktif.ts`)**, **PPN/PPnBM/PBB/BPHTB/PBJT Opsen 66%/Meterai Transisi**, serta **Objek Lengkap PPh 22** (`ekspor_tambang_1_5` 1,5% & `pengumpul_kehutanan_perkebunan_0_25` 0,25%).
 - **Sinkronisasi Kalkulator UI (`src/components/TaxCalculatorWorkspace.tsx`)**: Seluruh 29 modul baru, opsi objek PPh 22 tambahan, serta skema 2026 telah memiliki kontrol input khusus dan label kontekstual yang selaras.
 - **Verifikasi Otomatis**: Seluruh **177 modul aturan & artikel**, seluruh sumber `https://`, dan 15 rangkaian pengujian deterministik lulus **15/15 (100%)** melalui `npx --yes tsx --test src/rules/rulesAudit.test.ts`.
+
+---
+
+## Audit Pembaruan, Perbaikan Bug, & Penambahan +14 Aturan Terbaru & Khusus (Total 191 Modul) — Selesai
+
+- **Perbaikan Bug & Akurasi Sebelum Penambahan (Cross-Checked)**:
+  1. **PPnBM Terkini & Non-Kendaraan (`pp74_2021.ts`, `pmk106_2015_nonkendaraan.ts`, `pmk20_2021_dtp.ts`)**: Pemisahan akurat kelompok non-kendaraan `balon_udara_peluru` (40%) dan `helikopter_senjata_api` (50%) di bawah `PMK 96/2021` jo. `PMK 15/2023`, penghapusan nilai default yang keliru pada opsi hunian mewah, serta pembatasan fasilitas DTP otomotif `PMK 20/2021` agar tidak diterapkan pada non-kendaraan.
+  2. **PBJT Listrik Industri/Sendiri (`pbjt/hkpd2022.ts`) & FLN Darat (`pph25/pp46_1994_fln.ts`)**: Penambahan opsi batas maks 3% (listrik industri/migas) & 1,5% (listrik sendiri/captive power) sesuai Pasal 58 UU HKPD, serta perbaikan dukungan lintas darat pada Fiskal Luar Negeri 1994–2000.
+  3. **Edge-Case Input Nol (`pmk191_2015_revaluasi.ts` & `uu10_2020_pemungut_nonobjek.ts`)**: Memastikan `effectiveRatePercent` bernilai `0` (bukan `10%` atau `NaN`) ketika selisih revaluasi atau jumlah dokumen bernilai `0`.
+  4. **Keselarasan Audit Dokumentasi (`audit_aturan.md` poin 2.3)**: Menyesuaikan catatan `pph22_pmk81_2024` agar akurat mencerminkan implementasi sanksi `+100%` saat `!hasNpwp`.
+- **Penambahan +14 Modul Terbaru & Operasional Khusus (Terverifikasi 14 November 2026)**:
+  1. **PPh 21 (`+2`)**: `pph21_pmk28_2024_ikn` (`PMK 28/2024` PPh 21 DTP Final IKN s.d. 2035) & `pph21_pmk168_2023_tengah_tahun` (masuk/berhenti tengah tahun disetahunkan vs tidak disetahunkan).
+  2. **PPh 22 (`+1`)**: `pph22_pembebasan_skb` (pengecualian otomatis <= Rp 2 jt / KITE / KEK & SKB DJP).
+  3. **PPh 4(2) (`+2`)**: `pph4_2_pmk191_2015_revaluasi` (revaluasi aktiva tetap 10%/3%/4%/6%) & `pph4_2_pps_tax_amnesty` (14 skema historis Tax Amnesty `UU 11/2016` & PPS `PMK 196/2021`).
+  4. **PPh UMKM (`+1`)**: `umkm_pmk164_2023_suket` (tata cara Suket 0,5%, Surat Pernyataan <= Rp 500 jt, & relaksasi PKP akhir tahun buku).
+  5. **PPh 25 (`+1`)**: `pph25_pmk81_2024_wp_baru_transisi` (WP Baru Nihil, masa sebelum SPT, merger, & OPPT baru).
+  6. **PPh 26 (`+1`)**: `pph26_kmk624_1994_asuransi` (premi asuransi/reasuransi LN 10% / 2% / 1%).
+  7. **PPh Badan (`+1`)**: `badan_koreksi_fiskal_kerugian` (koreksi fiskal positif/negatif `PP 93/2010`, `PMK 105/2009`, `PMK 02/2010` & kompensasi rugi 5 tahun).
+  8. **PPN (`+2`)**: `ppn_pmk81_2024_wapu_bumn_kkks` (WAPU BUMN/KKKS > Rp 10 jt Kode 030 vs Instansi > Rp 2 jt Kode 020) & `ppn_pmk40_2010_jln` (PPN Jasa Luar Negeri self-assessed 11%).
+  9. **BPHTB (`+1`)**: `bphtb_skb3menteri_2024_mbr` (`SKB 3 Menteri Nov 2024` pembebasan BPHTB 100% rumah pertama MBR).
+  10. **PBJT / Pajak Daerah (`+1`)**: `pbjt_hkpd_provinsi_ototarif` (pajak provinsi UU HKPD: PKB 1,2% / BBNKB 12% + Opsen 66%, bebas BBNKB bekas, PBBKB, & Rokok).
+  11. **Bea Meterai (`+1`)**: `meterai_uu10_2020_pemungut_nonobjek` (non-objek Pasal 7 `UU 10/2020` & Pemungut > 1.000 dokumen `PMK 78/2024`).
+- **Sinkronisasi Kalkulator UI (`src/components/TaxCalculatorWorkspace.tsx`)**: Seluruh 14 modul baru terhubung dengan kontrol input khusus, label kontekstual, opsi `<select>`, dan tombol reset ke Rp 0 yang bersih.
+- **Verifikasi Menyeluruh**: Seluruh **191 modul aturan & artikel**, kelengkapan minimal 2 sumber resmi `https://`, penanggalan `14 November 2026`, serta seluruh kasus uji unit lulus 100% melalui `npx --yes tsx --test src/rules/rulesAudit.test.ts` dan pengujian langsung di peramban.
+
 

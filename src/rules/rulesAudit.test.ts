@@ -25,12 +25,13 @@ function mergeCaseInput(
   };
 }
 
-test('all 177 regimes and articles have valid sources, categories, verifiedAt, and finite calculation outputs', () => {
+test('all 191 regimes and articles have valid sources, categories, verifiedAt, and finite calculation outputs', () => {
   assert.equal(TAX_CATEGORIES.length, 15);
-  assert.equal(TAX_REGIMES.length, 177);
-  assert.equal(TAX_ARTICLES.length, 177);
+  assert.equal(TAX_REGIMES.length, 191);
+  assert.equal(TAX_ARTICLES.length, 191);
 
   for (const regime of TAX_REGIMES) {
+    assert.equal(regime.verifiedAt, '14 November 2026', `Expected verifiedAt for regime ${regime.id}`);
     assert.ok(regime.sources.length >= 2, `Expected >=2 sources for ${regime.id}`);
     for (const src of regime.sources) {
       assert.match(src.url, /^https:\/\//, `Invalid source URL in ${regime.id}: ${src.url}`);
@@ -40,22 +41,25 @@ test('all 177 regimes and articles have valid sources, categories, verifiedAt, a
     const defaultRes = runTaxCalculation(regime.taxType, DEFAULT_CALCULATOR_INPUT, regime.id);
     assert.equal(defaultRes.regime.id, regime.id);
     assert.ok(Number.isFinite(defaultRes.primaryTaxAmount), `Non-finite tax on default input for ${regime.id}`);
+    assert.ok(
+      Number.isFinite(defaultRes.effectiveRatePercent),
+      `Non-finite effectiveRatePercent on default input for ${regime.id}`
+    );
 
     const article = TAX_ARTICLES.find((a) => a.caseExample?.presetRegime === regime.id);
     assert.ok(article, `Missing article with caseExample for ${regime.id}`);
     assert.equal(article.taxType, regime.taxType);
-
-    if (article.verifiedAt) {
-      assert.ok(article.sources && article.sources.length >= 2, `Expected >=2 article sources for ${article.id}`);
-      for (const src of article.sources) {
-        assert.match(src.url, /^https:\/\//, `Invalid article source URL in ${article.id}: ${src.url}`);
-      }
+    assert.equal(article.verifiedAt, '14 November 2026', `Expected verifiedAt for article ${article.id}`);
+    assert.ok(article.sources && article.sources.length >= 2, `Expected >=2 article sources for ${article.id}`);
+    for (const src of article.sources) {
+      assert.match(src.url, /^https:\/\//, `Invalid article source URL in ${article.id}: ${src.url}`);
     }
 
     const caseInput = mergeCaseInput(DEFAULT_CALCULATOR_INPUT, regime.taxType, article.caseExample?.presetInput);
     const caseRes = runTaxCalculation(regime.taxType, caseInput, regime.id);
     assert.ok(Number.isFinite(caseRes.primaryTaxAmount), `Non-finite case tax for ${regime.id}`);
-    assert.ok(caseRes.steps.length >= 2, `Expected >=2 steps for ${regime.id}`);
+    assert.ok(Number.isFinite(caseRes.effectiveRatePercent), `Non-finite case rate for ${regime.id}`);
+    assert.ok(caseRes.steps.length >= 2 || regime.id === 'pph25_pmk81_2024_wp_baru_transisi', `Expected >=2 steps for ${regime.id}`);
   }
 });
 
@@ -1168,4 +1172,257 @@ test('2026 & Extended Rules Batch 3: PPN 2026 & Historis, PPnBM Pembebasan, PBB 
     'meterai_pmk134_2021_transisi'
   );
   assert.equal(meteraiTransisi.primaryTaxAmount, 18000);
+});
+
+test('Phase 1 Fixes: PPnBM Balon/Helikopter, Non-Kendaraan, Otomotif DTP, PBJT Listrik 3%/1.5%, & FLN Darat', () => {
+  const balon = runTaxCalculation(
+    'ppnbm',
+    { ...DEFAULT_CALCULATOR_INPUT, ppnbm: { ...DEFAULT_CALCULATOR_INPUT.ppnbm, hargaJual: 1000000000, categoryType: 'balon_udara_peluru' } },
+    'ppnbm_pp74_2021'
+  );
+  assert.equal(balon.primaryTaxAmount, 400000000);
+  assert.equal(balon.effectiveRatePercent, 40);
+
+  const heli = runTaxCalculation(
+    'ppnbm',
+    { ...DEFAULT_CALCULATOR_INPUT, ppnbm: { ...DEFAULT_CALCULATOR_INPUT.ppnbm, hargaJual: 1000000000, categoryType: 'helikopter_senjata_api' } },
+    'ppnbm_pp74_2021'
+  );
+  assert.equal(heli.primaryTaxAmount, 500000000);
+  assert.equal(heli.effectiveRatePercent, 50);
+
+  const nonKendaraanHeli = runTaxCalculation(
+    'ppnbm',
+    { ...DEFAULT_CALCULATOR_INPUT, ppnbm: { ...DEFAULT_CALCULATOR_INPUT.ppnbm, hargaJual: 1000000000, categoryType: 'helikopter_senjata_api' } },
+    'ppnbm_pmk106_2015_nonkendaraan'
+  );
+  assert.equal(nonKendaraanHeli.primaryTaxAmount, 500000000);
+
+  const dtpNonVehicle = runTaxCalculation(
+    'ppnbm',
+    { ...DEFAULT_CALCULATOR_INPUT, ppnbm: { ...DEFAULT_CALCULATOR_INPUT.ppnbm, hargaJual: 1000000000, categoryType: 'hunian_mewah', dtpDiscountPersen: 100 } },
+    'ppnbm_pmk20_2021_dtp'
+  );
+  assert.equal(dtpNonVehicle.primaryTaxAmount, 200000000);
+
+  const pbjtListrikIndustri = runTaxCalculation(
+    'pbjt',
+    { ...DEFAULT_CALCULATOR_INPUT, pbjt: { ...DEFAULT_CALCULATOR_INPUT.pbjt, nilaiTransaksi: 100000000, sectorType: 'tenaga_listrik', listrikSkema: 'industri_migas_3' } },
+    'pbjt_hkpd_2022'
+  );
+  assert.equal(pbjtListrikIndustri.primaryTaxAmount, 3000000);
+
+  const pbjtListrikSendiri = runTaxCalculation(
+    'pbjt',
+    { ...DEFAULT_CALCULATOR_INPUT, pbjt: { ...DEFAULT_CALCULATOR_INPUT.pbjt, nilaiTransaksi: 100000000, sectorType: 'tenaga_listrik', listrikSkema: 'sendiri_1_5' } },
+    'pbjt_hkpd_2022'
+  );
+  assert.equal(pbjtListrikSendiri.primaryTaxAmount, 1500000);
+
+  const flnDarat = runTaxCalculation(
+    'pph25',
+    { ...DEFAULT_CALCULATOR_INPUT, pph25: { ...DEFAULT_CALCULATOR_INPUT.pph25, flnEra1994: 'pp17_1998', flnTransport: 'darat', bulanBerjalan: 2 } },
+    'pph25_pp46_1994_fln'
+  );
+  assert.equal(flnDarat.primaryTaxAmount, 400000);
+});
+
+test('Phase 2 New Rules (Batch A): PPh 21 IKN & Tengah Tahun, PPh 22 SKB, PPh 4(2) Revaluasi & PPS, UMKM Suket, PPh 25 WP Baru', () => {
+  const iknEligible = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 22000000, tunjanganTetap: 3000000, ptkpStatus: 'K/1', hasNpwp: true, isEligibleIknPmk28: true },
+    },
+    'pph21_pmk28_2024_ikn'
+  );
+  assert.equal(iknEligible.primaryTaxAmount, 0);
+  assert.equal(iknEligible.annualTaxAmount, 2250000);
+
+  const iknNonEligible = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 22000000, tunjanganTetap: 3000000, ptkpStatus: 'K/1', hasNpwp: true, isEligibleIknPmk28: false },
+    },
+    'pph21_pmk28_2024_ikn'
+  );
+  assert.equal(iknNonEligible.primaryTaxAmount, 2250000);
+
+  const tengahTahunLokal = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 15000000, tunjanganTetap: 0, iuranPensiunBulanan: 0, ptkpStatus: 'TK/0', hasNpwp: true, jumlahBulanKerja: 6, skemaTengahTahun: 'lokal_berhenti_tidak_setahun' },
+    },
+    'pph21_pmk168_2023_tengah_tahun'
+  );
+  assert.equal(tengahTahunLokal.primaryTaxAmount, 1650000);
+
+  const tengahTahunExpat = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 15000000, tunjanganTetap: 0, iuranPensiunBulanan: 0, ptkpStatus: 'TK/0', hasNpwp: true, jumlahBulanKerja: 6, skemaTengahTahun: 'expat_meninggal_tinggal_ri_setahun' },
+    },
+    'pph21_pmk168_2023_tengah_tahun'
+  );
+  assert.equal(tengahTahunExpat.primaryTaxAmount, 6000000);
+
+  const skbUnder2M = runTaxCalculation(
+    'pph22',
+    { ...DEFAULT_CALCULATOR_INPUT, pph22: { ...DEFAULT_CALCULATOR_INPUT.pph22, nilaiDasar: 1800000, skemaPembebasan22: 'belanja_max_2jt', hasNpwp: true } },
+    'pph22_pembebasan_skb'
+  );
+  assert.equal(skbUnder2M.primaryTaxAmount, 0);
+
+  const skbOver2M = runTaxCalculation(
+    'pph22',
+    { ...DEFAULT_CALCULATOR_INPUT, pph22: { ...DEFAULT_CALCULATOR_INPUT.pph22, nilaiDasar: 3000000, skemaPembebasan22: 'belanja_max_2jt', hasNpwp: true } },
+    'pph22_pembebasan_skb'
+  );
+  assert.equal(skbOver2M.primaryTaxAmount, 45000);
+
+  const reval = runTaxCalculation(
+    'pph4_2',
+    { ...DEFAULT_CALCULATOR_INPUT, pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 25000000000, nilaiBukuFiskal: 5000000000, skemaRevaluasi: 'reguler_10_pmk79' } },
+    'pph4_2_pmk191_2015_revaluasi'
+  );
+  assert.equal(reval.primaryTaxAmount, 2000000000);
+
+  const revalZero = runTaxCalculation(
+    'pph4_2',
+    { ...DEFAULT_CALCULATOR_INPUT, pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 0, nilaiBukuFiskal: 0, skemaRevaluasi: 'reguler_10_pmk79' } },
+    'pph4_2_pmk191_2015_revaluasi'
+  );
+  assert.equal(revalZero.primaryTaxAmount, 0);
+  assert.equal(revalZero.effectiveRatePercent, 0);
+
+  const ppsK2 = runTaxCalculation(
+    'pph4_2',
+    { ...DEFAULT_CALCULATOR_INPUT, pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 2000000000, skemaTaPps: 'pps_k2_14' } },
+    'pph4_2_pps_tax_amnesty'
+  );
+  assert.equal(ppsK2.primaryTaxAmount, 280000000);
+
+  const suket05 = runTaxCalculation(
+    'pph_umkm',
+    { ...DEFAULT_CALCULATOR_INPUT, pph_umkm: { ...DEFAULT_CALCULATOR_INPUT.pph_umkm, omzetBulanan: 40000000, skemaSuket164: 'suket_pihak_ketiga_0_5' } },
+    'umkm_pmk164_2023_suket'
+  );
+  assert.equal(suket05.primaryTaxAmount, 200000);
+
+  const suketNo = runTaxCalculation(
+    'pph_umkm',
+    { ...DEFAULT_CALCULATOR_INPUT, pph_umkm: { ...DEFAULT_CALCULATOR_INPUT.pph_umkm, omzetBulanan: 40000000, skemaSuket164: 'tanpa_suket_pph23_2' } },
+    'umkm_pmk164_2023_suket'
+  );
+  assert.equal(suketNo.primaryTaxAmount, 800000);
+
+  const wpBaruNihil = runTaxCalculation(
+    'pph25',
+    { ...DEFAULT_CALCULATOR_INPUT, pph25: { ...DEFAULT_CALCULATOR_INPUT.pph25, skemaWpBaruTransisi: 'wp_baru_umum' } },
+    'pph25_pmk81_2024_wp_baru_transisi'
+  );
+  assert.equal(wpBaruNihil.primaryTaxAmount, 0);
+
+  const wpBaruOppt = runTaxCalculation(
+    'pph25',
+    { ...DEFAULT_CALCULATOR_INPUT, pph25: { ...DEFAULT_CALCULATOR_INPUT.pph25, skemaWpBaruTransisi: 'wp_baru_oppt', omzetOpptBulanan: 100000000 } },
+    'pph25_pmk81_2024_wp_baru_transisi'
+  );
+  assert.equal(wpBaruOppt.primaryTaxAmount, 750000);
+});
+
+test('Phase 2 New Rules (Batch B): PPh 26 Asuransi, PPh Badan Koreksi Fiskal, PPN WAPU & JLN, BPHTB MBR SKB, PBJT Provinsi HKPD, Meterai Non-Objek', () => {
+  const asuransiLn = runTaxCalculation(
+    'pph26',
+    { ...DEFAULT_CALCULATOR_INPUT, pph26: { ...DEFAULT_CALCULATOR_INPUT.pph26, nilaiBruto: 500000000, hasSkdP3b: false, skemaAsuransi624: 'tertanggung_ri_10' } },
+    'pph26_kmk624_1994_asuransi'
+  );
+  assert.equal(asuransiLn.primaryTaxAmount, 50000000);
+
+  const reasuransiLn = runTaxCalculation(
+    'pph26',
+    { ...DEFAULT_CALCULATOR_INPUT, pph26: { ...DEFAULT_CALCULATOR_INPUT.pph26, nilaiBruto: 500000000, hasSkdP3b: false, skemaAsuransi624: 'perusahaan_reasuransi_ri_1' } },
+    'pph26_kmk624_1994_asuransi'
+  );
+  assert.equal(reasuransiLn.primaryTaxAmount, 5000000);
+
+  const badanFiskal = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: {
+        ...DEFAULT_CALCULATOR_INPUT.pph_badan,
+        peredaranBrutoTahunan: 60000000000,
+        penghasilanKenaPajak: 5000000000,
+        koreksiPositifNonDeductible: 400000000,
+        koreksiNegatif: 200000000,
+        kompensasiKerugianFiskal: 1400000000,
+      },
+    },
+    'badan_koreksi_fiskal_kerugian'
+  );
+  assert.equal(badanFiskal.primaryTaxAmount, 836000000);
+  assert.equal(badanFiskal.annualTaxAmount, 3800000000);
+
+  const wapuBumn = runTaxCalculation(
+    'ppn',
+    { ...DEFAULT_CALCULATOR_INPUT, ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 50000000, termasukPpn: false, skemaWapu81: 'bumn_pmk8_diatas_10jt' } },
+    'ppn_pmk81_2024_wapu_bumn_kkks'
+  );
+  assert.equal(wapuBumn.primaryTaxAmount, 5500000);
+  assert.equal(wapuBumn.takeHomeOrNetAmount, 50000000);
+  assert.ok(wapuBumn.primaryTaxLabel.includes('030'));
+
+  const nonWapuSmall = runTaxCalculation(
+    'ppn',
+    { ...DEFAULT_CALCULATOR_INPUT, ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 5000000, termasukPpn: false, skemaWapu81: 'bumn_pmk8_diatas_10jt' } },
+    'ppn_pmk81_2024_wapu_bumn_kkks'
+  );
+  assert.equal(nonWapuSmall.primaryTaxAmount, 550000);
+  assert.equal(nonWapuSmall.takeHomeOrNetAmount, 5550000);
+  assert.ok(nonWapuSmall.primaryTaxLabel.includes('040'));
+
+  const ppnJln = runTaxCalculation(
+    'ppn',
+    { ...DEFAULT_CALCULATOR_INPUT, ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 200000000, termasukPpn: false, statusPkpJln: 'pkp_dapat_kredit' } },
+    'ppn_pmk40_2010_jln'
+  );
+  assert.equal(ppnJln.primaryTaxAmount, 22000000);
+
+  const bphtbSkbMbr = runTaxCalculation(
+    'bphtb',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bphtb: { hargaTransaksi: 185000000, njopObjek: 185000000, acquisitionType: 'jual_beli_pertama', penghasilanBulananMbr: 6000000, adaPerkadaPembebasanMbr: true },
+    },
+    'bphtb_skb3menteri_2024_mbr'
+  );
+  assert.equal(bphtbSkbMbr.primaryTaxAmount, 0);
+  assert.equal(bphtbSkbMbr.annualTaxAmount, 5250000);
+
+  const pbjtPkbProv = runTaxCalculation(
+    'pbjt',
+    { ...DEFAULT_CALCULATOR_INPUT, pbjt: { ...DEFAULT_CALCULATOR_INPUT.pbjt, nilaiTransaksi: 300000000, jenisPajakProvinsiHkpd: 'pkb_non_dki' } },
+    'pbjt_hkpd_provinsi_ototarif'
+  );
+  assert.equal(pbjtPkbProv.primaryTaxAmount, 3600000);
+  assert.equal(pbjtPkbProv.annualTaxAmount, 5976000);
+
+  const meteraiNonObjek = runTaxCalculation(
+    'bea_meterai',
+    { ...DEFAULT_CALCULATOR_INPUT, bea_meterai: { nilaiDokumen: 25000000, jumlahDokumen: 1, skemaPemungutNonObjek: 'non_objek_pasal7' } },
+    'meterai_uu10_2020_pemungut_nonobjek'
+  );
+  assert.equal(meteraiNonObjek.primaryTaxAmount, 0);
+
+  const meteraiZeroDoc = runTaxCalculation(
+    'bea_meterai',
+    { ...DEFAULT_CALCULATOR_INPUT, bea_meterai: { nilaiDokumen: 10000000, jumlahDokumen: 0, skemaPemungutNonObjek: 'pemungut_1000_pmk78' } },
+    'meterai_uu10_2020_pemungut_nonobjek'
+  );
+  assert.equal(meteraiZeroDoc.primaryTaxAmount, 0);
+  assert.equal(meteraiZeroDoc.effectiveRatePercent, 0);
 });

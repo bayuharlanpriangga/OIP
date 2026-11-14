@@ -89,10 +89,16 @@ export const ppnbmPmk20_2021DtpRule: TaxRuleModule<TaxCalculatorInput['ppnbm']> 
     else if (input.categoryType === 'hybrid_full') baseRate = 10;
     else if (input.categoryType === 'kendaraan_emisi_tinggi') baseRate = 40;
     else if (input.categoryType === 'hunian_mewah') baseRate = 20;
+    else if (input.categoryType === 'balon_udara_peluru') baseRate = 40;
+    else if (input.categoryType === 'helikopter_senjata_api') baseRate = 50;
     else baseRate = 75;
 
-    const isVehicleEligible =
-      input.categoryType !== 'hunian_mewah' && input.categoryType !== 'kapal_pesiar_pesawat';
+    const isVehicleEligible = ![
+      'hunian_mewah',
+      'balon_udara_peluru',
+      'helikopter_senjata_api',
+      'kapal_pesiar_pesawat',
+    ].includes(input.categoryType);
     const appliedDiscount = isVehicleEligible ? discountPersen : 0;
 
     const baseTax = Math.round((hargaJual * baseRate) / 100);

@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal 0,5% dikalikan NJKP (20% untuk NJOP < Rp 1 M atau 40% untuk NJOP >= Rp 1 M), dengan NJOPTKP nasional Rp 12 juta.',
   sources: [SRC.UU_12_1994, SRC.PP_25_2002, SRC.UU_12_1985],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -54,6 +55,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pbbUu12_1994Rule: TaxRuleModule<TaxCalculatorInput['pbb']> = {

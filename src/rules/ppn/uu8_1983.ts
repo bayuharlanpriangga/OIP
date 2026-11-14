@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Lahirnya sistem Pajak Pertambahan Nilai (PPN) 10% di Indonesia menggantikan Pajak Penjualan (PPn) 1951 dengan mekanisme kredit Pajak Masukan–Pajak Keluaran.',
   sources: [SRC.UU_8_1983, SRC.PP_1_1985, SRC.UU_11_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -75,6 +76,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const ppnUu8_1983Rule: TaxRuleModule<TaxCalculatorInput['ppn']> = {

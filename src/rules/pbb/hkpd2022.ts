@@ -82,6 +82,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pbbHkpd2022Rule: TaxRuleModule<TaxCalculatorInput['pbb']> = {

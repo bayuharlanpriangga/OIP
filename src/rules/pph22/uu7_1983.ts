@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Era awal pemungutan PPh Pasal 22 pasca-reformasi 1983: impor dengan API 2,5%, impor tanpa API 7,5%, dan pembayaran bendaharawan/badan tertentu 1,5% sebelum pembaruan UU 10/1994.',
   sources: [SRC.UU_7_1983, SRC.KMK_965_1983, SRC.KMK_382_1989, SRC.KMK_599_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -60,6 +61,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getUu7Pph22Rate(objectType: Pph22ObjectType): { rate: number; label: string } {

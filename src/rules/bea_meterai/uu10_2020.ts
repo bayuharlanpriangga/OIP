@@ -74,6 +74,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const beaMeteraiUu10_2020Rule: TaxRuleModule<TaxCalculatorInput['bea_meterai']> = {

@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif PPN tunggal sebesar 10% atas seluruh penyerahan Barang Kena Pajak dan Jasa Kena Pajak di dalam daerah pabean.',
   sources: [SRC.UU_42_2009, SRC.UU_7_2021_HPP],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -53,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const ppnUu42_2009Rule: TaxRuleModule<TaxCalculatorInput['ppn']> = {

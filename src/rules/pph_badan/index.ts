@@ -1,6 +1,7 @@
 import { TaxCalculatorInput, TaxRuleModule } from '../../types/tax';
 import { badanHpp2022Rule } from './hpp2022';
 import { badanInsentifFiskalRule } from './insentif_fiskal';
+import { pphBadanKoreksiFiskalKerugianRule } from './koreksi_fiskal_kerugian';
 import { badanPerppu2020Rule } from './perppu2020';
 import { badanGmtPmk136_2024Rule } from './pmk136_2024_gmt';
 import { badanPmk169_2015DerRule } from './pmk169_2015_der';
@@ -17,6 +18,7 @@ import { badanUu7_1983Rule } from './uu7_1983';
 
 export const PPH_BADAN_RULES: TaxRuleModule<TaxCalculatorInput['pph_badan']>[] = [
   badanHpp2022Rule,
+  pphBadanKoreksiFiskalKerugianRule,
   badanGmtPmk136_2024Rule,
   badanPp30_2020TbkRule,
   badanInsentifFiskalRule,

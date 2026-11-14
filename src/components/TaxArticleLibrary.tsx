@@ -17,17 +17,13 @@ export const TaxArticleDirectory: React.FC<TaxArticleDirectoryProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filteredArticles = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
+    const tokens = searchQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return TAX_ARTICLES.filter((art) => {
       const matchesCat = selectedCategory === 'semua' || art.taxType === selectedCategory;
       if (!matchesCat) return false;
-      if (!q) return true;
-      return (
-        art.title.toLowerCase().includes(q) ||
-        art.legalBasis.toLowerCase().includes(q) ||
-        art.summary.toLowerCase().includes(q) ||
-        art.taxTypeLabel.toLowerCase().includes(q)
-      );
+      if (tokens.length === 0) return true;
+      const haystack = `${art.title} ${art.legalBasis} ${art.summary} ${art.taxTypeLabel}`.toLowerCase();
+      return tokens.every((t) => haystack.includes(t));
     });
   }, [selectedCategory, searchQuery]);
 
@@ -227,15 +223,12 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
   const verifiedAt = article.verifiedAt ?? linkedRegime?.verifiedAt;
 
   const sameCategoryArticles = useMemo(() => {
-    const q = sidebarQuery.trim().toLowerCase();
+    const tokens = sidebarQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return TAX_ARTICLES.filter((a) => {
       if (a.taxType !== article.taxType) return false;
-      if (!q) return true;
-      return (
-        a.title.toLowerCase().includes(q) ||
-        a.legalBasis.toLowerCase().includes(q) ||
-        a.summary.toLowerCase().includes(q)
-      );
+      if (tokens.length === 0) return true;
+      const haystack = `${a.title} ${a.legalBasis} ${a.summary}`.toLowerCase();
+      return tokens.every((t) => haystack.includes(t));
     });
   }, [article.taxType, sidebarQuery]);
 

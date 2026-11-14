@@ -75,6 +75,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const umkmPp55_2022Rule: TaxRuleModule<TaxCalculatorInput['pph_umkm']> = {

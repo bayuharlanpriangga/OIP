@@ -87,9 +87,14 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
-function getHkpdPbjtRate(sector: PbjtSectorType): { rate: number; label: string } {
+function getHkpdPbjtRate(
+  sector: PbjtSectorType,
+  listrikSkema?: 'umum_10' | 'industri_migas_3' | 'sendiri_1_5'
+): { rate: number; label: string } {
   switch (sector) {
     case 'makanan_minuman':
       return { rate: 10, label: 'PBJT Makanan & Minuman (batas maks UU HKPD 10%)' };
@@ -105,9 +110,21 @@ function getHkpdPbjtRate(sector: PbjtSectorType): { rate: number; label: string 
         label: 'PBJT Hiburan Khusus: diskotek/karaoke/kelab/spa (batas bawah 40% – maks 75%)',
       };
     case 'tenaga_listrik':
+      if (listrikSkema === 'industri_migas_3') {
+        return {
+          rate: 3,
+          label: 'PBJT Tenaga Listrik industri, pertambangan, & migas (batas maks 3% — Pasal 58(3))',
+        };
+      }
+      if (listrikSkema === 'sendiri_1_5') {
+        return {
+          rate: 1.5,
+          label: 'PBJT Tenaga Listrik dihasilkan sendiri / captive power (batas maks 1,5% — Pasal 58(4))',
+        };
+      }
       return {
         rate: 10,
-        label: 'PBJT Tenaga Listrik umum (maks 10%; industri 3%; sendiri 1,5%)',
+        label: 'PBJT Tenaga Listrik konsumsi umum (maks 10%; industri 3%; sendiri 1,5%)',
       };
   }
 }
@@ -117,7 +134,7 @@ export const pbjtHkpd2022Rule: TaxRuleModule<TaxCalculatorInput['pbjt']> = {
   article,
   calculate(input) {
     const nilaiTransaksi = Math.max(0, input.nilaiTransaksi);
-    const meta = getHkpdPbjtRate(input.sectorType);
+    const meta = getHkpdPbjtRate(input.sectorType, input.listrikSkema);
     const pbjt = Math.round((nilaiTransaksi * meta.rate) / 100);
 
     const steps: CalculationStep[] = [

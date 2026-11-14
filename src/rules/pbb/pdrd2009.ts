@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'PBB-P2 resmi dialihkan menjadi pajak daerah kabupaten/kota. Tidak menggunakan NJKP, tarif Perda maksimal 0,3% langsung dari (NJOP - NJOPTKP).',
   sources: [SRC.UU_28_2009_PDRD, SRC.UU_12_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -54,6 +55,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pbbPdrd2009Rule: TaxRuleModule<TaxCalculatorInput['pbb']> = {

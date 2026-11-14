@@ -100,6 +100,8 @@ const PPNBM_CATEGORIES: { value: PpnbmCategoryType; label: string }[] = [
   { value: 'sedan_suv_menengah', label: 'Mobil penumpang / SUV menengah s.d. 3.000 cc (20% / 30%)' },
   { value: 'kendaraan_emisi_tinggi', label: 'Kendaraan emisi tinggi / > 3.000 cc (40% / 125%)' },
   { value: 'hunian_mewah', label: 'Hunian mewah: rumah / apartemen >= Rp 30 miliar (20%)' },
+  { value: 'balon_udara_peluru', label: 'Balon udara, pesawat tanpa penggerak, & peluru (40%)' },
+  { value: 'helikopter_senjata_api', label: 'Helikopter / pesawat non-niaga & senjata api non-negara (50%)' },
   { value: 'kapal_pesiar_pesawat', label: 'Kapal pesiar, yacht, & pesawat pribadi non-niaga (75%)' },
 ];
 
@@ -737,6 +739,238 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     </select>
                   </div>
                 </>
+              ) : regimeId === 'pph21_pmk28_2024_ikn' ? (
+                <>
+                  <CurrencyInput
+                    id="pph21-ikn-gaji"
+                    label="Gaji pokok per bulan pegawai di IKN"
+                    value={calcInput.pph21.gajiBulanan}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph21: { ...prev.pph21, gajiBulanan: val },
+                      }))
+                    }
+                  />
+                  <CurrencyInput
+                    id="pph21-ikn-tunjangan"
+                    label="Tunjangan tetap & premi bulanan"
+                    value={calcInput.pph21.tunjanganTetap}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph21: { ...prev.pph21, tunjanganTetap: val },
+                      }))
+                    }
+                  />
+                  <CurrencyInput
+                    id="pph21-ikn-pensiun"
+                    label="Iuran pensiun/JHT dibayar pegawai (/bln)"
+                    value={calcInput.pph21.iuranPensiunBulanan}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph21: { ...prev.pph21, iuranPensiunBulanan: val },
+                      }))
+                    }
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph21-ikn-ptkp"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Status PTKP
+                    </label>
+                    <select
+                      id="pph21-ikn-ptkp"
+                      value={calcInput.pph21.ptkpStatus}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, ptkpStatus: e.target.value as PtkpStatus },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      {PTKP_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={calcInput.pph21.isEligibleIknPmk28 ?? true}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, isEligibleIknPmk28: e.target.checked },
+                        }))
+                      }
+                      className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                    />
+                    <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                      Pegawai bertempat tinggal &amp; ber-NPWP KPP wilayah IKN pada pemberi kerja berizin (DTP Final 100% s.d. 2035 — PMK 28/2024)
+                    </span>
+                  </label>
+                  <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={calcInput.pph21.hasNpwp}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, hasNpwp: e.target.checked },
+                        }))
+                      }
+                      className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                    />
+                    <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                      Memiliki NPWP / NIK sudah padan (acuan tarif TER pembanding)
+                    </span>
+                  </label>
+                </>
+              ) : regimeId === 'pph21_pmk168_2023_tengah_tahun' ? (
+                <>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph21-tengah-tahun-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Kategori pegawai masuk / berhenti tengah tahun (Pasal 16 PMK 168/2023)
+                    </label>
+                    <select
+                      id="pph21-tengah-tahun-skema"
+                      value={calcInput.pph21.skemaTengahTahun ?? 'lokal_berhenti_tidak_setahun'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: {
+                            ...prev.pph21,
+                            skemaTengahTahun: e.target.value as
+                              | 'lokal_berhenti_tidak_setahun'
+                              | 'expat_meninggal_tinggal_ri_setahun',
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="lokal_berhenti_tidak_setahun">
+                        WPDN lokal resign / pensiun / pindah kerja DN (TIDAK disetahunkan)
+                      </option>
+                      <option value="expat_meninggal_tinggal_ri_setahun">
+                        WNA baru tiba / tinggalkan Indonesia selamanya / meninggal (Disetahunkan 12÷n)
+                      </option>
+                    </select>
+                  </div>
+                  <CurrencyInput
+                    id="pph21-tengah-gaji"
+                    label="Gaji pokok rata-rata per bulan"
+                    value={calcInput.pph21.gajiBulanan}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph21: { ...prev.pph21, gajiBulanan: val },
+                      }))
+                    }
+                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <CurrencyInput
+                      id="pph21-tengah-tunjangan"
+                      label="Tunjangan tetap (/bln)"
+                      value={calcInput.pph21.tunjanganTetap}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, tunjanganTetap: val },
+                        }))
+                      }
+                    />
+                    <CurrencyInput
+                      id="pph21-tengah-pensiun"
+                      label="Iuran pensiun/JHT pegawai (/bln)"
+                      value={calcInput.pph21.iuranPensiunBulanan}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, iuranPensiunBulanan: val },
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="pph21-tengah-bulan"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Jumlah bulan bekerja di tahun berjalan (1–12)
+                      </label>
+                      <input
+                        id="pph21-tengah-bulan"
+                        type="number"
+                        min={1}
+                        max={12}
+                        step={1}
+                        value={calcInput.pph21.jumlahBulanKerja ?? 6}
+                        onChange={(e) => {
+                          const raw = Number(e.target.value);
+                          const clamped = Number.isNaN(raw)
+                            ? 6
+                            : Math.min(12, Math.max(1, Math.round(raw)));
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph21: { ...prev.pph21, jumlahBulanKerja: clamped },
+                          }));
+                        }}
+                        className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="pph21-tengah-ptkp"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Status PTKP
+                      </label>
+                      <select
+                        id="pph21-tengah-ptkp"
+                        value={calcInput.pph21.ptkpStatus}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph21: { ...prev.pph21, ptkpStatus: e.target.value as PtkpStatus },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        {PTKP_OPTIONS.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={calcInput.pph21.hasNpwp}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph21: { ...prev.pph21, hasNpwp: e.target.checked },
+                        }))
+                      }
+                      className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                    />
+                    <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                      Memiliki NPWP / NIK sudah padan (tidak kena sanksi +20%)
+                    </span>
+                  </label>
+                </>
               ) : (
                 <>
                   <CurrencyInput
@@ -1189,6 +1423,58 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     </p>
                   </div>
                 </>
+              ) : regimeId === 'umkm_pmk164_2023_suket' ? (
+                <>
+                  <CurrencyInput
+                    id="umkm-pmk164-nilai"
+                    label="Nilai tagihan jasa / penyerahan barang UMKM (non-PPN)"
+                    value={calcInput.pph_umkm.omzetBulanan}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph_umkm: { ...prev.pph_umkm, omzetBulanan: val },
+                      }))
+                    }
+                    helperText="Menguji potongan di pihak ketiga berdasarkan kelengkapan Suket UMKM atau Surat Pernyataan kuota Rp 500 juta OP (PMK 164/2023)."
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="umkm-pmk164-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Status dokumen Suket &amp; omzet UMKM (PMK 164/2023)
+                    </label>
+                    <select
+                      id="umkm-pmk164-skema"
+                      value={calcInput.pph_umkm.skemaSuket164 ?? 'suket_pihak_ketiga_0_5'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph_umkm: {
+                            ...prev.pph_umkm,
+                            skemaSuket164: e.target.value as NonNullable<
+                              TaxCalculatorInput['pph_umkm']['skemaSuket164']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="suket_pihak_ketiga_0_5">
+                        Serahkan Suket UMKM valid -&gt; Dipotong PPh Final 0,5%
+                      </option>
+                      <option value="suket_op_kuota_500jt_0">
+                        WP OP + Surat Pernyataan omzet &le; Rp 500 jt -&gt; Bebas potong 0%
+                      </option>
+                      <option value="tanpa_suket_pph23_2">
+                        Tanpa Suket / Surat Pernyataan -&gt; Dipotong PPh 23 umum 2%
+                      </option>
+                      <option value="lewati_4_8m_pkp_akhir_tahun">
+                        Omzet lewati Rp 4,8 M tahun berjalan -&gt; 0,5% s.d. akhir tahun &amp; PKP akhir tahun buku
+                      </option>
+                    </select>
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="space-y-1.5">
@@ -1329,7 +1615,9 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                   label={
                     regimeId === 'badan_gmt_pmk136_2024'
                       ? 'Laba GloBE / Penghasilan Kena Pajak yurisdiksi setahun'
-                      : 'Penghasilan Kena Pajak (laba fiskal setahun)'
+                      : regimeId === 'badan_koreksi_fiskal_kerugian'
+                        ? 'Laba bersih komersial sebelum pajak (akuntansi PSAK)'
+                        : 'Penghasilan Kena Pajak (laba fiskal setahun)'
                   }
                   value={calcInput.pph_badan.penghasilanKenaPajak}
                   onChange={(val) =>
@@ -1339,6 +1627,44 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     }))
                   }
                 />
+                {regimeId === 'badan_koreksi_fiskal_kerugian' && (
+                  <>
+                    <CurrencyInput
+                      id="badan-koreksi-positif"
+                      label="Koreksi fiskal positif (biaya non-deductible / tanpa daftar nominatif)"
+                      value={calcInput.pph_badan.koreksiPositifNonDeductible ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph_badan: { ...prev.pph_badan, koreksiPositifNonDeductible: val },
+                        }))
+                      }
+                      helperText="Menambah PhKP: denda/sanksi pajak, sumbangan >5% PP 93/2010, biaya promosi tanpa nominatif PMK 02/2010, atau piutang macet non-syarat PMK 105/2009."
+                    />
+                    <CurrencyInput
+                      id="badan-koreksi-negatif"
+                      label="Koreksi fiskal negatif (penghasilan PPh Final / non-objek Pasal 4(3))"
+                      value={calcInput.pph_badan.koreksiNegatif ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph_badan: { ...prev.pph_badan, koreksiNegatif: val },
+                        }))
+                      }
+                    />
+                    <CurrencyInput
+                      id="badan-kompensasi-rugi"
+                      label="Saldo kompensasi kerugian fiskal <= 5 tahun sebelumnya (Pasal 6(2) UU PPh)"
+                      value={calcInput.pph_badan.kompensasiKerugianFiskal ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph_badan: { ...prev.pph_badan, kompensasiKerugianFiskal: val },
+                        }))
+                      }
+                    />
+                  </>
+                )}
                 {regimeId === 'badan_gmt_pmk136_2024' && (
                   <div className="space-y-1.5">
                     <label
@@ -2304,6 +2630,142 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                   }
                   helperText="Penyerahan mesin pabrik, bibit/benih, pakan ternak, air bersih, dan listrik rumah tangga <= 6.600 VA dibebaskan PPN 0% (Kode Faktur 08)."
                 />
+              ) : regimeId === 'ppn_pmk81_2024_wapu_bumn_kkks' ? (
+                <>
+                  <CurrencyInput
+                    id="ppn-wapu81-harga"
+                    label={
+                      calcInput.ppn.termasukPpn
+                        ? 'Total nilai kontrak / invoice (sudah termasuk PPN 11%)'
+                        : 'Harga jual / penggantian DPP (sebelum PPN)'
+                    }
+                    value={calcInput.ppn.hargaJualDpp}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        ppn: { ...prev.ppn, hargaJualDpp: val },
+                      }))
+                    }
+                    helperText="Batas pengecualian WAPU PMK 81/2024: BUMN/KKKS > Rp 10 jt (termasuk PPN) -> Kode 030; Instansi Pemerintah > Rp 2 jt (non-PPN) -> Kode 020."
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="ppn-wapu81-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Pihak pemungut / skema WAPU PPN (PMK 81/2024 Bab IV)
+                    </label>
+                    <select
+                      id="ppn-wapu81-skema"
+                      value={calcInput.ppn.skemaWapu81 ?? 'bumn_pmk8_diatas_10jt'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          ppn: {
+                            ...prev.ppn,
+                            skemaWapu81: e.target.value as NonNullable<
+                              TaxCalculatorInput['ppn']['skemaWapu81']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="bumn_pmk8_diatas_10jt">
+                        BUMN &amp; Perusahaan Tertentu (ambang &gt; Rp 10 jt inc. PPN -&gt; Kode 030)
+                      </option>
+                      <option value="bumn_pmk8_sd_10jt">
+                        Penyerahan ke BUMN &le; Rp 10 jt inc. PPN (Dipungut PKP Penjual -&gt; Kode 040)
+                      </option>
+                      <option value="kkks_diatas_10jt">
+                        KKKS Migas &amp; Panas Bumi (ambang &gt; Rp 10 jt inc. PPN -&gt; Kode 030)
+                      </option>
+                      <option value="instansi_diatas_2jt">
+                        Instansi Pemerintah / Bendahara (ambang &gt; Rp 2 jt exc. PPN -&gt; Kode 020)
+                      </option>
+                    </select>
+                  </div>
+                  <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={calcInput.ppn.termasukPpn}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          ppn: { ...prev.ppn, termasukPpn: e.target.checked },
+                        }))
+                      }
+                      className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                    />
+                    <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                      Nominal di atas sudah termasuk PPN 11% (ekstrak DPP)
+                    </span>
+                  </label>
+                </>
+              ) : regimeId === 'ppn_pmk40_2010_jln' ? (
+                <>
+                  <CurrencyInput
+                    id="ppn-jln-harga"
+                    label={
+                      calcInput.ppn.termasukPpn
+                        ? 'Total pembayaran kontrak JLN (sudah termasuk PPN 11%)'
+                        : 'Nilai tagihan JKP / BKP Tidak Berwujud dari Luar Negeri (sebelum PPN)'
+                    }
+                    value={calcInput.ppn.hargaJualDpp}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        ppn: { ...prev.ppn, hargaJualDpp: val },
+                      }))
+                    }
+                    helperText="Wajib disetor sendiri paling lambat tanggal 15 bulan berikutnya (PMK 40/2010 jo. PMK 81/2024 & PMK 131/2024)."
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="ppn-jln-pkp"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Status Pengusaha pemanfaat di Indonesia
+                    </label>
+                    <select
+                      id="ppn-jln-pkp"
+                      value={calcInput.ppn.statusPkpJln ?? 'pkp_dapat_kredit'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          ppn: {
+                            ...prev.ppn,
+                            statusPkpJln: e.target.value as 'pkp_dapat_kredit' | 'non_pkp_beban_biaya',
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="pkp_dapat_kredit">
+                        Berstatus PKP (NTPN PPN JLN dapat dikreditkan sebagai Pajak Masukan)
+                      </option>
+                      <option value="non_pkp_beban_biaya">
+                        Non-PKP / Orang Pribadi (Tetap wajib setor 11% — jadi komponen beban/biaya)
+                      </option>
+                    </select>
+                  </div>
+                  <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={calcInput.ppn.termasukPpn}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          ppn: { ...prev.ppn, termasukPpn: e.target.checked },
+                        }))
+                      }
+                      className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                    />
+                    <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                      Nilai kontrak sudah termasuk PPN (ekstrak 11/111)
+                    </span>
+                  </label>
+                </>
               ) : (
                 <>
                   <CurrencyInput
@@ -3033,6 +3495,76 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     </span>
                   </label>
                 </>
+              ) : regimeId === 'pph22_pembebasan_skb' ? (
+                <>
+                  <CurrencyInput
+                    id="pph22-skb-nilai"
+                    label="Nilai transaksi / nilai impor CIF + Bea Masuk (non-PPN)"
+                    value={calcInput.pph22.nilaiDasar}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph22: { ...prev.pph22, nilaiDasar: val },
+                      }))
+                    }
+                    helperText="Pasal 3 PMK 51/2025 mengecualikan belanja instansi <= Rp 2 juta (non-PPN) dan impor KITE/KEK secara otomatis tanpa SKB."
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph22-skb-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Jenis pengecualian / SKB PPh Pasal 22 (PMK 51/2025)
+                    </label>
+                    <select
+                      id="pph22-skb-skema"
+                      value={calcInput.pph22.skemaPembebasan22 ?? 'belanja_max_2jt'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph22: {
+                            ...prev.pph22,
+                            skemaPembebasan22: e.target.value as NonNullable<
+                              TaxCalculatorInput['pph22']['skemaPembebasan22']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="belanja_max_2jt">
+                        Belanja Instansi Pemerintah &le; Rp 2 juta non-PPN (Bebas Otomatis 0% Tanpa SKB)
+                      </option>
+                      <option value="kite_kek_bebas_bm">
+                        Impor KITE Pembebasan / KEK / Kawasan Berikat / Bantuan Bencana (Bebas Otomatis 0%)
+                      </option>
+                      <option value="impor_ekspor_skb_djp">
+                        Pembebasan dengan SKB PPh 22 DJP (Wajib Pajak Rugi Fiskal / Tidak Terutang PPh)
+                      </option>
+                      <option value="umkm_pp55_skb">
+                        Rekanan menyerahkan Suket UMKM PP 55/2022 / PP 20/2026 (Dialihkan ke Final 0,5%)
+                      </option>
+                    </select>
+                  </div>
+                  {(calcInput.pph22.skemaPembebasan22 ?? 'belanja_max_2jt') === 'belanja_max_2jt' && (
+                    <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={calcInput.pph22.hasNpwp}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph22: { ...prev.pph22, hasNpwp: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Rekanan ber-NPWP/NIK valid (bila transaksi &gt; Rp 2 juta kena 1,5%, bukan 3%)
+                      </span>
+                    </label>
+                  )}
+                </>
               ) : (
                 <>
                   <CurrencyInput
@@ -3475,6 +4007,122 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     }
                   />
                 </>
+              ) : regimeId === 'pph4_2_pmk191_2015_revaluasi' ? (
+                <>
+                  <CurrencyInput
+                    id="pph42-revaluasi-pasar"
+                    label="Nilai pasar wajar aktiva tetap hasil penilaian KJPP (Rp)"
+                    value={calcInput.pph4_2.nilaiBruto}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph4_2: { ...prev.pph4_2, nilaiBruto: val },
+                      }))
+                    }
+                  />
+                  <CurrencyInput
+                    id="pph42-revaluasi-buku"
+                    label="Nilai sisa buku fiskal aktiva tetap semula (Rp)"
+                    value={calcInput.pph4_2.nilaiBukuFiskal ?? 0}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph4_2: { ...prev.pph4_2, nilaiBukuFiskal: val },
+                      }))
+                    }
+                    helperText="DPP PPh Final revaluasi adalah selisih lebih antara nilai pasar wajar dan nilai sisa buku fiskal."
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph42-revaluasi-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Periode &amp; tarif revaluasi aktiva tetap (PMK 79/2008 &amp; PMK 191/2015)
+                    </label>
+                    <select
+                      id="pph42-revaluasi-skema"
+                      value={calcInput.pph4_2.skemaRevaluasi ?? 'reguler_10_pmk79'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph4_2: {
+                            ...prev.pph4_2,
+                            skemaRevaluasi: e.target.value as NonNullable<
+                              TaxCalculatorInput['pph4_2']['skemaRevaluasi']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="reguler_10_pmk79">
+                        PMK 79/PMK.03/2008 — Tarif Reguler Berlaku Kini (10%)
+                      </option>
+                      <option value="insentif_2015_3">
+                        PMK 191/2015 — Insentif Paket Ekonomi s.d. 31 Des 2015 (3%)
+                      </option>
+                      <option value="insentif_h1_2016_4">
+                        PMK 191/2015 — Insentif Jan–Jun 2016 (4%)
+                      </option>
+                      <option value="insentif_h2_2016_6">
+                        PMK 191/2015 — Insentif Jul–Des 2016 (6%)
+                      </option>
+                    </select>
+                  </div>
+                </>
+              ) : regimeId === 'pph4_2_pps_tax_amnesty' ? (
+                <>
+                  <CurrencyInput
+                    id="pph42-ta-pps-harta"
+                    label="Nilai harta bersih yang diungkapkan (Nilai Wajar Harta - Utang Relevan)"
+                    value={calcInput.pph4_2.nilaiBruto}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph4_2: { ...prev.pph4_2, nilaiBruto: val },
+                      }))
+                    }
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph42-ta-pps-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Program, periode, &amp; skema penempatan aset (TA 2016–2017 / PPS 2022)
+                    </label>
+                    <select
+                      id="pph42-ta-pps-skema"
+                      value={calcInput.pph4_2.skemaTaPps ?? 'pps_k2_14'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph4_2: {
+                            ...prev.pph4_2,
+                            skemaTaPps: e.target.value as NonNullable<
+                              TaxCalculatorInput['pph4_2']['skemaTaPps']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="pps_k2_12">PPS 2022 Kebijakan II OP — DN + Investasi SBN/Hilirisasi (12%)</option>
+                      <option value="pps_k2_14">PPS 2022 Kebijakan II OP — Deklarasi DN / Repatriasi (14%)</option>
+                      <option value="pps_k2_18">PPS 2022 Kebijakan II OP — Deklarasi Luar Negeri (18%)</option>
+                      <option value="pps_k1_6">PPS 2022 Kebijakan I (Peserta TA) — DN + Investasi SBN/Hilirisasi (6%)</option>
+                      <option value="pps_k1_8">PPS 2022 Kebijakan I (Peserta TA) — Deklarasi DN / Repatriasi (8%)</option>
+                      <option value="pps_k1_11">PPS 2022 Kebijakan I (Peserta TA) — Deklarasi Luar Negeri (11%)</option>
+                      <option value="ta_dn_2">Tax Amnesty 2016 Periode I — DN / Repatriasi (2%)</option>
+                      <option value="ta_dn_3">Tax Amnesty 2016 Periode II — DN / Repatriasi (3%)</option>
+                      <option value="ta_dn_5">Tax Amnesty 2017 Periode III — DN / Repatriasi (5%)</option>
+                      <option value="ta_ln_4">Tax Amnesty 2016 Periode I — Deklarasi Luar Negeri (4%)</option>
+                      <option value="ta_ln_6">Tax Amnesty 2016 Periode II — Deklarasi Luar Negeri (6%)</option>
+                      <option value="ta_ln_10">Tax Amnesty 2017 Periode III — Deklarasi Luar Negeri (10%)</option>
+                      <option value="ta_umkm_0_5">Tax Amnesty UMKM — Total Harta &le; Rp 10 M (0,5%)</option>
+                      <option value="ta_umkm_2">Tax Amnesty UMKM — Total Harta &gt; Rp 10 M (2%)</option>
+                    </select>
+                  </div>
+                </>
               ) : (
                 <>
                   <CurrencyInput
@@ -3651,6 +4299,248 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                       className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
                     />
                   </div>
+                </>
+              ) : regimeId === 'pph25_pp46_1994_fln' ? (
+                <>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph25-fln1994-era"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Periode regulasi Fiskal Luar Negeri (1995–2000)
+                    </label>
+                    <select
+                      id="pph25-fln1994-era"
+                      value={calcInput.pph25.flnEra1994 ?? 'pp17_1998'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: {
+                            ...prev.pph25,
+                            flnEra1994: e.target.value as 'pp46_1994' | 'pp17_1998',
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="pp46_1994">
+                        PP 46/1994 (1995–Jan 1998: Rp 250 rb Udara / Rp 100 rb Laut / Rp 50 rb Darat)
+                      </option>
+                      <option value="pp17_1998">
+                        PP 17/1998 (Jan 1998–Jun 2000: Rp 1 jt Udara / Rp 500 rb Laut / Rp 200 rb Darat)
+                      </option>
+                    </select>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph25-fln1994-transport"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Moda keberangkatan ke luar negeri
+                    </label>
+                    <select
+                      id="pph25-fln1994-transport"
+                      value={
+                        calcInput.pph25.flnTransport === 'laut' || calcInput.pph25.flnTransport === 'darat'
+                          ? calcInput.pph25.flnTransport
+                          : 'udara'
+                      }
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: {
+                            ...prev.pph25,
+                            flnTransport: e.target.value as 'udara' | 'laut' | 'darat',
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="udara">Pesawat Udara (Bandar Udara Internasional)</option>
+                      <option value="laut">Kapal Laut (Pelabuhan Laut)</option>
+                      <option value="darat">Lintas Darat (Pos Pemeriksaan Lintas Batas)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph25-fln1994-trips"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Jumlah keberangkatan ke luar negeri
+                    </label>
+                    <input
+                      id="pph25-fln1994-trips"
+                      type="number"
+                      min={1}
+                      max={24}
+                      step={1}
+                      value={calcInput.pph25.bulanBerjalan}
+                      onChange={(e) => {
+                        const raw = Number(e.target.value);
+                        const clamped = Number.isNaN(raw) ? 1 : Math.min(24, Math.max(1, Math.round(raw)));
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: { ...prev.pph25, bulanBerjalan: clamped },
+                        }));
+                      }}
+                      className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    />
+                  </div>
+                </>
+              ) : regimeId === 'pph25_pmk215_2018_bank_bumn' ? (
+                <>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph25-pmk215-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Kategori Wajib Pajak Tertentu (PMK 215/PMK.03/2018)
+                    </label>
+                    <select
+                      id="pph25-pmk215-skema"
+                      value={calcInput.pph25.skemaWpTertentu ?? 'bank_ojk'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: {
+                            ...prev.pph25,
+                            skemaWpTertentu: e.target.value as 'bank_ojk' | 'bumn_bumd_rkap' | 'emiten_berkala',
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="bank_ojk">Bank Umum / Syariah (Lapkeu Triwulanan OJK × 4)</option>
+                      <option value="bumn_bumd_rkap">BUMN &amp; BUMD (Proyeksi Laba RKAP Setahun)</option>
+                      <option value="emiten_berkala">Emiten / Perusahaan Terbuka BEI (Lapkeu Semesteran × 2 — Tarif 19%)</option>
+                    </select>
+                  </div>
+                  <CurrencyInput
+                    id="pph25-pmk215-laba"
+                    label={
+                      calcInput.pph25.skemaWpTertentu === 'bumn_bumd_rkap'
+                        ? 'Proyeksi Penghasilan Kena Pajak dalam RKAP setahun'
+                        : calcInput.pph25.skemaWpTertentu === 'emiten_berkala'
+                        ? 'Laba neto fiskal laporan keuangan berkala (1 semester)'
+                        : 'Laba neto fiskal laporan keuangan triwulanan OJK (1 triwulan)'
+                    }
+                    value={calcInput.pph25.labaTriwulanAtauRkap ?? 0}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph25: { ...prev.pph25, labaTriwulanAtauRkap: val },
+                      }))
+                    }
+                  />
+                  <CurrencyInput
+                    id="pph25-pmk215-kredit"
+                    label="Kredit pajak tahun berjalan yang dapat diperhitungkan (PPh 22/23/24)"
+                    value={calcInput.pph25.kreditPajakTahunLalu}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph25: { ...prev.pph25, kreditPajakTahunLalu: val },
+                      }))
+                    }
+                  />
+                </>
+              ) : regimeId === 'pph25_pmk81_2024_wp_baru_transisi' ? (
+                <>
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph25-wp-baru-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Skenario khusus PPh Pasal 25 (Pasal 25(2) UU PPh &amp; Pasal 10 PMK 215/2018)
+                    </label>
+                    <select
+                      id="pph25-wp-baru-skema"
+                      value={calcInput.pph25.skemaWpBaruTransisi ?? 'wp_baru_umum'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: {
+                            ...prev.pph25,
+                            skemaWpBaruTransisi: e.target.value as NonNullable<
+                              TaxCalculatorInput['pph25']['skemaWpBaruTransisi']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="wp_baru_umum">
+                        Wajib Pajak Baru Umum non-Bank/BUMN/OPPT (Nihil Rp 0 s.d. SPT Pertama)
+                      </option>
+                      <option value="masa_sebelum_spt">
+                        Masa Pajak Sebelum Batas SPT Tahunan (Jan–Mar ikut angsuran Des tahun lalu)
+                      </option>
+                      <option value="penggabungan_peleburan">
+                        Perusahaan Hasil Penggabungan / Peleburan / Merger (Akumulasi peserta)
+                      </option>
+                      <option value="wp_baru_oppt">
+                        Wajib Pajak Baru OP Pengusaha Tertentu / Gerai Ritel (0,75% omzet bulanan)
+                      </option>
+                    </select>
+                  </div>
+                  {(calcInput.pph25.skemaWpBaruTransisi ?? 'wp_baru_umum') === 'masa_sebelum_spt' && (
+                    <CurrencyInput
+                      id="pph25-transisi-desember"
+                      label="Angsuran PPh Pasal 25 Masa Desember tahun pajak sebelumnya"
+                      value={calcInput.pph25.pphTerutangTahunLalu}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: { ...prev.pph25, pphTerutangTahunLalu: val },
+                        }))
+                      }
+                      helperText="Sesuai Pasal 25 ayat (2) UU PPh, sebelum SPT Tahunan dilaporkan/jatuh tempo, angsuran sama dengan bulan terakhir tahun lalu."
+                    />
+                  )}
+                  {calcInput.pph25.skemaWpBaruTransisi === 'penggabungan_peleburan' && (
+                    <>
+                      <CurrencyInput
+                        id="pph25-merger-a"
+                        label="Angsuran PPh Pasal 25 entitas peserta merger 1 (penerima penggabungan)"
+                        value={calcInput.pph25.pphTerutangTahunLalu}
+                        onChange={(val) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph25: { ...prev.pph25, pphTerutangTahunLalu: val },
+                          }))
+                        }
+                      />
+                      <CurrencyInput
+                        id="pph25-merger-b"
+                        label="Angsuran PPh Pasal 25 entitas peserta merger 2 (yang bergabung)"
+                        value={calcInput.pph25.kreditPajakTahunLalu}
+                        onChange={(val) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph25: { ...prev.pph25, kreditPajakTahunLalu: val },
+                          }))
+                        }
+                      />
+                    </>
+                  )}
+                  {calcInput.pph25.skemaWpBaruTransisi === 'wp_baru_oppt' && (
+                    <CurrencyInput
+                      id="pph25-baru-oppt"
+                      label="Peredaran bruto gerai eceran OPPT baru pada bulan berjalan (0,75%)"
+                      value={calcInput.pph25.omzetOpptBulanan ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph25: { ...prev.pph25, omzetOpptBulanan: val },
+                        }))
+                      }
+                    />
+                  )}
+                  {(calcInput.pph25.skemaWpBaruTransisi ?? 'wp_baru_umum') === 'wp_baru_umum' && (
+                    <p className="text-xs text-[#4F6160] dark:text-[#E8EAE4]/75 bg-[#DFE2DA] dark:bg-[#263336] border border-[#5E706F]/30 px-3 py-2.5">
+                      Pasal 10 PMK 215/PMK.03/2018 menetapkan angsuran PPh Pasal 25 bagi Wajib Pajak Baru umum sebesar <strong>Nihil (Rp 0)</strong> hingga tahun pajak pertama berakhir; pajak terutang dibayar sebagai PPh Pasal 29 saat SPT Tahunan.
+                    </p>
+                  )}
                 </>
               ) : (
                 <>
@@ -3863,7 +4753,9 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                         ? 'Nilai pengalihan / penjualan saham SPC Pasal 18 ayat (3c)'
                         : regimeId === 'pph26_pmk82_2009_harta'
                           ? 'Harga jual / nilai pengalihan harta di Indonesia oleh WPLN (Rp)'
-                          : 'Nilai bruto penghasilan dibayar ke WPLN'
+                          : regimeId === 'pph26_kmk624_1994_asuransi'
+                            ? 'Jumlah premi asuransi / reasuransi bruto dibayar ke luar negeri (Rp)'
+                            : 'Nilai bruto penghasilan dibayar ke WPLN'
                   }
                   value={calcInput.pph26.nilaiBruto}
                   onChange={(val) =>
@@ -3873,6 +4765,42 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     }))
                   }
                 />
+                {regimeId === 'pph26_kmk624_1994_asuransi' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pph26-asuransi-624"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Pihak pembayar premi asuransi/reasuransi ke luar negeri (KMK 624/KMK.04/1994)
+                    </label>
+                    <select
+                      id="pph26-asuransi-624"
+                      value={calcInput.pph26.skemaAsuransi624 ?? 'tertanggung_ri_10'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pph26: {
+                            ...prev.pph26,
+                            skemaAsuransi624: e.target.value as NonNullable<
+                              TaxCalculatorInput['pph26']['skemaAsuransi624']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="tertanggung_ri_10">
+                        Tertanggung di Indonesia bayar langsung ke asuransi LN (Neto 50% -&gt; 10% efektif)
+                      </option>
+                      <option value="perusahaan_asuransi_ri_2">
+                        Perusahaan Asuransi di Indonesia bayar ke asuransi/reasuransi LN (Neto 10% -&gt; 2% efektif)
+                      </option>
+                      <option value="perusahaan_reasuransi_ri_1">
+                        Perusahaan Reasuransi di Indonesia bayar ke reasuransi LN (Neto 5% -&gt; 1% efektif)
+                      </option>
+                    </select>
+                  </div>
+                )}
                 {regimeId === 'pph26_pmk112_2025_p3b' && (
                   <div className="space-y-1.5">
                     <label
@@ -3913,6 +4841,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                   'pph26_pmk14_2011_bpt',
                   'pph26_pmk258_2008_saham',
                   'pph26_pmk82_2009_harta',
+                  'pph26_kmk624_1994_asuransi',
                   'pph26_pbdr_1970',
                 ].includes(regimeId) && (
                   <div className="space-y-1.5">
@@ -4264,6 +5193,70 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     </select>
                   </div>
                 </>
+              ) : regimeId === 'pbjt_hkpd_provinsi_ototarif' ? (
+                <>
+                  <CurrencyInput
+                    id="pbjt-provinsi-dasar"
+                    label={
+                      calcInput.pbjt.jenisPajakProvinsiHkpd === 'pbbkb_10'
+                        ? 'Nilai jual bahan bakar kendaraan bermotor (sebelum PPN)'
+                        : calcInput.pbjt.jenisPajakProvinsiHkpd === 'rokok_10'
+                          ? 'Besaran cukai rokok terutang'
+                          : 'Nilai Jual Kendaraan Bermotor / NJKB (Rp)'
+                    }
+                    value={calcInput.pbjt.nilaiTransaksi}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pbjt: { ...prev.pbjt, nilaiTransaksi: val },
+                      }))
+                    }
+                    helperText="UU HKPD (berlaku 5 Januari 2025) menurunkan tarif pokok non-DKI (PKB 1,2%, BBNKB baru 12%) untuk ditambah Opsen Kab/Kota 66%, dan menghapus BBNKB kendaraan bekas (0%)."
+                  />
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="pbjt-provinsi-jenis"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Jenis Pajak Provinsi (Pasal 7–34 UU HKPD jo. PP 35/2023)
+                    </label>
+                    <select
+                      id="pbjt-provinsi-jenis"
+                      value={calcInput.pbjt.jenisPajakProvinsiHkpd ?? 'pkb_non_dki'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          pbjt: {
+                            ...prev.pbjt,
+                            jenisPajakProvinsiHkpd: e.target.value as NonNullable<
+                              TaxCalculatorInput['pbjt']['jenisPajakProvinsiHkpd']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="pkb_non_dki">
+                        PKB Kepemilikan Ke-1 Non-DKI (Pokok 1,2% + Opsen 66% = 1,992%)
+                      </option>
+                      <option value="pkb_dki">
+                        PKB Kepemilikan Ke-1 DK Jakarta (Maks 2%, tanpa Opsen)
+                      </option>
+                      <option value="bbnkb_non_dki">
+                        BBNKB Kendaraan Baru Non-DKI (Pokok 12% + Opsen 66% = 19,92%; Bekas 0%)
+                      </option>
+                      <option value="bbnkb_dki">
+                        BBNKB Kendaraan Baru DK Jakarta (Maks 20%, tanpa Opsen; Bekas 0%)
+                      </option>
+                      <option value="pbbkb_10">
+                        Pajak Bahan Bakar Kendaraan Bermotor / PBBKB (Plafon maks 10%)
+                      </option>
+                      <option value="rokok_10">
+                        Pajak Rokok Nasional (Tarif seragam 10% dari cukai rokok)
+                      </option>
+                    </select>
+                  </div>
+                </>
               ) : (
                 <>
                   <CurrencyInput
@@ -4302,6 +5295,35 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                       ))}
                     </select>
                   </div>
+                  {calcInput.pbjt.sectorType === 'tenaga_listrik' &&
+                    ['pbjt_hkpd_2022', 'pbjt_pp35_2023_daerah', 'pbjt_pdrd_2009'].includes(regimeId) && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="pbjt-listrik-skema"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Kelompok pengguna tenaga listrik (Pasal 58 UU HKPD / UU PDRD)
+                        </label>
+                        <select
+                          id="pbjt-listrik-skema"
+                          value={calcInput.pbjt.listrikSkema ?? 'umum_10'}
+                          onChange={(e) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              pbjt: {
+                                ...prev.pbjt,
+                                listrikSkema: e.target.value as 'umum_10' | 'industri_migas_3' | 'sendiri_1_5',
+                              },
+                            }))
+                          }
+                          className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        >
+                          <option value="umum_10">Konsumsi umum / rumah tangga / komersial (maks. 10%)</option>
+                          <option value="industri_migas_3">Industri, pertambangan minyak &amp; gas bumi (maks. 3%)</option>
+                          <option value="sendiri_1_5">Tenaga listrik dihasilkan sendiri / captive power (maks. 1,5%)</option>
+                        </select>
+                      </div>
+                    )}
                 </>
               ))}
 
@@ -4412,6 +5434,42 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     </select>
                   </div>
                 )}
+                {regimeId === 'meterai_uu10_2020_pemungut_nonobjek' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="meterai-pemungut-nonobjek"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Kategori dokumen / Pemungut (Pasal 7 UU 10/2020 &amp; PMK 78/2024)
+                    </label>
+                    <select
+                      id="meterai-pemungut-nonobjek"
+                      value={calcInput.bea_meterai.skemaPemungutNonObjek ?? 'non_objek_pasal7'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_meterai: {
+                            ...prev.bea_meterai,
+                            skemaPemungutNonObjek: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_meterai']['skemaPemungutNonObjek']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="non_objek_pasal7">
+                        Bukan Objek Pasal 7 UU 10/2020 (Slip gaji, ijazah, B/L, intern, rekening koran — Rp 0)
+                      </option>
+                      <option value="pemungut_1000_pmk78">
+                        Pemungut Bea Meterai PMK 78/2024 (Cek/BG atau &gt;1.000 dokumen/bln — Rp 10.000/dok)
+                      </option>
+                      <option value="nominal_sd_5jt">
+                        Uji nominal dokumen pernyataan uang (&le; Rp 5 jt bebas Rp 0, &gt; Rp 5 jt = Rp 10.000)
+                      </option>
+                    </select>
+                  </div>
+                )}
               </>
             )}
 
@@ -4471,7 +5529,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               {result.annualTaxLabel && result.annualTaxAmount !== undefined && (
                 <div className="flex items-center justify-between gap-3">
                   <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">{result.annualTaxLabel}</dt>
-                  <dd className="font-semibold tabular-nums text-[#1F2A2C] dark:text-[#E8EAE4]">
+                  <dd className="font-semibold tabular-nums whitespace-nowrap shrink-0 text-[#1F2A2C] dark:text-[#E8EAE4]">
                     {formatRupiah(result.annualTaxAmount)}
                   </dd>
                 </div>
@@ -4480,7 +5538,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                 <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">
                   {result.effectiveRateLabel ?? 'Tarif pajak efektif'}
                 </dt>
-                <dd className="font-semibold tabular-nums text-[#1F2A2C] dark:text-[#E8EAE4]">
+                <dd className="font-semibold tabular-nums whitespace-nowrap shrink-0 text-[#1F2A2C] dark:text-[#E8EAE4]">
                   {result.isNotCalculated ? 'Tidak dihitung' : formatPersen(result.effectiveRatePercent)}
                 </dd>
               </div>
@@ -4488,7 +5546,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                 <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">
                   {result.takeHomeOrNetLabel}
                 </dt>
-                <dd className="font-semibold tabular-nums text-[#1F2A2C] dark:text-[#E8EAE4]">
+                <dd className="font-semibold tabular-nums whitespace-nowrap shrink-0 text-[#1F2A2C] dark:text-[#E8EAE4]">
                   {formatRupiah(result.takeHomeOrNetAmount)}
                 </dd>
               </div>

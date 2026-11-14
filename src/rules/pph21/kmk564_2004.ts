@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Penyesuaian PTKP Tahun Pajak 2005 dari Rp 2,88 juta menjadi Rp 12 juta (TK/0, +Rp 1,2 jt/tanggungan), tetap memakai tarif 5 lapis UU 17/2000 (5/10/15/25/35%).',
   sources: [SRC.KMK_564_2004, SRC.UU_17_2000, SRC.KMK_521_1998],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -77,6 +78,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Kmk564_2004Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

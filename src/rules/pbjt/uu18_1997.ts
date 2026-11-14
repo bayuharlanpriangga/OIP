@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Undang-undang pajak daerah pertama yang menyatukan Pajak Hotel dan Restoran (maks 10%), Pajak Hiburan (maks 35%), serta Pajak Penerangan Jalan (maks 10%), sebelum Pajak Parkir ditambah di UU 34/2000.',
   sources: [SRC.UU_18_1997, SRC.PP_19_1997, SRC.UU_34_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -74,6 +75,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getUu18SectorMeta(sector: PbjtSectorType): { rate: number; label: string } {

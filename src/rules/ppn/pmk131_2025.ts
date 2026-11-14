@@ -70,6 +70,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const ppnPmk131_2025Rule: TaxRuleModule<TaxCalculatorInput['ppn']> = {

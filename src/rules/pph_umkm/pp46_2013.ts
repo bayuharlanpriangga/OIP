@@ -12,6 +12,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif final 1% dari peredaran bruto bulanan bagi usaha beromzet maksimal Rp 4,8 miliar setahun tanpa fasilitas pembebasan omzet.',
   sources: [SRC.PP_46_2013, SRC.PP_23_2018],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -52,6 +53,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const umkmPp46_2013Rule: TaxRuleModule<TaxCalculatorInput['pph_umkm']> = {

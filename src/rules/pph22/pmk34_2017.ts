@@ -92,6 +92,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPph22Rate(objectType: Pph22ObjectType): { rate: number; label: string; exemptLimit: number } {

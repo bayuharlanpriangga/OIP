@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Undang-undang PBB pertama (menggantikan Ipeda/Pajak Kekayaan): tarif tunggal 0,5%, NJKP seragam 20% (PP 46/1985), serta batas bebas khusus Nilai Bangunan Tidak Kena Pajak (NBTKP) Rp 2 juta per satuan bangunan.',
   sources: [SRC.UU_12_1985, SRC.PP_46_1985, SRC.UU_12_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -70,6 +71,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pbbUu12_1985Rule: TaxRuleModule<TaxCalculatorInput['pbb']> = {

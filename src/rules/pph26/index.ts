@@ -1,4 +1,5 @@
 import { TaxCalculatorInput, TaxRuleModule } from '../../types/tax';
+import { pph26Kmk624_1994AsuransiRule } from './kmk624_1994_asuransi';
 import { pph26Pbdr1970Rule } from './pbdr_1970_wpln';
 import { pph26Per61_2009SkdRule } from './per61_2009_skd';
 import { pph26Pmk112_2025P3bRule } from './pmk112_2025_p3b';
@@ -18,6 +19,7 @@ export const PPH26_RULES: TaxRuleModule<TaxCalculatorInput['pph26']>[] = [
   pph26Per61_2009SkdRule,
   pph26Pmk14_2011BptRule,
   pph26Pmk82_2009HartaRule,
+  pph26Kmk624_1994AsuransiRule,
   pph26Pmk258_2008SahamRule,
   pph26Uu36_2008Rule,
   pph26Uu10_1994Rule,

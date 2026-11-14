@@ -12,6 +12,7 @@ const regime: TaxRegime = {
   summary:
     'Skema perkiraan penghasilan neto PPh 23 sebelum PER-70/PJ/2007: tarif 15% x perkiraan neto 50% konsultan (efektif 7,5%), 40% jasa teknik/manajemen (efektif 6%), dan 30% sewa harta bergerak selain angkutan darat (efektif 4,5%).',
   sources: [SRC.KEP_170_2002_DJP, SRC.UU_17_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -52,6 +53,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph23Kep170_2002Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {

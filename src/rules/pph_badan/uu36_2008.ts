@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif umum PPh Badan sebesar 25% (diskon 5% menjadi 20% bagi perusahaan Tbk) dengan fasilitas Pasal 31E bertarif efektif 12,5%.',
   sources: [SRC.UU_36_2008, SRC.PP_81_2007],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -53,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const badanUu36_2008Rule: TaxRuleModule<TaxCalculatorInput['pph_badan']> = {

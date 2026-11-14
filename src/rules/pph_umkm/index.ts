@@ -1,5 +1,6 @@
 import { TaxCalculatorInput, TaxRuleModule } from '../../types/tax';
 import { umkmNppnPra2013Rule } from './nppn_pra2013';
+import { pphUmkmPmk164_2023SuketRule } from './pmk164_2023_suket';
 import { umkmPmk44_2020DtpRule } from './pmk44_2020_dtp';
 import { umkmPp20_2026Rule } from './pp20_2026';
 import { umkmPp20_2026TransisiRule } from './pp20_2026_transisi_badan';
@@ -10,6 +11,7 @@ import { umkmPp55_2022Rule } from './pp55_2022';
 export const PPH_UMKM_RULES: TaxRuleModule<TaxCalculatorInput['pph_umkm']>[] = [
   umkmPp20_2026Rule,
   umkmPp20_2026TransisiRule,
+  pphUmkmPmk164_2023SuketRule,
   umkmPp55_2022Rule,
   umkmPp23_2018Rule,
   umkmPmk44_2020DtpRule,

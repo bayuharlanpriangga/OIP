@@ -8,8 +8,10 @@ import { ppnPmk13_2025DtpPropertiRule } from './pmk13_2025_dtp_properti';
 import { ppnPmk163_2012KmsRule } from './pmk163_2012_kms_lama';
 import { ppnPmk18_2025DtpTiketRule } from './pmk18_2025_dtp_tiket';
 import { ppnPmk197_2013PkpRule } from './pmk197_2013_pkp';
+import { ppnPmk40_2010JlnRule } from './pmk40_2010_jln';
 import { ppnPmk60_2022PmseRule } from './pmk60_2022_pmse';
 import { ppnPmk64_2022PertanianRule } from './pmk64_2022_pertanian';
+import { ppnPmk81_2024WapuBumnKkksRule } from './pmk81_2024_wapu_bumn_kkks';
 import { ppnPp40_2021KekRefundRule } from './pp40_2021_kek_refund';
 import { ppnPp49_2022StrategisRule } from './pp49_2022_strategis';
 import { ppnPp81_2015StrategisRule } from './pp81_2015_strategis_lama';
@@ -21,6 +23,8 @@ import { ppnUuPpn1951Rule } from './uuppn1951';
 
 export const PPN_RULES: TaxRuleModule<TaxCalculatorInput['ppn']>[] = [
   ppnPmk131_2025Rule,
+  ppnPmk81_2024WapuBumnKkksRule,
+  ppnPmk40_2010JlnRule,
   ppnPmk13_2025DtpPropertiRule,
   ppnPmk18_2025DtpTiketRule,
   ppnPmk11_2025BesaranTertentuRule,

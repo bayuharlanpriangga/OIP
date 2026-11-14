@@ -3,6 +3,7 @@ import { pph22BbmIndustriRule } from './bbm_industri';
 import { pph22Kmk254_2001Rule } from './kmk254_2001';
 import { pph22Kmk450_1997Rule } from './kmk450_1997';
 import { pph22MpoUu8_1967Rule } from './mpo_uu8_1967';
+import { pph22PembebasanSkbRule } from './pembebasan_skb';
 import { pph22Pmk154_2010Rule } from './pmk154_2010';
 import { pph22Pmk253_2008MewahRule } from './pmk253_2008_mewah';
 import { pph22Pmk34_2017Rule } from './pmk34_2017';
@@ -17,6 +18,7 @@ import { pph22Uu7_1983Rule } from './uu7_1983';
 
 export const PPH22_RULES: TaxRuleModule<TaxCalculatorInput['pph22']>[] = [
   pph22Pmk51_2025Rule,
+  pph22PembebasanSkbRule,
   pph22Pmk37_2025Rule,
   pph22Pmk50_2025KriptoRule,
   pph22Pmk48_2023EmasRule,

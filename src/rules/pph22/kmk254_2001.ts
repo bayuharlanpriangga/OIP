@@ -21,6 +21,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan pemungutan PPh 22 era UU 17/2000: impor API 2,5%, non-API 7,5%, kedelai/gandum API 0,5%, bendahara 1,5% dengan batas pengecualian Rp 1 juta, dan tarif 5% barang sangat mewah mulai Desember 2008.',
   sources: [SRC.KMK_254_2001, SRC.PMK_210_2008, SRC.PMK_253_2008, SRC.UU_36_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -78,6 +79,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getKmk254Rate(objectType: Pph22ObjectType): { rate: number; label: string; exemptLimit: number } {

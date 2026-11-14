@@ -82,7 +82,14 @@ export const ppnbmPmk141_2021PembebasanRule: TaxRuleModule<TaxCalculatorInput['p
   article,
   calculate(input) {
     const hargaJual = Math.max(0, input.hargaJual);
-    const hasSkb = input.isPembebasanPmk141 ?? true;
+    const hasSkbInput = input.isPembebasanPmk141 ?? true;
+    const isVehicle = ![
+      'hunian_mewah',
+      'balon_udara_peluru',
+      'helikopter_senjata_api',
+      'kapal_pesiar_pesawat',
+    ].includes(input.categoryType);
+    const hasSkb = hasSkbInput && isVehicle;
 
     const normalRate =
       input.categoryType === 'listrik_bev'
@@ -93,6 +100,10 @@ export const ppnbmPmk141_2021PembebasanRule: TaxRuleModule<TaxCalculatorInput['p
         ? 6
         : input.categoryType === 'kendaraan_emisi_tinggi'
         ? 40
+        : input.categoryType === 'balon_udara_peluru'
+        ? 40
+        : input.categoryType === 'helikopter_senjata_api'
+        ? 50
         : input.categoryType === 'kapal_pesiar_pesawat'
         ? 75
         : 20;
@@ -102,7 +113,7 @@ export const ppnbmPmk141_2021PembebasanRule: TaxRuleModule<TaxCalculatorInput['p
     const effRate = hasSkb ? 0 : normalRate;
 
     const steps: CalculationStep[] = [
-      { label: 'Harga jual / nilai impor kendaraan bermotor', value: hargaJual },
+      { label: 'Harga jual / nilai impor barang mewah', value: hargaJual },
       { label: `PPnBM normal tanpa SKB (${formatPersen(normalRate)})`, value: normalTax },
       ...(hasSkb
         ? [
@@ -131,7 +142,9 @@ export const ppnbmPmk141_2021PembebasanRule: TaxRuleModule<TaxCalculatorInput['p
       takeHomeOrNetAmount: hargaJual + ppnbm,
       steps,
       notes: [
-        hasSkb
+        !isVehicle
+          ? 'PMK 141/PMK.010/2021 hanya mengatur pembebasan PPnBM atas kendaraan bermotor; barang mewah non-kendaraan mengacu pada PMK 96/2021 jo. PMK 15/2023.'
+          : hasSkb
           ? 'Pembebasan PPnBM 0% berlaku sepanjang pemohon memperoleh SKB PPnBM sebelum impor/penyerahan dan tidak mengalihfungsikan kendaraan dalam 4 tahun.'
           : 'Tanpa SKB PMK 141/2021 atau jika kendaraan dipindahtangankan sebelum 4 tahun, tarif normal PP 74/2021 berlaku penuh.',
       ],

@@ -14,6 +14,7 @@ const regime: TaxRegime = {
   summary:
     'Insentif pengurangan angsuran PPh Pasal 25 sebesar 50% bagi KLU terdampak pandemi: naik dari 30% menjadi 50% mulai Masa Pajak Juli 2020 (PMK 110/2020), berlanjut Jan–Jun 2021 (PMK 9/2021), hingga Jul–Des 2021 (PMK 82/2021).',
   sources: [SRC.PMK_110_2020, SRC.PMK_9_2021, SRC.PMK_82_2021, SRC.PMK_86_2020],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -70,6 +71,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph25Pmk9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {

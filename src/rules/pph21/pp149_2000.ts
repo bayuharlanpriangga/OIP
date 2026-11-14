@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan pendahulu PP 68/2009 untuk pesangon, tebusan pensiun, THT, dan JHT sekaligus: 0% (<= 25jt), 5% (25–50jt), 10% (50–100jt), 15% (100–200jt), dan 25% (> 200jt).',
   sources: [SRC.PP_149_2000, SRC.UU_17_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -85,6 +86,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Pp149_2000Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

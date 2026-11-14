@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif progresif 5 lapis UU 17/2000 (5% <= 25jt, 10% s.d. 50jt, 15% s.d. 100jt, 25% s.d. 200jt, 35% > 200jt), PTKP TK/0 Rp 2,88 juta (+Rp 1,44 jt/tanggungan), Biaya Jabatan maks Rp 1,296 juta/thn.',
   sources: [SRC.UU_17_2000, SRC.KMK_521_1998],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -82,6 +83,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Uu17_2000Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

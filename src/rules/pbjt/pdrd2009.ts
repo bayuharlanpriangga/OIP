@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Lima jenis pajak konsumsi daerah yang terpisah: Pajak Hotel (maks 10%), Restoran (maks 10%), Parkir (maks 30%), Hiburan umum (maks 35%) & khusus (maks 75%), dan Penerangan Jalan (maks 10%).',
   sources: [SRC.UU_28_2009_PDRD, SRC.UU_1_2022_HKPD],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -69,9 +70,14 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
-function getPdrdSectorMeta(sector: PbjtSectorType): { rate: number; label: string } {
+function getPdrdSectorMeta(
+  sector: PbjtSectorType,
+  listrikSkema?: 'umum_10' | 'industri_migas_3' | 'sendiri_1_5'
+): { rate: number; label: string } {
   switch (sector) {
     case 'makanan_minuman':
       return { rate: 10, label: 'Pajak Restoran — UU PDRD (batas maks 10%)' };
@@ -87,6 +93,12 @@ function getPdrdSectorMeta(sector: PbjtSectorType): { rate: number; label: strin
         label: 'Pajak Hiburan khusus (diskotek/kelab/spa) — batas maks 75%',
       };
     case 'tenaga_listrik':
+      if (listrikSkema === 'industri_migas_3') {
+        return { rate: 3, label: 'PPJ sumber lain untuk industri/migas — Pasal 55 UU PDRD (maks 3%)' };
+      }
+      if (listrikSkema === 'sendiri_1_5') {
+        return { rate: 1.5, label: 'PPJ listrik dihasilkan sendiri — Pasal 55 UU PDRD (maks 1,5%)' };
+      }
       return { rate: 10, label: 'Pajak Penerangan Jalan (PPJ) umum — batas maks 10%' };
   }
 }
@@ -96,7 +108,7 @@ export const pbjtPdrd2009Rule: TaxRuleModule<TaxCalculatorInput['pbjt']> = {
   article,
   calculate(input) {
     const nilaiTransaksi = Math.max(0, input.nilaiTransaksi);
-    const meta = getPdrdSectorMeta(input.sectorType);
+    const meta = getPdrdSectorMeta(input.sectorType, input.listrikSkema);
     const pajakDaerah = Math.round((nilaiTransaksi * meta.rate) / 100);
 
     const steps: CalculationStep[] = [

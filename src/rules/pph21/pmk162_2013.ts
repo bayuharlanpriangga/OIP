@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'PTKP TK/0 sebesar Rp 24,3 juta per tahun (tambahan kawin/tanggungan Rp 2,025 juta) dengan lapisan tarif Pasal 17 UU 36/2008 (5% s.d. 30%).',
   sources: [SRC.PMK_162_2012, SRC.UU_36_2008, SRC.PMK_250_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -77,6 +78,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Pmk162_2013Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

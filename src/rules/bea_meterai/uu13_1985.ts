@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif perdana UU 13/1985: dokumen nominal s.d. Rp 100 ribu bebas meterai, > Rp 100 ribu s.d. Rp 1 juta dikenai Rp 500, dan di atas Rp 1 juta dikenai Rp 1.000.',
   sources: [SRC.UU_13_1985, SRC.PP_7_1995],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -73,6 +74,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const beaMeteraiUu13_1985Rule: TaxRuleModule<TaxCalculatorInput['bea_meterai']> = {

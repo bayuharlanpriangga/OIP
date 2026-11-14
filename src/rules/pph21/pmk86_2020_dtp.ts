@@ -28,6 +28,7 @@ const regime: TaxRegime = {
     SRC.PMK_9_2021,
     SRC.PMK_82_2021,
   ],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -93,6 +94,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Pmk86_2020DtpRule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

@@ -86,6 +86,12 @@ export const ppnbmPmk106_2015NonKendaraanRule: TaxRuleModule<TaxCalculatorInput[
     if (input.categoryType === 'kapal_pesiar_pesawat') {
       rate = 75;
       label = 'Kapal pesiar, yacht, dan pesawat udara non-niaga (75%)';
+    } else if (input.categoryType === 'helikopter_senjata_api') {
+      rate = 50;
+      label = 'Helikopter/pesawat udara komersial non-angkutan umum & senjata api (50% — PMK 96/2021 jo. PMK 15/2023)';
+    } else if (input.categoryType === 'balon_udara_peluru') {
+      rate = 40;
+      label = 'Balon udara, pesawat tanpa penggerak, & peluru (40% — PMK 96/2021 jo. PMK 15/2023)';
     } else if (input.categoryType === 'hunian_mewah') {
       if (hargaJual > 0 && hargaJual < 30000000000) {
         rate = 0;
@@ -96,7 +102,7 @@ export const ppnbmPmk106_2015NonKendaraanRule: TaxRuleModule<TaxCalculatorInput[
       }
     } else {
       rate = 0;
-      label = 'Pilih "Hunian mewah" atau "Kapal pesiar / pesawat" untuk objek PPnBM non-kendaraan';
+      label = 'Pilih kategori non-kendaraan (Hunian mewah, Balon udara/peluru, Helikopter/senjata api, atau Kapal pesiar/pesawat)';
     }
 
     const tax = Math.round((hargaJual * rate) / 100);

@@ -92,6 +92,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getCurrentPph4_2Meta(objectType: Pph4_2ObjectType): { rate: number; label: string } {

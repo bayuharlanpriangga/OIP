@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Sebelum tarif tunggal berlaku di 2009, PPh Badan menggunakan tarif progresif tiga lapis: 10% (s.d. Rp 50 jt), 15% (> Rp 50 jt–100 jt), dan 30% (> Rp 100 jt) tanpa Pasal 31E; khusus TP 2008 emiten Tbk mendapat diskon 5% di PP 81/2007.',
   sources: [SRC.UU_17_2000, SRC.PP_81_2007],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -80,6 +81,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const badanUu17_2000Rule: TaxRuleModule<TaxCalculatorInput['pph_badan']> = {

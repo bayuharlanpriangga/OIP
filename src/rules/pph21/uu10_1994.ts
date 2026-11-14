@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif progresif 3 lapis 10% (<= 25jt), 15% (25–50jt), dan 30% (> 50jt) dengan PTKP TK/0 Rp 1,728 juta (+Rp 864 rb/tanggungan) dan Biaya Jabatan KMK 49/1994 maks Rp 648 rb/thn.',
   sources: [SRC.UU_10_1994, SRC.KMK_49_1994, SRC.KMK_521_1998],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -82,6 +83,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Uu10_1994Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

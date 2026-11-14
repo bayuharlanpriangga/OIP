@@ -12,6 +12,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif 2% berlaku atas 27 jenis jasa tertentu; dividen yang diterima WP Badan dengan kepemilikan saham di bawah 25% masih dipotong PPh 23 sebesar 15%.',
   sources: [SRC.PMK_244_2008, SRC.UU_36_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -68,6 +69,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph23Pmk244_2009Rule: TaxRuleModule<TaxCalculatorInput['pph23']> = {

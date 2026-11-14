@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Ketentuan sebelum PMK 81/2024: rumus reguler berdasarkan Pasal 25 UU PPh & KEP-537/PJ./2000, sedangkan WP baru, bank, BUMN/BUMD, emiten, dan OPPT diatur dalam PMK 215/PMK.03/2018.',
   sources: [SRC.PMK_215_2018, SRC.KEP_537_2000_DJP, SRC.UU_36_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -54,6 +55,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph25Pmk215_2018Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {

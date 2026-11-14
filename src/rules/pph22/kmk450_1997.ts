@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan pemungutan PPh 22 era UU 10/1994 sebelum KMK 254/2001: impor API 2,5%, non-API 7,5%, dan bendaharawan pemerintah 1,5% dengan pengecualian transaksi di bawah Rp 500.000 (belum ada sanksi non-NPWP +100%).',
   sources: [SRC.KMK_450_1997, SRC.KMK_599_1994, SRC.UU_10_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -60,6 +61,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getKmk450Rate(objectType: Pph22ObjectType): { rate: number; label: string; exemptLimit: number } {

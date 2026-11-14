@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Skema PPh Final Pasal 4(2) era 2001–2007: jasa konstruksi pelaksana 2% & perencana/pengawas 4% (PP 140/2000 untuk kualifikasi kecil/tertentu), sewa tanah/bangunan diseragamkan menjadi 10% (PP 5/2002), dan PHTB 5%.',
   sources: [SRC.PP_140_2000, SRC.PP_5_2002, SRC.PP_79_1999, SRC.PP_48_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -59,6 +60,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPp140Meta(objectType: Pph4_2ObjectType): { rate: number; label: string } {

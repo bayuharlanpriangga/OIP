@@ -84,6 +84,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPp22Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
@@ -113,6 +115,12 @@ function getPp22Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
       return {
         rate: 10,
         label: 'Barang mewah kelompok umum 10%–20% (hunian mewah baru diatur spesifik era 1994+)',
+      };
+    case 'balon_udara_peluru':
+    case 'helikopter_senjata_api':
+      return {
+        rate: 35,
+        label: 'Barang mewah kelompok tertinggi era 1991–1994 (35% — PP 65/1991)',
       };
     case 'kapal_pesiar_pesawat':
       return {

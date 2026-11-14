@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Era awal pemotongan final 20% atas penghasilan bruto Wajib Pajak Luar Negeri (dividen, bunga, royalti, imbalan jasa, dan branch profit tax BUT) sebelum perluasan objek Pasal 26 ayat (2) pada UU 10/1994.',
   sources: [SRC.UU_7_1983, SRC.UU_10_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -54,6 +55,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph26Uu7_1983Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {

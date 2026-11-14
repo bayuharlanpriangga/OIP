@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Penyesuaian pertama tarif Bea Meterai: bebas s.d. Rp 250 ribu, tarif Rp 1.000 untuk > Rp 250 ribu s.d. Rp 1 juta, dan tarif Rp 2.000 untuk nominal di atas Rp 1 juta.',
   sources: [SRC.PP_7_1995, SRC.UU_13_1985],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -73,6 +74,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const beaMeteraiPp7_1995Rule: TaxRuleModule<TaxCalculatorInput['bea_meterai']> = {

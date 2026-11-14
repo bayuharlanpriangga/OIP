@@ -54,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPp50Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
@@ -83,6 +85,12 @@ function getPp50Meta(cat: PpnbmCategoryType): { rate: number; label: string } {
       return {
         rate: 20,
         label: 'Hunian mewah tertentu sesuai kelompok tarif 20% PP 50/1994',
+      };
+    case 'balon_udara_peluru':
+    case 'helikopter_senjata_api':
+      return {
+        rate: 35,
+        label: 'Kelompok barang mewah 35% (balon udara, senjata api, & pesawat non-niaga — PP 50/1994)',
       };
     case 'kapal_pesiar_pesawat':
       return {

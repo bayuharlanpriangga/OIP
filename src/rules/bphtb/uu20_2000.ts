@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'BPHTB dikelola pusat dengan NPOPTKP maksimal Rp 60 juta (Rp 300 juta untuk waris/hibah wasiat) serta keringanan pajak 50% khusus perolehan waris/hibah wasiat.',
   sources: [SRC.UU_20_2000, SRC.PP_111_2000, SRC.UU_21_1997],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -69,6 +70,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const bphtbUu20_2000Rule: TaxRuleModule<TaxCalculatorInput['bphtb']> = {

@@ -12,6 +12,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif turun menjadi 0,5%, tetapi seluruh Wajib Pajak Orang Pribadi maupun Badan tetap dikenakan sejak Rupiah pertama tanpa batas bebas Rp 500 juta.',
   sources: [SRC.PP_23_2018, SRC.PP_46_2013],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -68,6 +69,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const umkmPp23_2018Rule: TaxRuleModule<TaxCalculatorInput['pph_umkm']> = {

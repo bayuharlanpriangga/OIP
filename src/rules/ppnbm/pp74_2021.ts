@@ -88,6 +88,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getCurrentPpnbmMeta(cat: PpnbmCategoryType): { rate: number; dppRatio: number; label: string } {
@@ -127,6 +129,18 @@ function getCurrentPpnbmMeta(cat: PpnbmCategoryType): { rate: number; dppRatio: 
         rate: 20,
         dppRatio: 1,
         label: 'Hunian mewah >= Rp 30 miliar — PMK 96/2021 jo. PMK 15/2023 (20%)',
+      };
+    case 'balon_udara_peluru':
+      return {
+        rate: 40,
+        dppRatio: 1,
+        label: 'Balon udara, pesawat udara tanpa penggerak, & peluru — PMK 96/2021 jo. PMK 15/2023 (40%)',
+      };
+    case 'helikopter_senjata_api':
+      return {
+        rate: 50,
+        dppRatio: 1,
+        label: 'Helikopter/pesawat komersial non-angkutan umum & senjata api — PMK 96/2021 jo. PMK 15/2023 (50%)',
       };
     case 'kapal_pesiar_pesawat':
       return {

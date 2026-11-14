@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'PTKP perdana UU 36/2008 sebesar Rp 15,84 juta (TK/0, +Rp 1,32 jt per status/tanggungan), Biaya Jabatan naik ke Rp 6 juta/thn, serta mulai berlakunya sanksi +20% non-NPWP.',
   sources: [SRC.UU_36_2008, SRC.PMK_250_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -82,6 +83,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Uu36_2009Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

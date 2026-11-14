@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Perubahan pertama UU PPN yang memperluas objek BKP tidak berwujud, JKP dari luar daerah pabean, dan mempertahankan tarif tunggal 10%.',
   sources: [SRC.UU_11_1994, SRC.UU_18_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -53,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const ppnUu11_1994Rule: TaxRuleModule<TaxCalculatorInput['ppn']> = {

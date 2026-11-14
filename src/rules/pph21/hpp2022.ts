@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Belum menggunakan TER. Potongan bulanan disetahunkan langsung memakai tarif progresif UU HPP (lapisan 5% diperluas s.d. Rp 60 jt; lapisan baru 35% di atas Rp 5 M).',
   sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG, SRC.PER_16_PJ_2016, SRC.PMK_101_2016],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -77,6 +78,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph21Hpp2022Rule: TaxRuleModule<TaxCalculatorInput['pph21']> = {

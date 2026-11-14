@@ -91,6 +91,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph22Pmk37_2025Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = {

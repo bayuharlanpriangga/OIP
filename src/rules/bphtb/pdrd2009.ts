@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'BPHTB menjadi pajak daerah dengan NPOPTKP minimal Rp 60 juta untuk transaksi umum dan Rp 300 juta untuk waris/hibah wasiat, bertarif maksimal 5%.',
   sources: [SRC.UU_28_2009_PDRD, SRC.UU_20_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -53,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const bphtbPdrd2009Rule: TaxRuleModule<TaxCalculatorInput['bphtb']> = {

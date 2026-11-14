@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal 11% langsung atas seluruh Harga Jual atau Penggantian tanpa pembedaan DPP antara barang umum dan barang mewah.',
   sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -69,6 +70,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const ppnHpp2022Rule: TaxRuleModule<TaxCalculatorInput['ppn']> = {

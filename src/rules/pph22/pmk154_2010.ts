@@ -19,7 +19,8 @@ const regime: TaxRegime = {
   isCurrent: false,
   summary:
     'Aturan pendahulu PMK 34/2017 untuk pemungutan PPh 22 impor (API 2,5%, non-API 7,5%) dan bendahara pemerintah (1,5%) sebelum penyederhanaan tarif komoditas serta barang sangat mewah.',
-  sources: [SRC.PMK_154_2010, SRC.PMK_175_2013, SRC.PMK_107_2015, SRC.PMK_253_2008],
+  sources: [SRC.PMK_154_2010, SRC.PMK_175_2013, SRC.PMK_107_2015, SRC.PMK_16_2016, SRC.PMK_253_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -77,6 +78,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getOldPph22Rate(objectType: Pph22ObjectType): { rate: number; label: string; exemptLimit: number } {

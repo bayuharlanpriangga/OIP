@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Struktur tarif progresif generasi awal reformasi pajak 1983: 15% (s.d. Rp 10 jt), 25% (> Rp 10 jt s.d. Rp 50 jt), dan 35% (> Rp 50 jt) untuk Orang Pribadi maupun Badan.',
   sources: [SRC.UU_7_1983, SRC.UU_7_1991],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -74,6 +75,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const badanUu7_1983Rule: TaxRuleModule<TaxCalculatorInput['pph_badan']> = {

@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   isCurrent: true,
   currentScopeLabel: 'Berlaku kini — Nilai ekspor bruto KPD / Representative Office (0,44%)',
   summary:
-    'Norma Penghitungan Khusus PPh Pasal 15 bagi Wajib Pajak Luar Negeri yang mempunyai Kantor Perwakilan Dagang (Representative Office) di Indonesia tanpa melakukan penjualan langsung: Penghasilan neto ditetapkan 1% dari seluruh nilai ekspor bruto ke Indonesia, dikalikan gabungan PPh Badan + Branch Profit Tax sehingga menjadi 0,44% Final (turun dari 0,44% / sebelumnya mengikuti lapisan pajak 30% + BPT 20% = 44%).',
+    'Norma Penghitungan Khusus PPh Pasal 15 bagi Wajib Pajak Luar Negeri yang mempunyai Kantor Perwakilan Dagang (Representative Office) di Indonesia tanpa melakukan penjualan langsung: Penghasilan neto ditetapkan 1% dari seluruh nilai ekspor bruto ke Indonesia, dikalikan gabungan PPh Badan 30% + BPT 20% atas sisa 70% laba (= 44% gabungan) sehingga menjadi 0,44% Final.',
   sources,
   verifiedAt: '14 November 2026',
 };

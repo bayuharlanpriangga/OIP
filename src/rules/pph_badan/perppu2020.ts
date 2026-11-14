@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Menurunkan tarif PPh Badan dari 25% ke 22% (dan Tbk ke 19%) sebagai respons fiskal pandemi, sebelum rencana penurunan lanjutan ke 20% dibatalkan UU HPP.',
   sources: [SRC.UU_2_2020, SRC.UU_7_2021_HPP],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -74,6 +75,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const badanPerppu2020Rule: TaxRuleModule<TaxCalculatorInput['pph_badan']> = {

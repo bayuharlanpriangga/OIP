@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal PPN 10% dengan sistem negative list Jasa Kena Pajak dan penegasan mekanisme pengkreditan Pajak Masukan sebelum UU 42/2009.',
   sources: [SRC.UU_18_2000, SRC.UU_42_2009],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -53,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const ppnUu18_2000Rule: TaxRuleModule<TaxCalculatorInput['ppn']> = {

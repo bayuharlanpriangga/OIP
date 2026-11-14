@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan sebelum PP 9/2021: bunga obligasi Wajib Pajak Luar Negeri tanpa P3B masih dikenai tarif penuh 20% (belum turun menjadi 10%).',
   sources: [SRC.UU_36_2008, SRC.PP_16_2009, SRC.KMK_624_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -54,6 +55,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph26Uu36_2008Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {

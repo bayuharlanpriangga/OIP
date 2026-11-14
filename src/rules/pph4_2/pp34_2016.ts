@@ -21,6 +21,7 @@ const regime: TaxRegime = {
   summary:
     'Masa transisi setelah PP 34/2016 menurunkan PHTB umum menjadi 2,5% (dan PP 34/2017 mencabut PP 5/2002 pada 2018), sementara tarif konstruksi masih memakai PP 51/2008 (2%/3%/4%/6%).',
   sources: [SRC.PP_34_2016, SRC.PP_34_2017, SRC.PP_51_2008],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -76,6 +77,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getMidPph4_2Meta(objectType: Pph4_2ObjectType): { rate: number; label: string } {

@@ -13,6 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Pemotongan final 20% atas WPLN dengan perluasan objek Pasal 26 ayat (2) atas penjualan harta di Indonesia dan norma premi asuransi luar negeri KMK 624/1994 (efektif 10%), kecuali diatur lebih rendah di P3B.',
   sources: [SRC.UU_10_1994, SRC.UU_17_2000, SRC.KMK_624_1994],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -54,6 +55,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const pph26Uu10_1994Rule: TaxRuleModule<TaxCalculatorInput['pph26']> = {

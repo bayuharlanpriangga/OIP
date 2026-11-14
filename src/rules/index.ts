@@ -139,6 +139,9 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     pmk168KhususType: 'dewan_komisaris',
     wnaTahunKe: 1,
     tahunPesangonLama: 'kmk462_1998',
+    isEligibleIknPmk28: true,
+    jumlahBulanKerja: 6,
+    skemaTengahTahun: 'lokal_berhenti_tidak_setahun',
   },
   pph22: {
     nilaiDasar: 0,
@@ -151,6 +154,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     jenisMewah: 'hunian_mewah',
     eraMewah: 'pmk92_2019',
     skemaEmas: 'pabrikan_ke_pedagang_pkp',
+    skemaPembebasan22: 'belanja_max_2jt',
   },
   pph23: {
     nilaiBruto: 0,
@@ -174,6 +178,9 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     skemaSpnDhe: 'diskonto_spn_20',
     skemaPph42Historis: 'deposito_15_pp51_1994',
     skemaDireVentura: 'kik_dire_0_5',
+    nilaiBukuFiskal: 0,
+    skemaRevaluasi: 'reguler_10_pmk79',
+    skemaTaPps: 'pps_k2_14',
   },
   pph_umkm: {
     omzetBulanan: 0,
@@ -184,6 +191,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     omzetTerkaitSebelumnya: 0,
     nppnPersen: 50,
     marginLabaPersen: 10,
+    skemaSuket164: 'suket_pihak_ketiga_0_5',
   },
   pph25: {
     pphTerutangTahunLalu: 0,
@@ -197,6 +205,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     skemaWpTertentu: 'bank_ojk',
     labaTriwulanAtauRkap: 0,
     flnEra1994: 'pp17_1998',
+    skemaWpBaruTransisi: 'wp_baru_umum',
   },
   pph26: {
     nilaiBruto: 0,
@@ -207,6 +216,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     skemaButPpt: 'beneficial_owner_valid',
     nilaiPenyerahanJasaBut: 0,
     hariDiIndonesia: 75,
+    skemaAsuransi624: 'tertanggung_ri_10',
   },
   pph15: {
     peredaranBruto: 0,
@@ -226,6 +236,9 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     kelompokHartaPenyusutan: 'kel_2_8thn',
     skemaEkstraktif: 'batubara_iupk_pp15_18',
     skemaIknPfii: 'ikn_tax_holiday_100',
+    koreksiPositifNonDeductible: 0,
+    koreksiNegatif: 0,
+    kompensasiKerugianFiskal: 0,
   },
   ppn: {
     hargaJualDpp: 0,
@@ -241,6 +254,8 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     eraPkpLama: 'kmk571_2003',
     skemaKmsLama: 'pmk163_2012_2persen',
     skemaKekRefund: 'kek_tidak_dipungut_pp40',
+    skemaWapu81: 'bumn_pmk8_diatas_10jt',
+    statusPkpJln: 'pkp_dapat_kredit',
   },
   ppnbm: {
     hargaJual: 0,
@@ -262,12 +277,16 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     acquisitionType: 'jual_beli_pertama',
     isRumahMbr: false,
     tingkatPenguranganBphtb: 'pengurangan_50',
+    penghasilanBulananMbr: 6000000,
+    adaPerkadaPembebasanMbr: true,
   },
   pbjt: {
     nilaiTransaksi: 0,
     sectorType: 'makanan_minuman',
+    listrikSkema: 'umum_10',
     jenisOpsenHkpd: 'opsen_pkb_66',
     jenisPajakDaerahLain: 'reklame_25',
+    jenisPajakProvinsiHkpd: 'pkb_non_dki',
   },
   bea_meterai: {
     nilaiDokumen: 0,
@@ -275,6 +294,7 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     isPemeteraianKemudian: false,
     isBebasMeteraiPp3: true,
     jenisTransisiMeterai: 'transisi_3000_6000_9000',
+    skemaPemungutNonObjek: 'non_objek_pasal7',
   },
 };
 

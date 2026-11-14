@@ -121,6 +121,16 @@ export const ppnbmPmk12_2025DtpRule: TaxRuleModule<TaxCalculatorInput['ppnbm']> 
         dtpRate = 0;
         desc = 'Hunian mewah >= Rp 30 M (non-kendaraan, non-DTP)';
         break;
+      case 'balon_udara_peluru':
+        baseEffRate = 40;
+        dtpRate = 0;
+        desc = 'Balon udara, pesawat tanpa penggerak, & peluru 40% (non-kendaraan, non-DTP)';
+        break;
+      case 'helikopter_senjata_api':
+        baseEffRate = 50;
+        dtpRate = 0;
+        desc = 'Helikopter/pesawat komersial non-niaga & senjata api 50% (non-kendaraan, non-DTP)';
+        break;
       case 'kapal_pesiar_pesawat':
         baseEffRate = 75;
         dtpRate = 0;

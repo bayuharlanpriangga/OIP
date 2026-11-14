@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Undang-undang BPHTB pertama di Indonesia: tarif tunggal 5% dan NPOPTKP nasional Rp 30 juta (sebelum naik ke Rp 60 juta dan tambahan Rp 300 juta untuk waris di UU 20/2000).',
   sources: [SRC.UU_21_1997, SRC.UU_1_1998, SRC.UU_20_2000],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -74,6 +75,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const bphtbUu21_1997Rule: TaxRuleModule<TaxCalculatorInput['bphtb']> = {

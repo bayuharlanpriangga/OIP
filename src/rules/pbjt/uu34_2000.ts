@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan otonomi daerah generasi pertama atas pajak konsumsi daerah: Hotel (maks 10%), Restoran (maks 10%), Hiburan (maks 35%), Penerangan Jalan (maks 10%), dan Parkir (maks 20% sesuai PP 65/2001).',
   sources: [SRC.UU_34_2000, SRC.PP_65_2001, SRC.UU_18_1997],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -53,6 +54,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getUu34SectorMeta(sector: PbjtSectorType): { rate: number; label: string } {

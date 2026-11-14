@@ -6,6 +6,7 @@ import { pph25Pmk215_2018Rule } from './pmk215_2018';
 import { pph25Pmk215_2018WpTertentuRule } from './pmk215_2018_wp_tertentu';
 import { pph25Pmk23_2020Rule } from './pmk23_2020_diskon30';
 import { pph25Pmk81_2024Rule } from './pmk81_2024';
+import { pph25Pmk81_2024WpBaruTransisiRule } from './pmk81_2024_wp_baru_transisi';
 import { pph25Pmk9_2021Rule } from './pmk9_2021';
 import { pph25Pp42_2000FlnRule } from './pp42_2000_fln';
 import { pph25Pp46_1994FlnRule } from './pp46_1994_fln';
@@ -14,6 +15,7 @@ import { pph25Uu7_1983Rule } from './uu7_1983';
 
 export const PPH25_RULES: TaxRuleModule<TaxCalculatorInput['pph25']>[] = [
   pph25Pmk81_2024Rule,
+  pph25Pmk81_2024WpBaruTransisiRule,
   pph25Pmk215_2018Rule,
   pph25Pmk215_2018WpTertentuRule,
   pph25Kmk522_2000OpptRule,

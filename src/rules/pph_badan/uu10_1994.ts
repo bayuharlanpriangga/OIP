@@ -19,6 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Struktur tarif progresif Pasal 17 UU 10/1994 untuk Orang Pribadi maupun Badan: 10% (s.d. Rp 25 jt), 15% (> Rp 25 jt s.d. Rp 50 jt), dan 30% (> Rp 50 jt). Belum mengenal Pasal 31E maupun diskon Tbk.',
   sources: [SRC.UU_10_1994, SRC.UU_7_1983],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -74,6 +75,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 export const badanUu10_1994Rule: TaxRuleModule<TaxCalculatorInput['pph_badan']> = {

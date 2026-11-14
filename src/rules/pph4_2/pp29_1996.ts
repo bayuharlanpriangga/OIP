@@ -20,6 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Aturan awal PPh Final Pasal 4(2): sewa tanah/bangunan dibedakan 6% (WP Badan) dan 10% (WP OP) sesuai PP 29/1996, PHTB 5% (PP 48/1994), serta konstruksi 2%/4% (PP 73/1996 mulai 1997).',
   sources: [SRC.PP_29_1996, SRC.PP_73_1996, SRC.PP_48_1994, SRC.PP_27_1996],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -86,6 +87,8 @@ const article: TaxArticle = {
       },
     },
   },
+  sources: regime.sources,
+  verifiedAt: '14 November 2026',
 };
 
 function getPp29Meta(
