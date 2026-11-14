@@ -164,7 +164,8 @@ export const pph22Pmk34_2017Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = {
       );
     }
     notes.push(
-      'PPh Pasal 22 bersifat tidak final (kredit pajak SPT Tahunan), kecuali atas penjualan BBM/BBG/pelumas kepada penyalur/agen yang bersifat final.'
+      'PPh Pasal 22 bersifat tidak final (kredit pajak SPT Tahunan), kecuali atas penjualan BBM/BBG/pelumas kepada penyalur/agen yang bersifat final.',
+      'Khusus PPh Pasal 22 impor yang dipungut DJBC/Bea Cukai, penyetoran dilakukan bersamaan dengan saat pembayaran Bea Masuk (tidak mengikuti batas setor tanggal 15 bulan berikutnya yang berlaku untuk PPh 22 dalam negeri di Pasal 94 ayat (2) PMK 81/2024).'
     );
 
     return {

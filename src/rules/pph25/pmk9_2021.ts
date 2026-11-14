@@ -4,13 +4,14 @@ import { formatRupiah } from '../../utils/formatters';
 const regime: TaxRegime = {
   id: 'pph25_pmk9_2021',
   taxType: 'pph25',
-  name: 'PMK 86/2020 jo. PMK 9/2021 (Insentif Diskon 50%)',
-  shortName: '2020–2021 (Diskon 50%)',
-  legalBasis: 'PMK Nomor 86/PMK.03/2020 stdd PMK 110/2020 & PMK 9/PMK.03/2021',
-  effectivePeriod: 'Masa Pajak Agustus 2020 – Desember 2021',
+  name: 'PMK 110/2020, PMK 9/2021 & PMK 82/2021 (Diskon 50%)',
+  shortName: 'Jul 2020–Des 2021 (Diskon 50%)',
+  legalBasis:
+    'PMK 86/2020 stdd PMK 110/2020 (Jul–Des 2020), PMK 9/2021 (Jan–Jun 2021) & PMK 82/2021 (Jul–Des 2021)',
+  effectivePeriod: 'Masa Pajak Juli 2020 – Desember 2021',
   isCurrent: false,
   summary:
-    'Insentif pemulihan ekonomi nasional (PEN) berupa pengurangan besarnya angsuran PPh Pasal 25 sebesar 50% (sebelumnya 30% di PMK 23/2020 & PMK 44/2020) bagi KLU terdampak.',
+    'Insentif pengurangan angsuran PPh Pasal 25 sebesar 50% bagi KLU terdampak pandemi: naik dari 30% menjadi 50% mulai Masa Pajak Juli 2020 (PMK 110/2020), berlanjut Jan–Jun 2021 (PMK 9/2021), hingga Jul–Des 2021 (PMK 82/2021).',
 };
 
 export const pph25Pmk9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
@@ -36,7 +37,7 @@ export const pph25Pmk9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
         value: angsuranNormal,
       },
       {
-        label: 'Pengurangan angsuran PPh 25 (50%) — PMK 86/2020 jo. PMK 9/2021',
+        label: 'Pengurangan angsuran PPh 25 (50%) — PMK 110/2020, 9/2021 & 82/2021',
         formula: `50% x ${formatRupiah(angsuranNormal)}`,
         value: -diskonInsentif,
         isNegative: true,
@@ -60,7 +61,7 @@ export const pph25Pmk9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
       takeHomeOrNetAmount: diskonInsentif,
       steps,
       notes: [
-        'Insentif pengurangan angsuran PPh Pasal 25 sebesar 50% berlaku bagi Wajib Pajak pada klasifikasi lapangan usaha (KLU) tertentu, WP KITE, atau WP Kawasan Berikat setelah menyampaikan pemberitahuan ke DJP.',
+        'Diskon 50% berlaku mulai Masa Pajak Juli 2020 (PMK 110/2020 yang menaikkan diskon 30% dari PMK 86/2020), diperpanjang Jan–Jun 2021 (PMK 9/2021), lalu disambung Jul–Des 2021 (PMK 82/2021) untuk KLU tertentu.',
         'Pengurangan PPh 25 ini bukan merupakan pajak ditanggung pemerintah (DTP), sehingga kekurangan bayar tetap diperhitungkan pada SPT Tahunan.',
       ],
     };
