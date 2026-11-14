@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'PTKP perdana UU 36/2008 sebesar Rp 15,84 juta (TK/0, +Rp 1,32 jt per status/tanggungan), Biaya Jabatan naik ke Rp 6 juta/thn, serta mulai berlakunya sanksi +20% non-NPWP.',
   sources: [SRC.UU_36_2008, SRC.PMK_250_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -1,5 +1,5 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph23_pmk141_2015',
@@ -12,7 +12,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif 2% atas 62 jenis jasa dan sewa harta; 15% atas royalti. Dividen WP Badan dalam negeri dikecualikan dari objek PPh sejak UU Cipta Kerja.',
   sources: [SRC.PMK_141_2015, SRC.UU_7_2021_HPP, SRC.UU_36_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

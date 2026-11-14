@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppn_uu42_2009',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif PPN tunggal sebesar 10% atas seluruh penyerahan Barang Kena Pajak dan Jasa Kena Pajak di dalam daerah pabean.',
   sources: [SRC.UU_42_2009, SRC.UU_7_2021_HPP],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

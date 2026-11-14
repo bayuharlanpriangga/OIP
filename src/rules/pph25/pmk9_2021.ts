@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph25_pmk9_2021',
@@ -14,7 +14,6 @@ const regime: TaxRegime = {
   summary:
     'Insentif pengurangan angsuran PPh Pasal 25 sebesar 50% bagi KLU terdampak pandemi: naik dari 30% menjadi 50% mulai Masa Pajak Juli 2020 (PMK 110/2020), berlanjut Jan–Jun 2021 (PMK 9/2021), hingga Jul–Des 2021 (PMK 82/2021).',
   sources: [SRC.PMK_110_2020, SRC.PMK_9_2021, SRC.PMK_82_2021, SRC.PMK_86_2020],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

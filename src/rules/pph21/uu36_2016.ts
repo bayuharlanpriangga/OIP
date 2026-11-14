@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'PTKP TK/0 sudah Rp 54 juta, namun lapisan tarif 5% masih berakhir di Rp 50 juta dan tarif tertinggi berhenti di 30% untuk PKP di atas Rp 500 juta.',
   sources: [SRC.UU_36_2008, SRC.PMK_101_2016, SRC.PER_16_PJ_2016],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

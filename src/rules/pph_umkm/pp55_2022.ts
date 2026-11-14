@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'umkm_pp55_2022',
@@ -13,7 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif final 0,5% dari omzet bruto, disertai pembebasan pajak (0%) untuk akumulasi omzet sampai dengan Rp 500 juta setahun khusus bagi Wajib Pajak Orang Pribadi; CV/PT masih tercakup dengan batas waktu Pasal 59 sebelum diubah PP 20/2026.',
   sources: [SRC.PP_55_2022, SRC.PP_55_2022_SETNEG, SRC.UU_7_2021_HPP],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

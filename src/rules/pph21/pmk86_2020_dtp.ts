@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { computeProgressivePph21, getPtkpAmount } from './shared';
 
 const regime: TaxRegime = {
@@ -21,7 +21,6 @@ const regime: TaxRegime = {
   summary:
     'Insentif pandemi Covid-19: PPh Pasal 21 Ditanggung Pemerintah (DTP) dan dibayarkan tunai kepada pegawai ber-NPWP di sektor KLU tertentu apabila penghasilan bruto tetap & teratur disetahunkan <= Rp 200 juta.',
   sources: [SRC.PMK_86_2020, SRC.PMK_110_2020, SRC.PMK_9_2021, SRC.PMK_82_2021],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

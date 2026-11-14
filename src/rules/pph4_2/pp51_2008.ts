@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph4_2_pp51_2008',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Skema PPh Final Pasal 4(2) sebelum PP 34/2016: pengalihan hak tanah/bangunan 5% (PP 71/2008), konstruksi 2%/3%/4%/6% (PP 51/2008), dan sewa tanah/bangunan 10% (PP 5/2002).',
   sources: [SRC.PP_51_2008, SRC.PP_40_2009, SRC.PP_71_2008, SRC.PP_5_2002],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

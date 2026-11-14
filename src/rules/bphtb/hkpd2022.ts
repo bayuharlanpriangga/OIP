@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'bphtb_hkpd_2022',
@@ -19,7 +19,7 @@ const regime: TaxRegime = {
   summary:
     'NPOPTKP perolehan hak pertama dinaikkan menjadi minimal Rp 80 juta (dari sebelumnya Rp 60 juta), dengan tarif BPHTB paling tinggi 5% dari (NPOP - NPOPTKP).',
   sources: [SRC.UU_1_2022_HKPD, SRC.UU_28_2009_PDRD],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

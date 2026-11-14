@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_uu7_1983',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Era awal pemungutan PPh Pasal 22 pasca-reformasi 1983: impor dengan API 2,5%, impor tanpa API 7,5%, dan pembayaran bendaharawan/badan tertentu 1,5% sebelum pembaruan UU 10/1994.',
   sources: [SRC.UU_7_1983, SRC.KMK_599_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {
@@ -83,6 +82,11 @@ function getUu7Pph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
       return {
         rate: 1.5,
         label: 'Pembayaran dari APBN/APBD oleh Bendaharawan (1,5% — KMK 848/1992)',
+      };
+    case 'bulion_emas':
+      return {
+        rate: 0,
+        label: 'Pemungutan khusus LJK bulion emas 0,25% belum ada pada era UU 7/1983',
       };
     case 'barang_sangat_mewah':
       return {

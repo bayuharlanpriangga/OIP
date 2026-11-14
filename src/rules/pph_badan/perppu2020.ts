@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateCorporateTaxWith31E } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Menurunkan tarif PPh Badan dari 25% ke 22% (dan Tbk ke 19%) sebagai respons fiskal pandemi, sebelum rencana penurunan lanjutan ke 20% dibatalkan UU HPP.',
   sources: [SRC.UU_2_2020, SRC.UU_7_2021_HPP],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

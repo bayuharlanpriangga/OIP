@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbjt_uu34_2000',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan otonomi daerah generasi pertama atas pajak konsumsi daerah: Hotel (maks 10%), Restoran (maks 10%), Hiburan (maks 35%), Penerangan Jalan (maks 10%), dan Parkir (maks 20% sesuai PP 65/2001).',
   sources: [SRC.UU_34_2000, SRC.PP_65_2001, SRC.UU_18_1997],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

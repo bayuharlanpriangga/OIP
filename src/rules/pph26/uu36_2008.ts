@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph26_uu36_2008',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan sebelum PP 9/2021: bunga obligasi Wajib Pajak Luar Negeri tanpa P3B masih dikenai tarif penuh 20% (belum turun menjadi 10%).',
   sources: [SRC.UU_36_2008, SRC.PP_16_2009, SRC.KMK_624_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -1,19 +1,19 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph26_pp9_2021',
   taxType: 'pph26',
-  name: 'Pasal 26 UU PPh jo. PP 9/2021 & PMK 81/2024',
-  shortName: '2021–Kini (PP 9/2021)',
-  legalBasis: 'Pasal 26 UU PPh stdd UU HPP, PP 9/2021 & PER-25/PJ/2018',
-  effectivePeriod: '2 Agustus 2021 – Sekarang',
+  name: 'Pasal 26 UU PPh jo. PP 9/2021, PMK 81/2024 & PMK 112/2025',
+  shortName: '2021–Sekarang (PP 9/2021 & PMK 112/2025)',
+  legalBasis: 'Pasal 26 UU PPh stdd UU HPP, PP 9/2021, PMK 81/2024 & PMK 112/2025',
+  effectivePeriod: '2 Agustus 2021 – Sekarang (P3B: PMK 112/2025 per 30 Des 2025)',
   isCurrent: true,
   summary:
-    'Tarif umum pemotongan WP Luar Negeri sebesar 20% (atau tarif preferensial P3B dengan SKD DGT), dengan penurunan tarif bunga obligasi WPLN menjadi 10% sesuai PP 9/2021.',
-  sources: [SRC.PP_9_2021, SRC.PER_25_PJ_2018_DJP, SRC.UU_7_2021_HPP],
-  verifiedAt: REGIME_VERIFIED_AT,
+    'Tarif umum pemotongan WP Luar Negeri sebesar 20% (atau tarif preferensial P3B dengan SKD DGT sesuai PMK 112/2025 pengganti PER-25/PJ/2018), dengan tarif domestik bunga obligasi WPLN 10% sesuai PP 9/2021.',
+  sources: [SRC.PP_9_2021, SRC.PMK_112_2025, SRC.PMK_81_2024, SRC.UU_7_2021_HPP],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -21,7 +21,7 @@ const article: TaxArticle = {
   taxType: 'pph26',
   taxTypeLabel: 'PPh Pasal 26',
   title: 'Pemotongan PPh Pasal 26 atas Wajib Pajak Luar Negeri, Tarif P3B, dan Bunga Obligasi 10%',
-  legalBasis: 'Pasal 26 UU PPh, PP Nomor 9 Tahun 2021, & PER-25/PJ/2018',
+  legalBasis: 'Pasal 26 UU PPh, PP Nomor 9 Tahun 2021 & PMK Nomor 112 Tahun 2025',
   effectiveDate: '2 Agustus 2021',
   readMinutes: 5,
   summary:
@@ -37,7 +37,7 @@ const article: TaxArticle = {
     {
       heading: 'Pemanfaatan Persetujuan Penghindaran Pajak Berganda (P3B / Tax Treaty)',
       paragraphs: [
-        'Apabila penerima penghasilan berdomisili di negara mitra P3B dan menyerahkan Surat Keterangan Domisili (SKD / Form DGT) sesuai PER-25/PJ/2018 sebelum batas pelaporan SPT Masa, pemotong dapat menerapkan tarif P3B (misalnya 10% atau 15%, bahkan 0% untuk jasa teknis tanpa BUT) sepanjang lolos uji anti-abuse (beneficial owner).',
+        'Apabila penerima penghasilan berdomisili di negara mitra P3B dan menyerahkan Surat Keterangan Domisili (SKD / Form DGT) yang sah sebelum batas pelaporan SPT Masa, pemotong dapat menerapkan tarif P3B (misalnya 10% atau 15%, bahkan 0% untuk jasa teknis tanpa BUT) sepanjang lolos uji anti-abuse (beneficial owner & Principal Purpose Test / substansi ekonomi). Sejak 30 Desember 2025, tata cara penerapan P3B diperbarui dari PER-25/PJ/2018 menjadi PMK Nomor 112 Tahun 2025 dengan masa transisi pengakuan SKD format lama yang telah terbit sebelumnya.',
       ],
     },
   ],

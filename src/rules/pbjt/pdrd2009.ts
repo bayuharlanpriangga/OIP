@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbjt_pdrd_2009',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Lima jenis pajak konsumsi daerah yang terpisah: Pajak Hotel (maks 10%), Restoran (maks 10%), Parkir (maks 30%), Hiburan umum (maks 35%) & khusus (maks 75%), dan Penerangan Jalan (maks 10%).',
   sources: [SRC.UU_28_2009_PDRD, SRC.UU_1_2022_HKPD],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'meterai_uu13_1985',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif perdana UU 13/1985: dokumen nominal s.d. Rp 100 ribu bebas meterai, > Rp 100 ribu s.d. Rp 1 juta dikenai Rp 500, dan di atas Rp 1 juta dikenai Rp 1.000.',
   sources: [SRC.UU_13_1985, SRC.PP_7_1995],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

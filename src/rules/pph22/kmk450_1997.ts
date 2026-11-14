@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_kmk450_1997',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan pemungutan PPh 22 era UU 10/1994 sebelum KMK 254/2001: impor API 2,5%, non-API 7,5%, dan bendaharawan pemerintah 1,5% dengan pengecualian transaksi di bawah Rp 500.000 (belum ada sanksi non-NPWP +100%).',
   sources: [SRC.KMK_450_1997, SRC.KMK_599_1994, SRC.UU_10_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {
@@ -86,6 +85,12 @@ function getKmk450Rate(objectType: Pph22ObjectType): { rate: number; label: stri
         rate: 1.5,
         label: 'Pembelian oleh Bendaharawan Pemerintah / BUMN tertentu (1,5%)',
         exemptLimit: 500000,
+      };
+    case 'bulion_emas':
+      return {
+        rate: 0,
+        label: 'Pemungutan khusus LJK bulion emas 0,25% belum diatur pada era 1995–2001',
+        exemptLimit: 0,
       };
     case 'barang_sangat_mewah':
       return {

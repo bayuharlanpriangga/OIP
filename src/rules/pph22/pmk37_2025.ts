@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_pmk37_2025',
@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Penunjukan marketplace (PPMSE) sebagai pemungut PPh Pasal 22 sebesar 0,5% atas omzet pedagang dalam negeri (non-PPN/PPnBM). Dapat bersifat final (UMKM) maupun tidak final (kredit pajak), dengan pengecualian untuk WP OP beromzet s.d. Rp 500 juta/tahun.',
   sources: [SRC.PMK_37_2025, SRC.PMK_37_2025_DJP, SRC.PMK_37_2025_BPK],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -38,7 +38,7 @@ const article: TaxArticle = {
       heading: 'Tanggal berlaku regulasi vs. tanggal mulai pemungutan bertahap',
       paragraphs: [
         'PMK Nomor 37 Tahun 2025 ditetapkan pada 11 Juni 2025 dan mulai berlaku sejak tanggal diundangkan pada 14 Juli 2025. Namun, DJP memisahkan tanggal berlakunya peraturan dengan tanggal mulai pemungutan di lapangan karena penunjukan PPMSE/marketplace sebagai pemungut dilakukan secara bertahap sesuai kesiapan sistem dan kriteria transaksi atau trafik platform.',
-        'Aturan ini bukan pajak jenis baru, melainkan pergeseran mekanisme penyetoran dari self-assessment oleh pedagang menjadi pemungutan otomatis di sisi marketplace, melengkapi PMK 34/2017 yang tetap berlaku untuk impor, bendahara/BUMN, dan barang sangat mewah.',
+        'Aturan ini bukan pajak jenis baru, melainkan pergeseran mekanisme penyetoran dari self-assessment oleh pedagang menjadi pemungutan otomatis di sisi marketplace, melengkapi rezim umum PPh 22 impor, bendahara/BUMN, dan bulion yang kini diatur dalam PMK 51/2025 serta barang sangat mewah dalam PMK 92/2019.',
       ],
     },
     {

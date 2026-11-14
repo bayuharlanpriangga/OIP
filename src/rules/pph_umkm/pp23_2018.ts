@@ -1,5 +1,5 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'umkm_pp23_2018',
@@ -12,7 +12,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif turun menjadi 0,5%, tetapi seluruh Wajib Pajak Orang Pribadi maupun Badan tetap dikenakan sejak Rupiah pertama tanpa batas bebas Rp 500 juta.',
   sources: [SRC.PP_23_2018, SRC.PP_46_2013],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

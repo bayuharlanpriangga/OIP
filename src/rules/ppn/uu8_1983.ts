@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppn_uu8_1983',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Lahirnya sistem Pajak Pertambahan Nilai (PPN) 10% di Indonesia menggantikan Pajak Penjualan (PPn) 1951 dengan mekanisme kredit Pajak Masukan–Pajak Keluaran.',
   sources: [SRC.UU_8_1983, SRC.PP_1_1985, SRC.UU_11_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

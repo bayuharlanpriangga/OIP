@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph21_pp68_2009',
@@ -19,7 +19,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif final PPh 21 atas pembayaran sekaligus: Pesangon 0% (<= 50jt), 5% (50–100jt), 15% (100–500jt), 25% (> 500jt); sedangkan Manfaat Pensiun/THT/JHT 0% (<= 50jt) dan 5% (> 50jt).',
   sources: [SRC.PP_68_2009, SRC.PMK_16_2010, SRC.PP_58_2023],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

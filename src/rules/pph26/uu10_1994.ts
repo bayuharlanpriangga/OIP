@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph26_uu10_1994',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Pemotongan final 20% atas WPLN dengan perluasan objek Pasal 26 ayat (2) atas penjualan harta di Indonesia dan norma premi asuransi luar negeri KMK 624/1994 (efektif 10%), kecuali diatur lebih rendah di P3B.',
   sources: [SRC.UU_10_1994, SRC.UU_17_2000, SRC.KMK_624_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

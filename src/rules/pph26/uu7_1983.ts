@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph26_uu7_1983',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Ketentuan awal pemotongan final 20% atas penghasilan yang bersumber dari Indonesia bagi Wajib Pajak Luar Negeri selain BUT (dividen, bunga, royalti, sewa, jasa, dan laba setelah pajak BUT), kecuali ada P3B.',
   sources: [SRC.UU_7_1983, SRC.UU_10_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

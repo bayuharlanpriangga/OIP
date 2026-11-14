@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbb_uu12_1994',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal 0,5% dikalikan NJKP (20% untuk NJOP < Rp 1 M atau 40% untuk NJOP >= Rp 1 M), dengan NJOPTKP nasional Rp 12 juta.',
   sources: [SRC.UU_12_1994, SRC.PP_25_2002, SRC.UU_12_1985],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

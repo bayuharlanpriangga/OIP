@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_pmk154_2010',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan pendahulu PMK 34/2017 untuk pemungutan PPh 22 impor (API 2,5%, non-API 7,5%) dan bendahara pemerintah (1,5%) sebelum penyederhanaan tarif komoditas serta barang sangat mewah.',
   sources: [SRC.PMK_154_2010, SRC.PMK_175_2013, SRC.PMK_253_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {
@@ -103,6 +102,12 @@ function getOldPph22Rate(objectType: Pph22ObjectType): { rate: number; label: st
         rate: 1.5,
         label: 'Pembelian oleh Bendaharawan Pemerintah / DJPB (1,5%)',
         exemptLimit: 2000000,
+      };
+    case 'bulion_emas':
+      return {
+        rate: 0.45,
+        label: 'Penjualan emas batangan oleh badan usaha produsen (0,45% pada perubahan PMK 154/2010, sebelum tarif bulion 0,25%)',
+        exemptLimit: 0,
       };
     case 'barang_sangat_mewah':
       return {

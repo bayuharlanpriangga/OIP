@@ -31,6 +31,7 @@ export type Pph22ObjectType =
   | 'impor_komoditas_tertentu'
   | 'impor_konsumsi_10'
   | 'bendahara_bumn'
+  | 'bulion_emas'
   | 'barang_sangat_mewah';
 
 export type Pph23ObjectType =
@@ -104,7 +105,7 @@ export interface TaxRegime {
   isCurrent: boolean;
   summary: string;
   sources: TaxSource[];
-  verifiedAt: string;
+  verifiedAt?: string;
 }
 
 export interface TaxCalculatorInput {
@@ -203,6 +204,8 @@ export interface CalculationResult {
   regime: TaxRegime;
   primaryTaxLabel: string;
   primaryTaxAmount: number;
+  isNotCalculated?: boolean;
+  primaryTaxDisplay?: string;
   annualTaxLabel?: string;
   annualTaxAmount?: number;
   effectiveRatePercent: number;

@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppn_uu11_1994',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Perubahan pertama UU PPN yang memperluas objek BKP tidak berwujud, JKP dari luar daerah pabean, dan mempertahankan tarif tunggal 10%.',
   sources: [SRC.UU_11_1994, SRC.UU_18_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

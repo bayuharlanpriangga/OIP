@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppn_hpp_2022',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal 11% langsung atas seluruh Harga Jual atau Penggantian tanpa pembedaan DPP antara barang umum dan barang mewah.',
   sources: [SRC.UU_7_2021_HPP, SRC.UU_7_2021_SETNEG],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

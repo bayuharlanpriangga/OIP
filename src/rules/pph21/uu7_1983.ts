@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Era awal reformasi UU PPh: tarif 3 lapis 15% (<= 10jt), 25% (10–50jt), 35% (> 50jt), PTKP TK/0 Rp 960 ribu (+Rp 480 rb/tanggungan), dan Biaya Jabatan maks Rp 360 ribu/thn.',
   sources: [SRC.UU_7_1983, SRC.UU_7_1991, SRC.KMK_49_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'meterai_pp24_2000',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Skema historis Bea Meterai bertingkat: bebas s.d. Rp 250 ribu, tarif Rp 3.000 untuk > Rp 250 ribu s.d. Rp 1 juta, dan tarif Rp 6.000 untuk nominal di atas Rp 1 juta.',
   sources: [SRC.PP_24_2000, SRC.UU_13_1985],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

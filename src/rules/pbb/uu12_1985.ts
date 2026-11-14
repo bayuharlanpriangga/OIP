@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbb_uu12_1985',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Undang-undang PBB pertama (menggantikan Ipeda/Pajak Kekayaan): tarif tunggal 0,5%, NJKP seragam 20% (PP 46/1985), serta batas bebas khusus Nilai Bangunan Tidak Kena Pajak (NBTKP) Rp 2 juta per satuan bangunan.',
   sources: [SRC.UU_12_1985, SRC.PP_46_1985, SRC.UU_12_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

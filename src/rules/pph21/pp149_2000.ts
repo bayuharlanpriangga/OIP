@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph21_pp149_2000',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan pendahulu PP 68/2009 untuk pesangon, tebusan pensiun, THT, dan JHT sekaligus: 0% (<= 25jt), 5% (25–50jt), 10% (50–100jt), 15% (100–200jt), dan 25% (> 200jt).',
   sources: [SRC.PP_149_2000, SRC.UU_17_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

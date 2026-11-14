@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbjt_uu18_1997',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Undang-undang pajak daerah pertama yang menyatukan Pajak Hotel dan Restoran (maks 10%), Pajak Hiburan (maks 35%), serta Pajak Penerangan Jalan (maks 10%), sebelum Pajak Parkir ditambah di UU 34/2000.',
   sources: [SRC.UU_18_1997, SRC.PP_19_1997, SRC.UU_34_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

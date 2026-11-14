@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif progresif 5 lapis UU 17/2000 (5/10/15/25/35%), PTKP Rp 13,2 juta (TK/0, +Rp 1,2 jt/tanggungan), dan batas Biaya Jabatan Rp 1,296 juta/thn.',
   sources: [SRC.PMK_137_2005, SRC.UU_17_2000, SRC.KMK_521_1998],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

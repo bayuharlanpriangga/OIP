@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbjt_hkpd_2022',
@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Mengonsolidasikan Pajak Restoran, Hotel, Parkir, Hiburan, dan Penerangan Jalan menjadi satu jenis PBJT dengan batas maksimal umum 10% (hiburan khusus 40%–75%).',
   sources: [SRC.UU_1_2022_HKPD, SRC.UU_28_2009_PDRD],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

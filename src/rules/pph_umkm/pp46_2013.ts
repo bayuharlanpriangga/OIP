@@ -1,5 +1,5 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'umkm_pp46_2013',
@@ -12,7 +12,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif final 1% dari peredaran bruto bulanan bagi usaha beromzet maksimal Rp 4,8 miliar setahun tanpa fasilitas pembebasan omzet.',
   sources: [SRC.PP_46_2013, SRC.PP_23_2018],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

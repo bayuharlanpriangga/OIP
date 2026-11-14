@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph15_kmk416_1996',
@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Norma Penghitungan Khusus PPh Pasal 15 sektor transportasi: pelayaran dalam negeri 1,2% final, penerbangan charter dalam negeri 1,8% tidak final, dan pelayaran/penerbangan luar negeri 2,64% final.',
   sources: [SRC.KMK_416_1996, SRC.KMK_475_1996, SRC.KMK_417_1996_DJP, SRC.PMK_81_2024],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

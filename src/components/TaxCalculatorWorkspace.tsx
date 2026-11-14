@@ -57,6 +57,7 @@ const PPH22_OBJECTS: { value: Pph22ObjectType; label: string }[] = [
   { value: 'impor_komoditas_tertentu', label: 'Impor kedelai, gandum, atau tepung terigu API (0,5%)' },
   { value: 'impor_konsumsi_10', label: 'Impor barang konsumsi tertentu Lampiran I (10% PMK 110/2018)' },
   { value: 'bendahara_bumn', label: 'Belanja barang Bendahara Pemerintah / BUMN (1,5%)' },
+  { value: 'bulion_emas', label: 'Emas batangan / bulion LJK berizin OJK (0,25% PMK 51/2025)' },
   { value: 'barang_sangat_mewah', label: 'Penjualan barang sangat mewah tertentu (5%)' },
 ];
 
@@ -1279,8 +1280,16 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               <p className="text-xs text-[#4F6160] dark:text-[#E8EAE4]/75">
                 {result.primaryTaxLabel}
               </p>
-              <p className="text-3xl sm:text-4xl font-bold tabular-nums tracking-tight text-[#1F2A2C] dark:text-[#E8EAE4] mt-1">
-                {formatRupiah(result.primaryTaxAmount)}
+              <p
+                className={`font-bold tabular-nums tracking-tight mt-1 ${
+                  result.isNotCalculated
+                    ? 'text-xl sm:text-2xl text-[#A8530E] dark:text-[#D9772B]'
+                    : 'text-3xl sm:text-4xl text-[#1F2A2C] dark:text-[#E8EAE4]'
+                }`}
+              >
+                {result.isNotCalculated && result.primaryTaxDisplay
+                  ? result.primaryTaxDisplay
+                  : formatRupiah(result.primaryTaxAmount)}
               </p>
             </div>
 
@@ -1296,7 +1305,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               <div className="flex items-center justify-between gap-3">
                 <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">Tarif pajak efektif</dt>
                 <dd className="font-semibold tabular-nums text-[#1F2A2C] dark:text-[#E8EAE4]">
-                  {formatPersen(result.effectiveRatePercent)}
+                  {result.isNotCalculated ? 'Tidak dihitung' : formatPersen(result.effectiveRatePercent)}
                 </dd>
               </div>
               <div className="flex items-center justify-between gap-3">

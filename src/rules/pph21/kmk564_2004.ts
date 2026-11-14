@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Penyesuaian PTKP Tahun Pajak 2005 dari Rp 2,88 juta menjadi Rp 12 juta (TK/0, +Rp 1,2 jt/tanggungan), tetap memakai tarif 5 lapis UU 17/2000 (5/10/15/25/35%).',
   sources: [SRC.KMK_564_2004, SRC.UU_17_2000, SRC.KMK_521_1998],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

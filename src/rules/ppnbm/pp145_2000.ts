@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppnbm_pp145_2000',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Struktur PPnBM awal pasca-UU 18/2000: kendaraan 10% (minibus/4x2 <= 1.500 cc), 20% (1.500–2.500 cc), 30% (sedan <= 1.500 cc), 40% (> 2.500 cc / sedan 1.500–3.000 cc), hingga 75% (> 3.000 cc, kapal pesiar & pesawat); belum ada insentif LCGC maupun BEV.',
   sources: [SRC.PP_145_2000, SRC.PP_12_2006, SRC.UU_18_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

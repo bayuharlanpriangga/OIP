@@ -1,5 +1,5 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph23_kep170_2002',
@@ -12,7 +12,6 @@ const regime: TaxRegime = {
   summary:
     'Skema perkiraan penghasilan neto PPh 23 sebelum PER-70/PJ/2007: tarif 15% x perkiraan neto 50% konsultan (efektif 7,5%), 40% jasa teknik/manajemen (efektif 6%), dan 30% sewa harta bergerak selain angkutan darat (efektif 4,5%).',
   sources: [SRC.KEP_170_2002_DJP, SRC.UU_17_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

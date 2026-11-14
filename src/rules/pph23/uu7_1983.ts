@@ -1,5 +1,5 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph23_uu7_1983',
@@ -12,7 +12,6 @@ const regime: TaxRegime = {
   summary:
     'Era awal PPh Pasal 23 sebelum skema Perkiraan Penghasilan Neto di UU 10/1994: tarif tunggal 15% dari jumlah bruto atas dividen, bunga, royalti, hadiah, sewa, serta imbalan jasa teknik dan manajemen.',
   sources: [SRC.UU_7_1983, SRC.UU_10_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

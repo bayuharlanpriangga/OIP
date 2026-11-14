@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'meterai_uu10_2020',
@@ -13,7 +13,7 @@ const regime: TaxRegime = {
   summary:
     'Menggantikan meterai Rp 3.000 & Rp 6.000 menjadi tarif tetap tunggal Rp 10.000 per dokumen, menaikkan batas nilai nominal uang kena meterai menjadi di atas Rp 5.000.000, dan mengakui e-Meterai.',
   sources: [SRC.UU_10_2020, SRC.PP_24_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateAnnualizedPph21 } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'PTKP TK/0 naik menjadi Rp 36 juta per tahun (tambahan kawin/tanggungan Rp 3 juta) dengan lapisan tarif Pasal 17 UU 36/2008 (5% s.d. 30%).',
   sources: [SRC.PMK_122_2015, SRC.UU_36_2008, SRC.PMK_250_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

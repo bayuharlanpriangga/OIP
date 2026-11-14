@@ -1,5 +1,5 @@
 import { TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 import { calculateCorporateTaxWith31E } from './shared';
 
 const regime: TaxRegime = {
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal perdana PPh Badan sebesar 28% pada Tahun Pajak 2009 (diskon 5% menjadi 23% bagi emiten Tbk) dengan fasilitas Pasal 31E bertarif efektif 14%.',
   sources: [SRC.UU_36_2008, SRC.PP_81_2007],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

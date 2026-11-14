@@ -1,5 +1,5 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph23_pmk244_2009',
@@ -12,7 +12,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif 2% berlaku atas 27 jenis jasa tertentu; dividen yang diterima WP Badan dengan kepemilikan saham di bawah 25% masih dipotong PPh 23 sebesar 15%.',
   sources: [SRC.PMK_244_2008, SRC.UU_36_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'badan_uu7_1983',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Struktur tarif progresif generasi awal reformasi pajak 1983: 15% (s.d. Rp 10 jt), 25% (> Rp 10 jt s.d. Rp 50 jt), dan 35% (> Rp 50 jt) untuk Orang Pribadi maupun Badan.',
   sources: [SRC.UU_7_1983, SRC.UU_7_1991],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

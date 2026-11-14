@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'bphtb_uu20_2000',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'BPHTB dikelola pusat dengan NPOPTKP maksimal Rp 60 juta (Rp 300 juta untuk waris/hibah wasiat) serta keringanan pajak 50% khusus perolehan waris/hibah wasiat.',
   sources: [SRC.UU_20_2000, SRC.PP_111_2000, SRC.UU_21_1997],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppn_uu18_2000',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Tarif tunggal PPN 10% dengan sistem negative list Jasa Kena Pajak dan penegasan mekanisme pengkreditan Pajak Masukan sebelum UU 42/2009.',
   sources: [SRC.UU_18_2000, SRC.UU_42_2009],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'umkm_pp20_2026',
@@ -17,9 +17,9 @@ const regime: TaxRegime = {
   effectivePeriod: '22 April 2026 – Sekarang',
   isCurrent: true,
   summary:
-    'Mempertahankan tarif 0,5%, batas omzet Rp 4,8 miliar, dan bebas pajak Rp 500 juta untuk Orang Pribadi, namun menghapus batas jangka waktu Pasal 59, mengecualikan CV/PT umum serta jasa pekerjaan bebas, dan mencegah pemecahan usaha.',
+    'Mempertahankan tarif 0,5%, batas omzet Rp 4,8 miliar, dan bebas pajak Rp 500 juta bagi Orang Pribadi. Tanpa batas waktu untuk WP OP dan Perseroan Perorangan, sedangkan Koperasi dibatasi maks 4 tahun (transisi s.d. 2029) dan CV/Firma/PT umum dikeluarkan kecuali sisa masa transisinya.',
   sources: [SRC.PP_20_2026, SRC.PP_20_2026_SETNEG, SRC.PP_20_2026_BPK, SRC.PP_55_2022],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -37,13 +37,13 @@ const article: TaxArticle = {
       heading: 'Tarif 0,5% dan kuota bebas Rp 500 juta dipertahankan, Pasal 59 dihapus',
       paragraphs: [
         'PP Nomor 20 Tahun 2026 yang ditetapkan dan mulai berlaku pada 22 April 2026 merevisi ketentuan PPh Final UMKM dalam PP 55/2022. Besaran tarif tetap 0,5% dari peredaran bruto dengan ambang batas omzet usaha tetap Rp 4,8 miliar per tahun pajak.',
-        'Fasilitas omzet bebas pajak sampai dengan Rp 500.000.000 per tahun bagi Wajib Pajak Orang Pribadi (Pasal 60 ayat (2) PP 55/2022) tetap dipertahankan. Perubahan besarnya adalah penghapusan Pasal 59 PP 55/2022 yang sebelumnya membatasi jangka waktu insentif (7 tahun OP, 4 tahun koperasi/CV/firma, 3 tahun PT), sehingga WP Orang Pribadi dan Perseroan Perorangan yang memenuhi syarat dapat memanfaatkannya selama omzet tidak melewati Rp 4,8 miliar.',
+        'Fasilitas omzet bebas pajak sampai dengan Rp 500.000.000 per tahun bagi Wajib Pajak Orang Pribadi (Pasal 60 ayat (2) PP 55/2022) tetap dipertahankan. Perubahan utamanya adalah penghapusan Pasal 59 PP 55/2022 sehingga WP Orang Pribadi dan Perseroan Perorangan yang memenuhi syarat dapat memanfaatkannya tanpa batas jangka waktu selama omzet gabungan tidak melewati Rp 4,8 miliar. Namun demikian, untuk Koperasi jangka waktunya tetap dibatasi maksimal 4 tahun pajak sejak terdaftar (Pasal 57 ayat (2) PP 20/2026), dengan perpanjangan transisi sampai Tahun Pajak 2029 bagi koperasi terdaftar sebelumnya yang masa pemanfaatannya berakhir pada 2024–2029.',
       ],
     },
     {
-      heading: 'Pengetatan subjek penerima dan pencegahan pemecahan usaha',
+      heading: 'Pengetatan subjek penerima, masa transisi CV/PT, dan pencegahan pemecahan usaha',
       paragraphs: [
-        'Agar tepat sasaran bagi pelaku usaha mikro dan kecil murni, PP 20/2026 mempersempit penerima fasilitas menjadi Wajib Pajak Orang Pribadi, Perseroan Perorangan (yang didirikan 1 orang), dan Koperasi dalam negeri. Badan usaha berbentuk CV, Firma, dan PT umum (non-perorangan) tidak lagi termasuk penerima fasilitas PPh Final 0,5% dan wajib beralih ke tarif umum PPh Badan.',
+        'Agar tepat sasaran bagi pelaku usaha mikro dan kecil murni, PP 20/2026 mempersempit penerima fasilitas baru menjadi Wajib Pajak Orang Pribadi, Perseroan Perorangan (yang didirikan 1 orang), dan Koperasi dalam negeri. Badan usaha berbentuk CV, Firma, BUMDes, dan PT umum (non-perorangan) tidak lagi berhak menjadi subjek baru PPh Final 0,5%; tetapi entitas lama yang sudah terdaftar sebelumnya tetap dapat menyelesaikan sisa masa transisinya (misalnya CV hingga akhir Tahun Pajak 2026 sesuai skema lama) sebelum beralih ke tarif umum PPh Badan.',
         'Selain itu, jasa sehubungan dengan pekerjaan bebas—seperti pengacara, akuntan, arsitek, dokter, notaris, konsultan, trainer, agen asuransi, hingga pembuat konten/influencer—dikecualikan dari skema PPh Final 0,5%. PP 20/2026 juga memperkenalkan ketentuan penggabungan omzet keluarga dan perseroan perorangan tertentu untuk mencegah praktik pemecahan usaha (fragmentation) guna menghindari ambang batas Rp 4,8 miliar.',
       ],
     },
@@ -63,14 +63,14 @@ const article: TaxArticle = {
         aturanBaru: 'Tetap berlaku untuk WP Orang Pribadi',
       },
       {
-        aspek: 'Jangka waktu (Pasal 59)',
-        aturanLama: '7 thn (OP), 4 thn (CV/Koperasi), 3 thn (PT)',
-        aturanBaru: 'Pasal 59 dihapus (tanpa batas waktu bagi yang berhak)',
+        aspek: 'Jangka waktu pemanfaatan',
+        aturanLama: '7 thn (OP), 4 thn (CV/Koperasi), 3 thn (PT) — Pasal 59',
+        aturanBaru: 'OP & Perseroan Perorangan tanpa batas waktu; Koperasi maks 4 thn (transisi s.d. 2029)',
       },
       {
         aspek: 'Subjek Badan yang berhak',
         aturanLama: 'PT, CV, Firma, Koperasi, Perseroan Perorangan',
-        aturanBaru: 'Hanya Perseroan Perorangan & Koperasi (CV/PT umum keluar)',
+        aturanBaru: 'Hanya Perseroan Perorangan & Koperasi (CV/Firma/PT umum cek masa transisi)',
       },
       {
         aspek: 'Pekerjaan bebas & anti-pecah usaha',
@@ -107,24 +107,26 @@ export const umkmPp20_2026Rule: TaxRuleModule<TaxCalculatorInput['pph_umkm']> = 
 
     if (isIneligibleEntity) {
       notes.push(
-        'Peringatan: Berdasarkan PP 20/2026 (berlaku 22 April 2026), CV, Firma, dan PT umum tidak lagi berhak menggunakan skema PPh Final UMKM 0,5% dan wajib menghitung pajak menggunakan pembukuan serta tarif umum PPh Badan (termasuk fasilitas Pasal 31E).'
+        'Peringatan: Berdasarkan PP 20/2026 (berlaku 22 April 2026), CV, Firma, BUMDes, dan PT umum bukan lagi subjek baru PPh Final UMKM 0,5%. Namun entitas yang sudah terdaftar sebelumnya tetap dapat menggunakan PPh Final 0,5% sampai sisa masa pemanfaatannya di bawah ketentuan lama berakhir (misalnya CV s.d. akhir TP 2026 sesuai tahun terdaftar); jika masa transisi habis, wajib beralih ke tarif umum PPh Badan (Pasal 17 / Pasal 31E).'
       );
       return {
         regime,
-        primaryTaxLabel: 'PPh Final UMKM (Tidak Berlaku untuk CV/PT Umum)',
+        primaryTaxLabel: 'Status PPh Final UMKM (CV / Firma / PT Umum / BUMDes)',
         primaryTaxAmount: 0,
+        isNotCalculated: true,
+        primaryTaxDisplay: 'Tidak dihitung — cek masa transisi',
         effectiveRatePercent: 0,
-        takeHomeOrNetLabel: 'Omzet Bruto (Wajib Tarif Umum PPh Badan)',
+        takeHomeOrNetLabel: 'Omzet Bruto (Cek Sisa Masa Transisi atau PPh Badan)',
         takeHomeOrNetAmount: omzetBulan,
         steps: [
           { label: 'Omzet bruto bulan berjalan', value: omzetBulan },
+          { label: 'Akumulasi omzet s.d. bulan sebelumnya', value: akumulasiPrev },
           {
-            label: 'Status subjek di bawah PP 20/2026',
-            formula: 'CV / Firma / PT Umum dikecualikan dari PPh Final 0,5%',
+            label: 'Kewajiban pajak di bawah PP 20/2026',
+            formula: 'Tidak dihitung otomatis (gunakan simulasi PP 55/2022 jika masih masa transisi, atau PPh Badan jika masa transisi berakhir)',
             value: 0,
             format: 'percent',
           },
-          { label: 'PPh Final UMKM terutang', value: 0, isHighlight: true },
         ],
         notes,
       };
@@ -177,9 +179,13 @@ export const umkmPp20_2026Rule: TaxRuleModule<TaxCalculatorInput['pph_umkm']> = 
       notes.push(
         'Pasal 59 PP 55/2022 mengenai batas jangka waktu 7 tahun telah dihapus oleh PP 20/2026, sehingga WP OP non-pekerjaan bebas dapat terus menggunakan tarif 0,5% sepanjang omzet gabungan tidak melampaui Rp 4,8 miliar/tahun.'
       );
+    } else if (input.subjectType === 'koperasi') {
+      notes.push(
+        'Koperasi dalam negeri tetap berhak atas tarif PPh Final 0,5% di bawah PP 20/2026, namun tidak memperoleh kuota bebas pajak Rp 500 juta (dihitung sejak Rupiah pertama) dan dibatasi maksimal 4 tahun pajak sejak terdaftar (Pasal 57 ayat (2) PP 20/2026). Koperasi yang telah terdaftar sebelum PP 20/2026 dengan akhir masa pemanfaatan 2024–2029 memperoleh perpanjangan masa transisi hingga Tahun Pajak 2029.'
+      );
     } else {
       notes.push(
-        'Perseroan Perorangan dan Koperasi dalam negeri tetap berhak atas tarif 0,5% di bawah PP 20/2026 (tanpa batas waktu Pasal 59), namun tidak memperoleh kuota bebas pajak Rp 500 juta sehingga dihitung dari Rupiah pertama.'
+        'Perseroan Perorangan yang memenuhi syarat berhak atas tarif 0,5% tanpa batas jangka waktu setelah Pasal 59 dihapus, namun tidak memperoleh kuota bebas pajak Rp 500 juta (dihitung sejak Rupiah pertama).'
       );
     }
 

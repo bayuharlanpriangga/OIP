@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph4_2_pp29_1996',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan awal PPh Final Pasal 4(2): sewa tanah/bangunan dibedakan 6% (WP Badan) dan 10% (WP OP) sesuai PP 29/1996, PHTB 5% (PP 48/1994), serta konstruksi 2%/4% (PP 73/1996 mulai 1997).',
   sources: [SRC.PP_29_1996, SRC.PP_73_1996, SRC.PP_48_1994, SRC.PP_27_1996],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

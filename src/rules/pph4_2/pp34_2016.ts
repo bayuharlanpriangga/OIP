@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph4_2_pp34_2016',
@@ -21,7 +21,6 @@ const regime: TaxRegime = {
   summary:
     'Masa transisi setelah PP 34/2016 menurunkan PHTB umum menjadi 2,5% (dan PP 34/2017 mencabut PP 5/2002 pada 2018), sementara tarif konstruksi masih memakai PP 51/2008 (2%/3%/4%/6%).',
   sources: [SRC.PP_34_2016, SRC.PP_34_2017, SRC.PP_51_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

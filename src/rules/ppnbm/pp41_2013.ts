@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppnbm_pp41_2013',
@@ -20,7 +20,6 @@ const regime: TaxRegime = {
   summary:
     'Aturan PPnBM lama berbasis kapasitas isi silinder (cc), tipe bodi (sedan vs minibus), dan 4x2/4x4 (0% LCGC, 10%–125%), serta 20% hunian mewah / 75% kapal & pesawat.',
   sources: [SRC.PP_41_2013, SRC.PP_22_2014, SRC.PMK_106_2015, SRC.PMK_35_2017],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

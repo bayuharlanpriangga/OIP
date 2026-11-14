@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pbb_pdrd_2009',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'PBB-P2 resmi dialihkan menjadi pajak daerah kabupaten/kota. Tidak menggunakan NJKP, tarif Perda maksimal 0,3% langsung dari (NJOP - NJOPTKP).',
   sources: [SRC.UU_28_2009_PDRD, SRC.UU_12_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph4_2_pp9_2022',
@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif PPh Final Pasal 4(2) terkini: jasa konstruksi 1,75%–6% (PP 9/2022), persewaan tanah/bangunan 10% (PP 34/2017), dan pengalihan hak tanah/bangunan 2,5% (PP 34/2016).',
   sources: [SRC.PP_9_2022, SRC.PP_34_2017, SRC.PP_34_2016],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

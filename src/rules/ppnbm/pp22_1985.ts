@@ -7,20 +7,29 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppnbm_pp22_1985',
   taxType: 'ppnbm',
-  name: 'PP 22/1985 jo. PP 28/1988 & PP 65/1991',
+  name: 'PP 22/1985 jo. PP 29/1988, PP 65/1991, PP 76/1991 & PP 36/1993',
   shortName: '1985–1994 (PP 22/1985)',
-  legalBasis: 'PP Nomor 22 Tahun 1985 stdd PP 28/1988, PP 65/1991 & PP 36/1993 (UU 8/1983)',
+  legalBasis:
+    'PP 22/1985 (Pelaksanaan UU PPN 1984) Pasal 16 stdd PP 29/1988, PP 65/1991, PP 76/1991 & PP 36/1993',
   effectivePeriod: '1 April 1985 – 31 Desember 1994',
   isCurrent: false,
   summary:
-    'Pelaksanaan awal PPnBM bersama berlakunya UU PPN 1983: awalnya hanya tarif 10% dan 20% (PP 22/1985), lalu berkembang menjadi 10%, 20%, 30%, dan 35% lewat PP 28/1988, PP 65/1991, dan PP 36/1993.',
-  sources: [SRC.PP_22_1985, SRC.PP_50_1994, SRC.UU_8_1983],
-  verifiedAt: REGIME_VERIFIED_AT,
+    'Pengaturan awal PPnBM dalam Pasal 16 PP 22/1985 (tentang Pelaksanaan UU PPN 1984): awalnya hanya tarif 10% dan 20%, lalu diperluas ke lapisan 10%, 20%, 30%, hingga 35% lewat PP 29/1988, PP 65/1991, PP 76/1991, dan PP 36/1993.',
+  sources: [
+    SRC.PP_22_1985,
+    SRC.PP_29_1988,
+    SRC.PP_65_1991,
+    SRC.PP_76_1991,
+    SRC.PP_36_1993,
+    SRC.PP_50_1994,
+    SRC.UU_8_1983,
+  ],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -28,16 +37,16 @@ const article: TaxArticle = {
   taxType: 'ppnbm',
   taxTypeLabel: 'PPnBM',
   title: 'Sejarah PPnBM 1985–2000: Dari Dua Lapis PP 22/1985 ke Struktur PP 50/1994',
-  legalBasis: 'PP 22/1985, PP 65/1991 & PP 50/1994',
+  legalBasis: 'PP 22/1985 (Pasal 16), PP 29/1988, PP 65/1991, PP 76/1991, PP 36/1993 & PP 50/1994',
   effectiveDate: '1 April 1985 – 31 Desember 2000',
   readMinutes: 4,
   summary:
-    'Sebelum konsolidasi tarif tinggi hingga 75% di PP 145/2000 dan berbasis emisi karbon di PP 74/2021, PPnBM periode 1985–2000 berawal dari tarif 10% dan 20% lalu meningkat bertahap ke 35%–50%.',
+    'Sebelum konsolidasi tarif tinggi hingga 75% di PP 145/2000 dan berbasis emisi karbon di PP 74/2021, pengaturan PPnBM periode 1985–2000 dimuat dalam Pasal 16 PP 22/1985 (Pelaksanaan UU PPN 1984) yang berawal dari tarif 10% dan 20% lalu meningkat bertahap ke 35%–50%.',
   sections: [
     {
-      heading: 'Fase awal PP 22/1985 hingga perluasan lapisan 35% (1985–1994)',
+      heading: 'Fase awal Pasal 16 PP 22/1985 hingga perluasan lapisan 35% (1985–1994)',
       paragraphs: [
-        'Bersamaan dengan berlakunya UU 8/1983 pada 1 April 1985, PP 22/1985 menetapkan tarif PPnBM hanya dalam dua lapis: 10% dan 20% (sesuai batas maksimal undang-undang saat itu 20%). Ketika PP 28/1988 hingga PP 65/1991 dan PP 36/1993 terbit seiring amandemen batas atas PPnBM menjadi 35%, kelompok kendaraan bermotor mewah seperti sedan dan jeep dikenakan tarif 20% hingga 35%.',
+        'Bersamaan dengan berlakunya UU 8/1983 pada 1 April 1985, ketentuan PPnBM dimuat dalam Pasal 16 PP Nomor 22 Tahun 1985 tentang Pelaksanaan Undang-Undang PPN 1984, dengan dua lapis tarif awal: 10% dan 20%. Melalui rangkaian perubahan yaitu PP 29/1988 (perubahan Pasal 16 PP 22/1985), PP 65/1991, PP 76/1991, dan PP 36/1993 seiring amandemen batas atas PPnBM menjadi 35%, kelompok kendaraan bermotor mewah seperti sedan dan jeep dikenai tarif hingga 35%.',
       ],
     },
     {
@@ -141,7 +150,7 @@ export const ppnbmPp22_1985Rule: TaxRuleModule<TaxCalculatorInput['ppnbm']> = {
       takeHomeOrNetAmount: hargaJual + ppnbm,
       steps,
       notes: [
-        'Pada awal berlakunya UU 8/1983 (PP 22/1985), tarif PPnBM maksimal adalah 20%, lalu meningkat hingga 35% melalui PP 28/1988, PP 65/1991, dan PP 36/1993 sebelum naik ke 50% (PP 59/1999) dan 75% (PP 145/2000).',
+        'Pada awal berlakunya UU 8/1983, tarif PPnBM dalam Pasal 16 PP 22/1985 (Pelaksanaan UU PPN 1984) maksimal 20%, lalu meningkat hingga 35% melalui PP 29/1988, PP 65/1991, PP 76/1991, dan PP 36/1993 sebelum naik ke 50% (PP 59/1999) dan 75% (PP 145/2000).',
       ],
     };
   },

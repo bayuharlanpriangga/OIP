@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'meterai_pp7_1995',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Penyesuaian pertama tarif Bea Meterai: bebas s.d. Rp 250 ribu, tarif Rp 1.000 untuk > Rp 250 ribu s.d. Rp 1 juta, dan tarif Rp 2.000 untuk nominal di atas Rp 1 juta.',
   sources: [SRC.PP_7_1995, SRC.UU_13_1985],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

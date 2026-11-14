@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatPersen } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph23_per70_2007',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Pemotongan menggunakan tarif 15% dikalikan Perkiraan Penghasilan Neto: 4,5% efektif untuk jasa teknik/manajemen, 7,5% untuk konsultan, dan 3% untuk sewa.',
   sources: [SRC.UU_17_2000, SRC.KEP_170_2002_DJP],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

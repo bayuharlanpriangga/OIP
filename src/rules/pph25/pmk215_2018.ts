@@ -1,6 +1,6 @@
 import { CalculationStep, TaxArticle, TaxCalculatorInput, TaxRegime, TaxRuleModule } from '../../types/tax';
 import { formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph25_pmk215_2018',
@@ -13,7 +13,6 @@ const regime: TaxRegime = {
   summary:
     'Ketentuan sebelum PMK 81/2024: rumus reguler berdasarkan Pasal 25 UU PPh & KEP-537/PJ./2000, sedangkan WP baru, bank, BUMN/BUMD, emiten, dan OPPT diatur dalam PMK 215/PMK.03/2018.',
   sources: [SRC.PMK_215_2018, SRC.KEP_537_2000_DJP, SRC.UU_36_2008],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

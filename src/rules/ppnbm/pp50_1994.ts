@@ -7,7 +7,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'ppnbm_pp50_1994',
@@ -20,7 +20,7 @@ const regime: TaxRegime = {
   summary:
     'Tarif PPnBM era UU 11/1994 (sebelum PP 145/2000): kendaraan niaga/minibus 20%, sedan <= 1.600 cc 35% (lalu struktur 10%/20%/25%/35%/50% di PP 59/1999), dan barang mewah kelompok tertinggi 35%–50%.',
   sources: [SRC.PP_50_1994, SRC.PP_20_1996, SRC.UU_11_1994],
-  verifiedAt: REGIME_VERIFIED_AT,
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {

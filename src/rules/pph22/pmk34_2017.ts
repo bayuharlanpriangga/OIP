@@ -7,20 +7,21 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'pph22_pmk34_2017',
   taxType: 'pph22',
   name: 'PMK 34/2017 jo. PMK 110/2018 & PMK 41/2022',
-  shortName: '2017–Kini (PMK 34/2017)',
-  legalBasis: 'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018, PMK 41/PMK.010/2022 & PMK 59/2022',
-  effectivePeriod: '1 Maret 2017 – Sekarang',
-  isCurrent: true,
+  shortName: '2017–2024 (PMK 34/2017)',
+  legalBasis:
+    'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018 & PMK 41/PMK.010/2022 (Dicabut PMK 81/2024)',
+  effectivePeriod: '1 Maret 2017 – 31 Desember 2024',
+  isCurrent: false,
   summary:
-    'Aturan pemungutan PPh Pasal 22 atas impor (API umum 2,5%, non-API 7,5%, barang konsumsi tertentu 7,5%–10% sejak PMK 110/2018), belanja instansi pemerintah/BUMN (1,5%), dan barang sangat mewah (1%–5%).',
-  sources: [SRC.PMK_34_2017, SRC.PMK_110_2018, SRC.PMK_41_2022, SRC.PMK_59_2022],
-  verifiedAt: REGIME_VERIFIED_AT,
+    'Aturan pemungutan PPh Pasal 22 atas impor (API umum 2,5%, non-API 7,5%, barang konsumsi tertentu 7,5%–10%), belanja instansi/BUMN (1,5%), dan barang sangat mewah (1%–5%) sebelum dicabut PMK 81/2024 per 1 Januari 2025.',
+  sources: [SRC.PMK_34_2017, SRC.PMK_110_2018, SRC.PMK_41_2022, SRC.PMK_59_2022, SRC.PMK_92_2019],
+  verifiedAt: '14 November 2026',
 };
 
 const article: TaxArticle = {
@@ -29,10 +30,10 @@ const article: TaxArticle = {
   taxTypeLabel: 'PPh Pasal 22',
   title: 'Pemungutan PPh Pasal 22 Impor, Belanja Bendahara Pemerintah, dan Barang Sangat Mewah',
   legalBasis: 'PMK 34/PMK.010/2017 stdd PMK 110/PMK.010/2018 & PMK 41/PMK.010/2022',
-  effectiveDate: '1 Maret 2017',
+  effectiveDate: '1 Maret 2017 – 31 Desember 2024',
   readMinutes: 5,
   summary:
-    'PPh Pasal 22 merupakan kredit pajak atas aktivitas impor, penyerahan barang kepada instansi pemerintah/BUMN, serta pembelian barang sangat mewah, dengan batas setor non-impor diseragamkan ke tanggal 15 lewat Pasal 94 ayat (2) PMK 81/2024.',
+    'PPh Pasal 22 periode 2017–2024 atas impor, penyerahan barang kepada instansi pemerintah/BUMN, dan barang sangat mewah sebelum dicabut oleh PMK 81/2024 (1 Jan 2025) lalu dialihkan ke PMK 51/2025 (1 Ags 2025).',
   sections: [
     {
       heading: 'Klaster tarif impor dan kepemilikan Angka Pengenal Impor (API)',
@@ -51,7 +52,7 @@ const article: TaxArticle = {
   ],
   comparisonTable: {
     oldHeader: 'PMK 154/PMK.03/2010 (2010–2017)',
-    newHeader: 'PMK 34/2017 stdd PMK 41/2022 (Kini)',
+    newHeader: 'PMK 34/2017 stdd PMK 41/2022 (2017–2024)',
     rows: [
       {
         aspek: 'Impor barang umum (API)',
@@ -109,10 +110,16 @@ function getPph22Rate(objectType: Pph22ObjectType): { rate: number; label: strin
         label: 'Pembelian barang oleh Bendahara Pemerintah / BUMN (1,5%)',
         exemptLimit: 2000000,
       };
+    case 'bulion_emas':
+      return {
+        rate: 0.45,
+        label: 'Penjualan emas batangan oleh produsen di PMK 34/2017 jo. PMK 48/2023 (sebelum tarif bulion 0,25% PMK 51/2025)',
+        exemptLimit: 0,
+      };
     case 'barang_sangat_mewah':
       return {
         rate: 5,
-        label: 'Penjualan barang tergolong sangat mewah (5% — hunian/kapal/pesawat)',
+        label: 'Penjualan barang tergolong sangat mewah — PMK 92/PMK.03/2019 (5%)',
         exemptLimit: 0,
       };
   }
@@ -167,8 +174,8 @@ export const pph22Pmk34_2017Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = {
       );
     }
     notes.push(
-      'PPh Pasal 22 bersifat tidak final (kredit pajak SPT Tahunan), kecuali atas penjualan BBM/BBG/pelumas kepada penyalur/agen yang bersifat final.',
-      'Khusus PPh Pasal 22 impor yang dipungut DJBC/Bea Cukai, penyetoran dilakukan bersamaan dengan saat pembayaran Bea Masuk (tidak mengikuti batas setor tanggal 15 bulan berikutnya yang berlaku untuk PPh 22 dalam negeri di Pasal 94 ayat (2) PMK 81/2024).'
+      'PMK 34/PMK.010/2017 telah dicabut oleh PMK 81/2024 mulai 1 Januari 2025, dan ketentuan PPh Pasal 22 non-marketplace kini diatur dalam PMK 51/2025 mulai 1 Agustus 2025.',
+      'PPh Pasal 22 umumnya bersifat tidak final (kredit pajak SPT Tahunan), kecuali atas penjualan BBM/BBG/pelumas kepada penyalur/agen yang bersifat final.'
     );
 
     return {

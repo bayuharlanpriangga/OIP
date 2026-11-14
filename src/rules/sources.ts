@@ -1,7 +1,5 @@
 import { TaxSource } from '../types/tax';
 
-export const REGIME_VERIFIED_AT = '14 November 2026';
-
 export const SRC = {
   // Undang-Undang Pokok & Lintas Pajak
   UU_7_2021_HPP: {
@@ -163,8 +161,26 @@ export const SRC = {
     url: 'https://www.pajak.go.id/id/artikel/pmk-372025-kesetaraan-pajak-pedagang-online-dan-offline',
     publisher: 'Direktorat Jenderal Pajak',
   },
+  PMK_51_2025: {
+    title:
+      'PMK Nomor 51 Tahun 2025 tentang Pemungutan PPh Pasal 22 atas Penyerahan Barang, Impor, atau Kegiatan Usaha di Bidang Lain',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-51-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_54_2025: {
+    title:
+      'PMK Nomor 54 Tahun 2025 tentang Perubahan Ketiga atas PMK 81/2024 (Mencabut Pasal 217–225 PPh 22 PMK 81/2024)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-54-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_92_2019: {
+    title:
+      'PMK Nomor 92/PMK.03/2019 tentang Perubahan Kedua PMK 253/PMK.03/2008 (Barang Sangat Mewah)',
+    url: 'https://jdih.kemenkeu.go.id/dok/92-pmk-03-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
   PMK_34_2017: {
-    title: 'PMK Nomor 34/PMK.010/2017 tentang Pemungutan PPh Pasal 22',
+    title: 'PMK Nomor 34/PMK.010/2017 tentang Pemungutan PPh Pasal 22 (Dicabut oleh PMK 81/2024)',
     url: 'https://jdih.kemenkeu.go.id/dok/34-pmk-010-2017',
     publisher: 'JDIH Kemenkeu',
   },
@@ -361,8 +377,15 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/pp-9-tahun-2021',
     publisher: 'JDIH Kemenkeu',
   },
+  PMK_112_2025: {
+    title:
+      'PMK Nomor 112 Tahun 2025 tentang Tata Cara Penerapan Persetujuan Penghindaran Pajak Berganda (P3B)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-112-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
   PER_25_PJ_2018_DJP: {
-    title: 'PER-25/PJ/2018 tentang Tata Cara Penerapan Persetujuan Penghindaran Pajak Berganda (P3B)',
+    title:
+      'PER-25/PJ/2018 tentang Tata Cara Penerapan Persetujuan Penghindaran Pajak Berganda (Dicabut PMK 112/2025)',
     url: 'https://www.pajak.go.id/sites/default/files/2019-03/PER25PJ2018.pdf',
     publisher: 'Direktorat Jenderal Pajak',
   },
@@ -494,8 +517,32 @@ export const SRC = {
     publisher: 'JDIH Kemenkeu',
   },
   PP_22_1985: {
-    title: 'PP Nomor 22 Tahun 1985 tentang Pelaksanaan UU PPN 1984',
+    title: 'PP Nomor 22 Tahun 1985 tentang Pelaksanaan Undang-Undang Pajak Pertambahan Nilai 1984',
     url: 'https://peraturan.bpk.go.id/Details/64580/pp-no-22-tahun-1985',
+    publisher: 'JDIH BPK RI',
+  },
+  PP_29_1988: {
+    title:
+      'PP Nomor 29 Tahun 1988 tentang Perubahan atas Pasal 16 PP Nomor 22 Tahun 1985 tentang Pelaksanaan UU PPN 1984',
+    url: 'https://peraturan.bpk.go.id/Details/63928/pp-no-29-tahun-1988',
+    publisher: 'JDIH BPK RI',
+  },
+  PP_65_1991: {
+    title:
+      'PP Nomor 65 Tahun 1991 tentang Perubahan atas PP Nomor 22 Tahun 1985 stdd PP Nomor 29 Tahun 1988',
+    url: 'https://peraturan.bpk.go.id/Details/58400/pp-no-65-tahun-1991',
+    publisher: 'JDIH BPK RI',
+  },
+  PP_76_1991: {
+    title:
+      'PP Nomor 76 Tahun 1991 tentang Perubahan atas PP Nomor 22 Tahun 1985 stdd PP Nomor 65 Tahun 1991',
+    url: 'https://peraturan.bpk.go.id/Details/58431/pp-no-76-tahun-1991',
+    publisher: 'JDIH BPK RI',
+  },
+  PP_36_1993: {
+    title:
+      'PP Nomor 36 Tahun 1993 tentang Perubahan atas PP Nomor 22 Tahun 1985 stdd PP Nomor 76 Tahun 1991',
+    url: 'https://peraturan.bpk.go.id/Details/57538/pp-no-36-tahun-1993',
     publisher: 'JDIH BPK RI',
   },
 

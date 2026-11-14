@@ -6,7 +6,7 @@ import {
   TaxRuleModule,
 } from '../../types/tax';
 import { formatPersen, formatRupiah } from '../../utils/formatters';
-import { REGIME_VERIFIED_AT, SRC } from '../sources';
+import { SRC } from '../sources';
 
 const regime: TaxRegime = {
   id: 'bphtb_uu21_1997',
@@ -19,7 +19,6 @@ const regime: TaxRegime = {
   summary:
     'Undang-undang BPHTB pertama di Indonesia: tarif tunggal 5% dan NPOPTKP nasional Rp 30 juta (sebelum naik ke Rp 60 juta dan tambahan Rp 300 juta untuk waris di UU 20/2000).',
   sources: [SRC.UU_21_1997, SRC.UU_1_1998, SRC.UU_20_2000],
-  verifiedAt: REGIME_VERIFIED_AT,
 };
 
 const article: TaxArticle = {

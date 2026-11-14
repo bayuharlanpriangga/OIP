@@ -10,7 +10,7 @@ type ActiveView = 'pustaka' | 'artikel' | 'kalkulator';
 
 const DEFAULT_REGIME_BY_TYPE: Record<TaxTypeId, string> = {
   pph21: 'pph21_ter_2024',
-  pph22: 'pph22_pmk34_2017',
+  pph22: 'pph22_pmk51_2025',
   pph23: 'pph23_pmk141_2015',
   pph4_2: 'pph4_2_pp9_2022',
   pph_umkm: 'umkm_pp20_2026',
