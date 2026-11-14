@@ -1,14 +1,34 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, '.'),
+    build: {
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [
+              {
+                name: 'vendor',
+                test: /node_modules/,
+              },
+              {
+                name: 'rules-pph-penghasilan',
+                test: /\/src\/rules\/(pph21|pph22|pph23|pph25|pph26|pph15)\//,
+              },
+              {
+                name: 'rules-pph-usaha',
+                test: /\/src\/rules\/(pph4_2|pph_umkm|pph_badan|sources)/,
+              },
+              {
+                name: 'rules-ppn-daerah',
+                test: /\/src\/rules\/(ppn|ppnbm|pbb|bphtb|pbjt|bea_meterai)\//,
+              },
+            ],
+          },
+        },
       },
     },
     server: {

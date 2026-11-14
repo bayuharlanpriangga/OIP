@@ -114,6 +114,7 @@ export const pph25Pmk81_2024Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
       annualTaxLabel: `Total Cicilan PPh 25 (${pembagi} Bulan)`,
       annualTaxAmount: totalSetahun,
       effectiveRatePercent: effectiveRate,
+      effectiveRateLabel: 'Rasio angsuran thd. PPh terutang',
       takeHomeOrNetLabel: 'Porsi PPh Terutang Sudah Ditutup Kredit Pajak',
       takeHomeOrNetAmount: Math.min(pphTerutang, kreditPajak),
       steps,

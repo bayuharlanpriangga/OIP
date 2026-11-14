@@ -103,6 +103,7 @@ export interface TaxRegime {
   legalBasis: string;
   effectivePeriod: string;
   isCurrent: boolean;
+  currentScopeLabel?: string;
   summary: string;
   sources: TaxSource[];
   verifiedAt?: string;
@@ -140,6 +141,9 @@ export interface TaxCalculatorInput {
     omzetBulanan: number;
     akumulasiOmzetSebelumnya: number;
     subjectType: UmkmSubjectType;
+    isEntityInTransition?: boolean;
+    isFreeProfession?: boolean;
+    omzetTerkaitSebelumnya?: number;
   };
   pph25: {
     pphTerutangTahunLalu: number;
@@ -209,6 +213,7 @@ export interface CalculationResult {
   annualTaxLabel?: string;
   annualTaxAmount?: number;
   effectiveRatePercent: number;
+  effectiveRateLabel?: string;
   takeHomeOrNetLabel: string;
   takeHomeOrNetAmount: number;
   steps: CalculationStep[];

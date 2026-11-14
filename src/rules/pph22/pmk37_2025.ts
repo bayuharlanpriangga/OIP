@@ -17,6 +17,7 @@ const regime: TaxRegime = {
     'PMK Nomor 37 Tahun 2025 (Ditetapkan 11 Juni 2025, Berlaku 14 Juli 2025; Pemungutan Lapangan Bertahap)',
   effectivePeriod: '14 Juli 2025 – Sekarang (Implementasi Bertahap)',
   isCurrent: true,
+  currentScopeLabel: 'Berlaku kini — Khusus transaksi marketplace (PPMSE)',
   summary:
     'Penunjukan marketplace (PPMSE) sebagai pemungut PPh Pasal 22 sebesar 0,5% atas omzet pedagang dalam negeri (non-PPN/PPnBM). Dapat bersifat final (UMKM) maupun tidak final (kredit pajak), dengan pengecualian untuk WP OP beromzet s.d. Rp 500 juta/tahun.',
   sources: [SRC.PMK_37_2025, SRC.PMK_37_2025_DJP, SRC.PMK_37_2025_BPK],

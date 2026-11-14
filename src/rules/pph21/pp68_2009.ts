@@ -16,6 +16,7 @@ const regime: TaxRegime = {
   legalBasis: 'PP Nomor 68 Tahun 2009 jo. PMK 16/PMK.03/2010 (Tarif Final Sekaligus)',
   effectivePeriod: '16 November 2009 – Sekarang',
   isCurrent: true,
+  currentScopeLabel: 'Berlaku kini — Khusus pesangon & pensiun/THT/JHT sekaligus',
   summary:
     'Tarif final PPh 21 atas pembayaran sekaligus: Pesangon 0% (<= 50jt), 5% (50–100jt), 15% (100–500jt), 25% (> 500jt); sedangkan Manfaat Pensiun/THT/JHT 0% (<= 50jt) dan 5% (> 50jt).',
   sources: [SRC.PP_68_2009, SRC.PMK_16_2010, SRC.PP_58_2023],

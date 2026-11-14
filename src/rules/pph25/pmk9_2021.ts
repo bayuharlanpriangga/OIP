@@ -116,6 +116,7 @@ export const pph25Pmk9_2021Rule: TaxRuleModule<TaxCalculatorInput['pph25']> = {
       annualTaxLabel: `Total Cicilan PPh 25 (${pembagi} Bulan)`,
       annualTaxAmount: totalSetahun,
       effectiveRatePercent: effectiveRate,
+      effectiveRateLabel: 'Rasio angsuran thd. PPh terutang',
       takeHomeOrNetLabel: 'Penghematan Kas Angsuran per Bulan',
       takeHomeOrNetAmount: diskonInsentif,
       steps,

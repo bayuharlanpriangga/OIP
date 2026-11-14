@@ -12,7 +12,7 @@ const regime: TaxRegime = {
   isCurrent: true,
   summary:
     'Tarif umum pemotongan WP Luar Negeri sebesar 20% (atau tarif preferensial P3B dengan SKD DGT sesuai PMK 112/2025 pengganti PER-25/PJ/2018), dengan tarif domestik bunga obligasi WPLN 10% sesuai PP 9/2021.',
-  sources: [SRC.PP_9_2021, SRC.PMK_112_2025, SRC.PMK_81_2024, SRC.UU_7_2021_HPP],
+  sources: [SRC.PP_9_2021, SRC.PMK_112_2025, SRC.PER_25_PJ_2018_DJP, SRC.PMK_81_2024, SRC.UU_7_2021_HPP],
   verifiedAt: '14 November 2026',
 };
 

@@ -346,11 +346,11 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
                 <h2 className="font-editorial text-base sm:text-lg font-semibold text-[#1F2A2C] dark:text-[#E8EAE4]">
                   Sumber Resmi ({officialSources.length} Rujukan)
                 </h2>
-                {verifiedAt && (
-                  <p className="text-xs text-[#4F6160] dark:text-[#E8EAE4]/70">
-                    Terverifikasi {verifiedAt}
-                  </p>
-                )}
+                <p className="text-xs text-[#4F6160] dark:text-[#E8EAE4]/70">
+                  {verifiedAt
+                    ? `Tautan & status berlaku diperiksa ${verifiedAt}`
+                    : 'Arsip rujukan regulasi historis'}
+                </p>
               </div>
 
               <button
@@ -403,11 +403,11 @@ export const TaxArticleDetailPage: React.FC<TaxArticleDetailPageProps> = ({
                   ))}
                 </ul>
 
-                {verifiedAt && (
-                  <p className="pt-2 border-t border-[#5E706F]/20 text-xs text-[#4F6160] dark:text-[#E8EAE4]/70">
-                    Tautan dan status peraturan terakhir diverifikasi pada {verifiedAt}.
-                  </p>
-                )}
+                <p className="pt-2 border-t border-[#5E706F]/20 text-xs text-[#4F6160] dark:text-[#E8EAE4]/70">
+                  {verifiedAt
+                    ? `Tautan sumber resmi dan status berlaku peraturan ini terakhir diperiksa pada ${verifiedAt}.`
+                    : 'Tautan rujukan historis disajikan sebagai dokumentasi lintas periode; audit pasal per pasal dilakukan bertahap.'}
+                </p>
               </div>
             )}
           </section>

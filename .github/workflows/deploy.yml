@@ -36,6 +36,9 @@ jobs:
             npm install --legacy-peer-deps
           fi
 
+      - name: Cek tipe TypeScript
+        run: npm run lint
+
       - name: Konfigurasi GitHub Pages
         id: pages
         uses: actions/configure-pages@v5

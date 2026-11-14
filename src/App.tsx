@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { ChevronDown, Menu, Moon, Sun, X } from 'lucide-react';
 import { OriasFacetMark } from './components/OriasFacetMark';
 import { TaxArticleDetailPage, TaxArticleDirectory } from './components/TaxArticleLibrary';
-import { TaxCalculatorWorkspace } from './components/TaxCalculatorWorkspace';
-import { DEFAULT_CALCULATOR_INPUT, TAX_CATEGORIES, TAX_REGIMES } from './rules';
+import { DEFAULT_CALCULATOR_INPUT, TAX_ARTICLES, TAX_CATEGORIES, TAX_REGIMES } from './rules';
 import { TaxArticle, TaxCalculatorInput, TaxTypeId } from './types/tax';
+
+const TaxCalculatorWorkspace = lazy(() =>
+  import('./components/TaxCalculatorWorkspace').then((m) => ({
+    default: m.TaxCalculatorWorkspace,
+  }))
+);
 
 type ActiveView = 'pustaka' | 'artikel' | 'kalkulator';
 
@@ -26,20 +31,113 @@ const DEFAULT_REGIME_BY_TYPE: Record<TaxTypeId, string> = {
   bea_meterai: 'meterai_uu10_2020',
 };
 
+interface ParsedHashRoute {
+  activeView: ActiveView;
+  category: 'semua' | TaxTypeId;
+  article: TaxArticle | null;
+  taxType: TaxTypeId;
+  regimeId: string;
+}
+
+function isValidTaxType(val: string): val is TaxTypeId {
+  return TAX_CATEGORIES.some((c) => c.id === val);
+}
+
+function parseAppHash(rawHash: string): ParsedHashRoute {
+  const cleaned = rawHash.replace(/^#\/?/, '').trim();
+  const segments = cleaned ? cleaned.split('/').map((s) => decodeURIComponent(s)) : [];
+  const base: ParsedHashRoute = {
+    activeView: 'pustaka',
+    category: 'semua',
+    article: null,
+    taxType: 'pph21',
+    regimeId: DEFAULT_REGIME_BY_TYPE.pph21,
+  };
+
+  if (segments[0] === 'artikel' && segments[1]) {
+    const found = TAX_ARTICLES.find((a) => a.id === segments[1]);
+    if (found) {
+      return {
+        ...base,
+        activeView: 'artikel',
+        category: found.taxType,
+        article: found,
+      };
+    }
+  }
+
+  if (segments[0] === 'kalkulator') {
+    const taxType = segments[1] && isValidTaxType(segments[1]) ? segments[1] : 'pph21';
+    const candidateRegime = segments[2];
+    const validRegime = candidateRegime
+      ? TAX_REGIMES.find((r) => r.taxType === taxType && r.id === candidateRegime)?.id
+      : undefined;
+    const defaultReg =
+      DEFAULT_REGIME_BY_TYPE[taxType] ||
+      TAX_REGIMES.find((r) => r.taxType === taxType)?.id ||
+      '';
+    return {
+      ...base,
+      activeView: 'kalkulator',
+      taxType,
+      regimeId: validRegime ?? defaultReg,
+    };
+  }
+
+  if (segments[0] === 'pustaka' && segments[1] && isValidTaxType(segments[1])) {
+    return {
+      ...base,
+      activeView: 'pustaka',
+      category: segments[1],
+    };
+  }
+
+  return base;
+}
+
+function setBrowserHash(nextHash: string) {
+  if (typeof window === 'undefined') return;
+  if (window.location.hash !== nextHash) {
+    window.history.pushState(null, '', nextHash);
+  }
+}
+
 export default function App() {
-  const [isDark, setIsDark] = useState<boolean>(false);
-  const [activeView, setActiveView] = useState<ActiveView>('pustaka');
-  const [selectedArticleCategory, setSelectedArticleCategory] = useState<'semua' | TaxTypeId>(
-    'semua'
+  const [initialRoute] = useState<ParsedHashRoute>(() =>
+    parseAppHash(typeof window !== 'undefined' ? window.location.hash : '')
   );
-  const [selectedArticle, setSelectedArticle] = useState<TaxArticle | null>(null);
+
+  const [isDark, setIsDark] = useState<boolean>(false);
+  const [activeView, setActiveView] = useState<ActiveView>(initialRoute.activeView);
+  const [selectedArticleCategory, setSelectedArticleCategory] = useState<'semua' | TaxTypeId>(
+    initialRoute.category
+  );
+  const [selectedArticle, setSelectedArticle] = useState<TaxArticle | null>(initialRoute.article);
 
   const [isPustakaDropdownOpen, setIsPustakaDropdownOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-  const [activeTaxType, setActiveTaxType] = useState<TaxTypeId>('pph21');
-  const [regimeId, setRegimeId] = useState<string>(DEFAULT_REGIME_BY_TYPE.pph21);
+  const [activeTaxType, setActiveTaxType] = useState<TaxTypeId>(initialRoute.taxType);
+  const [regimeId, setRegimeId] = useState<string>(initialRoute.regimeId);
   const [calcInput, setCalcInput] = useState<TaxCalculatorInput>(DEFAULT_CALCULATOR_INPUT);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const parsed = parseAppHash(window.location.hash);
+      setActiveView(parsed.activeView);
+      setSelectedArticleCategory(parsed.category);
+      setSelectedArticle(parsed.article);
+      if (parsed.activeView === 'kalkulator') {
+        setActiveTaxType(parsed.taxType);
+        setRegimeId(parsed.regimeId);
+      }
+      setIsPustakaDropdownOpen(false);
+      setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -54,11 +152,23 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSelectArticleCategory = (category: 'semua' | TaxTypeId) => {
+    setSelectedArticleCategory(category);
+    setBrowserHash(category === 'semua' ? '#/pustaka' : `#/pustaka/${category}`);
+  };
+
   const handleSelectTaxTypeForCalc = (taxType: TaxTypeId) => {
     setActiveTaxType(taxType);
     const defaultId = DEFAULT_REGIME_BY_TYPE[taxType];
     const regimesForType = TAX_REGIMES.filter((r) => r.taxType === taxType);
-    setRegimeId(defaultId || regimesForType[0]?.id || '');
+    const nextRegime = defaultId || regimesForType[0]?.id || '';
+    setRegimeId(nextRegime);
+    setBrowserHash(`#/kalkulator/${taxType}/${nextRegime}`);
+  };
+
+  const handleChangeRegimeForCalc = (nextRegimeId: string) => {
+    setRegimeId(nextRegimeId);
+    setBrowserHash(`#/kalkulator/${activeTaxType}/${nextRegimeId}`);
   };
 
   const handleNavigatePustaka = (category: 'semua' | TaxTypeId = 'semua') => {
@@ -67,6 +177,7 @@ export default function App() {
     setActiveView('pustaka');
     setIsPustakaDropdownOpen(false);
     setIsMobileMenuOpen(false);
+    setBrowserHash(category === 'semua' ? '#/pustaka' : `#/pustaka/${category}`);
     scrollToTop();
   };
 
@@ -74,6 +185,7 @@ export default function App() {
     setActiveView('kalkulator');
     setIsPustakaDropdownOpen(false);
     setIsMobileMenuOpen(false);
+    setBrowserHash(`#/kalkulator/${activeTaxType}/${regimeId}`);
     scrollToTop();
   };
 
@@ -82,6 +194,7 @@ export default function App() {
     setActiveView('artikel');
     setIsPustakaDropdownOpen(false);
     setIsMobileMenuOpen(false);
+    setBrowserHash(`#/artikel/${article.id}`);
     scrollToTop();
   };
 
@@ -320,7 +433,7 @@ export default function App() {
         {activeView === 'pustaka' && (
           <TaxArticleDirectory
             selectedCategory={selectedArticleCategory}
-            onSelectCategory={setSelectedArticleCategory}
+            onSelectCategory={handleSelectArticleCategory}
             onOpenArticle={handleOpenArticle}
           />
         )}
@@ -334,14 +447,22 @@ export default function App() {
         )}
 
         {activeView === 'kalkulator' && (
-          <TaxCalculatorWorkspace
-            activeTaxType={activeTaxType}
-            onSelectTaxType={handleSelectTaxTypeForCalc}
-            regimeId={regimeId}
-            onChangeRegime={setRegimeId}
-            calcInput={calcInput}
-            onChangeInput={setCalcInput}
-          />
+          <Suspense
+            fallback={
+              <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 py-10 text-sm text-[#4F6160] dark:text-[#E8EAE4]/75">
+                Memuat kalkulator pajak…
+              </div>
+            }
+          >
+            <TaxCalculatorWorkspace
+              activeTaxType={activeTaxType}
+              onSelectTaxType={handleSelectTaxTypeForCalc}
+              regimeId={regimeId}
+              onChangeRegime={handleChangeRegimeForCalc}
+              calcInput={calcInput}
+              onChangeInput={setCalcInput}
+            />
+          </Suspense>
         )}
       </main>
 

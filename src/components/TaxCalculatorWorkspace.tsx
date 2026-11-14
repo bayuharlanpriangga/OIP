@@ -478,6 +478,58 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                   }
                   helperText="Digunakan PP 55/2022 & PP 20/2026 untuk menghitung sisa kuota bebas pajak Rp 500 juta bagi Orang Pribadi."
                 />
+                {regimeId === 'umkm_pp20_2026' && (
+                  <CurrencyInput
+                    id="umkm-omzet-terkait"
+                    label="Omzet gabungan keluarga / entitas terkait tahun ini (opsional)"
+                    value={calcInput.pph_umkm.omzetTerkaitSebelumnya ?? 0}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        pph_umkm: { ...prev.pph_umkm, omzetTerkaitSebelumnya: val },
+                      }))
+                    }
+                    helperText="Ketentuan anti-pecah usaha PP 20/2026 menggabungkan omzet keluarga/entitas terkait saat menguji ambang batas Rp 4,8 miliar."
+                  />
+                )}
+                {calcInput.pph_umkm.subjectType === 'orang_pribadi' &&
+                  (regimeId === 'umkm_pp20_2026' || regimeId === 'umkm_pp55_2022') && (
+                    <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(calcInput.pph_umkm.isFreeProfession)}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph_umkm: { ...prev.pph_umkm, isFreeProfession: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Usaha berupa jasa pekerjaan bebas / kreator konten (dokter, pengacara, konsultan, arsitek, influencer)
+                      </span>
+                    </label>
+                  )}
+                {calcInput.pph_umkm.subjectType === 'badan_usaha' &&
+                  regimeId === 'umkm_pp20_2026' && (
+                    <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(calcInput.pph_umkm.isEntityInTransition)}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            pph_umkm: { ...prev.pph_umkm, isEntityInTransition: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Entitas lama masih berada dalam sisa masa transisi PP 55/2022 (maks. 3 thn PT / 4 thn CV·Firma·BUMDes sejak terdaftar)
+                      </span>
+                    </label>
+                  )}
               </>
             )}
 
@@ -1272,7 +1324,9 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                     : 'text-[#4F6160] dark:text-[#E8EAE4]/75'
                 }`}
               >
-                {result.regime.isCurrent ? 'Aturan berlaku saat ini' : 'Aturan historis'}
+                {result.regime.isCurrent
+                  ? (result.regime.currentScopeLabel ?? 'Aturan berlaku saat ini')
+                  : 'Aturan historis'}
               </span>
             </div>
 
@@ -1303,7 +1357,9 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                 </div>
               )}
               <div className="flex items-center justify-between gap-3">
-                <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">Tarif pajak efektif</dt>
+                <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">
+                  {result.effectiveRateLabel ?? 'Tarif pajak efektif'}
+                </dt>
                 <dd className="font-semibold tabular-nums text-[#1F2A2C] dark:text-[#E8EAE4]">
                   {result.isNotCalculated ? 'Tidak dihitung' : formatPersen(result.effectiveRatePercent)}
                 </dd>

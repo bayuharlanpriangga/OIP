@@ -151,6 +151,9 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     omzetBulanan: 0,
     akumulasiOmzetSebelumnya: 0,
     subjectType: 'orang_pribadi',
+    isEntityInTransition: false,
+    isFreeProfession: false,
+    omzetTerkaitSebelumnya: 0,
   },
   pph25: {
     pphTerutangTahunLalu: 0,

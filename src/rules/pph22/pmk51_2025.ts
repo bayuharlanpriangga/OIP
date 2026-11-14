@@ -18,6 +18,7 @@ const regime: TaxRegime = {
     'PMK Nomor 51 Tahun 2025 (Berlaku 1 Agustus 2025) & PMK 92/PMK.03/2019 (Barang Sangat Mewah)',
   effectivePeriod: '1 Agustus 2025 – Sekarang',
   isCurrent: true,
+  currentScopeLabel: 'Berlaku kini — Impor, instansi/BUMN & bulion emas',
   summary:
     'Menggantikan klaster PPh 22 dalam PMK 81/2024 (Pasal 217–225 dicabut via PMK 54/2025): impor API 2,5%, non-API 7,5%, barang konsumsi 7,5%–10%, kedelai/gandum API 0,5%, bendahara/BUMN 1,5%, serta tarif khusus emas batangan/bulion 0,25%.',
   sources: [SRC.PMK_51_2025, SRC.PMK_54_2025, SRC.PMK_92_2019],

@@ -85,6 +85,32 @@ export const umkmPp55_2022Rule: TaxRuleModule<TaxCalculatorInput['pph_umkm']> = 
     const akumulasiPrev = Math.max(0, input.akumulasiOmzetSebelumnya);
     const notes: string[] = [];
 
+    if (input.subjectType === 'orang_pribadi' && input.isFreeProfession) {
+      notes.push(
+        'Peringatan: Berdasarkan Pasal 56 ayat (2) PP 55/2022, penghasilan yang diterima Wajib Pajak Orang Pribadi dari jasa sehubungan dengan pekerjaan bebas dikecualikan dari pengenaan PPh Final 0,5% dan dikenai tarif progresif Pasal 17 UU PPh (NPPN atau pembukuan).'
+      );
+      return {
+        regime,
+        primaryTaxLabel: 'Status Fasilitas PPh Final UMKM (Pekerjaan Bebas)',
+        primaryTaxAmount: 0,
+        isNotCalculated: true,
+        primaryTaxDisplay: 'Dikecualikan — pakai NPPN / Pasal 17',
+        effectiveRatePercent: 0,
+        takeHomeOrNetLabel: 'Omzet Bruto (Dihitung via PPh Umum / NPPN)',
+        takeHomeOrNetAmount: omzetBulan,
+        steps: [
+          { label: 'Omzet bruto bulan berjalan', value: omzetBulan },
+          {
+            label: 'Status kategori usaha di PP 55/2022',
+            formula: 'Jasa sehubungan dengan pekerjaan bebas dikecualikan (Pasal 56 ayat 2)',
+            value: 0,
+            format: 'percent',
+          },
+        ],
+        notes,
+      };
+    }
+
     const tarif = 0.5;
     let omzetBebas = 0;
     let omzetKenaPajak = omzetBulan;
