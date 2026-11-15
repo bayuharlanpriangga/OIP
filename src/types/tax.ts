@@ -13,7 +13,9 @@ export type TaxTypeId =
   | 'pbb'
   | 'bphtb'
   | 'pbjt'
-  | 'bea_meterai';
+  | 'bea_meterai'
+  | 'bea_masuk'
+  | 'bea_keluar';
 
 export type PtkpStatus =
   | 'TK/0'
@@ -398,6 +400,104 @@ export interface TaxCalculatorInput {
     skemaPemungutNonObjek?: 'non_objek_pasal7' | 'pemungut_1000_pmk78' | 'nominal_sd_5jt';
     jenisDokumenNonNominal?: 'perjanjian_akta_notaris' | 'surat_keterangan_pernyataan' | 'surat_biasa_non_perdata' | 'alat_bukti_pengadilan';
   };
+  bea_masuk: {
+    nilaiPabeanIdr: number;
+    tarifBmPersen: number;
+    skemaBtki?: 'ad_valorem' | 'spesifik_per_unit' | 'ev_kblbb_pmk10' | 'insentif_2026_pmk50_68';
+    jumlahUnitSpesifik?: number;
+    tarifSpesifikPerUnit?: number;
+    nilaiFobUsd?: number;
+    ndpbmKurs?: number;
+    asalWilayahFreight?: 'asean_5' | 'asia_australia_10' | 'lainnya_15' | 'cif_lengkap';
+    statusAsuransiPabean?: 'norma_0_5' | 'polis_dalam_negeri_0';
+    tarifFtaPersen?: number;
+    isSkaValidSinsw?: boolean;
+    jenisKiriman2025?:
+      | 'umum_7_5'
+      | 'buku_0'
+      | 'kosmetik_besi_jam_15'
+      | 'tas_tekstil_sepatu_sepeda_25'
+      | 'jemaah_haji_2x1500'
+      | 'pmi_tercatat_500'
+      | 'pmi_tidak_tercatat_500';
+    skemaPenumpang2025?:
+      | 'pribadi_usd500_10'
+      | 'awak_usd50_10'
+      | 'non_pribadi_jastip_mfn'
+      | 'haji_reguler_bebas'
+      | 'haji_khusus_usd2500_10';
+    hasNpwpPenumpang?: boolean;
+    jenisBmt?: 'bmad_antidumping' | 'bmi_imbalan' | 'bmtp_safeguard';
+    tarifBmtPersen?: number;
+    skemaFasilitasBm?:
+      | 'pasal25_mutlak'
+      | 'hibah_bencana_pmk99_2025'
+      | 'bkpm_pmk176_mesin'
+      | 'kite_pembebasan_149'
+      | 'kite_pengembalian_145'
+      | 'kb_kek_ikn';
+    eraKirimanHistoris?:
+      | 'pmk199_2019_usd3'
+      | 'pmk112_2018_usd75'
+      | 'pmk182_2016_usd100'
+      | 'pmk188_2010_usd50';
+    isTasSepatuTekstilPmk199?: boolean;
+    eraBtkiLama?: 'btki_2017_8digit' | 'btki_2012_10digit';
+    skemaBarangPindahan?: 'rumah_tangga_bebas' | 'kendaraan_eksklusi_mfn';
+    skemaImporSementara?:
+      | 'pembebasan_100'
+      | 'keringanan_2_persen'
+      | 'returnable_package_pmk52_2026'
+      | 'gagal_ekspor_kembali';
+    bulanImporSementara?: number;
+    bmDibayarAwalSptnp?: number;
+    bmKurangBayarSptnp?: number;
+    isSalahanNilaiPabeanSptnp?: boolean;
+    skemaFtzPlb?:
+      | 'ftz_pemasukan_ppftz01'
+      | 'ftz_keluar_barang_jadi_tlddp'
+      | 'ftz_keluar_asal_luar'
+      | 'plb_penimbunan_272';
+    rasioBahanBakuImporPersen?: number;
+    skemaReimpor?: 'kualitas_sama_bebas' | 'perbaikan_pengerjaan_ln' | 'melewati_2tahun_mfn';
+    nilaiBagianPenggantiIdr?: number;
+    biayaPerbaikanFreightAsuransiIdr?: number;
+    statusPelunasanRushHandling?: 'tepat_waktu_7hari' | 'terlambat_denda_10persen';
+  };
+  bea_keluar: {
+    nilaiEksporUsd: number;
+    ndpbmKurs: number;
+    tonaseMt: number;
+    tarifBkPersen: number;
+    skemaPemungutanBk?: 'ad_valorem' | 'spesifik_per_mt' | 'pengecualian_skp';
+    tarifSpesifikUsdPerMt?: number;
+    hargaReferensiCpoUsd?: number;
+    jenisProdukSawit?: 'cpo_1511' | 'pome_hapor_pmk68' | 'rbd_palm_olein_curah' | 'rbd_olein_kemasan_25kg' | 'biodiesel_fame';
+    isHitungPerbandinganPeBpdp?: boolean;
+    jenisProdukEmas?: 'dore' | 'granules' | 'cast_bars' | 'minted_bars';
+    hargaReferensiEmasUsdOz?: number;
+    beratEmasKg?: number;
+    skemaKakaoPinus?: 'kakao_pmk68_2025' | 'kakao_lama_pmk38_2024' | 'getah_pinus_pmk68';
+    hargaReferensiKakaoUsd?: number;
+    kategoriKulitKayu?:
+      | 'kulit_mentah_pickled_25'
+      | 'kulit_wet_blue_15'
+      | 'veneer_15'
+      | 'wooden_sheet_kemasan_2'
+      | 'serpih_kayu_5'
+      | 'kayu_olahan_s4s_5'
+      | 'kayu_merbau_10'
+      | 'pencil_slat_bebas_0';
+    jenisMineral2024?: 'konsentrat_tembaga_7_5' | 'konsentrat_besi_laterit_5' | 'konsentrat_timbal_5' | 'konsentrat_seng_5' | 'batubara_non_bk';
+    bkDibayarAwalSptbk?: number;
+    bkKurangBayarSptbk?: number;
+    isKesalahanJumlahJenisBk?: boolean;
+    periodeSmelter71?: '2023_h2' | '2024_h1';
+    progresSmelterPersen?: number;
+    periodeMinerba2012_2017?: 'pmk75_2012_ore_20' | 'pmk6_2014_h1_2014_25' | 'pmk6_2014_h1_2015_35' | 'pmk6_2014_h2_2015_40' | 'pmk6_2014_h1_2016_50' | 'pmk6_2014_h2_2016_60';
+    eraAwal2008_2012?: 'pmk128_2011_cpo' | 'pmk67_2010_kakao' | 'pmk223_2008_rotan_kulit';
+    eraPra2005?: 'kmk334_1998_cpo_60' | 'kmk567_1999_cpo_10' | 'pp1_1982_umum' | 'uitvoerrechten_kolonial';
+  };
 }
 
 export interface CalculationStep {
@@ -418,6 +518,7 @@ export interface CalculationResult {
   primaryTaxDisplay?: string;
   annualTaxLabel?: string;
   annualTaxAmount?: number;
+  annualTaxDisplay?: string;
   effectiveRatePercent: number;
   effectiveRateLabel?: string;
   takeHomeOrNetLabel: string;

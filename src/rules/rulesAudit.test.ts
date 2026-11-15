@@ -25,13 +25,21 @@ function mergeCaseInput(
   };
 }
 
-test('all 217 regimes and articles have valid sources, categories, verifiedAt, and finite calculation outputs', () => {
-  assert.equal(TAX_CATEGORIES.length, 15);
-  assert.equal(TAX_REGIMES.length, 217);
-  assert.equal(TAX_ARTICLES.length, 217);
+test('all 247 regimes and articles have valid sources, categories, verifiedAt, and finite calculation outputs', () => {
+  assert.equal(TAX_CATEGORIES.length, 17);
+  assert.equal(TAX_REGIMES.length, 247);
+  assert.equal(TAX_ARTICLES.length, 247);
+
+  const validVerifiedDates = new Set(['14 November 2026', '15 November 2026']);
 
   for (const regime of TAX_REGIMES) {
-    assert.equal(regime.verifiedAt, '14 November 2026', `Expected verifiedAt for regime ${regime.id}`);
+    assert.ok(
+      regime.verifiedAt && validVerifiedDates.has(regime.verifiedAt),
+      `Expected verifiedAt for regime ${regime.id}, got ${regime.verifiedAt}`
+    );
+    if (regime.taxType === 'bea_masuk' || regime.taxType === 'bea_keluar') {
+      assert.equal(regime.verifiedAt, '15 November 2026', `Expected 15 November 2026 for ${regime.id}`);
+    }
     assert.ok(regime.sources.length >= 2, `Expected >=2 sources for ${regime.id}`);
     for (const src of regime.sources) {
       assert.match(src.url, /^https:\/\//, `Invalid source URL in ${regime.id}: ${src.url}`);
@@ -49,7 +57,10 @@ test('all 217 regimes and articles have valid sources, categories, verifiedAt, a
     const article = TAX_ARTICLES.find((a) => a.caseExample?.presetRegime === regime.id);
     assert.ok(article, `Missing article with caseExample for ${regime.id}`);
     assert.equal(article.taxType, regime.taxType);
-    assert.equal(article.verifiedAt, '14 November 2026', `Expected verifiedAt for article ${article.id}`);
+    assert.ok(
+      article.verifiedAt && validVerifiedDates.has(article.verifiedAt),
+      `Expected verifiedAt for article ${article.id}, got ${article.verifiedAt}`
+    );
     assert.ok(article.sources && article.sources.length >= 2, `Expected >=2 article sources for ${article.id}`);
     for (const src of article.sources) {
       assert.match(src.url, /^https:\/\//, `Invalid article source URL in ${article.id}: ${src.url}`);
@@ -2088,6 +2099,838 @@ test('Phase 4 Category-Gap Patching (+11 Modules -> 217 Total): SPLN, Royalti NP
   );
   assert.equal(diplomatikNoSkb.primaryTaxAmount, 440000000);
 });
+
+test('Bea Masuk category (17 modules): BTKI 2022/PMK 68/2026, Nilai Pabean, FTA, Kiriman, Penumpang, Pindahan, Impor Sementara, Re-Impor, Rush Handling, FTZ/PLB, Fasilitas PMK 99/2025, BMT, SPTNP & Historis', () => {
+  // 1. BTKI 2022: Ad Valorem vs Spesifik vs KBLBB EV 0% vs Insentif 2026 (PMK 50/2026 & PMK 68/2026)
+  const btkiAdValorem = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1500000000, tarifBmPersen: 5, skemaBtki: 'ad_valorem' },
+    },
+    'bea_masuk_btki_2022'
+  );
+  assert.equal(btkiAdValorem.primaryTaxAmount, 75000000);
+  assert.equal(btkiAdValorem.annualTaxAmount, 1575000000);
+
+  const btkiSpesifik = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 100000000, skemaBtki: 'spesifik_per_unit', jumlahUnitSpesifik: 10000, tarifSpesifikPerUnit: 450 },
+    },
+    'bea_masuk_btki_2022'
+  );
+  assert.equal(btkiSpesifik.primaryTaxAmount, 4500000);
+
+  const btkiEv = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 800000000, skemaBtki: 'ev_kblbb_pmk10' },
+    },
+    'bea_masuk_btki_2022'
+  );
+  assert.equal(btkiEv.primaryTaxAmount, 0);
+
+  const btkiInsentif2026 = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1200000000, tarifBmPersen: 10, skemaBtki: 'insentif_2026_pmk50_68' },
+    },
+    'bea_masuk_btki_2022'
+  );
+  assert.equal(btkiInsentif2026.primaryTaxAmount, 0);
+  assert.equal(btkiInsentif2026.annualTaxAmount, 1200000000);
+
+  // 2. Nilai Pabean PMK 144/2022: FOB 20.000 Asia 10% + polis lokal Rp 0 vs norma 0.5% CFR
+  const npLokal = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: {
+        ...DEFAULT_CALCULATOR_INPUT.bea_masuk,
+        nilaiFobUsd: 20000,
+        ndpbmKurs: 16000,
+        asalWilayahFreight: 'asia_australia_10',
+        statusAsuransiPabean: 'polis_dalam_negeri_0',
+        tarifBmPersen: 10,
+      },
+    },
+    'bea_masuk_nilai_pabean'
+  );
+  // CIF = 20000 + 2000 + 0 = 22000 * 16000 = 352.000.000 -> BM 10% = 35.200.000
+  assert.equal(npLokal.annualTaxAmount, 352000000);
+  assert.equal(npLokal.primaryTaxAmount, 35200000);
+
+  const npNormaAsuransi = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: {
+        ...DEFAULT_CALCULATOR_INPUT.bea_masuk,
+        nilaiFobUsd: 20000,
+        ndpbmKurs: 16000,
+        asalWilayahFreight: 'asean_5',
+        statusAsuransiPabean: 'norma_0_5',
+        tarifBmPersen: 10,
+      },
+    },
+    'bea_masuk_nilai_pabean'
+  );
+  // FOB 20000 + Freight 5% (1000) = CFR 21000 + Ins 0.5% (105) = 21105 * 16000 = 337.680.000 -> BM 10% = 33.768.000
+  assert.equal(npNormaAsuransi.annualTaxAmount, 337680000);
+  assert.equal(npNormaAsuransi.primaryTaxAmount, 33768000);
+
+  // 3. FTA / e-SKA PMK 35/2023
+  const ftaValid = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 10, tarifFtaPersen: 0, isSkaValidSinsw: true },
+    },
+    'bea_masuk_fta_ska'
+  );
+  assert.equal(ftaValid.primaryTaxAmount, 0);
+  assert.equal(ftaValid.annualTaxAmount, 100000000);
+
+  const ftaRejected = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 10, tarifFtaPersen: 0, isSkaValidSinsw: false },
+    },
+    'bea_masuk_fta_ska'
+  );
+  assert.equal(ftaRejected.primaryTaxAmount, 100000000);
+
+  // 4. Barang Kiriman PMK 4/2025 & PMK 141/2023
+  const kirimanUnder3Sepatu = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 2.5, ndpbmKurs: 16000, jenisKiriman2025: 'tas_tekstil_sepatu_sepeda_25' },
+    },
+    'bea_masuk_kiriman_2025'
+  );
+  assert.equal(kirimanUnder3Sepatu.primaryTaxAmount, 0);
+  assert.equal(kirimanUnder3Sepatu.takeHomeOrNetAmount, 4400); // PPN 11% * 40.000 = 4.400
+
+  const kirimanTas100 = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 100, ndpbmKurs: 16000, jenisKiriman2025: 'tas_tekstil_sepatu_sepeda_25' },
+    },
+    'bea_masuk_kiriman_2025'
+  );
+  // 100 * 16000 = 1.600.000 -> BM 25% = 400.000; Nilai Impor = 2.000.000 -> PPN 11% = 220.000 + PPh 5% = 100.000
+  assert.equal(kirimanTas100.primaryTaxAmount, 400000);
+  assert.equal(kirimanTas100.takeHomeOrNetAmount, 320000);
+
+  const kirimanKosmetik100 = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 100, ndpbmKurs: 16000, jenisKiriman2025: 'kosmetik_besi_jam_15' },
+    },
+    'bea_masuk_kiriman_2025'
+  );
+  assert.equal(kirimanKosmetik100.primaryTaxAmount, 240000);
+
+  const kirimanHaji = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 1500, ndpbmKurs: 16000, jenisKiriman2025: 'jemaah_haji_2x1500' },
+    },
+    'bea_masuk_kiriman_2025'
+  );
+  assert.equal(kirimanHaji.primaryTaxAmount, 0);
+  assert.equal(kirimanHaji.annualTaxAmount, 0);
+
+  const kirimanPmi = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 500, ndpbmKurs: 16000, jenisKiriman2025: 'pmi_tercatat_500' },
+    },
+    'bea_masuk_kiriman_2025'
+  );
+  assert.equal(kirimanPmi.primaryTaxAmount, 0);
+  assert.equal(kirimanPmi.annualTaxAmount, 0);
+
+  const kirimanPmiTidakTercatat = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 700, ndpbmKurs: 16000, jenisKiriman2025: 'pmi_tidak_tercatat_500' },
+    },
+    'bea_masuk_kiriman_2025'
+  );
+  // Excess 200 USD * 16000 = 3.200.000 -> BM 7.5% = 240.000; Nilai Impor = 3.440.000 -> PPN 11% = 378.400
+  assert.equal(kirimanPmiTidakTercatat.primaryTaxAmount, 240000);
+  assert.equal(kirimanPmiTidakTercatat.takeHomeOrNetAmount, 378400);
+
+  // 5. Penumpang PMK 34/2025 (pribadi USD 500, awak USD 50, non-pribadi flat 10% + PPh 5%/10%, haji)
+  const penumpangPribadi = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 1200, ndpbmKurs: 16000, skemaPenumpang2025: 'pribadi_usd500_10' },
+    },
+    'bea_masuk_penumpang'
+  );
+  // Excess 700 USD * 16000 = 11.200.000 -> BM 10% = 1.120.000; Nilai Impor = 12.320.000 -> PPN 11% = 1.355.200; PPh 22 = 0
+  assert.equal(penumpangPribadi.primaryTaxAmount, 1120000);
+  assert.equal(penumpangPribadi.takeHomeOrNetAmount, 1355200);
+
+  const awakSarana = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 150, ndpbmKurs: 16000, skemaPenumpang2025: 'awak_usd50_10' },
+    },
+    'bea_masuk_penumpang'
+  );
+  // Excess 100 USD * 16000 = 1.600.000 -> BM 10% = 160.000; Nilai Impor = 1.760.000 -> PPN 11% = 193.600; PPh 22 = 0
+  assert.equal(awakSarana.primaryTaxAmount, 160000);
+  assert.equal(awakSarana.takeHomeOrNetAmount, 193600);
+
+  const penumpangJastipNpwp = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 1000, ndpbmKurs: 16000, skemaPenumpang2025: 'non_pribadi_jastip_mfn', hasNpwpPenumpang: true },
+    },
+    'bea_masuk_penumpang'
+  );
+  // PMK 34/2025 flat 10%: 16.000.000 -> BM 10% = 1.600.000; Nilai Impor = 17.600.000 -> PPN 11% (1.936.000) + PPh 5% (880.000) = 2.816.000
+  assert.equal(penumpangJastipNpwp.primaryTaxAmount, 1600000);
+  assert.equal(penumpangJastipNpwp.takeHomeOrNetAmount, 2816000);
+
+  const penumpangJastipNonNpwp = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 1000, ndpbmKurs: 16000, skemaPenumpang2025: 'non_pribadi_jastip_mfn', hasNpwpPenumpang: false },
+    },
+    'bea_masuk_penumpang'
+  );
+  // Non-NPWP PPh 22 10% (1.760.000) + PPN 11% (1.936.000) = 3.696.000
+  assert.equal(penumpangJastipNonNpwp.primaryTaxAmount, 1600000);
+  assert.equal(penumpangJastipNonNpwp.takeHomeOrNetAmount, 3696000);
+
+  const penumpangHajiKhusus = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 2500, ndpbmKurs: 16000, skemaPenumpang2025: 'haji_khusus_usd2500_10' },
+    },
+    'bea_masuk_penumpang'
+  );
+  assert.equal(penumpangHajiKhusus.primaryTaxAmount, 0);
+
+  // 6. Barang Pindahan PMK 25/2025 (bebas vs eksklusi kendaraan bermotor)
+  const pindahanBebas = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 350000000, tarifBmPersen: 15, skemaBarangPindahan: 'rumah_tangga_bebas' },
+    },
+    'bea_masuk_barang_pindahan'
+  );
+  assert.equal(pindahanBebas.primaryTaxAmount, 0);
+  assert.equal(pindahanBebas.annualTaxAmount, 52500000);
+
+  const pindahanKendaraan = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 400000000, tarifBmPersen: 50, skemaBarangPindahan: 'kendaraan_eksklusi_mfn' },
+    },
+    'bea_masuk_barang_pindahan'
+  );
+  // BM 50% = 200jt; Nilai Impor = 600jt -> PPN 11% (66jt) + PPh 7.5% (45jt) = 111jt
+  assert.equal(pindahanKendaraan.primaryTaxAmount, 200000000);
+  assert.equal(pindahanKendaraan.takeHomeOrNetAmount, 111000000);
+
+  // 7. Impor Sementara (PMK 178/2017 & PMK 52/2026 Returnable Package)
+  const imporSemKeringanan = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 2000000000, tarifBmPersen: 10, skemaImporSementara: 'keringanan_2_persen', bulanImporSementara: 6 },
+    },
+    'bea_masuk_impor_sementara'
+  );
+  // BM seharusnya = 200jt; 6 bln * 2% = 12% * 200jt = 24jt; PPN 11% * 2.2M = 242jt -> kas awal 266jt; jaminan sisa BM 176jt + PPh 2.5% (55jt) = 231jt
+  assert.equal(imporSemKeringanan.primaryTaxAmount, 24000000);
+  assert.equal(imporSemKeringanan.takeHomeOrNetAmount, 266000000);
+  assert.equal(imporSemKeringanan.annualTaxAmount, 231000000);
+
+  const imporSemReturnable = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 500000000, tarifBmPersen: 10, skemaImporSementara: 'returnable_package_pmk52_2026' },
+    },
+    'bea_masuk_impor_sementara'
+  );
+  assert.equal(imporSemReturnable.primaryTaxAmount, 0);
+  assert.equal(imporSemReturnable.annualTaxAmount, 0);
+
+  const imporSemGagal = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 10, skemaImporSementara: 'gagal_ekspor_kembali', bulanImporSementara: 6 },
+    },
+    'bea_masuk_impor_sementara'
+  );
+  // BM full 100jt, sudah bayar 12% = 12jt, sisa 88jt + denda 100% BM seharusnya (100jt) = 188jt
+  assert.equal(imporSemGagal.primaryTaxAmount, 188000000);
+
+  // 8. Sanksi Denda SPTNP 10 Jenjang PP 39/2019
+  const pp39Cases: Array<[number, number]> = [
+    [50000000, 100],  // 50% -> 100%
+    [100000000, 125], // 100% -> 125%
+    [120000000, 150], // 120% -> 150%
+    [200000000, 175], // 200% -> 175%
+    [250000000, 200], // 250% -> 200%
+    [300000000, 225], // 300% -> 225%
+    [350000000, 250], // 350% -> 250%
+    [400000000, 300], // 400% -> 300%
+    [450000000, 600], // 450% -> 600%
+    [460000000, 1000], // 460% -> 1000%
+  ];
+  for (const [kurangBayar, expectedDendaPersen] of pp39Cases) {
+    const sptnpRes = runTaxCalculation(
+      'bea_masuk',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_masuk: {
+          ...DEFAULT_CALCULATOR_INPUT.bea_masuk,
+          bmDibayarAwalSptnp: 100000000,
+          bmKurangBayarSptnp: kurangBayar,
+          isSalahanNilaiPabeanSptnp: true,
+        },
+      },
+      'bea_masuk_sanksi_sptnp'
+    );
+    assert.equal(sptnpRes.effectiveRatePercent, expectedDendaPersen);
+    assert.equal(sptnpRes.primaryTaxAmount, Math.round(kurangBayar * (expectedDendaPersen / 100)));
+  }
+
+  const sptnpSalahTarif = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, bmDibayarAwalSptnp: 100000000, bmKurangBayarSptnp: 120000000, isSalahanNilaiPabeanSptnp: false },
+    },
+    'bea_masuk_sanksi_sptnp'
+  );
+  assert.equal(sptnpSalahTarif.primaryTaxAmount, 0);
+
+  // 9. FTZ / KPBPB Batam & PLB (PP 41/2021 jo. PMK 34/2021 & PMK 272/2015)
+  const ftzKeluarBom = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 2000000000, tarifBmPersen: 10, skemaFtzPlb: 'ftz_keluar_barang_jadi_tlddp', rasioBahanBakuImporPersen: 60 },
+    },
+    'bea_masuk_ftz_plb'
+  );
+  // DPP BM = 60% * 2M = 1.2M -> BM 10% = 120jt; Nilai Impor PPN = 2.12M -> PPN 11% (233.2jt) + PPh 2.5% (53jt) = 286.2jt
+  assert.equal(ftzKeluarBom.primaryTaxAmount, 120000000);
+  assert.equal(ftzKeluarBom.takeHomeOrNetAmount, 286200000);
+
+  const plbTimbun = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 10, skemaFtzPlb: 'plb_penimbunan_272' },
+    },
+    'bea_masuk_ftz_plb'
+  );
+  assert.equal(plbTimbun.primaryTaxAmount, 0);
+  assert.equal(plbTimbun.annualTaxAmount, 100000000);
+
+  // 10. BMT PP 34/2011 (BMAD/BMI/BMTP)
+  const bmtRes = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 2000000000, tarifBmPersen: 5, jenisBmt: 'bmad_antidumping', tarifBmtPersen: 15 },
+    },
+    'bea_masuk_bmt_pp34'
+  );
+  assert.equal(bmtRes.primaryTaxAmount, 400000000);
+  assert.equal(bmtRes.annualTaxAmount, 300000000);
+
+  // 11. Fasilitas KITE Pembebasan vs KITE Pengembalian
+  const kiteBebas = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 5000000000, tarifBmPersen: 10, skemaFasilitasBm: 'kite_pembebasan_149' },
+    },
+    'bea_masuk_fasilitas'
+  );
+  assert.equal(kiteBebas.primaryTaxAmount, 0);
+  assert.equal(kiteBebas.annualTaxAmount, 500000000);
+
+  const kiteKembali = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 5000000000, tarifBmPersen: 10, skemaFasilitasBm: 'kite_pengembalian_145' },
+    },
+    'bea_masuk_fasilitas'
+  );
+  assert.equal(kiteKembali.primaryTaxAmount, 500000000);
+  assert.equal(kiteKembali.takeHomeOrNetAmount, 0);
+
+  const hibahPmk99 = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 2000000000, tarifBmPersen: 10, skemaFasilitasBm: 'hibah_bencana_pmk99_2025' },
+    },
+    'bea_masuk_fasilitas'
+  );
+  assert.equal(hibahPmk99.primaryTaxAmount, 0);
+  assert.equal(hibahPmk99.annualTaxAmount, 200000000);
+
+  // 12. Re-Impor PMK 175/PMK.04/2021 (Kualitas Sama 0% vs Perbaikan LN vs Melewati 2 Thn)
+  const reimporBebas = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 3000000000, tarifBmPersen: 5, skemaReimpor: 'kualitas_sama_bebas' },
+    },
+    'bea_masuk_reimpor'
+  );
+  assert.equal(reimporBebas.primaryTaxAmount, 0);
+  assert.equal(reimporBebas.annualTaxAmount, 150000000);
+
+  const reimporPerbaikan = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: {
+        ...DEFAULT_CALCULATOR_INPUT.bea_masuk,
+        nilaiPabeanIdr: 3000000000,
+        tarifBmPersen: 5,
+        skemaReimpor: 'perbaikan_pengerjaan_ln',
+        nilaiBagianPenggantiIdr: 150000000,
+        biayaPerbaikanFreightAsuransiIdr: 50000000,
+      },
+    },
+    'bea_masuk_reimpor'
+  );
+  // DPP BM = 150jt + 50jt = 200jt -> BM 5% = 10jt; Nilai Impor = 210jt -> PPN 11% (23.1jt) + PPh 22 2.5% (5.25jt) = 28.35jt
+  assert.equal(reimporPerbaikan.primaryTaxAmount, 10000000);
+  assert.equal(reimporPerbaikan.takeHomeOrNetAmount, 28350000);
+  assert.equal(reimporPerbaikan.annualTaxAmount, 38350000);
+
+  const reimporLewat2Tahun = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 5, skemaReimpor: 'melewati_2tahun_mfn' },
+    },
+    'bea_masuk_reimpor'
+  );
+  assert.equal(reimporLewat2Tahun.primaryTaxAmount, 50000000);
+
+  // 13. Rush Handling PMK 74/PMK.04/2021 stdd PMK 26/2024 (Tepat waktu <= 7 hari vs Denda 10% > 7 hari)
+  const rushTepatWaktu = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 5, statusPelunasanRushHandling: 'tepat_waktu_7hari' },
+    },
+    'bea_masuk_rush_handling'
+  );
+  // BM = 50jt; Nilai Impor = 1.05M -> PPN 115.5jt + PPh 26.25jt = 141.75jt; Jaminan wajib = 50 + 141.75 = 191.75jt
+  assert.equal(rushTepatWaktu.primaryTaxAmount, 50000000);
+  assert.equal(rushTepatWaktu.annualTaxAmount, 191750000);
+
+  const rushTerlambat = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 1000000000, tarifBmPersen: 5, statusPelunasanRushHandling: 'terlambat_denda_10persen' },
+    },
+    'bea_masuk_rush_handling'
+  );
+  // BM 50jt + Denda 10% (5jt) = 55jt; total kas 55jt + 141.75jt = 196.75jt
+  assert.equal(rushTerlambat.primaryTaxAmount, 55000000);
+  assert.equal(rushTerlambat.annualTaxAmount, 5000000);
+  assert.equal(rushTerlambat.takeHomeOrNetAmount, 196750000);
+
+  // 14. Historis Kiriman (PMK 182/2016 USD 100 vs PMK 199/2019 Tas USD 50)
+  const pmk182Free = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 90, ndpbmKurs: 14000, eraKirimanHistoris: 'pmk182_2016_usd100' },
+    },
+    'bea_masuk_kiriman_historis'
+  );
+  assert.equal(pmk182Free.primaryTaxAmount, 0);
+
+  const pmk199Tas = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiFobUsd: 50, ndpbmKurs: 15500, tarifBmPersen: 20, eraKirimanHistoris: 'pmk199_2019_usd3', isTasSepatuTekstilPmk199: true },
+    },
+    'bea_masuk_kiriman_historis'
+  );
+  assert.equal(pmk199Tas.primaryTaxAmount, 155000);
+
+  // 15. Historis BTKI 2012/2017, UU 10/1995 (40% cap), & Ordonansi Pra-1996 (70% uncapped)
+  const btki2017 = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 800000000, tarifBmPersen: 10, eraBtkiLama: 'btki_2017_8digit' },
+    },
+    'bea_masuk_btki_2012_2017'
+  );
+  assert.equal(btki2017.primaryTaxAmount, 80000000);
+
+  const btbmiCap = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 100000000, tarifBmPersen: 60 },
+    },
+    'bea_masuk_btbmi_uu10_1995'
+  );
+  assert.equal(btbmiCap.primaryTaxAmount, 40000000);
+
+  const pra1996 = runTaxCalculation(
+    'bea_masuk',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_masuk: { ...DEFAULT_CALCULATOR_INPUT.bea_masuk, nilaiPabeanIdr: 100000000, tarifBmPersen: 60 },
+    },
+    'bea_masuk_pra1996'
+  );
+  assert.equal(pra1996.primaryTaxAmount, 60000000);
+});
+
+test('NEW Bea Keluar category (13 rules): PMK 106/2022, Sawit 17-col + PE BPDP PMK 9/2026, Emas PMK 80/2025, Kakao/Pin PMK 68/2025, Kulit/Kayu, Mineral, PP 39/2019, & Historis 1873-2024', () => {
+  const bkRegimes = TAX_REGIMES.filter((r) => r.taxType === 'bea_keluar');
+  assert.equal(bkRegimes.length, 13);
+
+  // 1. Pemungutan PMK 106/2022 (Ad Valorem, Spesifik, Pengecualian SKP)
+  const pmk106AdVal = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 50000, ndpbmKurs: 16000, tarifBkPersen: 10, skemaPemungutanBk: 'ad_valorem' },
+    },
+    'bea_keluar_pemungutan_pmk106'
+  );
+  assert.equal(pmk106AdVal.primaryTaxAmount, 80000000);
+  assert.equal(pmk106AdVal.annualTaxDisplay, 'USD 5.000');
+
+  const pmk106Spec = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, ndpbmKurs: 16000, tonaseMt: 2000, tarifSpesifikUsdPerMt: 74, skemaPemungutanBk: 'spesifik_per_mt' },
+    },
+    'bea_keluar_pemungutan_pmk106'
+  );
+  assert.equal(pmk106Spec.primaryTaxAmount, 2368000000);
+
+  const pmk106Exc = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 50000, ndpbmKurs: 16000, skemaPemungutanBk: 'pengecualian_skp' },
+    },
+    'bea_keluar_pemungutan_pmk106'
+  );
+  assert.equal(pmk106Exc.primaryTaxAmount, 0);
+
+  // 2. Sawit / CPO 17-kolom PMK 38/2024 stdd PMK 68/2025 + PE BPDP PMK 9/2026
+  const sawitCol1 = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, hargaReferensiCpoUsd: 680, tonaseMt: 1000, ndpbmKurs: 16000, jenisProdukSawit: 'cpo_1511' },
+    },
+    'bea_keluar_cpo_sawit'
+  );
+  assert.equal(sawitCol1.primaryTaxAmount, 0);
+
+  const sawitCol9CpoPe = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: {
+        ...DEFAULT_CALCULATOR_INPUT.bea_keluar,
+        hargaReferensiCpoUsd: 1042.15,
+        tonaseMt: 2000,
+        ndpbmKurs: 16000,
+        jenisProdukSawit: 'cpo_1511',
+        isHitungPerbandinganPeBpdp: true,
+      },
+    },
+    'bea_keluar_cpo_sawit'
+  );
+  // Kolom 9 CPO = $178/MT -> BK = 2000 * 178 * 16000 = Rp 5.696.000.000; PE BPDP 12.5% * 1042.15 * 2000 * 16000 = Rp 4.168.600.000
+  assert.equal(sawitCol9CpoPe.primaryTaxAmount, 5696000000);
+  assert.equal(sawitCol9CpoPe.annualTaxAmount, 9864600000);
+  assert.equal(sawitCol9CpoPe.annualTaxDisplay, undefined);
+
+  const sawitPomeCol17 = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, hargaReferensiCpoUsd: 1500, tonaseMt: 500, ndpbmKurs: 16000, jenisProdukSawit: 'pome_hapor_pmk68' },
+    },
+    'bea_keluar_cpo_sawit'
+  );
+  // Kolom 17 POME/HAPOR = $288/MT -> 500 * 288 * 16000 = Rp 2.304.000.000
+  assert.equal(sawitPomeCol17.primaryTaxAmount, 2304000000);
+
+  const sawitProductCol9Rates: Array<[NonNullable<TaxCalculatorInput['bea_keluar']['jenisProdukSawit']>, number]> = [
+    ['rbd_palm_olein_curah', 104],
+    ['rbd_olein_kemasan_25kg', 48],
+    ['biodiesel_fame', 37],
+  ];
+  for (const [prod, rateUsd] of sawitProductCol9Rates) {
+    const res = runTaxCalculation(
+      'bea_keluar',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, hargaReferensiCpoUsd: 1042.15, tonaseMt: 1000, ndpbmKurs: 16000, jenisProdukSawit: prod },
+      },
+      'bea_keluar_cpo_sawit'
+    );
+    assert.equal(res.primaryTaxAmount, 1000 * rateUsd * 16000);
+  }
+
+  // 3. Emas PMK 80/2025 (<2800: 0%, 2800-<3200: 12.5/10/7.5%, >=3200: 15/12.5/10%)
+  const emasLow = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 16000, hargaReferensiEmasUsdOz: 2750, jenisProdukEmas: 'dore' },
+    },
+    'bea_keluar_emas_pmk80'
+  );
+  assert.equal(emasLow.primaryTaxAmount, 0);
+
+  const emasTier1Rates: Array<[NonNullable<TaxCalculatorInput['bea_keluar']['jenisProdukEmas']>, number]> = [
+    ['dore', 12.5],
+    ['granules', 10],
+    ['cast_bars', 7.5],
+    ['minted_bars', 7.5],
+  ];
+  for (const [goldType, expectedPct] of emasTier1Rates) {
+    const res = runTaxCalculation(
+      'bea_keluar',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 16000, hargaReferensiEmasUsdOz: 3000, jenisProdukEmas: goldType },
+      },
+      'bea_keluar_emas_pmk80'
+    );
+    assert.equal(res.effectiveRatePercent, expectedPct);
+    assert.equal(res.primaryTaxAmount, Math.round(1000000 * (expectedPct / 100) * 16000));
+  }
+
+  const emasTier2Dore = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 0, beratEmasKg: 50, ndpbmKurs: 16000, hargaReferensiEmasUsdOz: 3300, jenisProdukEmas: 'minted_bars' },
+    },
+    'bea_keluar_emas_pmk80'
+  );
+  assert.equal(emasTier2Dore.effectiveRatePercent, 10);
+  assert.ok(emasTier2Dore.primaryTaxAmount > 8000000000);
+
+  // 4. Kakao & Getah Pinus PMK 68/2025
+  const kakaoCases: Array<[number, 'kakao_pmk68_2025' | 'kakao_lama_pmk38_2024' | 'getah_pinus_pmk68', number]> = [
+    [1900, 'kakao_pmk68_2025', 0],
+    [2500, 'kakao_pmk68_2025', 2.5],
+    [3100, 'kakao_pmk68_2025', 5],
+    [4200, 'kakao_pmk68_2025', 7.5],
+    [2500, 'kakao_lama_pmk38_2024', 5],
+    [3100, 'kakao_lama_pmk38_2024', 10],
+    [4200, 'kakao_lama_pmk38_2024', 15],
+    [0, 'getah_pinus_pmk68', 25],
+  ];
+  for (const [hr, skema, expectedPct] of kakaoCases) {
+    const res = runTaxCalculation(
+      'bea_keluar',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 100000, ndpbmKurs: 16000, hargaReferensiKakaoUsd: hr, skemaKakaoPinus: skema },
+      },
+      'bea_keluar_kakao_pinus'
+    );
+    assert.equal(res.effectiveRatePercent, expectedPct);
+  }
+
+  // 5. Kulit & Kayu Lampiran A PMK 38/2024
+  const kulitKayuRates: Array<[NonNullable<TaxCalculatorInput['bea_keluar']['kategoriKulitKayu']>, number]> = [
+    ['kulit_mentah_pickled_25', 25],
+    ['kulit_wet_blue_15', 15],
+    ['veneer_15', 15],
+    ['kayu_merbau_10', 10],
+    ['serpih_kayu_5', 5],
+    ['kayu_olahan_s4s_5', 5],
+    ['wooden_sheet_kemasan_2', 2],
+    ['pencil_slat_bebas_0', 0],
+  ];
+  for (const [cat, expectedPct] of kulitKayuRates) {
+    const res = runTaxCalculation(
+      'bea_keluar',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 100000, ndpbmKurs: 16000, kategoriKulitKayu: cat },
+      },
+      'bea_keluar_kulit_kayu'
+    );
+    assert.equal(res.effectiveRatePercent, expectedPct);
+  }
+
+  // 6. Mineral & Batubara PMK 38/2024
+  const mineralRates: Array<[NonNullable<TaxCalculatorInput['bea_keluar']['jenisMineral2024']>, number]> = [
+    ['konsentrat_tembaga_7_5', 7.5],
+    ['konsentrat_besi_laterit_5', 5],
+    ['konsentrat_timbal_5', 5],
+    ['konsentrat_seng_5', 5],
+    ['batubara_non_bk', 0],
+  ];
+  for (const [minType, expectedPct] of mineralRates) {
+    const res = runTaxCalculation(
+      'bea_keluar',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 16000, jenisMineral2024: minType },
+      },
+      'bea_keluar_mineral_2024'
+    );
+    assert.equal(res.effectiveRatePercent, expectedPct);
+  }
+
+  // 7. Sanksi Denda Bea Keluar PP 39/2019 (10 Jenjang)
+  const bkFines: Array<[number, number, number]> = [
+    [100000000, 50000000, 100],
+    [100000000, 100000000, 125],
+    [100000000, 150000000, 150],
+    [100000000, 200000000, 175],
+    [100000000, 250000000, 200],
+    [100000000, 300000000, 225],
+    [100000000, 350000000, 250],
+    [100000000, 400000000, 300],
+    [100000000, 450000000, 600],
+    [100000000, 460000000, 1000],
+    [0, 50000000, 1000],
+  ];
+  for (const [awal, kurang, expectedPct] of bkFines) {
+    const res = runTaxCalculation(
+      'bea_keluar',
+      {
+        ...DEFAULT_CALCULATOR_INPUT,
+        bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, bkDibayarAwalSptbk: awal, bkKurangBayarSptbk: kurang, isKesalahanJumlahJenisBk: true },
+      },
+      'bea_keluar_sanksi_pp39'
+    );
+    assert.equal(res.effectiveRatePercent, expectedPct);
+    assert.equal(res.primaryTaxAmount, Math.round(kurang * (expectedPct / 100)));
+  }
+
+  // 8. Smelter PMK 71/2023 (<50% ditolak, 2023 vs 2024_h1)
+  const smelterBlocked = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 15700, progresSmelterPersen: 45, periodeSmelter71: '2024_h1' },
+    },
+    'bea_keluar_smelter_2022_2023'
+  );
+  assert.equal(smelterBlocked.isNotCalculated, true);
+
+  const smelter2024 = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 15700, progresSmelterPersen: 75, periodeSmelter71: '2024_h1' },
+    },
+    'bea_keluar_smelter_2022_2023'
+  );
+  assert.equal(smelter2024.effectiveRatePercent, 10);
+
+  // 9. Smelter PMK 13/2017 (7.5 / 5 / 2.5 / 0%)
+  const smelter13Free = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 14200, progresSmelterPersen: 80 },
+    },
+    'bea_keluar_smelter_2017_2022'
+  );
+  assert.equal(smelter13Free.primaryTaxAmount, 0);
+
+  // 10. Minerba PMK 75/2012 (20%) & PMK 6/2014 (60%)
+  const minerba2016Max = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 13200, periodeMinerba2012_2017: 'pmk6_2014_h2_2016_60' },
+    },
+    'bea_keluar_minerba_2012_2017'
+  );
+  assert.equal(minerba2016Max.effectiveRatePercent, 60);
+  assert.equal(minerba2016Max.primaryTaxAmount, 7920000000);
+
+  // 11. Awal 2008-2012 (PMK 128/2011 0%..22.5%)
+  const pmk128Max = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 1000000, ndpbmKurs: 9000, eraAwal2008_2012: 'pmk128_2011_cpo', hargaReferensiCpoUsd: 1300 },
+    },
+    'bea_keluar_awal_2008_2012'
+  );
+  assert.equal(pmk128Max.effectiveRatePercent, 22.5);
+
+  // 12. PP 35/2005 PE & Pra-2005 KMK 334/1998 60%
+  const pp35Res = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 200000, ndpbmKurs: 9100, tarifBkPersen: 6.5 },
+    },
+    'bea_keluar_pe_pp35_2005'
+  );
+  assert.equal(pp35Res.primaryTaxAmount, 118300000);
+
+  const kmk334Res = runTaxCalculation(
+    'bea_keluar',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      bea_keluar: { ...DEFAULT_CALCULATOR_INPUT.bea_keluar, nilaiEksporUsd: 500000, ndpbmKurs: 10500, eraPra2005: 'kmk334_1998_cpo_60' },
+    },
+    'bea_keluar_pra2005_historis'
+  );
+  assert.equal(kmk334Res.effectiveRatePercent, 60);
+  assert.equal(kmk334Res.primaryTaxAmount, 3150000000);
+});
+
 
 
 

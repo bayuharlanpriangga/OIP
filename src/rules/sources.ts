@@ -1650,4 +1650,383 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/pmk-59-tahun-2024',
     publisher: 'JDIH Kemenkeu',
   },
+
+  // Bea Masuk (Kepabeanan: Historis Kolonial s.d. BTKI 2022, Kiriman, Penumpang, FTA & Fasilitas)
+  UU_10_1995: {
+    title: 'UU Nomor 10 Tahun 1995 tentang Kepabeanan (Berlaku Efektif 1 April 1996)',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-10-tahun-1995',
+    publisher: 'JDIH Kemenkeu',
+  },
+  UU_17_2006: {
+    title: 'UU Nomor 17 Tahun 2006 tentang Perubahan atas UU Nomor 10 Tahun 1995 tentang Kepabeanan',
+    url: 'https://jdih.kemenkeu.go.id/dok/uu-17-tahun-2006',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_6_1969: {
+    title: 'PP Nomor 6 Tahun 1969 tentang Pembebanan atas Impor (stdd PP 35/1977 & PP 26/1988)',
+    url: 'https://peraturan.bpk.go.id/Home/Details/70400/pp-no-6-tahun-1969',
+    publisher: 'JDIH BPK RI',
+  },
+  PP_26_1988: {
+    title: 'PP Nomor 26 Tahun 1988 tentang Perubahan atas PP Nomor 6 Tahun 1969 tentang Pembebanan atas Impor',
+    url: 'https://peraturan.bpk.go.id/Home/Details/65732/pp-no-26-tahun-1988',
+    publisher: 'JDIH BPK RI',
+  },
+  KMK_545_2003: {
+    title: 'KMK Nomor 545/KMK.01/2003 tentang Penetapan Sistem Klasifikasi Barang Impor (Adopsi AHTN)',
+    url: 'https://jdih.kemenkeu.go.id/dok/545-kmk-01-2003',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_110_2006: {
+    title: 'PMK Nomor 110/PMK.010/2006 tentang Penetapan Sistem Klasifikasi Barang dan Pembebanan Tarif Bea Masuk (BTBMI 2007)',
+    url: 'https://jdih.kemenkeu.go.id/dok/110-pmk-010-2006',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_213_2011: {
+    title: 'PMK Nomor 213/PMK.011/2011 tentang Penetapan Sistem Klasifikasi Barang dan Pembebanan Tarif Bea Masuk (BTKI 2012)',
+    url: 'https://jdih.kemenkeu.go.id/dok/213-pmk-011-2011',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_6_2017: {
+    title: 'PMK Nomor 6/PMK.010/2017 tentang Penetapan Sistem Klasifikasi Barang dan Pembebanan Tarif Bea Masuk (BTKI 2017)',
+    url: 'https://jdih.kemenkeu.go.id/dok/6-pmk-010-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_26_2022: {
+    title: 'PMK Nomor 26/PMK.010/2022 tentang Penetapan Sistem Klasifikasi Barang dan Pembebanan Tarif Bea Masuk atas Barang Impor (BTKI 2022)',
+    url: 'https://jdih.kemenkeu.go.id/dok/26-pmk-010-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_10_2024: {
+    title: 'PMK Nomor 10 Tahun 2024 tentang Perubahan atas PMK 26/PMK.010/2022 (Tarif Bea Masuk 0% KBLBB/EV)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-10-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_62_2025: {
+    title: 'PMK Nomor 62 Tahun 2025 tentang Perubahan Kedua atas PMK 26/PMK.010/2022 (Pembaruan BTKI 2022)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-62-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_160_2010: {
+    title: 'PMK Nomor 160/PMK.04/2010 stdd PMK 62/PMK.04/2018 tentang Nilai Pabean untuk Penghitungan Bea Masuk',
+    url: 'https://jdih.kemenkeu.go.id/dok/160-pmk-04-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_144_2022: {
+    title: 'PMK Nomor 144/PMK.04/2022 tentang Nilai Pabean untuk Penghitungan Bea Masuk',
+    url: 'https://jdih.kemenkeu.go.id/dok/144-pmk-04-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_229_2017: {
+    title: 'PMK Nomor 229/PMK.04/2017 tentang Tata Cara Pengenaan Tarif Bea Masuk Berdasarkan Perjanjian atau Kesepakatan Internasional',
+    url: 'https://jdih.kemenkeu.go.id/dok/229-pmk-04-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_35_2023: {
+    title: 'PMK Nomor 35 Tahun 2023 tentang Tata Cara Penyerahan Surat Keterangan Asal (e-SKA) dan/atau Deklarasi Asal Barang (DAB)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-35-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_188_2010: {
+    title: 'PMK Nomor 188/PMK.04/2010 tentang Impor Barang yang Dibawa oleh Penumpang, Awak Sarana Pengangkut, Pelintas Batas, dan Barang Kiriman',
+    url: 'https://jdih.kemenkeu.go.id/dok/188-pmk-04-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_182_2016: {
+    title: 'PMK Nomor 182/PMK.04/2016 tentang Ketentuan Impor Barang Kiriman (De Minimis USD 100)',
+    url: 'https://jdih.kemenkeu.go.id/dok/182-pmk-04-2016',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_112_2018: {
+    title: 'PMK Nomor 112/PMK.04/2018 tentang Perubahan atas PMK 182/PMK.04/2016 tentang Ketentuan Impor Barang Kiriman (De Minimis USD 75)',
+    url: 'https://jdih.kemenkeu.go.id/dok/112-pmk-04-2018',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_199_2019: {
+    title: 'PMK Nomor 199/PMK.010/2019 tentang Ketentuan Kepabeanan, Cukai, dan Pajak atas Impor Barang Kiriman (De Minimis USD 3)',
+    url: 'https://jdih.kemenkeu.go.id/dok/199-pmk-010-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_96_2023: {
+    title: 'PMK Nomor 96 Tahun 2023 tentang Ketentuan Kepabeanan, Cukai, dan Pajak atas Impor dan Ekspor Barang Kiriman',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-96-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_4_2025: {
+    title: 'PMK Nomor 4 Tahun 2025 tentang Perubahan Kedua atas PMK 96/2023 (Simplifikasi Tarif Barang Kiriman & Jemaah Haji)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-4-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_141_2023: {
+    title: 'PMK Nomor 141 Tahun 2023 tentang Ketentuan Impor Barang Pekerja Migran Indonesia (PMI)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-141-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_203_2017: {
+    title: 'PMK Nomor 203/PMK.04/2017 tentang Ketentuan Ekspor dan Impor Barang yang Dibawa oleh Penumpang dan Awak Sarana Pengangkut',
+    url: 'https://jdih.kemenkeu.go.id/dok/203-pmk-04-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_34_2025: {
+    title: 'PMK Nomor 34 Tahun 2025 tentang Perubahan atas PMK 203/PMK.04/2017 (Relaksasi Barang Bawaan Penumpang & Jemaah Haji)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-34-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_34_2011: {
+    title: 'PP Nomor 34 Tahun 2011 tentang Tindakan Antidumping, Tindakan Imbalan, dan Tindakan Pengamanan Perdagangan (BMAD/BMI/BMTP)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-34-tahun-2011',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_176_2009: {
+    title: 'PMK Nomor 176/PMK.011/2009 tentang Pembebasan Bea Masuk atas Impor Mesin serta Barang dan Bahan dalam Rangka Penanaman Modal',
+    url: 'https://jdih.kemenkeu.go.id/dok/176-pmk-011-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_188_2015: {
+    title: 'PMK Nomor 188/PMK.010/2015 tentang Perubahan Kedua atas PMK 176/PMK.011/2009 tentang Fasilitas Pembebasan Bea Masuk Investasi',
+    url: 'https://jdih.kemenkeu.go.id/dok/188-pmk-010-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_149_2022: {
+    title: 'PMK Nomor 149/PMK.04/2022 tentang Pembebasan Bea Masuk dan Tidak Dipungut PPN/PPnBM Tujuan Ekspor (KITE Pembebasan)',
+    url: 'https://jdih.kemenkeu.go.id/dok/149-pmk-04-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_145_2022: {
+    title: 'PMK Nomor 145/PMK.04/2022 tentang Pengembalian Bea Masuk yang Telah Dibayar Tujuan Ekspor (KITE Pengembalian)',
+    url: 'https://jdih.kemenkeu.go.id/dok/145-pmk-04-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_111_2023: {
+    title: 'PMK Nomor 111 Tahun 2023 tentang Perubahan atas PMK Nomor 96 Tahun 2023 tentang Ketentuan Kepabeanan, Cukai, dan Pajak atas Impor dan Ekspor Barang Kiriman',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-111-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_28_2008: {
+    title: 'PMK Nomor 28/PMK.04/2008 tentang Pembebasan Bea Masuk atas Impor Barang Pindahan (Historis s.d. 26 Juni 2025)',
+    url: 'https://jdih.kemenkeu.go.id/dok/28-pmk-04-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_25_2025: {
+    title: 'PMK Nomor 25 Tahun 2025 tentang Ketentuan Kepabeanan atas Impor Barang Pindahan (Efektif 27 Juni 2025)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-25-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_178_2017: {
+    title: 'PMK Nomor 178/PMK.04/2017 tentang Impor Sementara',
+    url: 'https://jdih.kemenkeu.go.id/dok/178-pmk-04-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_106_2019: {
+    title: 'PMK Nomor 106/PMK.04/2019 tentang Perubahan atas PMK 178/PMK.04/2017 tentang Impor Sementara',
+    url: 'https://jdih.kemenkeu.go.id/dok/106-pmk-04-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_52_2026: {
+    title: 'PMK Nomor 52 Tahun 2026 tentang Impor Sementara dan Ekspor Sementara atas Pengemas yang Dapat Digunakan Secara Berulang (Returnable Package)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-52-tahun-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_28_2008: {
+    title: 'PP Nomor 28 Tahun 2008 tentang Pengenaan Sanksi Administrasi Berupa Denda di Bidang Kepabeanan',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-28-tahun-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_39_2019: {
+    title: 'PP Nomor 39 Tahun 2019 tentang Perubahan atas PP 28 Tahun 2008 tentang Pengenaan Sanksi Administrasi Berupa Denda di Bidang Kepabeanan',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-39-tahun-2019',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_41_2021: {
+    title: 'PP Nomor 41 Tahun 2021 tentang Penyelenggaraan Kawasan Perdagangan Bebas dan Pelabuhan Bebas (KPBPB)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-41-tahun-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_25_2025: {
+    title: 'PP Nomor 25 Tahun 2025 tentang Perubahan atas PP Nomor 41 Tahun 2021 tentang Penyelenggaraan KPBPB',
+    url: 'https://peraturan.bpk.go.id/Home/Details/318499/pp-no-25-tahun-2025',
+    publisher: 'JDIH BPK RI',
+  },
+  PP_23_2026: {
+    title: 'PP Nomor 23 Tahun 2026 tentang Perubahan Kedua atas PP Nomor 41 Tahun 2021 tentang Penyelenggaraan KPBPB',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-23-tahun-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_34_2021: {
+    title: 'PMK Nomor 34/PMK.04/2021 tentang Pemasukan dan Pengeluaran Barang ke dan dari Kawasan Perdagangan Bebas dan Pelabuhan Bebas',
+    url: 'https://jdih.kemenkeu.go.id/dok/34-pmk-04-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_272_2015: {
+    title: 'PMK Nomor 272/PMK.04/2015 tentang Pusat Logistik Berikat',
+    url: 'https://jdih.kemenkeu.go.id/dok/272-pmk-04-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_28_2018: {
+    title: 'PMK Nomor 28/PMK.04/2018 tentang Perubahan atas PMK 272/PMK.04/2015 tentang Pusat Logistik Berikat',
+    url: 'https://jdih.kemenkeu.go.id/dok/28-pmk-04-2018',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_50_2026: {
+    title: 'PMK Nomor 50 Tahun 2026 tentang Perubahan Ketiga atas PMK 26/PMK.010/2022 (BM 0% Industri MRO Pesawat & LPG Petrokimia)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-50-tahun-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_68_2026: {
+    title: 'PMK Nomor 68 Tahun 2026 tentang Perubahan Keempat atas PMK 26/PMK.010/2022 (Pasal 4B BM 0% Bahan Baku Plastik)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-68-tahun-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_99_2025: {
+    title: 'PMK Nomor 99 Tahun 2025 tentang Pembebasan Bea Masuk dan/atau Cukai atas Impor Barang Kiriman Hadiah/Hibah Ibadah, Amal, Sosial, Kebudayaan & Bencana Alam',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-99-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_175_2021: {
+    title: 'PMK Nomor 175/PMK.04/2021 tentang Pembebasan Bea Masuk atas Impor Kembali Barang yang Telah Diekspor (Re-Impor)',
+    url: 'https://jdih.kemenkeu.go.id/dok/175-pmk-04-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_106_2007: {
+    title: 'PMK Nomor 106/PMK.04/2007 tentang Pembebasan Bea Masuk dan/atau Cukai atas Impor Kembali Barang yang Telah Diekspor (Historis s.d. 3 Feb 2022)',
+    url: 'https://jdih.kemenkeu.go.id/dok/106-pmk-04-2007',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_74_2021: {
+    title: 'PMK Nomor 74/PMK.04/2021 tentang Pengeluaran Barang Impor untuk Dipakai dengan Pelayanan Segera (Rush Handling)',
+    url: 'https://jdih.kemenkeu.go.id/dok/74-pmk-04-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_26_2024: {
+    title: 'PMK Nomor 26 Tahun 2024 tentang Perubahan atas PMK 74/PMK.04/2021 tentang Pelayanan Segera (Rush Handling)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-26-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+
+  // Bea Keluar (Kepabeanan Ekspor, Sawit/CPO, Emas, Kakao/Getah Pinus, Kulit/Kayu, Mineral & Historis)
+  PP_55_2008: {
+    title: 'PP Nomor 55 Tahun 2008 tentang Pengenaan Bea Keluar Terhadap Barang Ekspor (Mencabut PP 35/2005)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-55-tahun-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_35_2005: {
+    title: 'PP Nomor 35 Tahun 2005 tentang Pungutan Ekspor atas Barang Ekspor Tertentu (Historis s.d. 8 Sep 2008)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-35-tahun-2005',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_1_1982: {
+    title: 'PP Nomor 1 Tahun 1982 tentang Pelaksanaan Ekspor, Impor dan Lalu Lintas Devisa (Historis Pajak Ekspor Pra-2005)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-1-tahun-1982',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_106_2022_BK: {
+    title: 'PMK Nomor 106/PMK.04/2022 tentang Pemungutan Bea Keluar (Mencabut PMK 214/PMK.04/2008)',
+    url: 'https://jdih.kemenkeu.go.id/dok/106-pmk-04-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_214_2008: {
+    title: 'PMK Nomor 214/PMK.04/2008 stdd PMK 86/PMK.04/2016 tentang Pemungutan Bea Keluar (Historis)',
+    url: 'https://jdih.kemenkeu.go.id/dok/214-pmk-04-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_38_2024: {
+    title: 'PMK Nomor 38 Tahun 2024 tentang Penetapan Barang Ekspor yang Dikenakan Bea Keluar dan Tarif Bea Keluar',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-38-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_68_2025: {
+    title: 'PMK Nomor 68 Tahun 2025 tentang Perubahan atas PMK 38/2024 (Penurunan Tarif Kakao, Getah Pinus 25%, & Perluasan POME/HAPOR)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-68-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_80_2025: {
+    title: 'PMK Nomor 80 Tahun 2025 tentang Penetapan Barang Ekspor Berupa Emas yang Dikenakan Bea Keluar dan Tarif Bea Keluar',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-80-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_9_2026: {
+    title: 'PMK Nomor 9 Tahun 2026 tentang Perubahan atas PMK 69/2025 tentang Tarif Layanan BLU BPDP (Pungutan Ekspor Sawit & Kakao)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-9-tahun-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_10_2026_DBH: {
+    title: 'PMK Nomor 10 Tahun 2026 tentang Pengelolaan Dana Bagi Hasil Perkebunan Sawit dari Bea Keluar & Pungutan Ekspor',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-10-tahun-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_31_MK_BC_2026: {
+    title: 'KMK Nomor 31/MK/BC/2026 tentang Penetapan Daftar Barang Dibatasi untuk Diekspor (Pengawasan Ekspor Batubara & SDA Strategis)',
+    url: 'https://jdih.kemenkeu.go.id/dok/31-mk-bc-2026',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_39_2022: {
+    title: 'PMK Nomor 39/PMK.010/2022 tentang Penetapan Barang Ekspor yang Dikenakan Bea Keluar dan Tarif Bea Keluar (HS 2022)',
+    url: 'https://jdih.kemenkeu.go.id/dok/39-pmk-010-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_98_2022: {
+    title: 'PMK Nomor 98/PMK.010/2022 tentang Perubahan atas PMK 39/2022 (Matriks 17 Lapis CPO & Percepatan Ekspor Flush Out)',
+    url: 'https://jdih.kemenkeu.go.id/dok/98-pmk-010-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_123_2022: {
+    title: 'PMK Nomor 123/PMK.010/2022 tentang Perubahan Kedua atas PMK 39/2022 (Penurunan Threshold CPO ke USD 680/MT)',
+    url: 'https://jdih.kemenkeu.go.id/dok/123-pmk-010-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_71_2023: {
+    title: 'PMK Nomor 71 Tahun 2023 tentang Perubahan Ketiga atas PMK 39/2022 (Progres Smelter Min. 50% & 3 Tahap Tarif Mineral)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-71-tahun-2023',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_13_2017: {
+    title: 'PMK Nomor 13/PMK.010/2017 tentang Penetapan Barang Ekspor yang Dikenakan Bea Keluar (Skema Smelter 0%–7,5%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/13-pmk-010-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_75_2012: {
+    title: 'PMK Nomor 75/PMK.011/2012 tentang Penetapan Barang Ekspor yang Dikenakan Bea Keluar dan Tarif Bea Keluar (Bijih Mineral 20%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/75-pmk-011-2012',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_6_2014: {
+    title: 'PMK Nomor 6/PMK.011/2014 tentang Perubahan Kedua PMK 75/2012 (Tarif Progresif Konsentrat Mineral 25%–60%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/6-pmk-011-2014',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_223_2008: {
+    title: 'PMK Nomor 223/PMK.011/2008 tentang Penetapan Barang Ekspor yang Dikenakan Bea Keluar dan Tarif Bea Keluar (Rotan, Kulit, Kayu, CPO)',
+    url: 'https://jdih.kemenkeu.go.id/dok/223-pmk-011-2008',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_67_2010: {
+    title: 'PMK Nomor 67/PMK.011/2010 tentang Penetapan Barang Ekspor yang Dikenakan Bea Keluar (Penambahan Biji Kakao Progresif)',
+    url: 'https://jdih.kemenkeu.go.id/dok/67-pmk-011-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_128_2011: {
+    title: 'PMK Nomor 128/PMK.011/2011 tentang Perubahan PMK 67/2010 (Restrukturisasi Tarif CPO 12 Lapis 0%–22,5%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/128-pmk-011-2011',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KEP_557_2002: {
+    title: 'KMK Nomor 557/KMK.04/2002 tentang Tatalaksana Kepabeanan di Bidang Ekspor (PEB Era Pra-Bea Keluar)',
+    url: 'https://jdih.kemenkeu.go.id/dok/557-kmk-04-2002',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_241_1998: {
+    title: 'KMK Nomor 241/KMK.01/1998 tentang Tata Cara Pembayaran & Tarif Pajak Ekspor Komoditi Tertentu (Krisis 1998)',
+    url: 'https://jdih.kemenkeu.go.id/dok/241-kmk-01-1998',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_334_1998: {
+    title: 'KMK Nomor 334/KMK.017/1998 tentang Penetapan Besarnya Tarif Pajak Ekspor Kelapa Sawit, CPO dan Produk Turunannya (Hingga 60%)',
+    url: 'https://jdih.kemenkeu.go.id/dok/334-kmk-017-1998',
+    publisher: 'JDIH Kemenkeu',
+  },
+  KMK_567_1999: {
+    title: 'KMK Nomor 567/KMK.017/1999 tentang Penyesuaian Penurunan Tarif Pajak Ekspor Sawit, CPO dan Produk Turunannya',
+    url: 'https://jdih.kemenkeu.go.id/dok/567-kmk-017-1999',
+    publisher: 'JDIH Kemenkeu',
+  },
 } satisfies Record<string, TaxSource>;

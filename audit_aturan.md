@@ -1,6 +1,6 @@
 # Audit Menyeluruh Aturan Perpajakan (OIP)
 
-Dokumen ini memuat daftar lengkap dan hasil audit seluruh **217 modul aturan/artikel perpajakan** lintas **15 jenis pajak** pada direktori `src/rules/`, disusun berurutan mulai dari **PPh Pasal 21** hingga **Bea Meterai** (79 aturan awal + 48 perluasan pertama + 21 aturan Bagian B + 29 modul pelengkap 2026 & jejak historis + 14 modul aturan terbaru & operasional khusus + 15 modul Poin 1 & 2 + **11 modul penutup celah kategori**).
+Dokumen ini memuat daftar lengkap dan hasil audit seluruh **247 modul aturan/artikel perpajakan & kepabeanan** lintas **17 kategori** pada direktori `src/rules/`, disusun berurutan mulai dari **PPh Pasal 21** hingga **Bea Keluar** (79 aturan awal + 48 perluasan pertama + 21 aturan Bagian B + 29 modul pelengkap 2026 & jejak historis + 14 modul aturan terbaru & operasional khusus + 15 modul Poin 1 & 2 + 11 modul penutup celah kategori + 17 modul kategori Bea Masuk + **13 modul kategori Bea Keluar**).
 
 ## Kriteria Penilaian & Konvensi Checkbox
 
@@ -35,7 +35,9 @@ Setiap aturan diaudit pada 5 aspek utama:
 | 13 | BPHTB (`bphtb`) | 8 | 8 | 0 | Pembebasan BPHTB 100% Rumah Pertama MBR Program 3 Juta Rumah (`SKB 3 Menteri Nov 2024` + Perkada). |
 | 14 | PBJT / Pajak Daerah (`pbjt`) | 10 | 10 | 0 | +1 modul Poin 2: Tarif Progresif PKB Maks 6% (`Pasal 10 UU HKPD`) + Opsen 66% & Opsen MBLB Provinsi 25% (`Pasal 83 UU HKPD`). |
 | 15 | Bea Meterai (`bea_meterai`) | 10 | 10 | 0 | +1 modul Poin 2: Dokumen Perdata Non-Nominal (Perjanjian, Pernyataan, Akta Notaris/PPAT) & Alat Bukti Pengadilan (`Pasal 3 UU 10/2020`). |
-| **Total** | **15 Jenis Pajak** | **217** | **217** | **0** | **100% Sesuai (217 modul aturan, rujukan resmi & pengujian unit deterministik terverifikasi per 14 November 2026)** |
+| 16 | Bea Masuk (`bea_masuk`) | 17 | 17 | 0 | BTKI 2022 s.d. Perubahan Ke-4 (`PMK 26/2022`, `PMK 10/2024`, `PMK 62/2025`, `PMK 50/2026`, `PMK 68/2026`), Nilai Pabean (`PMK 144/2022`), FTA/e-SKA (`PMK 35/2023`), Kiriman (`PMK 96/2023 stdd PMK 111/2023 & PMK 4/2025`, `PMK 141/2023`), Penumpang & Awak (`PMK 34/2025`), Barang Pindahan (`PMK 25/2025`), Impor Sementara & Returnable Package (`PMK 178/2017 stdd PMK 106/2019 & PMK 52/2026`), Re-Impor (`PMK 175/2021`), Rush Handling (`PMK 74/2021 stdd PMK 26/2024`), FTZ KPBPB & PLB (`PP 41/2021 stdd PP 25/2025 & PP 23/2026`, `PMK 34/2021`, `PMK 272/2015`), Fasilitas KITE/BKPM/KEK/IKN & Hibah Bencana (`PMK 99/2025`), BMT (`PP 34/2011`), Sanksi Denda SPTNP 10 Jenjang (`PP 39/2019`), serta histori `1873–2025`. |
+| 17 | Bea Keluar (`bea_keluar`) | 13 | 13 | 0 | Pemungutan (`PMK 106/PMK.04/2022`), Sawit/CPO 17 Kolom + POME/HAPOR (`PMK 38/2024 stdd PMK 68/2025`) vs PE BPDP (`PMK 9/2026`) & DBH (`PMK 10/2026`), Emas Progresif (`PMK 80/2025`), Kakao & Getah Pinus 25% (`PMK 68/2025`), Kulit & Kayu Lampiran A (`PMK 38/2024`), Konsentrat Mineral 5%–7,5% & Pengawasan Batubara (`KMK 31/MK/BC/2026`), Sanksi Denda Ekspor 100%–1.000% (`PP 39/2019`), serta histori lengkap `1873–2024` (*Uitvoerrechten* `1873`, Krismon 60% `KMK 334/1998`, PE `PP 35/2005`, `PMK 223/2008`, `PMK 67/2010`, `PMK 128/2011`, `PMK 75/2012`, `PMK 6/2014`, `PMK 13/2017`, `PMK 39/2022`, `PMK 71/2023`). |
+| **Total** | **17 Kategori** | **247** | **247** | **0** | **100% Sesuai (247 modul aturan, rujukan resmi & pengujian unit deterministik terverifikasi per 15 November 2026)** |
 
 ---
 
@@ -1551,4 +1553,222 @@ Setiap aturan diaudit pada 5 aspek utama:
 - **Hasil Verifikasi Pasca-Tambal (`217 Modul / 15 Kategori`)**:
   - Rujukan `PER-11/PJ/2025` yang semula menyebut `Pasal 26` telah dikoreksi menjadi **`Pasal 51–52 & Pasal 123`** baik pada modul aturan maupun antarmuka kalkulator; tipe `presetInput` pada `per1_2023_royalti_nppn.ts` (`'royalti'`) dan `pp17_2009_derivatif.ts` (`'sewa_tanah_bangunan'`) telah diselaraskan dengan ketat terhadap `types/tax.ts`.
   - Pemindaian terotomasi memverifikasi nol artefak format mata uang kecil (`1–999`), seluruh **217/217 modul** memiliki >= 2 sumber resmi `https://` tervalidasi dan `verifiedAt: '14 November 2026'`, serta seluruh **23/23 rangkaian uji** pada `src/rules/rulesAudit.test.ts` lulus 100%.
+
+---
+
+## 16. Bea Masuk (`bea_masuk` — 17 Aturan)
+
+- [x] **16.1 BTKI 2022, Tarif MFN, Sunset EV 0% & Insentif 2026 (PMK 50/2026 – PMK 68/2026)** (`src/rules/bea_masuk/pmk26_2022_btki.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_btki_2022` / `bea-masuk-btki-2022`
+  - **Periode Berlaku**: `1 April 2022 – Sekarang (Perubahan Ke-4 per 9 Okt 2026)`
+  - **`sources`**: `SRC.PMK_26_2022`, `SRC.PMK_10_2024`, `SRC.PMK_62_2025`, `SRC.PMK_50_2026`, `SRC.PMK_68_2026`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Klasifikasi HS/AHTN 2022 8-digit, pembebanan ad valorem vs spesifik, pembentukan Nilai Impor (`CIF + BM`), sunset EV CBU 0% per 31 Desember 2025 (`PMK 62/2025`), serta tambahan skema aktif 2026 (`PMK 50/2026` efektif 28 Juli 2026 untuk MRO pesawat/LPG & `Pasal 4B PMK 68/2026` efektif 9 Oktober 2026 untuk 0% 6 pos HS bahan baku plastik selama 6 bulan) dan rujukan PPh 22 ke `PMK 51/2025` akurat.
+
+- [x] **16.2 Nilai Pabean CIF, Norma Freight/Asuransi & NDPBM** (`src/rules/bea_masuk/pmk144_2022_nilai_pabean.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_nilai_pabean` / `bea-masuk-nilai-pabean-pmk144`
+  - **Periode Berlaku**: `1 Januari 2023 – Sekarang`
+  - **`sources`**: `SRC.PMK_144_2022`, `SRC.PMK_160_2010`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Penetapan Nilai Pabean berbasis CIF x NDPBM, enam hierarki metode penilaian pabean, norma Freight laut tanpa B/L nyata (`5%` ASEAN / `10%` Asia non-ASEAN & Australia / `15%` negara lain sesuai `Pasal 8 PMK 144/2022`), serta norma Asuransi `0,5% x CFR` vs `Rp 0` apabila polis asuransi ditutup sah di dalam Daerah Pabean (`Pasal 9`) akurat.
+
+- [x] **16.3 Tarif Preferensi FTA/CEPA & e-SKA/DAB** (`src/rules/bea_masuk/pmk35_2023_fta_ska.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_fta_ska` / `bea-masuk-fta-ska-pmk35`
+  - **Periode Berlaku**: `28 April 2023 – Sekarang`
+  - **`sources`**: `SRC.PMK_35_2023`, `SRC.PMK_229_2017`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Prosedur digital permanen penyerahan e-Form/e-SKA & Deklarasi Asal Barang (DAB) melalui SINSW (`PMK 35/2023`), pemenuhan Origin Criteria & Direct Consignment, penghematan tarif preferensi 0%–5% vs fallback otomatis ke tarif umum MFN saat e-SKA ditolak akurat.
+
+- [x] **16.4 Barang Kiriman, 8 Komoditas Khusus, Jemaah Haji & PMI** (`src/rules/bea_masuk/pmk96_2023_kiriman.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_kiriman_2025` / `bea-masuk-kiriman-pmk4-2025`
+  - **Periode Berlaku**: `5 Maret 2025 – Sekarang`
+  - **`sources`**: `SRC.PMK_4_2025`, `SRC.PMK_111_2023`, `SRC.PMK_96_2023`, `SRC.PMK_141_2023`, `SRC.PP_49_2022`
+  - **Hasil Audit**: Perubahan pertama `PMK 111/2023` dan perubahan kedua `PMK 4/2025` terpasang akurat, lengkap dengan opsi `pmi_tercatat_500` (3x/tahun USD 500), `pmi_tidak_tercatat_500` (1x/tahun USD 500 di bawah `PMK 141/2023`), kiriman Jemaah Haji 2x USD 1.500, serta pembebasan PPN buku khusus HS 4901–4904 (`PP 49/2022`).
+
+- [x] **16.5 Barang Bawaan Penumpang, Awak & Non-Pribadi/Jastip** (`src/rules/bea_masuk/pmk34_2025_penumpang.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_penumpang` / `bea-masuk-penumpang-pmk34-2025`
+  - **Periode Berlaku**: `6 Juni 2025 – Sekarang`
+  - **`sources`**: `SRC.PMK_34_2025`, `SRC.PMK_203_2017`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Pembebasan barang pribadi penumpang (`USD 500`), Awak Sarana Pengangkut (`USD 50`), barang non-pribadi/jastip di bawah `PMK 34/2025` dengan **Bea Masuk flat 10% + PPN 11% + PPh Pasal 22 sebesar 5%** (atau **10%** bila tanpa NPWP), serta fasilitas Haji Reguler vs Haji Khusus (`USD 2.500`) terverifikasi akurat.
+
+- [x] **16.6 Impor Barang Pindahan WNI/WNA & Eksklusi Kendaraan** (`src/rules/bea_masuk/pmk25_2025_barang_pindahan.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_barang_pindahan` / `bea-masuk-barang-pindahan-pmk25-2025`
+  - **Periode Berlaku**: `27 Juni 2025 – Sekarang`
+  - **`sources`**: `SRC.PMK_25_2025`, `SRC.PMK_28_2008`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Aturan Barang Pindahan (`PMK 25/2025` mencabut `PMK 28/PMK.04/2008`), pembebasan 0% BM + tidak dipungut PPN & bebas PPh 22 untuk barang rumah tangga bekas (>= 12 bulan tinggal di LN, tiba <= 90 hari sebelum/sesudah kedatangan, PIBK CEISA 4.0) vs tarif MFN penuh untuk barang eksklusi `Pasal 2 ayat (4)` (kendaraan bermotor, suku cadang, kapal/pesawat, BKC) akurat.
+
+- [x] **16.7 Impor Sementara (2%/Bln), Gagal Re-Ekspor & Returnable Package** (`src/rules/bea_masuk/pmk178_2017_impor_sementara.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_impor_sementara` / `bea-masuk-impor-sementara-pmk178`
+  - **Periode Berlaku**: `1 Januari 2018 – Sekarang (Returnable Package 29 Sep 2026)`
+  - **`sources`**: `SRC.PMK_178_2017`, `SRC.PMK_106_2019`, `SRC.PMK_52_2026`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Pembebasan 100% + jaminan BM & PDRI vs Keringanan `2% x bulan (1–36) x BM seharusnya` + kewajiban PPN penuh & jaminan sisa BM (`PMK 178/2017` stdd `PMK 106/2019`), fasilitas **Returnable Package** bebas BM & PDRI (`PMK 52/2026` efektif 29 September 2026), serta sanksi gagal ekspor kembali berupa pelunasan sisa BM/PDRI + denda **100% dari BM seharusnya** akurat.
+
+- [x] **16.8 Impor Kembali / Re-Impor Kualitas Sama (0%) vs Perbaikan LN** (`src/rules/bea_masuk/pmk175_2021_reimpor.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_reimpor` / `bea-masuk-reimpor-pmk175-2021`
+  - **Periode Berlaku**: `4 Februari 2022 – Sekarang`
+  - **`sources`**: `SRC.PMK_175_2021`, `SRC.PMK_106_2007`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Pembebasan penuh BM 0% & tidak dipungut PDRI untuk re-impor kualitas sama/pengujian oleh eksportir yang sama <= 2 tahun, rumus khusus re-impor perbaikan/pengerjaan LN berupa `(bagian pengganti + ongkos perbaikan + freight + asuransi) x tarif BM barang jadi` + PDRI atas nilai tambahnya saja, serta gugurnya fasilitas bila melewati 2 tahun (`PMK 175/PMK.04/2021` mencabut `PMK 106/PMK.04/2007`) terverifikasi akurat.
+
+- [x] **16.9 Pelayanan Segera / Rush Handling, Jaminan 7 Hari & Denda 10%** (`src/rules/bea_masuk/pmk74_2021_rush_handling.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_rush_handling` / `bea-masuk-rush-handling-pmk26-2024`
+  - **Periode Berlaku**: `29 Mei 2024 – Sekarang (PMK 74/2021 sejak 2021)`
+  - **`sources`**: `SRC.PMK_26_2024`, `SRC.PMK_74_2021`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Cakupan 10 barang peka waktu (`PMK 74/PMK.04/2021` stdd `PMK 26/2024`), kewajiban jaminan minimal `(BM + PPN + PPh 22)` sebelum SPPB, batas waktu penyelesaian PIB/pelunasan **7 hari**, serta pencairan jaminan + sanksi **denda 10% dari BM** + pembekuan layanan **60 hari** bila melewati 7 hari terverifikasi akurat.
+
+- [x] **16.10 Kawasan Bebas / KPBPB (FTZ) & Pusat Logistik Berikat** (`src/rules/bea_masuk/pp41_2021_ftz_plb.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_ftz_plb` / `bea-masuk-ftz-plb-pp41-2021`
+  - **Periode Berlaku**: `19 Februari 2021 – Sekarang (PLB sejak 2015)`
+  - **`sources`**: `SRC.PP_41_2021`, `SRC.PP_25_2025`, `SRC.PP_23_2026`, `SRC.PMK_34_2021`, `SRC.PMK_272_2015`, `SRC.PMK_28_2018`
+  - **Hasil Audit**: Pemasukan bebas 0% ke KPBPB (`Batam–Bintan–Karimun–Sabang`) via `PPFTZ-01`, pengeluaran hasil manufaktur ke TLDDP memakai konversi proporsi bahan baku impor asal luar Daerah Pabean + PPN 11% & PPh 22 (`PMK 34/2021`), pengeluaran barang asal LN penuh MFN, serta penangguhan hingga 3 tahun di PLB (`PMK 272/2015` stdd `PMK 28/2018`) akurat.
+
+- [x] **16.11 Fasilitas Pembebasan & Penangguhan Bea Masuk (Pasal 25–26, PMK 99/2025, BKPM, KITE & KB/KEK/IKN)** (`src/rules/bea_masuk/fasilitas_pembebasan_kite.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_fasilitas` / `bea-masuk-fasilitas-kite-bkpm`
+  - **Periode Berlaku**: `16 November 2009 – Sekarang (Hibah PMK 99/2025 Berlaku 27 Feb 2026)`
+  - **`sources`**: `SRC.PMK_99_2025`, `SRC.PMK_149_2022`, `SRC.PMK_145_2022`, `SRC.PMK_176_2009`, `SRC.PMK_188_2015`, `SRC.PMK_131_2018`, `SRC.PP_40_2021`, `SRC.PMK_28_2024`
+  - **Hasil Audit**: Pembedaan pembebasan mutlak `Pasal 25`, hadiah/hibah ibadah, amal, sosial, kebudayaan & bencana alam terpadu via DJBC/SINSW (`PMK 99/2025` berlaku **27 Februari 2026** mencabut `PMK 69–70/2012`), Masterlist BKPM `PMK 176/2009` stdd `PMK 188/2015` (mesin/bahan baku 2 tahun), `KITE Pembebasan PMK 149/2022`, `KITE Pengembalian PMK 145/2022`, serta Kawasan Berikat/KEK/IKN akurat.
+
+- [x] **16.12 Bea Masuk Tambahan / Trade Remedies (BMAD, BMI, BMTP)** (`src/rules/bea_masuk/pp34_2011_bmt.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_bmt_pp34` / `bea-masuk-bmt-pp34-2011`
+  - **Periode Berlaku**: `4 Juli 2011 – Sekarang`
+  - **`sources`**: `SRC.PP_34_2011`, `SRC.UU_17_2006`, `SRC.PMK_26_2022`
+  - **Hasil Audit**: Pemisahan instrumen BMAD (antidumping — KADI), BMI (imbalan subsidi), dan BMTP (safeguard — KPPI) sesuai `Pasal 18–23D UU Kepabeanan` jo. `PP 34/2011`, sifat pengenaan kumulatif di atas tarif dasar/FTA 0%, dan penambahan nilai BMT ke dalam Nilai Impor akurat.
+
+- [x] **16.13 Sanksi Denda SPTNP/SPKTNP 10 Jenjang (100% s.d. 1.000%)** (`src/rules/bea_masuk/pp39_2019_sanksi_sptnp.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_sanksi_sptnp` / `bea-masuk-sanksi-sptnp-pp39-2019`
+  - **Periode Berlaku**: `15 Juli 2019 – Sekarang`
+  - **`sources`**: `SRC.PP_39_2019`, `SRC.PP_28_2008`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Penghitungan tepat seluruh **10 lapis denda berprogresif** `Pasal 6 ayat (1) PP 39/2019` (`100%, 125%, 150%, 175%, 200%, 225%, 250%, 300%, 600%, 1.000%`) berdasarkan rasio `(kurang bayar BM / BM telah dibayar) x 100%`, penanganan `BM dibayar awal = Rp 0` (`>450% -> 1.000%`), dan pengecualian denda atas penetapan murni perbedaan tarif/klasifikasi pos HS (`Pasal 16 ayat (4) UU Kepabeanan`) terverifikasi 10/10 jenjang.
+
+- [x] **16.14 Historis Ambang De Minimis Barang Kiriman ($50 -> $100 -> $75 -> $3)** (`src/rules/bea_masuk/pmk199_2019_kiriman_historis.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_kiriman_historis` / `bea-masuk-kiriman-historis-2010-2025`
+  - **Periode Berlaku**: `1 Januari 2011 – 4 Maret 2025`
+  - **`sources`**: `SRC.PMK_199_2019`, `SRC.PMK_112_2018`, `SRC.PMK_182_2016`, `SRC.PMK_188_2010`
+  - **Hasil Audit**: Rekonstruksi historis batas bebas USD 50 (`PMK 188/2010`), USD 100 penuh (`PMK 182/2016`), USD 75/hari (`PMK 112/2018`), hingga pemangkasan USD 3 (`PMK 199/2019`) beserta perlakuan khusus era `PMK 199/2019` yang mengecualikan tas/sepatu/tekstil dari batas USD 3 akurat.
+
+- [x] **16.15 Historis BTKI 2012 (10 Digit) & BTKI 2017 (8 Digit)** (`src/rules/bea_masuk/pmk213_2011_btki_lama.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_btki_2012_2017` / `bea-masuk-btki-2012-2017`
+  - **Periode Berlaku**: `1 Januari 2012 – 31 Maret 2022`
+  - **`sources`**: `SRC.PMK_213_2011`, `SRC.PMK_6_2017`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Rantai nomenklatur HS/AHTN 2012 (10 digit pada `PMK 213/2011`) hingga perampingan kembali ke 8 digit pada BTKI 2017 (`PMK 6/2017`) serta konteks PPN Impor 10% sebelum UU HPP akurat.
+
+- [x] **16.16 Historis UU 10/1995, UU 17/2006 & Era BTBMI** (`src/rules/bea_masuk/uu10_1995_btbmi.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_btbmi_uu10_1995` / `bea-masuk-uu10-1995-btbmi`
+  - **Periode Berlaku**: `1 April 1996 – 31 Desember 2011`
+  - **`sources`**: `SRC.UU_10_1995`, `SRC.UU_17_2006`, `SRC.KMK_545_2003`, `SRC.PMK_110_2006`
+  - **Hasil Audit**: Mulai berlakunya `UU 10/1995` pada 1 April 1996 (`Pasal 118`), sistem self-assessment PIB, plafon tarif umum 40% (`Pasal 12`), penguatan pengawasan di `UU 17/2006`, serta adopsi AHTN/HS dalam era BTBMI (`KMK 545/2003` & `PMK 110/2006`) akurat.
+
+- [x] **16.17 Era Kolonial & Pra-UU Kepabeanan (Indische Tariefwet 1873 – PP 6/1969)** (`src/rules/bea_masuk/ordonansi_bea_pra1996.ts`)
+  - **Regime ID / Article ID**: `bea_masuk_pra1996` / `bea-masuk-ordonansi-pra1996`
+  - **Periode Berlaku**: `1873 – 31 Maret 1996`
+  - **`sources`**: `SRC.PP_6_1969`, `SRC.PP_26_1988`, `SRC.UU_10_1995`
+  - **Hasil Audit**: Rujukan hukum kolonial (*Indische Tariefwet 1873* `Stb. 1873/35`, *Rechten Ordonnantie 1882* `Stb. 1882/240`, *Tarief Ordonnantie 1910* `Stb. 1910/628`) dan penataan tarif nasional `PP 6/1969` (`PP 35/1977`, `PP 26/1988`) sebelum dicabut oleh `Pasal 117 UU 10/1995` pada 1 April 1996 akurat.
+
+---
+
+## Audit Final Penuntasan Kategori Bea Masuk (15 -> 17 Modul, Total 234 Modul / 16 Kategori, Per 15 November 2026) — Selesai
+
+- [x] **Pembaruan 2 Modul Eksisting Bea Masuk ke Posisi Regulasi 15 November 2026**:
+  1. **`pmk26_2022_btki.ts`**: Ditambahkan perubahan ke-3 **`PMK 50/2026`** (efektif 28 Juli 2026: BM 0% industri MRO pesawat udara & LPG petrokimia) dan perubahan ke-4 **`PMK 68/2026`** (efektif 9 Oktober 2026: `Pasal 4B` BM 0% selama 6 bulan atas 6 pos HS bahan baku plastik), opsi `insentif_2026_pmk50_68`, serta pembaruan rujukan PPh 22 Impor menjadi **`PMK 51/2025`**.
+  2. **`fasilitas_pembebasan_kite.ts`**: Ditambahkan **`PMK 99 Tahun 2025`** (berlaku 27 Februari 2026, mencabut `PMK 69–70/2012`) beserta opsi interaktif `hibah_bencana_pmk99_2025` untuk pembebasan BM & Cukai hadiah/hibah ibadah, sosial, kebudayaan, dan penanggulangan bencana alam via DJBC/SINSW.
+- [x] **Penambahan 2 Rezim Operasional Bea Masuk yang Belum Tercakup (`+2 -> 17 Modul`)**:
+  1. `bea_masuk_reimpor` (`src/rules/bea_masuk/pmk175_2021_reimpor.ts`) — Impor Kembali / Re-Impor `PMK 175/PMK.04/2021` (mencabut `PMK 106/PMK.04/2007`): kualitas sama/pengujian <= 2 tahun oleh eksportir sama bebas 0% BM & PDRI, rumus khusus pasca-perbaikan LN (`(bagian pengganti + jasa + freight + asuransi) x tarif BM barang jadi`), dan MFN penuh jika lewat 2 tahun.
+  2. `bea_masuk_rush_handling` (`src/rules/bea_masuk/pmk74_2021_rush_handling.ts`) — Pelayanan Segera / *Rush Handling* `PMK 74/PMK.04/2021` stdd `PMK 26 Tahun 2024`: 10 jenis barang peka waktu, jaminan minimal `BM + PDRI`, batas penyelesaian PIB 7 hari, serta pencairan jaminan + sanksi denda 10% BM + blokir layanan 60 hari bila terlambat.
+- [x] **Verifikasi Akhir Penuh (`234 Modul / 16 Kategori`)**:
+  - Seluruh **234 modul aturan & artikel**, seluruh sumber resmi `https://` (`src/rules/sources.ts`), seluruh 24 rangkaian unit test (`npx --yes tsx --test src/rules/rulesAudit.test.ts`), kompilasi produksi, TypeScript lint, dan pengujian antarmuka peramban Chromium terverifikasi lulus 100%.
+
+---
+
+## 17. Bea Keluar (`bea_keluar` — 13 Aturan)
+
+- [x] **17.1 Mekanisme Pemungutan Bea Keluar, Rumus Ad Valorem vs Spesifik, & Pengecualian (`PMK 106/PMK.04/2022`)** (`src/rules/bea_keluar/pmk106_2022_pemungutan.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_pemungutan_pmk106` / `bea-keluar-pemungutan-pmk106-2022`
+  - **Periode Berlaku**: `22 Juli 2022 – Sekarang`
+  - **`sources`**: `SRC.PMK_106_2022_BK`, `SRC.PP_55_2008`, `SRC.UU_17_2006`, `SRC.PMK_214_2008`
+  - **Hasil Audit**: Diundangkan 22 Juni 2022 (`BNRI 2022/620`) dan efektif 30 hari kemudian (**22 Juli 2022**), mencabut `PMK 214/PMK.04/2008` beserta perubahannya (`PMK 146/2014`, `PMK 86/2016`). Rumus *ad valorem* (`Tarif % x Jumlah Satuan x HPE x Kurs NDPBM`), rumus spesifik (`Tarif USD/MT x Jumlah Satuan x Kurs NDPBM`), pengecualian diplomasi/pameran/bawaan penumpang, serta penetapan pejabat 30 hari akurat.
+
+- [x] **17.2 Bea Keluar Kelapa Sawit, CPO, Turunan & POME/HAPOR (`PMK 38/2024 stdd PMK 68/2025`) vs PE BPDP (`PMK 9/2026`)** (`src/rules/bea_keluar/pmk38_2024_sawit_cpo.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_cpo_sawit` / `bea-keluar-cpo-sawit-pmk38-pmk68-2025`
+  - **Periode Berlaku**: `3 Juni 2024 – Sekarang (POME/HAPOR 22 Okt 2025; PE BPDP 1 Mar 2026)`
+  - **`sources`**: `SRC.PMK_38_2024`, `SRC.PMK_68_2025`, `SRC.PMK_9_2026`, `SRC.PMK_10_2026_DBH`, `SRC.PMK_106_2022_BK`
+  - **Hasil Audit**: Lampiran C 13 kolom harga referensi CPO (CPO USD 0 s.d. USD 288/MT sejak `PMK 38/2024` efektif 3 Juni 2024), perluasan Lampiran C kepada POME & HAPOR/PAO sejak **22 Oktober 2025** (`PMK 68/2025`), tarif opsional Pungutan Ekspor BLU BPDP sesuai **`PMK 9 Tahun 2026`** efektif **1 Maret 2026** (12,5% CPO/POME/HAPOR, 10% RBD Curah, 7,25% kemasan <= 25 kg & FAME), serta sinkronisasi **`PMK 10/2026`** akurat.
+
+- [x] **17.3 Bea Keluar Ekspor Emas: Dore, Granules, Cast Bars & Minted Bars (`PMK 80 Tahun 2025`)** (`src/rules/bea_keluar/pmk80_2025_emas.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_emas_pmk80` / `bea-keluar-emas-pmk80-2025`
+  - **Periode Berlaku**: `23 Desember 2025 – Sekarang (Diundangkan 9 Des 2025)`
+  - **`sources`**: `SRC.PMK_80_2025`, `SRC.PMK_106_2022_BK`, `SRC.PP_55_2008`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Diundangkan 9 Desember 2025 dan berlaku efektif 14 hari kemudian (**23 Desember 2025**). Dua layer Harga Referensi Kemendag (Layer 1: `USD 2.800 – < 3.200/troy oz`; Layer 2: `>= USD 3.200/troy oz`) dengan skema progresif 4 tingkat hilirisasi emas (*Dore* 12,5%/15%, *Granules* 10%/12,5%, *Cast Bars* 7,5%/10%, *Minted Bars* 7,5%/10%) serta konversi akurat `1 kg = 32,1507466 troy oz` dan tampilan hasil USD akurat.
+
+- [x] **17.4 Bea Keluar Biji Kakao (Penurunan Tarif 2025) & Getah Pinus 25% (`PMK 68 Tahun 2025`)** (`src/rules/bea_keluar/pmk68_2025_kakao_pinus.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_kakao_pinus` / `bea-keluar-kakao-getah-pinus-pmk68-2025`
+  - **Periode Berlaku**: `22 Oktober 2025 – Sekarang (PMK 38/2024 sejak 3 Jun 2024)`
+  - **`sources`**: `SRC.PMK_68_2025`, `SRC.PMK_38_2024`, `SRC.PMK_9_2026`, `SRC.PMK_106_2022_BK`
+  - **Hasil Audit**: Efektif **22 Oktober 2025** menurunkan tarif BK biji kakao dari rezim `PMK 38/2024` (0%/5%/10%/15%) menjadi 4 lapisan baru (0% <= USD 2.000/MT, 2,5% >2.000–2.750, 5% >2.750–3.500, 7,5% > USD 3.500/MT), pengenaan BK Getah Pinus 25% ad valorem, serta konteks Pungutan Ekspor kakao `PMK 9/2026` akurat.
+
+- [x] **17.5 Bea Keluar Produk Kulit, Veneer, Serpih Kayu, dan Kayu Olahan (`Lampiran A PMK 38/2024`)** (`src/rules/bea_keluar/pmk38_2024_kulit_kayu.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_kulit_kayu` / `bea-keluar-kulit-kayu-pmk38-2024`
+  - **Periode Berlaku**: `3 Juni 2024 – Sekarang`
+  - **`sources`**: `SRC.PMK_38_2024`, `SRC.PMK_39_2022`, `SRC.PMK_106_2022_BK`
+  - **Hasil Audit**: Pemetaan 8 kategori utama Lampiran A `PMK 38/2024` (kulit *wet blue* & samak 15%–25%, veneer 5%, *wood chips* 5%, kayu olahan merbau/non-S4S/E2E 2%–15%, serta balsa/karet/jabon/sengon/E4E 2%–10%) tervalidasi lengkap.
+
+- [x] **17.6 Bea Keluar Konsentrat Mineral Logam (`PMK 38/2024`) & Posisi Regulasi Batubara 2026** (`src/rules/bea_keluar/pmk38_2024_mineral_logam.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_mineral_2024` / `bea-keluar-mineral-logam-pmk38-2024`
+  - **Periode Berlaku**: `3 Juni 2024 – Sekarang`
+  - **`sources`**: `SRC.PMK_38_2024`, `SRC.PMK_71_2023`, `SRC.KMK_31_MK_BC_2026`, `SRC.PMK_106_2022_BK`
+  - **Hasil Audit**: Tarif datar *post-smelter* `PMK 38/2024` Lampiran B (konsentrat tembaga >= 15% Cu 7,5%, besi >= 62% Fe 5%, timbal >= 56% Pb 7,5%, seng >= 51% Zn 5%, lumpur anoda 7,5% dengan syarat IUPK/izin ekspor ESDM) serta posisi objektif batubara 2026 yang **tidak dikenai Bea Keluar 0%** dalam `PMK 38/2024` jo. `PMK 68/2025` & `PMK 80/2025` akurat.
+
+- [x] **17.7 Sanksi Denda Progresif Kurang Bayar Bea Keluar 100% s.d. 1.000% & Penetapan Kembali (`PP 39/2019`)** (`src/rules/bea_keluar/pp39_2019_sanksi_ekspor.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_sanksi_pp39` / `bea-keluar-sanksi-denda-pp39-2019`
+  - **Periode Berlaku**: `15 Juli 2019 – Sekarang`
+  - **`sources`**: `SRC.PP_39_2019`, `SRC.PP_28_2008`, `SRC.PMK_106_2022_BK`, `SRC.UU_17_2006`
+  - **Hasil Audit**: Skala 10 jenjang denda administratif `PP 39/2019` (amandemen `PP 28/2008`) mulai 100% untuk deviasi kekurangan <= 25% hingga 1.000% untuk deviasi > 250%, denda tetap administratif PEB/pembatalan ekspor, dan mekanisme penetapan kembali Dirjen Bea dan Cukai (SPPBK/SPKPBM 2 tahun) akurat.
+
+- [x] **17.8 Historis Era HS 2022, Flush Out Sawit & Progres Smelter 50%+ (`PMK 39/2022 stdd PMK 71/2023`)** (`src/rules/bea_keluar/pmk39_2022_pmk71_2023_smelter.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_smelter_2022_2023` / `bea-keluar-smelter-pmk39-2022-pmk71-2023`
+  - **Periode Berlaku**: `1 April 2022 – 2 Juni 2024`
+  - **`sources`**: `SRC.PMK_39_2022`, `SRC.PMK_98_2022`, `SRC.PMK_123_2022`, `SRC.PMK_71_2023`
+  - **Hasil Audit**: Rantai amendemen BTKI 2022 (`PMK 39/2022` eff. **1 April 2022**), kebijakan *flush out* sawit USD 200/MT + kenaikan BK CPO ke USD 288/MT (`PMK 98/2022` eff. **10 Juni 2022**), penyesuaian ambang batas bawah CPO ke USD 680/MT (`PMK 123/2022` eff. **9 Agustus 2022**), dan jadwal progres smelter >= 50% bertingkat dua periode hingga Juni 2024 (`PMK 71/2023` eff. **17 Juli 2023**) akurat.
+
+- [x] **17.9 Historis Era BTKI 2017 & Tarif Insentif Smelter 0%–7,5% (`PMK 13/PMK.010/2017`)** (`src/rules/bea_keluar/pmk13_2017_hilirisasi_smelter.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_smelter_2017_2022` / `bea-keluar-smelter-pmk13-2017`
+  - **Periode Berlaku**: `10 Februari 2017 – 31 Maret 2022`
+  - **`sources`**: `SRC.PMK_13_2017`, `SRC.PMK_6_2014`, `SRC.PMK_39_2022`
+  - **Hasil Audit**: Efektif **10 Februari 2017** mengakhiri tarif punitif `PMK 6/2014` dan menggantinya dengan insentif progres pembangunan smelter berbasis 4 kurva fisik: `<= 30%` (tarif 7,5%), `> 30% – 50%` (tarif 5%), `> 50% – 75%` (tarif 2,5%), dan `> 75%` (bebas 0%) selaras `BTKI 2017` akurat.
+
+- [x] **17.10 Historis Era Transisi UU Minerba & Tarif Progresif 20%–60% (`PMK 75/2012 – PMK 6/2014`)** (`src/rules/bea_keluar/pmk75_2012_pmk6_2014_minerba.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_minerba_2012_2017` / `bea-keluar-minerba-pmk75-2012-pmk6-2014`
+  - **Periode Berlaku**: `16 Mei 2012 – 9 Februari 2017`
+  - **`sources`**: `SRC.PMK_75_2012`, `SRC.PMK_6_2014`, `SRC.PMK_13_2017`
+  - **Hasil Audit**: Masa bijih mentah datar 20% (`PMK 75/2012` eff. **16 Mei 2012**), larangan ekspor bijih mentah **12 Januari 2014**, dan eskalasi tarif konsentrat berbasis semester pada `PMK 6/2014` eff. **11 Januari 2014** (Tembaga `25% -> 35% -> 40% -> 50% -> 60%`; Besi/Timbal/Seng/Mangan `20% -> 30% -> 40% -> 50% -> 60%`) akurat.
+
+- [x] **17.11 Historis Kodifikasi Awal Bea Keluar: Rotan, Kakao & CPO 12 Lapis (`PMK 223/2008 – PMK 128/2011`)** (`src/rules/bea_keluar/pmk223_2008_pmk67_2010_awal.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_awal_2008_2012` / `bea-keluar-kodifikasi-awal-2008-2012`
+  - **Periode Berlaku**: `11 September 2008 – 15 Mei 2012 (PMK 223 efektif 1 Jan 2009)`
+  - **`sources`**: `SRC.PMK_223_2008`, `SRC.PMK_67_2010`, `SRC.PMK_128_2011`, `SRC.PP_55_2008`
+  - **Hasil Audit**: Pemberlakuan `PP 55/2008` pada **11 September 2008**, kodifikasi awal 4 kelompok barang pada `PMK 223/2008` eff. **1 Januari 2009**, masuknya biji kakao `PMK 67/2010` eff. **1 April 2010** berbasis harga CIF NYBOT/ICE New York (0%/5%/10%/15%), dan penataan 12 lapisan ad valorem CPO `PMK 128/2011` eff. **15 Agustus 2011** akurat.
+
+- [x] **17.12 Era Transisi "Pungutan Ekspor" (`PP Nomor 35 Tahun 2005` & `KEP-557/KMK.04/2002`)** (`src/rules/bea_keluar/pp35_2005_pungutan_ekspor.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_pe_pp35_2005` / `bea-keluar-pungutan-ekspor-pp35-2005`
+  - **Periode Berlaku**: `10 September 2005 – 10 September 2008`
+  - **`sources`**: `SRC.PP_35_2005`, `SRC.PP_55_2008`, `SRC.KEP_557_2002`, `SRC.UU_10_1995`
+  - **Hasil Audit**: Pemisahan rezim masa transisi "Pungutan Ekspor" di bawah `PP 35/2005` (berlaku 10 September 2005) bersama tata cara `KEP-557/KMK.04/2002` s.d. berlakunya `PP 55/2008` pada 11 September 2008 yang mengganti nomenklatur menjadi "Bea Keluar" amanat `UU 17/2006` akurat.
+
+- [x] **17.13 Era Kolonial (*Uitvoerrechten* 1873), Orde Baru & Krisis 1998 (`KMK 241/334/567`)** (`src/rules/bea_keluar/kmk241_1998_pe_pra2005.ts`)
+  - **Regime ID / Article ID**: `bea_keluar_pra2005_historis` / `bea-keluar-historis-pra2005`
+  - **Periode Berlaku**: `1873 – 9 September 2005`
+  - **`sources`**: `SRC.PP_1_1982`, `SRC.KMK_241_1998`, `SRC.KMK_334_1998`, `SRC.KMK_567_1999`
+  - **Hasil Audit**: Rantai historis *Uitvoerrechten* `Stb. 1873/35` & *Ordonnantie* 1882, tata niaga devisa ekspor Pajak Ekspor `PP 1/1982`, lonjakan tarif darurat CPO/turunan sawit 40% (`KMK 241/1998`) hingga 60% saat krisis moneter Juli 1998 (`KMK 334/1998`), serta normalisasi bertahap `KMK 567/1999` akurat.
+
+---
+
+## Audit Final Penambahan & Validasi Kategori Bea Keluar (`+13 Modul`, Total `247 Modul / 17 Kategori`, Per 15 November 2026) — Selesai
+
+- [x] **Cakupan Kronologis Lengkap Bea Keluar (`1873 – 15 November 2026`, `13 Modul`)**:
+  - **Era Berlaku Saat Ini (`6 Modul`)**: `bea_keluar_pemungutan_pmk106` (`PMK 106/PMK.04/2022`), `bea_keluar_cpo_sawit` (`PMK 38/2024` stdd `PMK 68/2025` + opsi PE BPDP `PMK 9/2026`), `bea_keluar_emas_pmk80` (`PMK 80/2025`), `bea_keluar_kakao_pinus` (`PMK 68/2025`), `bea_keluar_kulit_kayu` (`PMK 38/2024` Lampiran A), `bea_keluar_mineral_2024` (`PMK 38/2024` Lampiran B & status 0% batubara 2026).
+  - **Sanksi & Penetapan (`1 Modul`)**: `bea_keluar_sanksi_pp39` (`PP 39/2019` denda 100%–1.000%).
+  - **Rantai Historis Utuh (`6 Modul`)**: `PMK 39/2022–71/2023`, `PMK 13/2017`, `PMK 75/2012–6/2014`, `PMK 223/2008–128/2011`, `PP 35/2005`, dan era pra-2005 (*Uitvoerrechten* 1873 – `KMK 241/334/567`).
+- [x] **Cross-Check Ulang Akurasi Tanggal, Tarif, Rumus, Tampilan USD, & Sumber**:
+  - Seluruh tanggal efektif telah diverifikasi langsung terhadap naskah JDIH Kemenkeu / BPK / Bea Cukai (`PMK 106/2022` = 22 Juli 2022; `PP 55/2008` = 11 September 2008; `PMK 6/2014` = 11 Januari 2014; `PMK 9/2026` = 1 Maret 2026; `PMK 80/2025` = 23 Desember 2025).
+  - Menambahkan `annualTaxDisplay?: string` pada `CalculationResult` dan UI kalkulator agar nilai ekuivalen `USD ...` tidak pernah terformat dengan awalan `"Rp "`.
+- [x] **Verifikasi Akhir Penuh (`247 Modul / 17 Kategori`)**:
+  - Seluruh **247 modul aturan & artikel**, seluruh URL resmi `https://` (`src/rules/sources.ts`), 25 rangkaian unit test (`npx --yes tsx --test src/rules/rulesAudit.test.ts`), kompilasi produksi, TypeScript lint, dan pengujian interaktif peramban Chromium terverifikasi lulus 100%.
+
+
+
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   ChevronDown,
@@ -123,6 +123,21 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
   onChangeInput,
 }) => {
   const [showDetailedSteps, setShowDetailedSteps] = useState<boolean>(true);
+  const tablistRef = useRef<HTMLDivElement | null>(null);
+  const activeTabRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const list = tablistRef.current;
+    const tab = activeTabRef.current;
+    if (!list || !tab) return;
+    const listLeft = list.scrollLeft;
+    const listWidth = list.clientWidth;
+    const tabLeft = tab.offsetLeft - list.offsetLeft;
+    const tabRight = tabLeft + tab.offsetWidth;
+    if (tabLeft < listLeft || tabRight > listLeft + listWidth) {
+      list.scrollTo({ left: Math.max(0, tabLeft - (listWidth - tab.offsetWidth) / 2), behavior: 'auto' });
+    }
+  }, [activeTaxType]);
 
   const availableRegimes = useMemo(
     () => TAX_REGIMES.filter((r) => r.taxType === activeTaxType),
@@ -165,6 +180,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
 
       {/* Tax Type Selector Tabs */}
       <div
+        ref={tablistRef}
         role="tablist"
         aria-label="Pilih jenis pajak"
         className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto table-scroll py-4 border-b border-[#5E706F]/25"
@@ -174,6 +190,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
           return (
             <button
               key={cat.id}
+              ref={isActive ? activeTabRef : undefined}
               role="tab"
               aria-selected={isActive}
               type="button"
@@ -6933,6 +6950,1736 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
               </>
             )}
 
+            {activeTaxType === 'bea_masuk' && (
+              <>
+                {['bea_masuk_nilai_pabean', 'bea_masuk_kiriman_2025', 'bea_masuk_penumpang', 'bea_masuk_kiriman_historis'].includes(regimeId) ? (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-nilai-usd"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        {regimeId === 'bea_masuk_nilai_pabean'
+                          ? 'Nilai Transaksi FOB / CIF (USD)'
+                          : regimeId === 'bea_masuk_penumpang'
+                            ? 'Nilai Barang Bawaan Penumpang (FOB USD)'
+                            : 'Nilai Pabean Barang Kiriman (USD)'}
+                      </label>
+                      <input
+                        id="bm-nilai-usd"
+                        type="number"
+                        min={0}
+                        step="any"
+                        value={calcInput.bea_masuk.nilaiFobUsd ?? 0}
+                        onChange={(e) => {
+                          const raw = Number(e.target.value);
+                          const clean = Number.isNaN(raw) ? 0 : Math.max(0, raw);
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: { ...prev.bea_masuk, nilaiFobUsd: clean },
+                          }));
+                        }}
+                        className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      />
+                    </div>
+                    <CurrencyInput
+                      id="bm-ndpbm"
+                      label="Kurs Pajak NDPBM per 1 USD (KMK Mingguan)"
+                      value={calcInput.bea_masuk.ndpbmKurs ?? 16000}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: { ...prev.bea_masuk, ndpbmKurs: val },
+                        }))
+                      }
+                      helperText="Nilai Dasar Penghitungan Bea Masuk mengikuti Kurs Pajak mingguan Kemenkeu saat PIB/CN/e-CD diajukan."
+                    />
+                  </>
+                ) : regimeId !== 'bea_masuk_sanksi_sptnp' &&
+                  !(regimeId === 'bea_masuk_reimpor' && (calcInput.bea_masuk.skemaReimpor ?? 'kualitas_sama_bebas') === 'perbaikan_pengerjaan_ln') ? (
+                  <CurrencyInput
+                    id="bm-nilai-pabean-idr"
+                    label={
+                      regimeId === 'bea_masuk_ftz_plb'
+                        ? 'Nilai Pabean / Nilai Penyerahan Barang (Rp)'
+                        : 'Nilai Pabean (CIF dalam Rupiah)'
+                    }
+                    value={calcInput.bea_masuk.nilaiPabeanIdr}
+                    onChange={(val) =>
+                      onChangeInput((prev) => ({
+                        ...prev,
+                        bea_masuk: { ...prev.bea_masuk, nilaiPabeanIdr: val },
+                      }))
+                    }
+                    helperText="Cost + Insurance + Freight dikonversi ke Rupiah dengan kurs NDPBM."
+                  />
+                ) : null}
+
+                {regimeId === 'bea_masuk_btki_2022' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-skema-btki"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Jenis Pembebanan Pos Tarif (BTKI 2022 / PMK 68/2026)
+                      </label>
+                      <select
+                        id="bm-skema-btki"
+                        value={calcInput.bea_masuk.skemaBtki ?? 'ad_valorem'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              skemaBtki: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['skemaBtki']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="ad_valorem">Tarif Ad Valorem (% dari Nilai Pabean — 0% s.d. 40%)</option>
+                        <option value="spesifik_per_unit">Tarif Spesifik (Rupiah per kg / liter / unit, mis. Beras/Gula)</option>
+                        <option value="insentif_2026_pmk50_68">Insentif BTKI 2026 0% (MRO/LPG PMK 50/2026 &amp; Bahan Baku Plastik Pasal 4B PMK 68/2026)</option>
+                        <option value="ev_kblbb_pmk10">Insentif KBLBB / EV Roda 4 0% (Jendela 2024–31 Des 2025; Berakhir 2026)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_masuk.skemaBtki ?? 'ad_valorem') === 'spesifik_per_unit' && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-1.5">
+                          <label
+                            htmlFor="bm-unit-spesifik"
+                            className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                          >
+                            Jumlah Satuan Barang (kg/liter/unit)
+                          </label>
+                          <input
+                            id="bm-unit-spesifik"
+                            type="number"
+                            min={0}
+                            step="any"
+                            value={calcInput.bea_masuk.jumlahUnitSpesifik ?? 0}
+                            onChange={(e) => {
+                              const raw = Number(e.target.value);
+                              onChangeInput((prev) => ({
+                                ...prev,
+                                bea_masuk: {
+                                  ...prev.bea_masuk,
+                                  jumlahUnitSpesifik: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                                },
+                              }));
+                            }}
+                            className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                          />
+                        </div>
+                        <CurrencyInput
+                          id="bm-tarif-spesifik"
+                          label="Tarif Spesifik per Satuan (Rp)"
+                          value={calcInput.bea_masuk.tarifSpesifikPerUnit ?? 450}
+                          onChange={(val) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: { ...prev.bea_masuk, tarifSpesifikPerUnit: val },
+                            }))
+                          }
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_nilai_pabean' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-asal-freight"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Norma Biaya Angkut / Freight (Pasal 8 PMK 144/2022)
+                      </label>
+                      <select
+                        id="bm-asal-freight"
+                        value={calcInput.bea_masuk.asalWilayahFreight ?? 'asia_australia_10'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              asalWilayahFreight: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['asalWilayahFreight']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="asean_5">FOB Asal Negara ASEAN — Norma Freight 5%</option>
+                        <option value="asia_australia_10">FOB Asia Non-ASEAN &amp; Australia — Norma Freight 10%</option>
+                        <option value="lainnya_15">FOB Amerika, Eropa, Afrika &amp; Lainnya — Norma Freight 15%</option>
+                        <option value="cif_lengkap">Nilai Transaksi Sudah CIF (Tanpa Penambahan Norma)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_masuk.asalWilayahFreight ?? 'asia_australia_10') !== 'cif_lengkap' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bm-asuransi"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Status Asuransi Pengangkutan (Pasal 9 PMK 144/2022)
+                        </label>
+                        <select
+                          id="bm-asuransi"
+                          value={calcInput.bea_masuk.statusAsuransiPabean ?? 'norma_0_5'}
+                          onChange={(e) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: {
+                                ...prev.bea_masuk,
+                                statusAsuransiPabean: e.target.value as NonNullable<
+                                  TaxCalculatorInput['bea_masuk']['statusAsuransiPabean']
+                                >,
+                              },
+                            }))
+                          }
+                          className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        >
+                          <option value="norma_0_5">Tanpa Polis Asuransi Lokal — Norma Asuransi 0,5% x CFR</option>
+                          <option value="polis_dalam_negeri_0">Asuransi Ditutup di Dalam Daerah Pabean (Polis Sah = Rp 0)</option>
+                        </select>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_fta_ska' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-tarif-fta"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Tarif Preferensi FTA / CEPA (%)
+                      </label>
+                      <input
+                        id="bm-tarif-fta"
+                        type="number"
+                        min={0}
+                        max={100}
+                        step="0.5"
+                        value={calcInput.bea_masuk.tarifFtaPersen ?? 0}
+                        onChange={(e) => {
+                          const raw = Number(e.target.value);
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              tarifFtaPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(100, raw)),
+                            },
+                          }));
+                        }}
+                        className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      />
+                    </div>
+                    <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={calcInput.bea_masuk.isSkaValidSinsw ?? true}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: { ...prev.bea_masuk, isSkaValidSinsw: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Dokumen e-SKA / Deklarasi Asal Barang (DAB) valid terunggah via SINSW &amp; memenuhi Direct Consignment (PMK 35/2023)
+                      </span>
+                    </label>
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_kiriman_2025' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bm-kiriman-2025"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Kategori Barang Kiriman (PMK 4/2025 &amp; PMK 141/2023)
+                    </label>
+                    <select
+                      id="bm-kiriman-2025"
+                      value={calcInput.bea_masuk.jenisKiriman2025 ?? 'umum_7_5'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: {
+                            ...prev.bea_masuk,
+                            jenisKiriman2025: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_masuk']['jenisKiriman2025']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="umum_7_5">Barang Umum (&le; USD 3: 0% | &gt; USD 3–1.500: Flat 7,5% BM, bebas PPh)</option>
+                      <option value="buku_0">Buku Pelajaran/Kitab Suci HS 4901–4904 (&le; USD 1.500: 0% BM &amp; bebas PPh)</option>
+                      <option value="kosmetik_besi_jam_15">Kosmetik, Besi/Baja, &amp; Jam Tangan (&gt; USD 3–1.500: BM 15% + PPh 5%)</option>
+                      <option value="tas_tekstil_sepatu_sepeda_25">Tas, Tekstil, Sepatu, &amp; Sepeda (&gt; USD 3–1.500: BM 25% + PPh 5%)</option>
+                      <option value="jemaah_haji_2x1500">Kiriman Jemaah Haji PMK 4/2025 (Bebas BM &amp; PDRI s.d. USD 1.500, maks 2x)</option>
+                      <option value="pmi_tercatat_500">Kiriman PMI Tercatat BP2MI PMK 141/2023 (Bebas BM &amp; PDRI s.d. USD 500, maks 3x/thn)</option>
+                      <option value="pmi_tidak_tercatat_500">Kiriman PMI Tidak Tercatat PMK 141/2023 (Bebas BM &amp; PDRI s.d. USD 500, maks 1x/thn)</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_masuk_penumpang' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-penumpang-2025"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Profil Penumpang &amp; Barang Bawaan (PMK 34/2025)
+                      </label>
+                      <select
+                        id="bm-penumpang-2025"
+                        value={calcInput.bea_masuk.skemaPenumpang2025 ?? 'pribadi_usd500_10'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              skemaPenumpang2025: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['skemaPenumpang2025']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="pribadi_usd500_10">Penumpang Umum Barang Pribadi (Bebas USD 500; selisih BM 10% + PPN, bebas PPh)</option>
+                        <option value="awak_usd50_10">Awak Sarana Pengangkut (Bebas USD 50; selisih BM 10% + PPN, bebas PPh)</option>
+                        <option value="non_pribadi_jastip_mfn">Non-Pribadi / Barang Dagangan / Jastip (Tanpa USD 500 -&gt; Flat BM 10% + PPN + PPh 5%/10%)</option>
+                        <option value="haji_reguler_bebas">Jemaah Haji Reguler (Bebas Penuh Barang Pribadi &amp; Deklarasi Lisan)</option>
+                        <option value="haji_khusus_usd2500_10">Jemaah Haji Khusus / Plus (Bebas USD 2.500; selisih BM 10% + PPN, bebas PPh)</option>
+                      </select>
+                    </div>
+                    {calcInput.bea_masuk.skemaPenumpang2025 === 'non_pribadi_jastip_mfn' && (
+                      <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] transition-colors">
+                        <input
+                          type="checkbox"
+                          checked={calcInput.bea_masuk.hasNpwpPenumpang ?? true}
+                          onChange={(e) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: { ...prev.bea_masuk, hasNpwpPenumpang: e.target.checked },
+                            }))
+                          }
+                          className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                        />
+                        <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                          Penumpang memiliki NPWP aktif (PPh Pasal 22 sebesar 5%; bila tidak ber-NPWP dikenakan 10%)
+                        </span>
+                      </label>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_barang_pindahan' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bm-barang-pindahan"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Jenis Barang &amp; Pemenuhan Syarat (PMK 25/2025)
+                    </label>
+                    <select
+                      id="bm-barang-pindahan"
+                      value={calcInput.bea_masuk.skemaBarangPindahan ?? 'rumah_tangga_bebas'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: {
+                            ...prev.bea_masuk,
+                            skemaBarangPindahan: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_masuk']['skemaBarangPindahan']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="rumah_tangga_bebas">Barang Rumah Tangga Wajar (&ge; 12 Bln LN &amp; Tiba &le; 90 Hari) — Bebas 0%</option>
+                      <option value="kendaraan_eksklusi_mfn">Barang Eksklusi (Kendaraan Bermotor/Suku Cadang/BKC/Lewat 90 Hari) — MFN Penuh</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_masuk_impor_sementara' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-impor-sementara"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Skema Fasilitas Impor Sementara (PMK 178/2017 &amp; PMK 52/2026)
+                      </label>
+                      <select
+                        id="bm-impor-sementara"
+                        value={calcInput.bea_masuk.skemaImporSementara ?? 'keringanan_2_persen'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              skemaImporSementara: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['skemaImporSementara']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="keringanan_2_persen">Keringanan BM (2% x Jumlah Bulan x BM Seharusnya + PPN &amp; Jaminan)</option>
+                        <option value="pembebasan_100">Pembebasan 100% (Pameran/Riset/Proyek Pemerintah + Jaminan Re-Ekspor)</option>
+                        <option value="returnable_package_pmk52_2026">Returnable Package / Pengemas Berulang (PMK 52/2026 — Bebas 0%)</option>
+                        <option value="gagal_ekspor_kembali">Gagal Diekspor Kembali (Pelunasan Sisa BM + PDRI + Sanksi Denda 100%)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_masuk.skemaImporSementara === 'keringanan_2_persen' ||
+                      calcInput.bea_masuk.skemaImporSementara === 'gagal_ekspor_kembali' ||
+                      calcInput.bea_masuk.skemaImporSementara === undefined) && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bm-bulan-impor-sementara"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Jangka Waktu Izin Impor Sementara (1 s.d. 36 Bulan)
+                        </label>
+                        <input
+                          id="bm-bulan-impor-sementara"
+                          type="number"
+                          min={1}
+                          max={36}
+                          step={1}
+                          value={calcInput.bea_masuk.bulanImporSementara ?? 6}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: {
+                                ...prev.bea_masuk,
+                                bulanImporSementara: Number.isNaN(raw) ? 1 : Math.max(1, Math.min(36, Math.ceil(raw))),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_reimpor' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-skema-reimpor"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Kondisi Impor Kembali / Re-Impor (PMK 175/PMK.04/2021)
+                      </label>
+                      <select
+                        id="bm-skema-reimpor"
+                        value={calcInput.bea_masuk.skemaReimpor ?? 'kualitas_sama_bebas'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              skemaReimpor: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['skemaReimpor']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="kualitas_sama_bebas">Kualitas Sama / Pengujian (&le; 2 Thn, Eksportir Sama) — Bebas 0% BM &amp; PDRI</option>
+                        <option value="perbaikan_pengerjaan_ln">Pasca-Perbaikan / Pengerjaan Luar Negeri (BM hanya atas Tambahan + Jasa + Freight)</option>
+                        <option value="melewati_2tahun_mfn">Melewati Batas 2 Tahun / Tidak Teridentifikasi — MFN Penuh atas Nilai Utuh</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_masuk.skemaReimpor ?? 'kualitas_sama_bebas') === 'perbaikan_pengerjaan_ln' && (
+                      <>
+                        <CurrencyInput
+                          id="bm-reimpor-pengganti"
+                          label="Nilai Bagian Pengganti / Komponen Baru (Rp)"
+                          value={calcInput.bea_masuk.nilaiBagianPenggantiIdr ?? 0}
+                          onChange={(val) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: { ...prev.bea_masuk, nilaiBagianPenggantiIdr: val },
+                            }))
+                          }
+                          helperText="Harga komponen/suku cadang baru yang menggantikan bagian rusak saat perbaikan di luar negeri."
+                        />
+                        <CurrencyInput
+                          id="bm-reimpor-ongkos"
+                          label="Ongkos Perbaikan/Pengerjaan, Freight & Asuransi (Rp)"
+                          value={calcInput.bea_masuk.biayaPerbaikanFreightAsuransiIdr ?? 0}
+                          onChange={(val) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: { ...prev.bea_masuk, biayaPerbaikanFreightAsuransiIdr: val },
+                            }))
+                          }
+                          helperText="Biaya jasa perbaikan/pengerjaan di luar negeri ditambah biaya angkut (freight) & asuransi kembali ke Indonesia."
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_rush_handling' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bm-status-rush-handling"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Status Penyelesaian PIB &amp; Pelunasan Rush Handling (PMK 26/2024)
+                    </label>
+                    <select
+                      id="bm-status-rush-handling"
+                      value={calcInput.bea_masuk.statusPelunasanRushHandling ?? 'tepat_waktu_7hari'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: {
+                            ...prev.bea_masuk,
+                            statusPelunasanRushHandling: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_masuk']['statusPelunasanRushHandling']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="tepat_waktu_7hari">Tepat Waktu &le; 7 Hari sejak SPPB (Bebas Denda; Wajib Serahkan Jaminan BM + PDRI)</option>
+                      <option value="terlambat_denda_10persen">Terlambat &gt; 7 Hari (Pencairan Jaminan + Sanksi Denda 10% BM + Blokir 60 Hari)</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_masuk_sanksi_sptnp' && (
+                  <>
+                    <CurrencyInput
+                      id="bm-sptnp-awal"
+                      label="Total Bea Masuk yang Telah Dibayar pada PIB (Rp)"
+                      value={calcInput.bea_masuk.bmDibayarAwalSptnp ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: { ...prev.bea_masuk, bmDibayarAwalSptnp: val },
+                        }))
+                      }
+                      helperText="Penyebut pembanding rasio kekurangan pembayaran sesuai Pasal 6 ayat (1) PP 39/2019."
+                    />
+                    <CurrencyInput
+                      id="bm-sptnp-kurang"
+                      label="Total Kekurangan Bea Masuk Menurut SPTNP/SPKTNP (Rp)"
+                      value={calcInput.bea_masuk.bmKurangBayarSptnp ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: { ...prev.bea_masuk, bmKurangBayarSptnp: val },
+                        }))
+                      }
+                    />
+                    <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={calcInput.bea_masuk.isSalahanNilaiPabeanSptnp ?? true}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: { ...prev.bea_masuk, isSalahanNilaiPabeanSptnp: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        SPTNP disebabkan kesalahan Nilai Pabean Pasal 16(4)/17(4) (jika murni perbedaan klasifikasi pos tarif HS / penolakan SKA tanpa salah nilai, bebas denda)
+                      </span>
+                    </label>
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_ftz_plb' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-ftz-plb"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Arus Pemasukan / Pengeluaran KPBPB (FTZ) &amp; PLB
+                      </label>
+                      <select
+                        id="bm-ftz-plb"
+                        value={calcInput.bea_masuk.skemaFtzPlb ?? 'ftz_keluar_barang_jadi_tlddp'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              skemaFtzPlb: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['skemaFtzPlb']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="ftz_keluar_barang_jadi_tlddp">Pengeluaran Hasil Produksi KPBPB ke TLDDP (PPFTZ-01 Konversi Bahan Baku Impor)</option>
+                        <option value="ftz_keluar_asal_luar">Pengeluaran Barang Dagangan Asal Luar Daerah Pabean ke TLDDP (MFN Penuh)</option>
+                        <option value="ftz_pemasukan_ppftz01">Pemasukan Bahan Baku/Barang Modal dari LN ke KPBPB (PPFTZ-01 Bebas 0%)</option>
+                        <option value="plb_penimbunan_272">Penimbunan di Pusat Logistik Berikat / PLB PMK 272/2015 (Ditangguhkan 0%)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_masuk.skemaFtzPlb ?? 'ftz_keluar_barang_jadi_tlddp') === 'ftz_keluar_barang_jadi_tlddp' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bm-rasio-bom"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Rasio Kandungan Bahan Baku Impor asal LN (% dari Nilai Barang Jadi)
+                        </label>
+                        <input
+                          id="bm-rasio-bom"
+                          type="number"
+                          min={0}
+                          max={100}
+                          step="1"
+                          value={calcInput.bea_masuk.rasioBahanBakuImporPersen ?? 60}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: {
+                                ...prev.bea_masuk,
+                                rasioBahanBakuImporPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(100, raw)),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_bmt_pp34' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-jenis-bmt"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Jenis Bea Masuk Tambahan (PP 34/2011)
+                      </label>
+                      <select
+                        id="bm-jenis-bmt"
+                        value={calcInput.bea_masuk.jenisBmt ?? 'bmad_antidumping'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              jenisBmt: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['jenisBmt']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="bmad_antidumping">BMAD — Bea Masuk Antidumping (Hasil Penyelidikan KADI)</option>
+                        <option value="bmi_imbalan">BMI — Bea Masuk Imbalan atas Subsidi Negara Pengekspor</option>
+                        <option value="bmtp_safeguard">BMTP — Bea Masuk Tindakan Pengamanan / Safeguard (KPPI)</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-tarif-bmt"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Tarif Bea Masuk Tambahan / BMT (%)
+                      </label>
+                      <input
+                        id="bm-tarif-bmt"
+                        type="number"
+                        min={0}
+                        max={200}
+                        step="0.5"
+                        value={calcInput.bea_masuk.tarifBmtPersen ?? 15}
+                        onChange={(e) => {
+                          const raw = Number(e.target.value);
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              tarifBmtPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(200, raw)),
+                            },
+                          }));
+                        }}
+                        className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_fasilitas' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bm-fasilitas-skema"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Skema Fasilitas Pembebasan / Penangguhan Bea Masuk
+                    </label>
+                    <select
+                      id="bm-fasilitas-skema"
+                      value={calcInput.bea_masuk.skemaFasilitasBm ?? 'kite_pembebasan_149'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: {
+                            ...prev.bea_masuk,
+                            skemaFasilitasBm: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_masuk']['skemaFasilitasBm']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="kite_pembebasan_149">KITE Pembebasan PMK 149/2022 (Bebas BM + Jaminan Tujuan Ekspor)</option>
+                      <option value="kite_pengembalian_145">KITE Pengembalian PMK 145/2022 (Bayar Saat Impor -&gt; Refund Pasca-Ekspor)</option>
+                      <option value="bkpm_pmk176_mesin">Masterlist Investasi BKPM PMK 176/2009 stdd PMK 188/2015 (Mesin/Bahan Baku 2 Thn)</option>
+                      <option value="pasal25_mutlak">Pembebasan Mutlak Pasal 25 UU Kepabeanan (Diplomatik/Riset/Pindahan)</option>
+                      <option value="hibah_bencana_pmk99_2025">Hibah Ibadah, Sosial, Kebudayaan &amp; Bencana Alam (PMK 99/2025 — Berlaku 27 Feb 2026)</option>
+                      <option value="kb_kek_ikn">Kawasan Berikat (PMK 131/2018), KEK (PP 40/2021) &amp; IKN (PMK 28/2024)</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_masuk_kiriman_historis' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bm-era-kiriman-historis"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Periode Ambang De Minimis Barang Kiriman
+                      </label>
+                      <select
+                        id="bm-era-kiriman-historis"
+                        value={calcInput.bea_masuk.eraKirimanHistoris ?? 'pmk199_2019_usd3'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_masuk: {
+                              ...prev.bea_masuk,
+                              eraKirimanHistoris: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_masuk']['eraKirimanHistoris']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="pmk199_2019_usd3">PMK 199/2019 (30 Jan 2020 – 2025: Batas USD 3)</option>
+                        <option value="pmk112_2018_usd75">PMK 112/2018 (Okt 2018 – Jan 2020: Batas USD 75/hari)</option>
+                        <option value="pmk182_2016_usd100">PMK 182/2016 (Jan 2017 – Okt 2018: Batas USD 100/kiriman)</option>
+                        <option value="pmk188_2010_usd50">PMK 188/2010 (2011 – 2016: Batas USD 50/kiriman)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_masuk.eraKirimanHistoris ?? 'pmk199_2019_usd3') === 'pmk199_2019_usd3' && (
+                      <label className="flex items-start gap-3 min-h-[44px] py-1 cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] transition-colors">
+                        <input
+                          type="checkbox"
+                          checked={Boolean(calcInput.bea_masuk.isTasSepatuTekstilPmk199)}
+                          onChange={(e) =>
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_masuk: { ...prev.bea_masuk, isTasSepatuTekstilPmk199: e.target.checked },
+                            }))
+                          }
+                          className="w-5 h-5 mt-0.5 shrink-0 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                        />
+                        <span className="text-sm leading-snug text-[#1F2A2C] dark:text-[#E8EAE4]">
+                          Termasuk Tas, Sepatu, atau Produk Tekstil (di era PMK 199/2019 tidak mendapat bebas USD 3 dan kena tarif MFN penuh)
+                        </span>
+                      </label>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_masuk_btki_2012_2017' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bm-era-btki-lama"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Buku Tarif Berlaku (2012–2022)
+                    </label>
+                    <select
+                      id="bm-era-btki-lama"
+                      value={calcInput.bea_masuk.eraBtkiLama ?? 'btki_2017_8digit'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: {
+                            ...prev.bea_masuk,
+                            eraBtkiLama: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_masuk']['eraBtkiLama']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="btki_2017_8digit">BTKI 2017 — 8 Digit HS/AHTN 2017 (PMK 6/PMK.010/2017)</option>
+                      <option value="btki_2012_10digit">BTKI 2012 — 10 Digit HS/AHTN 2012 (PMK 213/PMK.011/2011)</option>
+                    </select>
+                  </div>
+                )}
+
+                {/* Input Tarif Bea Masuk MFN / Pembanding untuk rezim yang memerlukannya */}
+                {(regimeId === 'bea_masuk_btki_2022' && (calcInput.bea_masuk.skemaBtki ?? 'ad_valorem') === 'ad_valorem') ||
+                ['bea_masuk_nilai_pabean', 'bea_masuk_fta_ska', 'bea_masuk_barang_pindahan', 'bea_masuk_reimpor', 'bea_masuk_rush_handling', 'bea_masuk_ftz_plb', 'bea_masuk_bmt_pp34', 'bea_masuk_fasilitas', 'bea_masuk_btki_2012_2017', 'bea_masuk_btbmi_uu10_1995', 'bea_masuk_pra1996'].includes(regimeId) ||
+                (regimeId === 'bea_masuk_impor_sementara' && calcInput.bea_masuk.skemaImporSementara !== 'returnable_package_pmk52_2026') ||
+                (regimeId === 'bea_masuk_kiriman_2025' && (calcInput.bea_masuk.nilaiFobUsd ?? 0) > 1500) ||
+                (regimeId === 'bea_masuk_kiriman_historis' && ((calcInput.bea_masuk.nilaiFobUsd ?? 0) > 1500 || calcInput.bea_masuk.eraKirimanHistoris === 'pmk188_2010_usd50' || Boolean(calcInput.bea_masuk.isTasSepatuTekstilPmk199))) ? (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bm-tarif-mfn"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Tarif Bea Masuk MFN / Dasar (%)
+                    </label>
+                    <input
+                      id="bm-tarif-mfn"
+                      type="number"
+                      min={0}
+                      max={200}
+                      step="0.5"
+                      value={calcInput.bea_masuk.tarifBmPersen}
+                      onChange={(e) => {
+                        const raw = Number(e.target.value);
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_masuk: {
+                            ...prev.bea_masuk,
+                            tarifBmPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(200, raw)),
+                          },
+                        }));
+                      }}
+                      className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    />
+                  </div>
+                ) : null}
+              </>
+            )}
+
+            {activeTaxType === 'bea_keluar' && (
+              <>
+                {regimeId !== 'bea_keluar_sanksi_pp39' && (
+                  <>
+                    {!(
+                      regimeId === 'bea_keluar_pemungutan_pmk106' &&
+                      (calcInput.bea_keluar.skemaPemungutanBk ?? 'ad_valorem') !== 'ad_valorem'
+                    ) && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-nilai-ekspor-usd"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          {regimeId === 'bea_keluar_cpo_sawit' || regimeId === 'bea_keluar_emas_pmk80'
+                            ? 'Nilai Ekspor Total HPE (USD — isi 0 untuk hitung otomatis)'
+                            : 'Nilai Ekspor Berdasarkan HPE (USD)'}
+                        </label>
+                        <input
+                          id="bk-nilai-ekspor-usd"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.nilaiEksporUsd}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                nilaiEksporUsd: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                        {(regimeId === 'bea_keluar_cpo_sawit' || regimeId === 'bea_keluar_emas_pmk80') && (
+                          <p className="text-xs text-[#4F6160] dark:text-[#E8EAE4]/70">
+                            {regimeId === 'bea_keluar_cpo_sawit'
+                              ? 'Jika diisi 0, nilai ekspor disimulasikan dari Tonase (MT) x Harga Referensi CPO (USD/MT).'
+                              : 'Jika diisi 0, nilai ekspor disimulasikan dari Berat Emas (kg x 32,1507 troy oz) x Harga Referensi (USD/troy oz).'}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    <CurrencyInput
+                      id="bk-ndpbm"
+                      label="Kurs Pajak NDPBM per 1 USD (KMK Mingguan)"
+                      value={calcInput.bea_keluar.ndpbmKurs}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: { ...prev.bea_keluar, ndpbmKurs: val },
+                        }))
+                      }
+                      helperText="Kurs Pajak Kemenkeu yang berlaku pada tanggal pendaftaran PEB (BC 3.0)."
+                    />
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_pemungutan_pmk106' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-skema-pemungutan"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Metode Pemungutan Bea Keluar (PMK 106/PMK.04/2022)
+                      </label>
+                      <select
+                        id="bk-skema-pemungutan"
+                        value={calcInput.bea_keluar.skemaPemungutanBk ?? 'ad_valorem'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              skemaPemungutanBk: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['skemaPemungutanBk']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="ad_valorem">Tarif Ad Valorem (% x Harga Ekspor x NDPBM — Kakao, Emas, Mineral, Kulit/Kayu)</option>
+                        <option value="spesifik_per_mt">Tarif Spesifik (USD/MT x Tonase x NDPBM — Kelapa Sawit &amp; CPO)</option>
+                        <option value="pengecualian_skp">Pengecualian Bea Keluar via SKP (Diplomatik, Riset, Sampel, Pindahan)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_keluar.skemaPemungutanBk ?? 'ad_valorem') === 'ad_valorem' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-tarif-persen"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Tarif Bea Keluar Ad Valorem (%)
+                        </label>
+                        <input
+                          id="bk-tarif-persen"
+                          type="number"
+                          min={0}
+                          max={100}
+                          step="0.5"
+                          value={calcInput.bea_keluar.tarifBkPersen}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                tarifBkPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(100, raw)),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                    {calcInput.bea_keluar.skemaPemungutanBk === 'spesifik_per_mt' && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-1.5">
+                          <label
+                            htmlFor="bk-tonase-spesifik"
+                            className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                          >
+                            Volume Ekspor (Metrik Ton / MT)
+                          </label>
+                          <input
+                            id="bk-tonase-spesifik"
+                            type="number"
+                            min={0}
+                            step="any"
+                            value={calcInput.bea_keluar.tonaseMt}
+                            onChange={(e) => {
+                              const raw = Number(e.target.value);
+                              onChangeInput((prev) => ({
+                                ...prev,
+                                bea_keluar: {
+                                  ...prev.bea_keluar,
+                                  tonaseMt: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                                },
+                              }));
+                            }}
+                            className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label
+                            htmlFor="bk-tarif-spesifik-usd"
+                            className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                          >
+                            Tarif Spesifik (USD / MT)
+                          </label>
+                          <input
+                            id="bk-tarif-spesifik-usd"
+                            type="number"
+                            min={0}
+                            step="1"
+                            value={calcInput.bea_keluar.tarifSpesifikUsdPerMt ?? 74}
+                            onChange={(e) => {
+                              const raw = Number(e.target.value);
+                              onChangeInput((prev) => ({
+                                ...prev,
+                                bea_keluar: {
+                                  ...prev.bea_keluar,
+                                  tarifSpesifikUsdPerMt: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                                },
+                              }));
+                            }}
+                            className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_cpo_sawit' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-produk-sawit"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Kelompok Komoditas Kelapa Sawit (Lampiran C PMK 38/2024 stdd PMK 68/2025)
+                      </label>
+                      <select
+                        id="bk-produk-sawit"
+                        value={calcInput.bea_keluar.jenisProdukSawit ?? 'cpo_1511'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              jenisProdukSawit: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['jenisProdukSawit']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="cpo_1511">Crude Palm Oil / CPO (HS 1511.10.00 — USD 0 s.d. 288/MT)</option>
+                        <option value="pome_hapor_pmk68">POME Oil &amp; HAPOR (PMK 68/2025 — USD 0 s.d. 288/MT)</option>
+                        <option value="rbd_palm_olein_curah">RBD Palm Olein Curah (1511.90.37 — USD 0 s.d. 192/MT)</option>
+                        <option value="rbd_olein_kemasan_25kg">RBD Palm Olein Kemasan Bermerek &lt;= 25 kg (USD 0 s.d. 81/MT)</option>
+                        <option value="biodiesel_fame">Biodiesel dari Minyak Sawit / FAME (USD 0 s.d. 105/MT)</option>
+                      </select>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-hr-cpo"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Harga Referensi CPO Kemendag (USD/MT)
+                        </label>
+                        <input
+                          id="bk-hr-cpo"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.hargaReferensiCpoUsd ?? 1042.15}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                hargaReferensiCpoUsd: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-tonase-sawit"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Volume Ekspor Sawit (MT)
+                        </label>
+                        <input
+                          id="bk-tonase-sawit"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.tonaseMt}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                tonaseMt: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    </div>
+                    <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(calcInput.bea_keluar.isHitungPerbandinganPeBpdp)}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: { ...prev.bea_keluar, isHitungPerbandinganPeBpdp: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Sertakan perbandingan Pungutan Ekspor BLU BPDP (PMK 9 Tahun 2026: 7,25%–12,5% x HR CPO)
+                      </span>
+                    </label>
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_emas_pmk80' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-produk-emas"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Kelompok Produk Ekspor Emas (PMK Nomor 80 Tahun 2025)
+                      </label>
+                      <select
+                        id="bk-produk-emas"
+                        value={calcInput.bea_keluar.jenisProdukEmas ?? 'dore'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              jenisProdukEmas: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['jenisProdukEmas']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="dore">Dore dalam Bongkah/Ingot/Batang Tuangan (12,5% / 15%)</option>
+                        <option value="granules">Granules &amp; Emas Tidak Ditempa Non-Dore (10% / 12,5%)</option>
+                        <option value="cast_bars">Cast Bars selain Dore (7,5% / 10%)</option>
+                        <option value="minted_bars">Minted Bars / Batangan Cetak Murni (7,5% / 10%)</option>
+                      </select>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-hr-emas"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Harga Referensi Emas (USD / troy oz)
+                        </label>
+                        <input
+                          id="bk-hr-emas"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.hargaReferensiEmasUsdOz ?? 3300}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                hargaReferensiEmasUsdOz: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-berat-emas"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Berat Bersih Emas (Kilogram / kg)
+                        </label>
+                        <input
+                          id="bk-berat-emas"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.beratEmasKg ?? 0}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                beratEmasKg: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_kakao_pinus' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-skema-kakao-pinus"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Komoditas &amp; Lapisan Tarif (PMK 68 Tahun 2025)
+                      </label>
+                      <select
+                        id="bk-skema-kakao-pinus"
+                        value={calcInput.bea_keluar.skemaKakaoPinus ?? 'kakao_pmk68_2025'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              skemaKakaoPinus: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['skemaKakaoPinus']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="kakao_pmk68_2025">Biji Kakao — Tarif Baru PMK 68/2025 (0% / 2,5% / 5% / 7,5%)</option>
+                        <option value="getah_pinus_pmk68">Getah Pinus (ex 1301.90.90) — Tarif Baru PMK 68/2025 (Flat 25%)</option>
+                        <option value="kakao_lama_pmk38_2024">Pembanding Biji Kakao Era PMK 38/2024 Lama (0% / 5% / 10% / 15%)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_keluar.skemaKakaoPinus ?? 'kakao_pmk68_2025') !== 'getah_pinus_pmk68' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-hr-kakao"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Harga Referensi Biji Kakao Kemendag (USD/MT)
+                        </label>
+                        <input
+                          id="bk-hr-kakao"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.hargaReferensiKakaoUsd ?? 4200}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                hargaReferensiKakaoUsd: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_kulit_kayu' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bk-kulit-kayu"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Komoditas Kulit &amp; Kayu (Lampiran Huruf A PMK 38/2024)
+                    </label>
+                    <select
+                      id="bk-kulit-kayu"
+                      value={calcInput.bea_keluar.kategoriKulitKayu ?? 'kulit_wet_blue_15'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: {
+                            ...prev.bea_keluar,
+                            kategoriKulitKayu: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_keluar']['kategoriKulitKayu']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="kulit_mentah_pickled_25">Jangat &amp; Kulit Mentah / Pickled (25%)</option>
+                      <option value="kulit_wet_blue_15">Kulit Disamak / Wet Blue (15%)</option>
+                      <option value="veneer_15">Veneer — Lembaran Tipis Kayu &lt;= 6 mm (15%)</option>
+                      <option value="kayu_merbau_10">Kayu Olahan Merbau S4S &gt; 4.000–10.000 mm2 (10%)</option>
+                      <option value="serpih_kayu_5">Serpih Kayu / Wood Chips &amp; Chipwood (5%)</option>
+                      <option value="kayu_olahan_s4s_5">Kayu Gergajian/Olahan S4S 1.000–4.000 mm2 (5%)</option>
+                      <option value="wooden_sheet_kemasan_2">Wooden Sheet for Packaging Box Sengon &lt;= 5 mm (2%)</option>
+                      <option value="pencil_slat_bebas_0">Slat Kayu / Pencil Slat Bahan Pensil (Dikecualikan — 0%)</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_keluar_mineral_2024' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bk-mineral-2024"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Komoditas Mineral Logam / Pertambangan (PMK 38/2024)
+                    </label>
+                    <select
+                      id="bk-mineral-2024"
+                      value={calcInput.bea_keluar.jenisMineral2024 ?? 'konsentrat_tembaga_7_5'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: {
+                            ...prev.bea_keluar,
+                            jenisMineral2024: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_keluar']['jenisMineral2024']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="konsentrat_tembaga_7_5">Konsentrat Tembaga (&gt;= 15% Cu, ex 2603.00.00) — 7,5%</option>
+                      <option value="konsentrat_besi_laterit_5">Konsentrat Besi Laterit (&gt;= 50% Fe &amp; Al2O3+SiO2 &gt;= 10%) — 5%</option>
+                      <option value="konsentrat_timbal_5">Konsentrat Timbal (&gt;= 56% Pb) — 5%</option>
+                      <option value="konsentrat_seng_5">Konsentrat Seng (&gt;= 51% Zn) — 5%</option>
+                      <option value="batubara_non_bk">Batubara HS 2701 (Bukan Objek BK PMK 38/2024; Pengawasan KMK 31/2026) — 0%</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_keluar_sanksi_pp39' && (
+                  <>
+                    <CurrencyInput
+                      id="bk-dibayar-awal"
+                      label="Bea Keluar yang Telah Dibayar Awal saat PEB (Rp)"
+                      value={calcInput.bea_keluar.bkDibayarAwalSptbk ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: { ...prev.bea_keluar, bkDibayarAwalSptbk: val },
+                        }))
+                      }
+                      helperText="Isi Rp 0 jika barang dilaporkan sebagai bebas BK padahal seharusnya dikenai BK."
+                    />
+                    <CurrencyInput
+                      id="bk-kurang-bayar"
+                      label="Pokok Kurang Bayar Bea Keluar SPPBK / Audit (Rp)"
+                      value={calcInput.bea_keluar.bkKurangBayarSptbk ?? 0}
+                      onChange={(val) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: { ...prev.bea_keluar, bkKurangBayarSptbk: val },
+                        }))
+                      }
+                    />
+                    <label className="flex items-center gap-3 min-h-[44px] cursor-pointer select-none text-[#1F2A2C] dark:text-[#E8EAE4] hover:text-[#6B5A00] dark:hover:text-[#D9B92E] active:text-[#6B5A00] dark:active:text-[#D9B92E] transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={calcInput.bea_keluar.isKesalahanJumlahJenisBk ?? true}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: { ...prev.bea_keluar, isKesalahanJumlahJenisBk: e.target.checked },
+                          }))
+                        }
+                        className="w-5 h-5 accent-[#1F2A2C] dark:accent-[#D9B92E]"
+                      />
+                      <span className="text-sm text-[#1F2A2C] dark:text-[#E8EAE4]">
+                        Akibat kesalahan pemberitahuan jumlah/jenis/mutu barang PEB (kena denda 100%–1.000% PP 39/2019)
+                      </span>
+                    </label>
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_smelter_2022_2023' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-periode-smelter71"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Jendela Periode Tarif Konsentrat Tembaga (PMK 71 Tahun 2023)
+                      </label>
+                      <select
+                        id="bk-periode-smelter71"
+                        value={calcInput.bea_keluar.periodeSmelter71 ?? '2024_h1'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              periodeSmelter71: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['periodeSmelter71']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="2024_h1">1 Jan – 31 Mei 2024 (Tahap I 15% / II 10% / III 7,5%)</option>
+                        <option value="2023_h2">17 Jul – 31 Des 2023 (Tahap I 10% / II 7,5% / III 5%)</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-progres-smelter71"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Progres Pembangunan Fisik Smelter (%) — Syarat Minimal 50%
+                      </label>
+                      <input
+                        id="bk-progres-smelter71"
+                        type="number"
+                        min={0}
+                        max={100}
+                        step="1"
+                        value={calcInput.bea_keluar.progresSmelterPersen ?? 65}
+                        onChange={(e) => {
+                          const raw = Number(e.target.value);
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              progresSmelterPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(100, raw)),
+                            },
+                          }));
+                        }}
+                        className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_smelter_2017_2022' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bk-progres-smelter13"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Progres Pembangunan Fisik Smelter (PMK 13/2017: 0–100%)
+                    </label>
+                    <input
+                      id="bk-progres-smelter13"
+                      type="number"
+                      min={0}
+                      max={100}
+                      step="1"
+                      value={calcInput.bea_keluar.progresSmelterPersen ?? 55}
+                      onChange={(e) => {
+                        const raw = Number(e.target.value);
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: {
+                            ...prev.bea_keluar,
+                            progresSmelterPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(100, raw)),
+                          },
+                        }));
+                      }}
+                      className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    />
+                    <p className="text-xs text-[#4F6160] dark:text-[#E8EAE4]/70">
+                      0–30%: 7,5% · &gt;30–50%: 5% · &gt;50–75%: 2,5% · &gt;75%: 0% (bebas).
+                    </p>
+                  </div>
+                )}
+
+                {regimeId === 'bea_keluar_minerba_2012_2017' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bk-periode-minerba"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Jadwal Eskalasi Tarif Minerba (PMK 75/2012 &amp; PMK 6/2014)
+                    </label>
+                    <select
+                      id="bk-periode-minerba"
+                      value={calcInput.bea_keluar.periodeMinerba2012_2017 ?? 'pmk6_2014_h1_2016_50'}
+                      onChange={(e) =>
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: {
+                            ...prev.bea_keluar,
+                            periodeMinerba2012_2017: e.target.value as NonNullable<
+                              TaxCalculatorInput['bea_keluar']['periodeMinerba2012_2017']
+                            >,
+                          },
+                        }))
+                      }
+                      className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    >
+                      <option value="pmk75_2012_ore_20">PMK 75/2012 (Mei 2012–11 Jan 2014: Bijih Mineral Mentah) — 20%</option>
+                      <option value="pmk6_2014_h1_2014_25">PMK 6/2014 (12 Jan–31 Des 2014: Konsentrat Tembaga) — 25%</option>
+                      <option value="pmk6_2014_h1_2015_35">PMK 6/2014 (Sem. I 2015) — 35%</option>
+                      <option value="pmk6_2014_h2_2015_40">PMK 6/2014 (Sem. II 2015) — 40%</option>
+                      <option value="pmk6_2014_h1_2016_50">PMK 6/2014 (Sem. I 2016) — 50%</option>
+                      <option value="pmk6_2014_h2_2016_60">PMK 6/2014 (Sem. II 2016) — 60%</option>
+                    </select>
+                  </div>
+                )}
+
+                {regimeId === 'bea_keluar_awal_2008_2012' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-era-awal"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Sub-Era Kodifikasi Awal (2008–2012)
+                      </label>
+                      <select
+                        id="bk-era-awal"
+                        value={calcInput.bea_keluar.eraAwal2008_2012 ?? 'pmk128_2011_cpo'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              eraAwal2008_2012: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['eraAwal2008_2012']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="pmk128_2011_cpo">PMK 128/2011 — CPO Ad Valorem 12 Lapis (0% s.d. 22,5%)</option>
+                        <option value="pmk67_2010_kakao">PMK 67/2010 — Biji Kakao Progresif Perdana (0% / 5% / 10% / 15%)</option>
+                        <option value="pmk223_2008_rotan_kulit">PMK 223/2008 — Rotan / Kulit / Kayu (Tarif Kustom %)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_keluar.eraAwal2008_2012 ?? 'pmk128_2011_cpo') === 'pmk128_2011_cpo' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-hr-cpo-128"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Harga Referensi CPO (USD/MT — PMK 128/2011)
+                        </label>
+                        <input
+                          id="bk-hr-cpo-128"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.hargaReferensiCpoUsd ?? 1020}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                hargaReferensiCpoUsd: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                    {calcInput.bea_keluar.eraAwal2008_2012 === 'pmk67_2010_kakao' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-hr-kakao-67"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Harga Referensi Biji Kakao (USD/MT — PMK 67/2010)
+                        </label>
+                        <input
+                          id="bk-hr-kakao-67"
+                          type="number"
+                          min={0}
+                          step="any"
+                          value={calcInput.bea_keluar.hargaReferensiKakaoUsd ?? 2900}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                hargaReferensiKakaoUsd: Number.isNaN(raw) ? 0 : Math.max(0, raw),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                    {calcInput.bea_keluar.eraAwal2008_2012 === 'pmk223_2008_rotan_kulit' && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-tarif-223"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Tarif Ad Valorem Komoditas Rotan / Kulit / Kayu (%)
+                        </label>
+                        <input
+                          id="bk-tarif-223"
+                          type="number"
+                          min={0}
+                          max={40}
+                          step="0.5"
+                          value={calcInput.bea_keluar.tarifBkPersen}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                tarifBkPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(40, raw)),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {regimeId === 'bea_keluar_pe_pp35_2005' && (
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="bk-tarif-pp35"
+                      className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                    >
+                      Tarif Pungutan Ekspor (PE) Era PP 35 Tahun 2005 (%)
+                    </label>
+                    <input
+                      id="bk-tarif-pp35"
+                      type="number"
+                      min={0}
+                      max={75}
+                      step="0.5"
+                      value={calcInput.bea_keluar.tarifBkPersen}
+                      onChange={(e) => {
+                        const raw = Number(e.target.value);
+                        onChangeInput((prev) => ({
+                          ...prev,
+                          bea_keluar: {
+                            ...prev.bea_keluar,
+                            tarifBkPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(75, raw)),
+                          },
+                        }));
+                      }}
+                      className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                    />
+                  </div>
+                )}
+
+                {regimeId === 'bea_keluar_pra2005_historis' && (
+                  <>
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="bk-era-pra2005"
+                        className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                      >
+                        Periode Sejarah Pungutan Ekspor Pra-2005
+                      </label>
+                      <select
+                        id="bk-era-pra2005"
+                        value={calcInput.bea_keluar.eraPra2005 ?? 'kmk334_1998_cpo_60'}
+                        onChange={(e) =>
+                          onChangeInput((prev) => ({
+                            ...prev,
+                            bea_keluar: {
+                              ...prev.bea_keluar,
+                              eraPra2005: e.target.value as NonNullable<
+                                TaxCalculatorInput['bea_keluar']['eraPra2005']
+                              >,
+                            },
+                          }))
+                        }
+                        className="w-full min-h-[44px] px-3 py-2 text-base bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                      >
+                        <option value="kmk334_1998_cpo_60">Krisis Moneter Jul 1998 (KMK 334/1998: PE CPO Darurat 60%)</option>
+                        <option value="kmk567_1999_cpo_10">Pemulihan 1999–2000 (KMK 567/1999: PE CPO 10%)</option>
+                        <option value="pp1_1982_umum">Era Orde Baru 1982–1997 (PP 1/1982: PE/PET Kustom %)</option>
+                        <option value="uitvoerrechten_kolonial">Kolonial Hindia Belanda (ITW 1873 / RO 1882: Uitvoerrechten)</option>
+                      </select>
+                    </div>
+                    {(calcInput.bea_keluar.eraPra2005 === 'pp1_1982_umum' ||
+                      calcInput.bea_keluar.eraPra2005 === 'uitvoerrechten_kolonial') && (
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="bk-tarif-pra2005"
+                          className="block text-sm font-medium text-[#1F2A2C] dark:text-[#E8EAE4]"
+                        >
+                          Tarif Pajak Ekspor / Uitvoerrechten Historis (%)
+                        </label>
+                        <input
+                          id="bk-tarif-pra2005"
+                          type="number"
+                          min={0}
+                          max={75}
+                          step="0.5"
+                          value={calcInput.bea_keluar.tarifBkPersen}
+                          onChange={(e) => {
+                            const raw = Number(e.target.value);
+                            onChangeInput((prev) => ({
+                              ...prev,
+                              bea_keluar: {
+                                ...prev.bea_keluar,
+                                tarifBkPersen: Number.isNaN(raw) ? 0 : Math.max(0, Math.min(75, raw)),
+                              },
+                            }));
+                          }}
+                          className="w-full min-h-[44px] px-3 py-2 text-base tabular-nums bg-[#DFE2DA] dark:bg-[#263336] text-[#1F2A2C] dark:text-[#E8EAE4] border border-[#5E706F]/45 focus:border-[#1F2A2C] dark:focus:border-[#D9B92E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B92E]"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+
             {/* Utility Controls */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
@@ -6990,7 +8737,7 @@ export const TaxCalculatorWorkspace: React.FC<TaxCalculatorWorkspaceProps> = ({
                 <div className="flex items-center justify-between gap-3">
                   <dt className="text-[#4F6160] dark:text-[#E8EAE4]/75">{result.annualTaxLabel}</dt>
                   <dd className="font-semibold tabular-nums whitespace-nowrap shrink-0 text-[#1F2A2C] dark:text-[#E8EAE4]">
-                    {formatRupiah(result.annualTaxAmount)}
+                    {result.annualTaxDisplay ?? formatRupiah(result.annualTaxAmount)}
                   </dd>
                 </div>
               )}

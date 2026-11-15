@@ -29,6 +29,8 @@ const DEFAULT_REGIME_BY_TYPE: Record<TaxTypeId, string> = {
   bphtb: 'bphtb_hkpd_2022',
   pbjt: 'pbjt_hkpd_2022',
   bea_meterai: 'meterai_uu10_2020',
+  bea_masuk: 'bea_masuk_btki_2022',
+  bea_keluar: 'bea_keluar_pemungutan_pmk106',
 };
 
 interface ParsedHashRoute {

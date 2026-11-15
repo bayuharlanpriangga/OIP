@@ -5,6 +5,8 @@ import {
   TaxRegime,
   TaxTypeId,
 } from '../types/tax';
+import { BEA_KELUAR_RULES } from './bea_keluar';
+import { BEA_MASUK_RULES } from './bea_masuk';
 import { BEA_METERAI_RULES } from './bea_meterai';
 import { BPHTB_RULES } from './bphtb';
 import { PBB_RULES } from './pbb';
@@ -116,6 +118,18 @@ export const TAX_CATEGORIES: {
     label: 'Bea Meterai',
     shortLabel: 'Meterai',
     scope: 'Pajak atas dokumen perdata dan dokumen nominal uang kertas maupun e-Meterai',
+  },
+  {
+    id: 'bea_masuk',
+    label: 'Bea Masuk',
+    shortLabel: 'Bea Masuk',
+    scope: 'Pungutan kepabeanan impor (BTKI 2022, Nilai Pabean CIF, FTA/SKA, Kiriman, Penumpang, BMT, KITE & Historis)',
+  },
+  {
+    id: 'bea_keluar',
+    label: 'Bea Keluar',
+    shortLabel: 'Bea Keluar',
+    scope: 'Pungutan kepabeanan ekspor (CPO/Sawit & POME, Emas PMK 80/2025, Kakao/Getah Pinus, Kulit/Kayu, Mineral & Historis)',
   },
 ];
 
@@ -345,6 +359,66 @@ export const DEFAULT_CALCULATOR_INPUT: TaxCalculatorInput = {
     skemaPemungutNonObjek: 'non_objek_pasal7',
     jenisDokumenNonNominal: 'perjanjian_akta_notaris',
   },
+  bea_masuk: {
+    nilaiPabeanIdr: 0,
+    tarifBmPersen: 10,
+    skemaBtki: 'ad_valorem',
+    jumlahUnitSpesifik: 0,
+    tarifSpesifikPerUnit: 450,
+    nilaiFobUsd: 0,
+    ndpbmKurs: 16000,
+    asalWilayahFreight: 'asia_australia_10',
+    statusAsuransiPabean: 'norma_0_5',
+    tarifFtaPersen: 0,
+    isSkaValidSinsw: true,
+    jenisKiriman2025: 'umum_7_5',
+    skemaPenumpang2025: 'pribadi_usd500_10',
+    hasNpwpPenumpang: true,
+    jenisBmt: 'bmad_antidumping',
+    tarifBmtPersen: 15,
+    skemaFasilitasBm: 'kite_pembebasan_149',
+    eraKirimanHistoris: 'pmk199_2019_usd3',
+    isTasSepatuTekstilPmk199: false,
+    eraBtkiLama: 'btki_2017_8digit',
+    skemaBarangPindahan: 'rumah_tangga_bebas',
+    skemaImporSementara: 'keringanan_2_persen',
+    bulanImporSementara: 6,
+    bmDibayarAwalSptnp: 0,
+    bmKurangBayarSptnp: 0,
+    isSalahanNilaiPabeanSptnp: true,
+    skemaFtzPlb: 'ftz_keluar_barang_jadi_tlddp',
+    rasioBahanBakuImporPersen: 60,
+    skemaReimpor: 'kualitas_sama_bebas',
+    nilaiBagianPenggantiIdr: 0,
+    biayaPerbaikanFreightAsuransiIdr: 0,
+    statusPelunasanRushHandling: 'tepat_waktu_7hari',
+  },
+  bea_keluar: {
+    nilaiEksporUsd: 0,
+    ndpbmKurs: 16000,
+    tonaseMt: 0,
+    tarifBkPersen: 10,
+    skemaPemungutanBk: 'ad_valorem',
+    tarifSpesifikUsdPerMt: 74,
+    hargaReferensiCpoUsd: 1042.15,
+    jenisProdukSawit: 'cpo_1511',
+    isHitungPerbandinganPeBpdp: false,
+    jenisProdukEmas: 'dore',
+    hargaReferensiEmasUsdOz: 3300,
+    beratEmasKg: 0,
+    skemaKakaoPinus: 'kakao_pmk68_2025',
+    hargaReferensiKakaoUsd: 4200,
+    kategoriKulitKayu: 'kulit_wet_blue_15',
+    jenisMineral2024: 'konsentrat_tembaga_7_5',
+    bkDibayarAwalSptbk: 0,
+    bkKurangBayarSptbk: 0,
+    isKesalahanJumlahJenisBk: true,
+    periodeSmelter71: '2024_h1',
+    progresSmelterPersen: 65,
+    periodeMinerba2012_2017: 'pmk6_2014_h1_2016_50',
+    eraAwal2008_2012: 'pmk128_2011_cpo',
+    eraPra2005: 'kmk334_1998_cpo_60',
+  },
 };
 
 export const TAX_REGIMES: TaxRegime[] = [
@@ -363,6 +437,8 @@ export const TAX_REGIMES: TaxRegime[] = [
   ...BPHTB_RULES.map((m) => m.regime),
   ...PBJT_RULES.map((m) => m.regime),
   ...BEA_METERAI_RULES.map((m) => m.regime),
+  ...BEA_MASUK_RULES.map((m) => m.regime),
+  ...BEA_KELUAR_RULES.map((m) => m.regime),
 ];
 
 export const TAX_ARTICLES: TaxArticle[] = [
@@ -381,6 +457,8 @@ export const TAX_ARTICLES: TaxArticle[] = [
   ...BPHTB_RULES.flatMap((m) => (m.article ? [m.article] : [])),
   ...PBJT_RULES.flatMap((m) => (m.article ? [m.article] : [])),
   ...BEA_METERAI_RULES.flatMap((m) => (m.article ? [m.article] : [])),
+  ...BEA_MASUK_RULES.flatMap((m) => (m.article ? [m.article] : [])),
+  ...BEA_KELUAR_RULES.flatMap((m) => (m.article ? [m.article] : [])),
 ];
 
 export function runTaxCalculation(
@@ -449,6 +527,14 @@ export function runTaxCalculation(
       const mod =
         BEA_METERAI_RULES.find((r) => r.regime.id === regimeId) ?? BEA_METERAI_RULES[0];
       return mod.calculate(input.bea_meterai);
+    }
+    case 'bea_masuk': {
+      const mod = BEA_MASUK_RULES.find((r) => r.regime.id === regimeId) ?? BEA_MASUK_RULES[0];
+      return mod.calculate(input.bea_masuk);
+    }
+    case 'bea_keluar': {
+      const mod = BEA_KELUAR_RULES.find((r) => r.regime.id === regimeId) ?? BEA_KELUAR_RULES[0];
+      return mod.calculate(input.bea_keluar);
     }
   }
 }
