@@ -39,7 +39,7 @@ const article: TaxArticle = {
     {
       heading: 'Konsekuensi gagal uji BO atau PPT: tarif P3B gugur kembali ke 20%',
       paragraphs: [
-        'Melalui PMK Nomor 112 Tahun 2025 (berlaku 31 Desember 2025), pemanfaatan tarif pemotongan P3B (misalnya dividen/royalti/bunga 10% atau 15%, ataupun 0% untuk jasa teknis tanpa BUT) tidak hanya menuntut kelengkapan administratif SKD/DGT melalui Coretax, tetapi juga kepatuhan substansi.',
+        'Melalui PMK Nomor 112 Tahun 2025 (berlaku 31 Desember 2025), pemanfaatan tarif pemotongan P3B (misalnya dividen/royalti/bunga 10% atau 15%, ataupun 0% untuk jasa teknis tanpa BUT) tidak hanya menuntut kelengkapan administratif SKD/DGT melalui Coretax (dengan masa transisi pengakuan SKD format PER-25/PJ/2018 yang telah terbit sebelumnya hingga masa cakupannya berakhir), tetapi juga kepatuhan substansi.',
         'Apabila dalam pengujian ditemukan bahwa penerima penghasilan di negara mitra hanyalah entitas perantara (conduit), tidak memiliki kendali atas penggunaan dana (gagal Beneficial Ownership), atau pengaturan struktur kontrak dilakukan semata-mata untuk menghindari pajak (gagal Principal Purpose Test / PPT), DJP berwenang menolak fasilitas P3B dan memungut PPh Pasal 26 tarif domestik penuh 20%.',
       ],
     },

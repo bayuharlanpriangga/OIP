@@ -9,7 +9,7 @@ import { formatPersen, formatRupiah } from '../../utils/formatters';
 import { SRC } from '../sources';
 import { calculateCorporateTaxWith31E } from './shared';
 
-const sources = [SRC.PP_93_2010, SRC.PMK_105_2009, SRC.PMK_02_2010, SRC.UU_7_2021_HPP];
+const sources = [SRC.PP_20_2026, SRC.PP_93_2010, SRC.PMK_105_2009, SRC.PMK_02_2010, SRC.UU_7_2021_HPP];
 
 const regime: TaxRegime = {
   id: 'badan_koreksi_fiskal_kerugian',
@@ -40,7 +40,7 @@ const article: TaxArticle = {
     {
       heading: 'Koreksi Fiskal Positif vs. Koreksi Fiskal Negatif (Pasal 4, 6 & 9 UU PPh)',
       paragraphs: [
-        'Koreksi Fiskal Positif menambah laba kena pajak karena beban akuntansi tidak dapat dikurangkan secara fiskal (non-deductible expense), seperti sanksi/denda pajak, pembagian laba, sumbangan umum di luar ketentuan PP 93/2010 (batas maks 5% dari penghasilan neto fiskal tahun lalu untuk bencana nasional/litbang/pendidikan/olahraga/infrastruktur sosial), biaya promosi tanpa daftar nominatif PMK 02/2010, serta penghapusan piutang macet yang belum diumumkan/didaftarkan sesuai PMK 105/2009 jo. PMK 207/2015.',
+        'Koreksi Fiskal Positif menambah laba kena pajak karena beban akuntansi tidak dapat dikurangkan secara fiskal (non-deductible expense), seperti sanksi/denda pajak, pembagian laba, sumbangan umum di luar ketentuan PP 93/2010 (batas maks 5% dari penghasilan neto fiskal tahun lalu untuk bencana nasional/litbang/pendidikan/olahraga/infrastruktur sosial), biaya promosi tanpa daftar nominatif PMK 02/2010, penghapusan piutang macet yang belum diumumkan/didaftarkan sesuai PMK 105/2009 jo. PMK 207/2015, serta uang suap, gratifikasi, dan pemberian terkait korupsi/suap kepada pejabat publik asing yang ditegaskan bukan biaya 3M melalui Pasal 20A PP 20/2026.',
         'Sebaliknya, Koreksi Fiskal Negatif mengurangi laba kena pajak untuk penghasilan yang sudah dikenai PPh Final (seperti bunga deposito, sewa properti, atau PHTB), penghasilan bukan objek pajak (seperti dividen dalam negeri memenuhi Pasal 4(3)(f) UU HPP), atau selisih lebih penyusutan fiskal.',
       ],
     },
@@ -152,7 +152,7 @@ export const pphBadanKoreksiFiskalKerugianRule: TaxRuleModule<TaxCalculatorInput
         ...finalTaxSteps,
       ],
       notes: [
-        'Koreksi fiskal positif umum meliputi sumbangan di atas 5% laba neto tahun lalu (PP 93/2010), biaya promosi tanpa daftar nominatif (PMK 02/2010), dan penghapusan piutang tak tertagih yang belum memenuhi syarat PMK 105/2009.',
+        'Koreksi fiskal positif umum meliputi sumbangan di atas 5% laba neto tahun lalu (PP 93/2010), biaya promosi tanpa daftar nominatif (PMK 02/2010), penghapusan piutang tak tertagih yang belum memenuhi syarat PMK 105/2009, serta pengeluaran suap/gratifikasi termasuk kepada pejabat publik asing (Pasal 20A PP 20/2026).',
         ...corpResult.notes,
       ],
     };

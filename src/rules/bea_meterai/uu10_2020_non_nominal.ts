@@ -39,7 +39,7 @@ const article: TaxArticle = {
       heading: 'Dua jalur keterutangan Bea Meterai menurut Pasal 3 UU 10/2020',
       paragraphs: [
         'Pasal 3 ayat (1) UU Bea Meterai menegaskan dua kelompok objek: (a) dokumen yang dibuat sebagai alat untuk menerangkan mengenai suatu kejadian yang bersifat perdata (termasuk walaupun TIDAK mencantumkan nilai nominal uang sama sekali), DAN (b) dokumen yang digunakan sebagai alat pembuktian di muka pengadilan.',
-        'Rincian dokumen bersifat perdata di Pasal 3 ayat (2) meliputi: (a) surat perjanjian, surat keterangan, surat pernyataan, atau surat lainnya yang sejenis beserta rangkapnya (misalnya NDA, kontrak kerja PKWT, MOU, surat kuasa), (b) akta notaris beserta grosse, salinan, dan kutipannya, (c) akta Pejabat Pembuat Akta Tanah (PPAT) beserta salinan/kutipannya, (d) surat berharga dengan nama dan bentuk apa pun, (e) dokumen transaksi surat berharga, serta (f) dokumen lelang dan dokumen yang menyatakan jumlah uang > Rp 5.000.000.',
+        'Rincian dokumen bersifat perdata di Pasal 3 ayat (2) meliputi: (a) surat perjanjian, surat keterangan, surat pernyataan, atau surat lainnya yang sejenis beserta rangkapnya (misalnya NDA, kontrak kerja PKWT, MOU, surat kuasa), (b) akta notaris beserta grosse, salinan, dan kutipannya, (c) akta Pejabat Pembuat Akta Tanah (PPAT) beserta salinan/kutipannya, (d) surat berharga dengan nama dan bentuk apa pun, (e) dokumen transaksi surat berharga, serta (f) dokumen lelang (kutipan/risalah lelang) dan dokumen yang menyatakan jumlah uang > Rp 5.000.000.',
       ],
     },
     {
@@ -98,7 +98,7 @@ export const beaMeteraiUu10_2020NonNominalRule: TaxRuleModule<TaxCalculatorInput
       NonNullable<TaxCalculatorInput['bea_meterai']['jenisDokumenNonNominal']>,
       string
     > = {
-      perjanjian_akta_notaris: 'Surat Perjanjian / Akta Notaris / PPAT & Rangkap Asli (Pasal 3(2) a/b/c)',
+      perjanjian_akta_notaris: 'Surat Perjanjian / Akta Notaris / PPAT / Risalah Lelang (Pasal 3(2) a/b/c/f)',
       surat_keterangan_pernyataan: 'Surat Keterangan / Surat Pernyataan / Kuasa (Pasal 3(2) a)',
       alat_bukti_pengadilan: 'Dokumen Dijadikan Alat Pembuktian di Pengadilan (Pasal 3(1) b)',
       surat_biasa_non_perdata: 'Korespondensi Biasa / Kuitansi <= Rp 5 Jt (Tidak Jadi Bukti Pengadilan)',
@@ -127,7 +127,7 @@ export const beaMeteraiUu10_2020NonNominalRule: TaxRuleModule<TaxCalculatorInput
       );
     } else if (isTerutang) {
       notes.push(
-        `Walaupun dokumen tidak mencantumkan nominal uang (Rp 0), surat perjanjian, surat pernyataan, maupun akta notaris/PPAT tetap menjadi objek Bea Meterai Rp 10.000 per dokumen asli sejak saat ditandatangani (Pasal 3 ayat 2 UU 10/2020).`
+        `Walaupun dokumen tidak mencantumkan nominal uang (Rp 0), surat perjanjian, surat pernyataan, akta notaris/PPAT, maupun kutipan/risalah lelang tetap menjadi objek Bea Meterai Rp 10.000 per dokumen asli sejak saat dibuat/ditandatangani (Pasal 3 ayat 2 UU 10/2020).`
       );
     } else {
       notes.push(
@@ -147,6 +147,7 @@ export const beaMeteraiUu10_2020NonNominalRule: TaxRuleModule<TaxCalculatorInput
       effectiveRateLabel: nominal > 0 ? 'Rasio terhadap nominal' : 'Tarif tetap per dokumen (non-nominal)',
       takeHomeOrNetLabel: 'Jumlah Rangkap / Dokumen Asli Dihitung',
       takeHomeOrNetAmount: jumlah,
+      takeHomeOrNetDisplay: `${jumlah} dokumen`,
       steps,
       notes,
     };

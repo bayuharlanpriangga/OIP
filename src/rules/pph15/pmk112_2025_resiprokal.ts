@@ -40,7 +40,7 @@ const article: TaxArticle = {
       heading: 'Mengapa maskapai/pelayaran asing bisa bebas dari tarif 2,64% Final?',
       paragraphs: [
         'Sesuai KMK Nomor 417/KMK.04/1996, perusahaan pelayaran atau penerbangan luar negeri yang beroperasi di jalur internasional dari Indonesia dikenai norma penghasilan neto 6% dan tarif PPh Final 2,64% dari peredaran bruto freight/tiket.',
-        'Namun hampir seluruh Perjanjian Penghindaran Pajak Berganda (P3B) menganut ketentuan Article 8 (Shipping and Air Transport) yang memberikan hak pemajakan eksklusif kepada negara tempat manajemen efektif maskapai/pelayaran berada — atau diskon 50% pada beberapa P3B tertentu. Melalui penyelarasan prosedur SKD dalam PMK 112/2025, pembebasan 0% baru sah apabila SKD diunggah di Coretax dan uji substansi terpenuhi.',
+        'Namun hampir seluruh Perjanjian Penghindaran Pajak Berganda (P3B) menganut ketentuan Article 8 (Shipping and Air Transport) yang memberikan hak pemajakan eksklusif kepada negara tempat manajemen efektif maskapai/pelayaran berada — atau diskon 50% pada beberapa P3B tertentu. Melalui penyelarasan prosedur SKD dalam PMK 112/2025 (berlaku 31 Desember 2025), pembebasan 0% baru sah apabila SKD diunggah di Coretax dan uji substansi terpenuhi, dengan ketentuan peralihan bahwa SKD format PER-25/PJ/2018 yang sudah terbit sebelumnya tetap berlaku hingga masa cakupannya berakhir.',
       ],
     },
   ],

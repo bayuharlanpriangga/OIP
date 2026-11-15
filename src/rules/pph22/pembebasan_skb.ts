@@ -8,7 +8,7 @@ import {
 import { formatPersen, formatRupiah } from '../../utils/formatters';
 import { SRC } from '../sources';
 
-const sources = [SRC.PMK_51_2025, SRC.PMK_81_2024, SRC.PMK_34_2017];
+const sources = [SRC.PMK_51_2025, SRC.PMK_52_2025, SRC.PMK_81_2024, SRC.PMK_34_2017];
 
 const regime: TaxRegime = {
   id: 'pph22_pembebasan_skb',
@@ -40,7 +40,7 @@ const article: TaxArticle = {
       heading: 'Pengecualian otomatis tanpa memerlukan SKB dari KPP',
       paragraphs: [
         'Pasal 3 PMK 51 Tahun 2025 menegaskan kelompok penyerahan dan impor yang dikecualikan langsung secara otomatis tanpa SKB, antara lain: (1) pembayaran oleh Instansi Pemerintah paling banyak Rp 2.000.000 tidak termasuk PPN dan bukan pembayaran yang dipecah-pecah; (2) pembayaran BUMN/tertentu untuk pembelian BBM, listrik, gas, air minum, dan benda pos;',
-        '(3) impor barang dalam skema Kemudahan Impor Tujuan Ekspor (KITE Pembebasan), Kawasan Ekonomi Khusus (KEK), atau Kawasan Berikat; serta (4) impor barang kiriman hadiah untuk keperluan ibadah umum, amal, sosial, kebudayaan, atau penanggulangan bencana alam.',
+        '(3) impor barang dalam skema Kemudahan Impor Tujuan Ekspor (KITE Pembebasan), Kawasan Ekonomi Khusus (KEK), atau Kawasan Berikat; (4) impor barang kiriman hadiah untuk keperluan ibadah umum, amal, sosial, kebudayaan, atau penanggulangan bencana alam; serta (5) penjualan emas kepada LJK Bulion berizin OJK/BI/pasar fisik digital (PMK 52/2025) dan penjualan emas konsumen akhir ke LJK Bulion <= Rp 10 juta (PMK 51/2025).',
       ],
     },
     {

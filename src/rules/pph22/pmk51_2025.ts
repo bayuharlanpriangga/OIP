@@ -21,7 +21,7 @@ const regime: TaxRegime = {
   currentScopeLabel: 'Berlaku kini — Impor, instansi/BUMN & bulion emas',
   summary:
     'Menggantikan klaster PPh 22 dalam PMK 81/2024 (Pasal 217–225 dicabut via PMK 54/2025): impor API 2,5%, non-API 7,5%, barang konsumsi 7,5%–10%, kedelai/gandum API 0,5%, bendahara/BUMN 1,5%, serta tarif khusus emas batangan/bulion 0,25%.',
-  sources: [SRC.PMK_51_2025, SRC.PMK_54_2025, SRC.PMK_92_2019],
+  sources: [SRC.PMK_51_2025, SRC.PMK_52_2025, SRC.PMK_54_2025, SRC.PMK_92_2019],
   verifiedAt: '14 November 2026',
 };
 
@@ -47,7 +47,7 @@ const article: TaxArticle = {
       heading: 'Struktur tarif impor, belanja instansi, dan kegiatan usaha bulion 0,25%',
       paragraphs: [
         'Struktur tarif utama tetap mempertahankan kejelasan bagi pelaku usaha: impor menggunakan API dikenai 2,5% (khusus kedelai, gandum, dan tepung terigu ber-API sebesar 0,5%), impor non-API 7,5%, dan barang konsumsi tertentu sesuai lampiran 7,5% hingga 10%. Pembelian barang oleh instansi pemerintah/bendahara dan BUMN tertentu tetap dipungut 1,5% dengan batas pengecualian belanja instansi paling banyak Rp 2.000.000 (bukan pembayaran terpecah).',
-        'Pembaruan penting dalam PMK 51/2025 adalah tarif khusus 0,25% atas pembelian emas batangan oleh Lembaga Jasa Keuangan (LJK) penyelenggara kegiatan usaha bulion berizin OJK serta impor emas batangan tertentu, untuk memberikan kepastian hukum tanpa pemungutan berlapis.',
+        'Pembaruan penting dalam PMK 51/2025 adalah tarif khusus 0,25% atas pembelian emas batangan oleh Lembaga Jasa Keuangan (LJK) penyelenggara kegiatan usaha bulion berizin OJK serta impor emas batangan tertentu—dengan pengecualian bagi penjualan oleh konsumen akhir ke LJK Bulion sampai dengan Rp 10.000.000 (0%). Melalui PMK 52/2025 sebagai pasangannya, pengusaha emas tidak memungut PPh 22 saat menjual kepada LJK Bulion agar tidak terjadi pemungutan berganda.',
       ],
     },
   ],
@@ -198,8 +198,13 @@ export const pph22Pmk51_2025Rule: TaxRuleModule<TaxCalculatorInput['pph22']> = {
         'Tanpa NPWP / NIK yang sah dalam sistem Coretax, pemungutan PPh Pasal 22 dikenakan 100% lebih tinggi dari tarif normal.'
       );
     }
+    if (input.objectType === 'bulion_emas' && nilaiDasar > 0 && nilaiDasar <= 10000000) {
+      notes.push(
+        'Catatan PMK 51/2025: Penjualan emas batangan oleh konsumen akhir kepada LJK Bulion berizin OJK dengan nilai transaksi paling banyak Rp 10.000.000 dikecualikan otomatis dari PPh Pasal 22 (0%); tarif 0,25% tetap berlaku untuk transaksi > Rp 10 juta atau impor emas batangan.'
+      );
+    }
     notes.push(
-      'PMK 51/2025 berlaku efektif mulai 1 Agustus 2025 dan menggantikan Pasal 217–225 PMK 81/2024 yang dicabut lewat PMK 54/2025; pemungutan marketplace (PPMSE) tetap mengikuti PMK 37/2025 dan barang sangat mewah mengacu pada PMK 92/2019.'
+      'PMK 51/2025 berlaku efektif mulai 1 Agustus 2025 bersama PMK 52/2025 (pengecualian penjualan emas oleh pengusaha kepada LJK Bulion/BI/pasar digital tanpa SKB) dan menggantikan Pasal 217–225 PMK 81/2024; marketplace tetap mengikuti PMK 37/2025 dan barang sangat mewah mengacu pada PMK 92/2019.'
     );
 
     return {

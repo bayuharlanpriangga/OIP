@@ -8,7 +8,7 @@ import {
 import { formatPersen, formatRupiah } from '../../utils/formatters';
 import { SRC } from '../sources';
 
-const sources = [SRC.PMK_169_2015, SRC.UU_7_2021_HPP, SRC.UU_36_2008];
+const sources = [SRC.PMK_169_2015, SRC.PP_55_2022, SRC.UU_7_2021_HPP, SRC.UU_36_2008];
 
 const regime: TaxRegime = {
   id: 'badan_pmk169_2015_der',
@@ -41,6 +41,7 @@ const article: TaxArticle = {
       paragraphs: [
         'Tanpa batas rasio utang terhadap modal, perusahaan multinasional maupun grup usaha dapat menyuntikkan pembiayaan berupa utang pemegang saham berbunga tinggi alih-alih modal (thin capitalization) agar beban bunga mengurangi laba kena pajak PPh Badan 22%.',
         'Berdasarkan PMK 169/PMK.010/2015, besarnya utang yang biaya pinjamannya boleh dikurangkan dibatasi maksimal 4:1 terhadap rata-rata saldo ekuitas tiap akhir bulan. Apabila saldo utang rata-rata = Rp 100 miliar sedangkan ekuitas = Rp 15 miliar (DER 6,67:1), maka hanya bunga atas porsi utang Rp 60 miliar (4 × Rp 15 miliar) atau 60% dari total biaya pinjaman yang dapat dibebankan secara fiskal; sisanya 40% wajib dikoreksi fiskal positif.',
+        'Meskipun Pasal 42 PP Nomor 55 Tahun 2022 memberikan landasan hukum alternatif pembatasan biaya pinjaman berbasis rasio EBITDA (earnings before interest, taxes, depreciation, and amortization), hingga saat ini PMK pelaksana rasio EBITDA belum diterbitkan untuk menggantikan PMK 169/2015 sehingga uji DER 4:1 tetap menjadi ketentuan operasional aktif dan dilaporkan melalui Lampiran 11B pada SPT Tahunan PPh Badan Coretax.',
       ],
     },
   ],
@@ -130,8 +131,9 @@ export const badanPmk169_2015DerRule: TaxRuleModule<TaxCalculatorInput['pph_bada
         utang === 0 && ekuitas === 0
           ? 'Masukkan saldo utang rata-rata dan ekuitas fiskal untuk menguji apakah rasio DER melebihi batas 4:1 PMK 169/2015.'
           : rasioDer > 4
-            ? `Rasio DER Anda ${rasioDer.toFixed(2)}:1 (melampaui batas 4:1). Sebesar ${(porsiNonDeductible * 100).toFixed(1)}% biaya bunga tidak diakui secara fiskal, menambah PPh Badan sebesar ${formatRupiah(tambahanPph)}.`
+            ? `Rasio DER Anda ${rasioDer.toFixed(2)}:1 (melampaui batas 4:1). Sebesar ${(porsiNonDeductible * 100).toFixed(1)}% biaya bunga (simulasi memakai asumsi bunga 10%/tahun) tidak diakui secara fiskal, menambah PPh Badan sebesar ${formatRupiah(tambahanPph)}.`
             : `Rasio DER Anda ${rasioDer.toFixed(2)}:1 (memenuhi batas sehat ≤ 4:1) sehingga 100% biaya pinjaman diakui sebagai pengurang fiskal.`,
+        'Pasal 42 PP 55/2022 membuka opsi pembatasan berbasis EBITDA, namun karena PMK persentase EBITDA belum menggantikan PMK 169/2015, rasio DER 4:1 tetap menjadi acuan operasional aktif pada Lampiran 11B SPT Tahunan Coretax.',
       ],
     };
   },

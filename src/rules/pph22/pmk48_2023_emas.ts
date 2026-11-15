@@ -8,19 +8,19 @@ import {
 import { formatPersen, formatRupiah } from '../../utils/formatters';
 import { SRC } from '../sources';
 
-const sources = [SRC.PMK_48_2023, SRC.PMK_51_2025, SRC.PMK_11_2025, SRC.PMK_41_2022];
+const sources = [SRC.PMK_48_2023, SRC.PMK_52_2025, SRC.PMK_51_2025, SRC.PMK_11_2025, SRC.PMK_41_2022];
 
 const regime: TaxRegime = {
   id: 'pph22_pmk48_2023_emas',
   taxType: 'pph22',
-  name: 'PMK 48/2023 jo. PMK 51/2025 (PPh 22 & PPN Emas Perhiasan/Batangan)',
-  shortName: '2023–Kini (PMK 48/2023 Emas)',
-  legalBasis: 'PMK Nomor 48 Tahun 2023 jo. PMK Nomor 51 Tahun 2025',
-  effectivePeriod: '1 Mei 2023 – Sekarang',
+  name: 'PMK 48/2023 jo. PMK 51/2025 & PMK 52/2025 (PPh 22 & PPN Emas)',
+  shortName: '2023–Kini (PMK 48/2023 & PMK 52/2025 Emas)',
+  legalBasis: 'PMK Nomor 48 Tahun 2023 sttd PMK Nomor 52 Tahun 2025 & PMK Nomor 51 Tahun 2025',
+  effectivePeriod: '1 Mei 2023 – Sekarang (Penyesuaian LJK Bulion 1 Ags 2025)',
   isCurrent: true,
   currentScopeLabel: 'Berlaku kini — Pabrikan/pedagang emas perhiasan & emas batangan',
   summary:
-    'Menata ulang pajak niaga emas mulai 1 Mei 2023: PPh Pasal 22 atas penjualan emas perhiasan maupun emas batangan diturunkan menjadi 0,25% (tidak dipungut kepada konsumen akhir & WP UMKM SKB), disertai PPN Besaran Tertentu 1,1% (pedagang dengan faktur) atau 1,65% (pabrikan ke konsumen / pedagang tanpa faktur).',
+    'Menata ulang pajak niaga emas mulai 1 Mei 2023: PPh Pasal 22 atas penjualan emas perhiasan maupun emas batangan diturunkan menjadi 0,25% (tidak dipungut kepada konsumen akhir, UMKM Suket, SKB, serta sesuai PMK 52/2025 dikecualikan tanpa SKB untuk penjualan ke LJK Bulion berizin OJK, Bank Indonesia, & pasar fisik emas digital), disertai PPN Besaran Tertentu 1,1% atau 1,65%.',
   sources,
   verifiedAt: '14 November 2026',
 };
@@ -29,18 +29,18 @@ const article: TaxArticle = {
   id: 'pph22-pmk48-2023-emas',
   taxType: 'pph22',
   taxTypeLabel: 'PPh Pasal 22',
-  title: 'PMK 48/2023 jo. PMK 51/2025: PPh Pasal 22 (0,25%) & PPN Emas Perhiasan/Batangan',
-  legalBasis: 'PMK Nomor 48 Tahun 2023 jo. PMK Nomor 51 Tahun 2025',
-  effectiveDate: '1 Mei 2023 (Terintegrasi dengan PMK 51/2025 per 1 Agustus 2025)',
+  title: 'PMK 48/2023 jo. PMK 52/2025: PPh Pasal 22 (0,25%) & PPN Emas Perhiasan/Batangan',
+  legalBasis: 'PMK Nomor 48 Tahun 2023 sttd PMK Nomor 52 Tahun 2025 & PMK Nomor 51 Tahun 2025',
+  effectiveDate: '1 Mei 2023 (Pembaruan PMK 51/2025 & PMK 52/2025 per 1 Agustus 2025)',
   readMinutes: 5,
   summary:
-    'Membedakan kewajiban PPh Pasal 22 sebesar 0,25% dan PPN Besaran Tertentu (1,1% vs 1,65%) di sepanjang rantai pabrikan, pedagang emas perhiasan, konsumen akhir, serta transaksi emas batangan/bulion.',
+    'Membedakan kewajiban PPh Pasal 22 sebesar 0,25% dan PPN Besaran Tertentu (1,1% vs 1,65%) di sepanjang rantai pabrikan, pedagang emas perhiasan, konsumen akhir, serta pengecualian tanpa SKB kepada LJK Bulion berizin OJK (PMK 52/2025).',
   sections: [
     {
-      heading: 'Penyeragaman tarif PPh 22 menjadi 0,25% & pengecualian konsumen akhir',
+      heading: 'Penyeragaman tarif PPh 22 menjadi 0,25% & pengecualian LJK Bulion (PMK 52/2025)',
       paragraphs: [
         'Sebelum Mei 2023 (era PMK 34/2017 jo. PMK 41/2022), penjualan emas batangan oleh produsen dalam negeri dikenai PPh 22 sebesar 0,45%, sedangkan pedagang emas perhiasan kerap menghadapi kerumitan administrasi faktur. Melalui PMK Nomor 48 Tahun 2023, pemerintah menurunkan tarif PPh Pasal 22 atas penjualan emas perhiasan dan emas batangan menjadi 0,25% dari harga jual (bersifat tidak final dan dapat dikreditkan).',
-        'Penting dicatat bahwa pemungutan PPh Pasal 22 sebesar 0,25% ini dikecualikan (0%) apabila pembeli adalah konsumen akhir, Wajib Pajak UMKM yang menyerahkan fotokopi Surat Keterangan PP 23/55, atau Wajib Pajak pemilik SKB PPh 22. Ketentuan emas batangan/bulion ini selanjutnya ditegaskan kembali dalam PMK 51/2025 per 1 Agustus 2025.',
+        'Pemungutan PPh Pasal 22 sebesar 0,25% ini dikecualikan (0%) apabila pembeli adalah konsumen akhir, Wajib Pajak UMKM yang menyerahkan fotokopi Surat Keterangan PP 23/55/20, atau Wajib Pajak pemilik SKB PPh 22. Sejak 1 Agustus 2025 melalui PMK Nomor 52 Tahun 2025 (perubahan kedua PMK 48/2023), penjualan emas perhiasan/batangan oleh pengusaha emas kepada LJK penyelenggara kegiatan usaha bulion berizin OJK, Bank Indonesia, maupun melalui pasar fisik emas digital Bappebti juga dikecualikan dari PPh 22 tanpa memerlukan SKB guna menghindari pemungutan ganda dengan PMK 51/2025.',
       ],
     },
     {
@@ -173,7 +173,7 @@ export const pph22Pmk48_2023EmasRule: TaxRuleModule<TaxCalculatorInput['pph22']>
       takeHomeOrNetAmount: totalBayar,
       steps,
       notes: [
-        'PPh Pasal 22 sebesar 0,25% bersifat tidak final (kredit pajak pembeli) dan dibebaskan apabila penjualan dilakukan kepada konsumen akhir atau pembeli pemegang SKB/UMKM.',
+        'PPh Pasal 22 sebesar 0,25% bersifat tidak final (kredit pajak pembeli) dan dikecualikan tanpa SKB bila pembeli merupakan konsumen akhir, LJK Bulion berizin OJK, Bank Indonesia, atau melalui pasar fisik emas digital (PMK 52/2025 efektif 1 Agustus 2025), maupun pemegang SKB/Suket UMKM.',
         'Sesuai PMK 48/2023 jo. PMK 11/2025, PPN Besaran Tertentu emas perhiasan tetap efektif 1,1% (10% x 11/12 x 12%) atau 1,65% (15% x 11/12 x 12%) dan Pajak Masukan perolehan tidak dapat dikreditkan.',
       ],
     };

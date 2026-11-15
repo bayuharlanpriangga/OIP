@@ -97,7 +97,12 @@ export const pph25Pp42_2000FlnRule: TaxRuleModule<TaxCalculatorInput['pph25']> =
         formula: mode === 'laut' ? 'Kapal laut (Rp 500.000/keberangkatan)' : 'Pesawat udara (Rp 1.000.000/keberangkatan)',
         value: perTrip,
       },
-      { label: 'Jumlah keberangkatan (simulasi)', value: jumlahKeberangkatan },
+      {
+        label: 'Jumlah keberangkatan (simulasi)',
+        value: jumlahKeberangkatan,
+        format: 'text',
+        displayValue: `${jumlahKeberangkatan} keberangkatan`,
+      },
       {
         label: 'Total Fiskal Luar Negeri (FLN) dibayar',
         formula: `${jumlahKeberangkatan} x ${formatRupiah(perTrip)}`,

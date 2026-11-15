@@ -25,10 +25,10 @@ function mergeCaseInput(
   };
 }
 
-test('all 206 regimes and articles have valid sources, categories, verifiedAt, and finite calculation outputs', () => {
+test('all 217 regimes and articles have valid sources, categories, verifiedAt, and finite calculation outputs', () => {
   assert.equal(TAX_CATEGORIES.length, 15);
-  assert.equal(TAX_REGIMES.length, 206);
-  assert.equal(TAX_ARTICLES.length, 206);
+  assert.equal(TAX_REGIMES.length, 217);
+  assert.equal(TAX_ARTICLES.length, 217);
 
   for (const regime of TAX_REGIMES) {
     assert.equal(regime.verifiedAt, '14 November 2026', `Expected verifiedAt for regime ${regime.id}`);
@@ -1692,3 +1692,402 @@ test('Phase 3 New Rules (Batch B — PPN, PBJT & Bea Meterai): Pasal 16D, PM Pro
   );
   assert.equal(meteraiBiasa.primaryTaxAmount, 0);
 });
+
+test('Final Audit Fixes — Pasal 4(3) PMK 192/2018, Rekonsiliasi Des Gross-Up, SPT Pewaris Waris, TP Doc Kriteria ke-4, Nota Retur Coretax & Bebas Artefak Rp', () => {
+  // 1. PPh 24 PMK 192/2018 harus merujuk Pasal 4(3)
+  const pph24Rule = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, penghasilanKenaPajak: 4000000000, penghasilanLuarNegeri: 2000000000, rugiLuarNegeri: 1000000000, pphDibayarLuarNegeri: 340000000 },
+    },
+    'badan_pmk192_2018_pph24'
+  );
+  assert.ok(pph24Rule.notes.some((n) => n.includes('Pasal 4 ayat (3) PMK 192')));
+  assert.ok(!pph24Rule.notes.some((n) => n.includes('Pasal 4 ayat (2)')));
+
+  // 2. TP Doc kriteria ke-4 (< 22% affiliate) & format: 'text' tanpa artefak Rp 2/3
+  const tpLowTax = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, peredaranBrutoTahunan: 10000000000, nilaiAfiliasiBarang: 0, nilaiAfiliasiJasaLain: 0, omzetGrupKonsolidasi: 0, isAfiliasiTarifLebihRendah: true },
+    },
+    'badan_pmk172_2023_tp_doc'
+  );
+  assert.equal(tpLowTax.steps[0].format, 'text');
+  assert.equal(tpLowTax.steps[0].displayValue, 'Wajib MF & LF');
+
+  // 3. Gross-Up TER memuat Rekonsiliasi Pasal 17 Desember (annualTaxAmount = PPh 21 Setahun Pasal 17 > 11 bln TER)
+  const grossUpDec = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 10000000, tunjanganTetap: 0, bonusTahunan: 20000000, iuranPensiunBulanan: 0, ptkpStatus: 'TK/0', hasNpwp: true },
+    },
+    'pph21_pmk168_2023_gross_up'
+  );
+  assert.equal(grossUpDec.primaryTaxAmount, 230179);
+  assert.ok(grossUpDec.annualTaxAmount !== undefined && grossUpDec.annualTaxAmount > 0);
+  assert.ok(grossUpDec.steps.some((s) => s.label.includes('Rekonsiliasi Masa Desember')));
+
+  // 4. SKB Waris SPT Pewaris flag & warning
+  const warisNoSpt = runTaxCalculation(
+    'pph4_2',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 1500000000, skemaSkbPhtb: 'waris', isDilaporkanSptPewaris: false },
+    },
+    'pph4_2_skb_waris_hibah'
+  );
+  assert.equal(warisNoSpt.primaryTaxAmount, 0);
+  assert.ok(warisNoSpt.notes.some((n) => n.startsWith('Peringatan Administrasi SKB')));
+
+  // 5. Nota Retur termasukPpn & PMK 81/2024 Pasal 286-290
+  const returInklPpN = runTaxCalculation(
+    'ppn',
+    { ...DEFAULT_CALCULATOR_INPUT, ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 111000000, termasukPpn: true, skemaNilaiLainRetur: 'nota_retur_bkp_jkp' } },
+    'ppn_pmk75_2010_nilai_lain_retur'
+  );
+  assert.equal(returInklPpN.primaryTaxAmount, -11000000);
+  assert.ok(returInklPpN.notes.some((n) => n.includes('Pasal 286–290 PMK 81/2024')));
+
+  // 6. Tidak ada step/takeHomeOrNet bertipe angka kecil non-rupiah (1, 2, 3, 75) yang dirender sebagai Rp tanpa format: 'text' / displayValue
+  const eksporStep = runTaxCalculation(
+    'ppn',
+    { ...DEFAULT_CALCULATOR_INPUT, ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 500000000, jenisEksporJkp: 'maklon_desain_it', isMemenuhiSyaratEksporJkp: true } },
+    'ppn_pmk32_2019_ekspor_jkp'
+  );
+  assert.equal(eksporStep.steps[1].format, 'text');
+  assert.equal(eksporStep.steps[1].displayValue, 'Eligible 0%');
+
+  const meteraiNonNom = runTaxCalculation(
+    'bea_meterai',
+    { ...DEFAULT_CALCULATOR_INPUT, bea_meterai: { nilaiDokumen: 0, jumlahDokumen: 2, jenisDokumenNonNominal: 'perjanjian_akta_notaris' } },
+    'meterai_uu10_2020_non_nominal'
+  );
+  assert.equal(meteraiNonNom.takeHomeOrNetDisplay, '2 dokumen');
+
+  const transisi = runTaxCalculation(
+    'bea_meterai',
+    { ...DEFAULT_CALCULATOR_INPUT, bea_meterai: { nilaiDokumen: 20000000, jumlahDokumen: 3, jenisTransisiMeterai: 'transisi_3000_6000_9000' } },
+    'meterai_pmk134_2021_transisi'
+  );
+  assert.equal(transisi.steps[1].format, 'text');
+  assert.equal(transisi.steps[1].displayValue, '3 dokumen');
+
+  const fln = runTaxCalculation(
+    'pph25',
+    { ...DEFAULT_CALCULATOR_INPUT, pph25: { ...DEFAULT_CALCULATOR_INPUT.pph25, bulanBerjalan: 1, flnTransport: 'udara' } },
+    'pph25_pp42_2000_fln'
+  );
+  assert.equal(fln.steps[1].format, 'text');
+  assert.equal(fln.steps[1].displayValue, '1 keberangkatan');
+
+  const but = runTaxCalculation(
+    'pph26',
+    { ...DEFAULT_CALCULATOR_INPUT, pph26: { ...DEFAULT_CALCULATOR_INPUT.pph26, nilaiBruto: 2000000000, nilaiPenyerahanJasaBut: 2000000000, hariDiIndonesia: 75 } },
+    'pph26_pmk35_2019_but'
+  );
+  assert.equal(but.steps[1].format, 'text');
+  assert.equal(but.steps[1].displayValue, '75 hari');
+});
+
+test('Post-Audit Regulatory Precision Checks (Nov 2026): PMK 52/2025 LJK Bulion, PMK 51/2025 <=10jt Note, Tax Holiday 2025 Cutoff, DER PP 55/2022, & Pasal 20A PP 20/2026', () => {
+  const emasRes = runTaxCalculation(
+    'pph22',
+    { ...DEFAULT_CALCULATOR_INPUT, pph22: { ...DEFAULT_CALCULATOR_INPUT.pph22, nilaiDasar: 100000000, skemaEmas: 'emas_batangan' } },
+    'pph22_pmk48_2023_emas'
+  );
+  assert.ok(emasRes.regime.sources.some((s) => s.url.includes('pmk-52-tahun-2025')));
+  assert.ok(emasRes.notes.some((n) => n.includes('PMK 52/2025') && n.includes('LJK Bulion')));
+
+  const bulionSmall = runTaxCalculation(
+    'pph22',
+    { ...DEFAULT_CALCULATOR_INPUT, pph22: { ...DEFAULT_CALCULATOR_INPUT.pph22, nilaiDasar: 5000000, objectType: 'bulion_emas', hasNpwp: true } },
+    'pph22_pmk51_2025'
+  );
+  assert.ok(bulionSmall.notes.some((n) => n.includes('10.000.000') && n.includes('konsumen akhir')));
+
+  const insentifRes = runTaxCalculation(
+    'pph_badan',
+    { ...DEFAULT_CALCULATOR_INPUT, pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, penghasilanKenaPajak: 10000000000, skemaInsentif: 'tax_holiday_100' } },
+    'badan_insentif_fiskal'
+  );
+  assert.ok(insentifRes.regime.effectivePeriod.includes('31 Des 2025'));
+  assert.ok(insentifRes.notes.some((n) => n.includes('31 Desember 2025')));
+
+  const derRes = runTaxCalculation(
+    'pph_badan',
+    { ...DEFAULT_CALCULATOR_INPUT, pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, penghasilanKenaPajak: 10000000000, utangBerbunga: 100000000000, ekuitasFiskal: 15000000000 } },
+    'badan_pmk169_2015_der'
+  );
+  assert.ok(derRes.notes.some((n) => n.includes('Pasal 42 PP 55/2022') && n.includes('Lampiran 11B')));
+
+  const koreksiRes = runTaxCalculation(
+    'pph_badan',
+    { ...DEFAULT_CALCULATOR_INPUT, pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, peredaranBrutoTahunan: 60000000000, penghasilanKenaPajak: 5000000000 } },
+    'badan_koreksi_fiskal_kerugian'
+  );
+  assert.ok(koreksiRes.regime.sources.some((s) => s.url.includes('pp-20-tahun-2026')));
+  assert.ok(koreksiRes.notes.some((n) => n.includes('Pasal 20A PP 20/2026')));
+});
+
+test('Phase 4 Category-Gap Patching (+11 Modules -> 217 Total): SPLN, Royalti NPPN 6%, IKN PHTB, Derivatif, Merger, Dividen LN, Zakat, KB, Restitusi, Digunggung, Diplomatik', () => {
+  // 1. PPh 21 SPLN > 183 hari (PER-23/PJ/2025 jo. PER-2/PJ/2009)
+  const splnBebas = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 50000000, hariDiLuarNegeri: 260, hasPermanentHomeLn: true },
+    },
+    'pph21_per2_2009_spln'
+  );
+  assert.equal(splnBebas.primaryTaxAmount, 0);
+  assert.equal(splnBebas.steps[1].format, 'text');
+  assert.ok(splnBebas.notes.some((n) => n.includes('PER-23/PJ/2025')));
+
+  const splnGagal = runTaxCalculation(
+    'pph21',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph21: { ...DEFAULT_CALCULATOR_INPUT.pph21, gajiBulanan: 50000000, hariDiLuarNegeri: 120, hasPermanentHomeLn: true },
+    },
+    'pph21_per2_2009_spln'
+  );
+  assert.ok(splnGagal.primaryTaxAmount > 0);
+
+  // 2. PPh 23 Royalti WPOP NPPN 6% (PER-1/PJ/2023)
+  const royaltiNppn = runTaxCalculation(
+    'pph23',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph23: { ...DEFAULT_CALCULATOR_INPUT.pph23, nilaiBruto: 100000000, hasBpsNppnRoyalti: true },
+    },
+    'pph23_per1_2023_royalti'
+  );
+  assert.equal(royaltiNppn.primaryTaxAmount, 6000000);
+  assert.equal(royaltiNppn.effectiveRatePercent, 6);
+
+  const royaltiTanpaBps = runTaxCalculation(
+    'pph23',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph23: { ...DEFAULT_CALCULATOR_INPUT.pph23, nilaiBruto: 100000000, hasBpsNppnRoyalti: false, hasNpwp: true },
+    },
+    'pph23_per1_2023_royalti'
+  );
+  assert.equal(royaltiTanpaBps.primaryTaxAmount, 15000000);
+
+  // 3. PPh 4(2) PHTB IKN 100% Reduction (PMK 28/2024 jo. PP 12/2023)
+  const iknPertama = runTaxCalculation(
+    'pph4_2',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 3000000000, skemaIknPhtb: 'perolehan_pertama_skb' },
+    },
+    'pph4_2_pmk28_2024_ikn'
+  );
+  assert.equal(iknPertama.primaryTaxAmount, 0);
+
+  const iknKedua = runTaxCalculation(
+    'pph4_2',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 3000000000, skemaIknPhtb: 'pengalihan_kedua_normal' },
+    },
+    'pph4_2_pmk28_2024_ikn'
+  );
+  assert.equal(iknKedua.primaryTaxAmount, 75000000);
+
+  // 4. PPh 4(2) Historis Derivatif PP 17/2009 vs Pencabutan PP 31/2011
+  const derivatifPp17 = runTaxCalculation(
+    'pph4_2',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 400000000, isMarginAwalDerivatif: true },
+    },
+    'pph4_2_pp17_2009_derivatif'
+  );
+  assert.equal(derivatifPp17.primaryTaxAmount, 10000000);
+
+  const derivatifPp31 = runTaxCalculation(
+    'pph4_2',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph4_2: { ...DEFAULT_CALCULATOR_INPUT.pph4_2, nilaiBruto: 400000000, isMarginAwalDerivatif: false },
+    },
+    'pph4_2_pp17_2009_derivatif'
+  );
+  assert.equal(derivatifPp31.primaryTaxAmount, 0);
+
+  // 5. PPh Badan Merger Nilai Buku (PMK 52/2017 stdd PMK 56/2021)
+  const mergerNilaiBuku = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: {
+        ...DEFAULT_CALCULATOR_INPUT.pph_badan,
+        nilaiPasarHartaMerger: 50000000000,
+        nilaiBukuFiskalMerger: 30000000000,
+        isPersetujuanNilaiBuku: true,
+      },
+    },
+    'badan_pmk52_2017_merger'
+  );
+  assert.equal(mergerNilaiBuku.primaryTaxAmount, 0);
+  assert.equal(mergerNilaiBuku.annualTaxAmount, 4400000000);
+
+  const mergerNilaiPasar = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: {
+        ...DEFAULT_CALCULATOR_INPUT.pph_badan,
+        nilaiPasarHartaMerger: 50000000000,
+        nilaiBukuFiskalMerger: 30000000000,
+        isPersetujuanNilaiBuku: false,
+      },
+    },
+    'badan_pmk52_2017_merger'
+  );
+  assert.equal(mergerNilaiPasar.primaryTaxAmount, 4400000000);
+
+  // 6. PPh Badan Dividen Luar Negeri Reinvestasi 30% (PMK 18/2021)
+  const divLnExempt = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: {
+        ...DEFAULT_CALCULATOR_INPUT.pph_badan,
+        labaSetelahPajakBuln: 5000000000,
+        dividenLnDiterima: 2000000000,
+        nilaiReinvestasiDividenLn: 1500000000,
+        pajakDibayarDiLnDividen: 100000000,
+      },
+    },
+    'badan_pmk18_2021_dividen_ln'
+  );
+  assert.equal(divLnExempt.primaryTaxAmount, 0);
+
+  const divLnKurang = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: {
+        ...DEFAULT_CALCULATOR_INPUT.pph_badan,
+        labaSetelahPajakBuln: 5000000000,
+        dividenLnDiterima: 2000000000,
+        nilaiReinvestasiDividenLn: 500000000, // kurang 1M dari target 1.5M (50% terutang)
+        pajakDibayarDiLnDividen: 100000000,
+      },
+    },
+    'badan_pmk18_2021_dividen_ln'
+  );
+  assert.equal(divLnKurang.primaryTaxAmount, 170000000); // (1M * 22% = 220jt) - (100jt * 1M/2M = 50jt) = 170jt
+
+  // 7. PPh Badan Zakat Wajib Resmi (PP 60/2010 & PMK 254/2010)
+  const zakatResmi = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, penghasilanKenaPajak: 4000000000, zakatWajibResmi: 100000000, isLembagaZakatResmi: true },
+    },
+    'badan_pp60_2010_zakat'
+  );
+  assert.equal(zakatResmi.primaryTaxAmount, 858000000);
+  assert.equal(zakatResmi.annualTaxAmount, 22000000);
+
+  const zakatNonResmi = runTaxCalculation(
+    'pph_badan',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      pph_badan: { ...DEFAULT_CALCULATOR_INPUT.pph_badan, penghasilanKenaPajak: 4000000000, zakatWajibResmi: 100000000, isLembagaZakatResmi: false },
+    },
+    'badan_pp60_2010_zakat'
+  );
+  assert.equal(zakatNonResmi.primaryTaxAmount, 880000000);
+
+  // 8. PPN Kawasan Berikat (PP 85/2015 & PMK 65/2021)
+  const kbMasuk = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 2000000000, skemaKawasanBerikat: 'pemasukan_bahan_baku' },
+    },
+    'ppn_pp85_2015_kawasan_berikat'
+  );
+  assert.equal(kbMasuk.primaryTaxAmount, 0);
+  assert.equal(kbMasuk.annualTaxAmount, 220000000);
+
+  const kbTlldp = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 1000000000, skemaKawasanBerikat: 'penjualan_tlldp_lebih_kuota' },
+    },
+    'ppn_pp85_2015_kawasan_berikat'
+  );
+  assert.equal(kbTlldp.primaryTaxAmount, 110000000);
+  assert.equal(kbTlldp.steps[1].format, 'text');
+
+  // 9. PPN Restitusi Pendahuluan (PMK 119/2024)
+  const restitusi17dOk = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 3500000000, skemaRestitusiPpn: 'wp_17d_sd_5m' },
+    },
+    'ppn_pmk119_2024_restitusi'
+  );
+  assert.equal(restitusi17dOk.primaryTaxAmount, 3500000000);
+  assert.equal(restitusi17dOk.takeHomeOrNetDisplay, 'Maksimal 1 Bulan (SKPPKP)');
+
+  const restitusi17dOver = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 6000000000, skemaRestitusiPpn: 'wp_17d_sd_5m' },
+    },
+    'ppn_pmk119_2024_restitusi'
+  );
+  assert.equal(restitusi17dOver.takeHomeOrNetDisplay, 'Maksimal 12 Bulan (Pemeriksaan 17B)');
+  assert.equal(restitusi17dOver.annualTaxAmount, 0);
+
+  // 10. PPN Faktur Pajak Digunggung Pedagang Eceran (PER-11/PJ/2025 & PP 44/2022)
+  const digunggung = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 555000000, termasukPpn: true, skemaDigunggung: 'eceran_konsumen_akhir' },
+    },
+    'ppn_per11_2025_digunggung'
+  );
+  assert.equal(digunggung.primaryTaxAmount, 55000000);
+  assert.equal(digunggung.steps[2].format, 'text');
+
+  // 11. PPN Pembebasan Diplomatik & Badan Internasional (PP 47/2020 & PMK 59/2024)
+  const diplomatikSkb = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 4000000000, hasSkbDiplomatikTimbalBalik: true },
+    },
+    'ppn_pp47_2020_diplomatik'
+  );
+  assert.equal(diplomatikSkb.primaryTaxAmount, 0);
+  assert.equal(diplomatikSkb.annualTaxAmount, 440000000);
+
+  const diplomatikNoSkb = runTaxCalculation(
+    'ppn',
+    {
+      ...DEFAULT_CALCULATOR_INPUT,
+      ppn: { ...DEFAULT_CALCULATOR_INPUT.ppn, hargaJualDpp: 4000000000, hasSkbDiplomatikTimbalBalik: false },
+    },
+    'ppn_pp47_2020_diplomatik'
+  );
+  assert.equal(diplomatikNoSkb.primaryTaxAmount, 440000000);
+});
+
+
+

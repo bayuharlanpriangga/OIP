@@ -107,6 +107,8 @@ export const pph26Pmk35_2019ButRule: TaxRuleModule<TaxCalculatorInput['pph26']> 
       {
         label: `Durasi pemberian jasa: ${hari} hari (Ambang batas PMK 35/2019 = 60 hari)`,
         value: hari,
+        format: 'text',
+        displayValue: `${hari} hari`,
       },
       ...(memicuBut
         ? [

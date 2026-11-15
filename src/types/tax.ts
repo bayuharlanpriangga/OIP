@@ -137,6 +137,8 @@ export interface TaxCalculatorInput {
     jumlahBulanKerja?: number;
     skemaTengahTahun?: 'lokal_berhenti_tidak_setahun' | 'expat_meninggal_tinggal_ri_setahun';
     gajiPemberiKerja2?: number;
+    hariDiLuarNegeri?: number;
+    hasPermanentHomeLn?: boolean;
   };
   pph22: {
     nilaiDasar: number;
@@ -175,6 +177,7 @@ export interface TaxCalculatorInput {
     isPengecualianPasal23_4?: boolean;
     nilaiReimbursement?: number;
     isPembuktianFakturTerpisah?: boolean;
+    hasBpsNppnRoyalti?: boolean;
   };
   pph4_2: {
     nilaiBruto: number;
@@ -217,6 +220,9 @@ export interface TaxCalculatorInput {
       | 'pps_k2_14'
       | 'pps_k2_18';
     skemaSkbPhtb?: 'waris' | 'hibah_garis_lurus' | 'op_bawah_ptkp_60jt' | 'hibah_non_garis_lurus_tanpa_skb';
+    isDilaporkanSptPewaris?: boolean;
+    skemaIknPhtb?: 'perolehan_pertama_skb' | 'pengalihan_kedua_normal';
+    isMarginAwalDerivatif?: boolean;
   };
   pph_umkm: {
     omzetBulanan: number;
@@ -292,6 +298,16 @@ export interface TaxCalculatorInput {
     omzetGrupKonsolidasi?: number;
     koreksiKewajaranTp?: number;
     isRepatriasiTpBeforeSkp?: boolean;
+    isAfiliasiTarifLebihRendah?: boolean;
+    nilaiPasarHartaMerger?: number;
+    nilaiBukuFiskalMerger?: number;
+    isPersetujuanNilaiBuku?: boolean;
+    labaSetelahPajakBuln?: number;
+    dividenLnDiterima?: number;
+    nilaiReinvestasiDividenLn?: number;
+    pajakDibayarDiLnDividen?: number;
+    zakatWajibResmi?: number;
+    isLembagaZakatResmi?: boolean;
   };
   ppn: {
     hargaJualDpp: number;
@@ -335,6 +351,10 @@ export interface TaxCalculatorInput {
     skemaAyda?: 'jual_ayda_pembeli' | 'pengambilalihan_debitur';
     skemaNilaiLainRetur?: 'pemakaian_cuma_cuma' | 'nota_retur_bkp_jkp' | 'film_cerita_nilai_lain';
     persenLabaKotor?: number;
+    skemaKawasanBerikat?: 'pemasukan_bahan_baku' | 'penjualan_tlldp_dalam_kuota' | 'penjualan_tlldp_lebih_kuota';
+    skemaRestitusiPpn?: 'pkp_risiko_rendah_9_4c' | 'wp_17d_sd_5m' | 'wp_17c_golden' | 'reguler_17b_pemeriksaan';
+    skemaDigunggung?: 'eceran_konsumen_akhir' | 'eceran_ke_pkp_b2b';
+    hasSkbDiplomatikTimbalBalik?: boolean;
   };
   ppnbm: {
     hargaJual: number;
@@ -386,7 +406,8 @@ export interface CalculationStep {
   value: number;
   isHighlight?: boolean;
   isNegative?: boolean;
-  format?: 'currency' | 'percent';
+  format?: 'currency' | 'percent' | 'text';
+  displayValue?: string;
 }
 
 export interface CalculationResult {
@@ -401,6 +422,7 @@ export interface CalculationResult {
   effectiveRateLabel?: string;
   takeHomeOrNetLabel: string;
   takeHomeOrNetAmount: number;
+  takeHomeOrNetDisplay?: string;
   steps: CalculationStep[];
   notes: string[];
 }

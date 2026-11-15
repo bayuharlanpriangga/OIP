@@ -13,9 +13,9 @@ const sources = [SRC.PMK_11_2025, SRC.PMK_75_2010, SRC.PMK_121_2015, SRC.PMK_65_
 const regime: TaxRegime = {
   id: 'ppn_pmk75_2010_nilai_lain_retur',
   taxType: 'ppn',
-  name: 'PMK 11/2025 (eks PMK 75/2010) & PMK 65/2010 (Pemakaian Sendiri, Cuma-Cuma, Film & Nota Retur)',
+  name: 'PMK 11/2025 (eks PMK 75/2010) & PMK 81/2024 (Pemakaian Sendiri, Cuma-Cuma, Film & Nota Retur)',
   shortName: '2010–Kini (DPP Nilai Lain Spesifik & Nota Retur)',
-  legalBasis: 'PMK 11 Tahun 2025 (eks PMK 75/2010–PMK 121/2015) & PMK 65/PMK.03/2010 jo. PMK 81/2024',
+  legalBasis: 'PMK 11 Tahun 2025 (eks PMK 75/2010–PMK 121/2015) & Pasal 286–290 PMK 81/2024 (mencabut PMK 65/2010)',
   effectivePeriod: '1 April 2010 – Sekarang (Penyesuaian 11/12 di PMK 11/2025)',
   isCurrent: true,
   currentScopeLabel: 'Berlaku kini — Pemberian Cuma-Cuma (HPP), Film Cerita & Nota Retur',
@@ -29,8 +29,8 @@ const article: TaxArticle = {
   id: 'ppn-pmk75-2010-nilai-lain-retur',
   taxType: 'ppn',
   taxTypeLabel: 'PPN',
-  title: 'DPP Nilai Lain (Pemakaian Sendiri, Pemberian Cuma-Cuma, Film) & Nota Retur (PMK 11/2025 & PMK 65/2010)',
-  legalBasis: 'PMK 11/2025, PMK 75/PMK.03/2010, PMK 65/PMK.03/2010 & PMK 81/2024',
+  title: 'DPP Nilai Lain (Pemakaian Sendiri, Pemberian Cuma-Cuma, Film) & Nota Retur (PMK 11/2025 & PMK 81/2024)',
+  legalBasis: 'PMK 11/2025, PMK 75/PMK.03/2010, Pasal 286–290 PMK 81/2024 (eks PMK 65/2010)',
   effectiveDate: '1 April 2010 (Pembaruan PMK 11/2025 mulai 4 Februari 2025)',
   readMinutes: 6,
   summary:
@@ -44,16 +44,16 @@ const article: TaxArticle = {
       ],
     },
     {
-      heading: 'Nota Retur BKP & Nota Pembatalan JKP (PMK 65/2010 jo. PMK 81/2024)',
+      heading: 'Nota Retur BKP & Nota Pembatalan JKP (PMK 81/2024 Pasal 286–290, mencabut PMK 65/2010)',
       paragraphs: [
-        'Apabila barang yang sudah diterbitkan Faktur Pajak dikembalikan oleh pembeli (retur) atau jasa dibatalkan sebagian/seluruhnya, pembeli wajib membuat Nota Retur (atau Nota Pembatalan Jasa) pada masa pajak saat pengembalian terjadi.',
-        'Berdasarkan PMK 65/PMK.03/2010 jo. PMK 81/2024 (melalui modul faktur Coretax), Nota Retur secara langsung MENGURANGI Pajak Keluaran penjual dan MENGURANGI Pajak Masukan pembeli pada masa pajak dibuatnya Nota Retur tersebut.',
+        'Apabila barang yang sudah diterbitkan Faktur Pajak dikembalikan oleh pembeli (retur) atau jasa dibatalkan sebagian/seluruhnya, pembeli wajib membuat Nota Retur (atau Nota Pembatalan Jasa) pada masa pajak saat pengembalian atau pembatalan terjadi.',
+        'Sejak 1 Januari 2025, Pasal 286–290 PMK Nomor 81 Tahun 2024 secara resmi mencabut PMK 65/PMK.03/2010: Nota Retur/Nota Pembatalan kini wajib dibuat secara elektronik melalui Portal Wajib Pajak (Coretax) dengan Tanda Tangan Elektronik dan persetujuan DJP, yang langsung MENGURANGI Pajak Keluaran penjual dan Pajak Masukan pembeli pada masa pajak dibuatnya Nota Retur.',
       ],
     },
   ],
   comparisonTable: {
     oldHeader: 'Penjualan Normal Kode 010/040',
-    newHeader: 'DPP Nilai Lain & Nota Retur (PMK 11/2025 & PMK 65/2010)',
+    newHeader: 'DPP Nilai Lain & Nota Retur (PMK 11/2025 & PMK 81/2024)',
     rows: [
       {
         aspek: 'Pemberian cuma-cuma / sampel produk',
@@ -102,6 +102,9 @@ export const ppnPmk75_2010NilaiLainReturRule: TaxRuleModule<TaxCalculatorInput['
       const steps: CalculationStep[] = [
         {
           label: 'Nilai BKP dikembalikan / JKP dibatalkan dalam Nota Retur (non-PPN)',
+          formula: input.termasukPpn
+            ? `Dikeluarkan dari total termasuk PPN (${formatRupiah(raw)} x 100/111)`
+            : 'Harga jual / penggantian sebelum PPN',
           value: nilaiRetur,
         },
         {
@@ -129,7 +132,7 @@ export const ppnPmk75_2010NilaiLainReturRule: TaxRuleModule<TaxCalculatorInput['
         takeHomeOrNetAmount: nilaiRetur,
         steps,
         notes: [
-          `Nota Retur / Pembatalan Jasa wajib dibuat oleh pembeli pada masa pajak saat pengembalian BKP atau pembatalan JKP terjadi (PMK 65/2010 jo. PMK 81/2024), mengurangi Pajak Keluaran penjual sebesar ${formatRupiah(Math.abs(ppnKoreksi))}.`,
+          `Nota Retur / Pembatalan Jasa wajib dibuat oleh pembeli secara elektronik di Coretax pada masa pajak terjadinya pengembalian/pembatalan (Pasal 286–290 PMK 81/2024 yang mencabut PMK 65/2010), mengurangi Pajak Keluaran penjual sebesar ${formatRupiah(Math.abs(ppnKoreksi))}.`,
         ],
       };
     }

@@ -40,8 +40,8 @@ const article: TaxArticle = {
     {
       heading: 'Mengapa 2 bukti potong memicu Kurang Bayar PPh Pasal 29?',
       paragraphs: [
-        'Setiap pemberi kerja menghitung pemotongan PPh 21 secara terpisah tanpa mengetahui penghasilan pegawai dari perusahaan lain. Akibatnya, baik Pemberi Kerja ke-1 maupun Pemberi Kerja ke-2 masing-masing mengurangkan PTKP penuh (misalnya Rp 54.000.000) dan memulai lapisan tarif progresif Pasal 17 dari lapis terbawah 5% lagi.',
-        'Saat pegawai menggabungkan kedua penghasilan tersebut dalam SPT Tahunan Orang Pribadi, Wajib Pajak hanya berhak atas SATU kali pengurangan PTKP dalam setahun pajak dan total Penghasilan Kena Pajak (PKP) gabungan terdorong ke lapisan tarif lebih tinggi (15%, 25%, dst.), sehingga timbul selisih kurang bayar PPh Pasal 29 yang wajib dilunasi sebelum lapor SPT.',
+        'Meskipun sepanjang Januari–November tiap pemberi kerja memotong memakai tabel TER PP 58/2023 dan di Masa Desember merekonsiliasi dengan tarif progresif Pasal 17 untuk menerbitkan Bukti Potong BPA1 (eks 1721-A1), setiap pemberi kerja menghitung pemotongan PPh 21 secara terpisah tanpa mengetahui penghasilan pegawai dari perusahaan lain. Akibatnya, baik Pemberi Kerja ke-1 maupun Pemberi Kerja ke-2 masing-masing mengurangkan PTKP penuh (misalnya Rp 54.000.000) dan memulai lapisan tarif progresif Pasal 17 dari lapis terbawah 5% lagi.',
+        'Saat pegawai menggabungkan kedua BPA1 tersebut dalam SPT Tahunan Orang Pribadi, Wajib Pajak hanya berhak atas SATU kali pengurangan PTKP dalam setahun pajak dan total Penghasilan Kena Pajak (PKP) gabungan terdorong ke lapisan tarif lebih tinggi (15%, 25%, dst.), sehingga timbul selisih kurang bayar PPh Pasal 29 yang wajib dilunasi sebelum lapor SPT.',
       ],
     },
     {

@@ -40,7 +40,7 @@ const article: TaxArticle = {
       heading: 'Prinsip Per-Country Limitation & larangan offset Rugi Luar Negeri',
       paragraphs: [
         'Wajib Pajak Dalam Negeri (WPDN) dikenai pajak atas seluruh penghasilan dari Indonesia maupun luar negeri (worldwide income). Agar tidak terjadi pajak berganda atas penghasilan dari luar negeri yang sudah dipotong pajak di negara sumber, Pasal 24 UU PPh jo. PMK 192/PMK.03/2018 memberikan hak pengkreditan pajak luar negeri (KPLN).',
-        'Pasal 4 ayat (2) PMK 192/2018 secara tegas menyatakan bahwa kerugian yang diderita di luar negeri (baik kerugian cabang/perwakilan maupun kerugian usaha luar negeri lainnya) TIDAK BOLEH digabungkan atau dikurangkan dalam menghitung Penghasilan Kena Pajak di Indonesia maupun saling dikompensasikan dengan laba negara lain.',
+        'Pasal 4 ayat (3) PMK 192/2018 secara tegas menyatakan bahwa kerugian yang diderita di luar negeri (baik kerugian cabang/perwakilan maupun kerugian usaha luar negeri lainnya) TIDAK BOLEH digabungkan atau dikurangkan dalam menghitung Penghasilan Kena Pajak di Indonesia maupun saling dikompensasikan dengan laba negara lain.',
       ],
     },
     {
@@ -125,7 +125,7 @@ export const badanPmk192_2018Pph24Rule: TaxRuleModule<TaxCalculatorInput['pph_ba
       },
       {
         label: 'Rugi Luar Negeri (Diabaikan — tidak boleh mengurangi PKP Indonesia)',
-        formula: rugiLn > 0 ? `Rugi ${formatRupiah(rugiLn)} ditolak sebagai pengurang (Pasal 4(2) PMK 192/2018)` : 'Tidak ada rugi luar negeri',
+        formula: rugiLn > 0 ? `Rugi ${formatRupiah(rugiLn)} ditolak sebagai pengurang (Pasal 4(3) PMK 192/2018)` : 'Tidak ada rugi luar negeri',
         value: 0,
       },
       {
@@ -170,7 +170,7 @@ export const badanPmk192_2018Pph24Rule: TaxRuleModule<TaxCalculatorInput['pph_ba
 
     if (rugiLn > 0) {
       notes.push(
-        `Rugi cabang luar negeri sebesar ${formatRupiah(rugiLn)} TIDAK diperhitungkan dalam PKP Indonesia sesuai Pasal 4 ayat (2) PMK 192/PMK.03/2018.`
+        `Rugi cabang luar negeri sebesar ${formatRupiah(rugiLn)} TIDAK diperhitungkan dalam PKP Indonesia sesuai Pasal 4 ayat (3) PMK 192/PMK.03/2018.`
       );
     }
 

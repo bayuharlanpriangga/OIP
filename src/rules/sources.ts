@@ -187,6 +187,12 @@ export const SRC = {
     url: 'https://jdih.kemenkeu.go.id/dok/pmk-51-tahun-2025',
     publisher: 'JDIH Kemenkeu',
   },
+  PMK_52_2025: {
+    title:
+      'PMK Nomor 52 Tahun 2025 tentang Perubahan Kedua atas PMK 48/2023 (Pengecualian PPh 22 Penjualan Emas ke LJK Bulion, BI & Pasar Digital)',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-52-tahun-2025',
+    publisher: 'JDIH Kemenkeu',
+  },
   PMK_54_2025: {
     title:
       'PMK Nomor 54 Tahun 2025 tentang Perubahan Ketiga atas PMK 81/2024 (Mencabut Pasal 217–225 PPh 22 PMK 81/2024)',
@@ -1533,5 +1539,115 @@ export const SRC = {
     title: 'PER-30/PJ/2009 tentang Tata Cara Pemberian Pengecualian (SKB) Pembayaran PPh atas Pengalihan Hak atas Tanah dan/atau Bangunan',
     url: 'https://www.pajak.go.id/id/peraturan-direktur-jenderal-pajak-nomor-30pj2009',
     publisher: 'Direktorat Jenderal Pajak',
+  },
+  PER_2_PJ_2009: {
+    title: 'PER-2/PJ/2009 tentang Perlakuan Pajak Penghasilan bagi Pekerja Indonesia di Luar Negeri',
+    url: 'https://www.pajak.go.id/id/peraturan-direktur-jenderal-pajak-nomor-02pj2009',
+    publisher: 'Direktorat Jenderal Pajak',
+  },
+  PER_23_PJ_2025: {
+    title: 'PER-23/PJ/2025 tentang Penentuan Status Subjek Pajak Dalam Negeri dan Subjek Pajak Luar Negeri (Pengganti PER-2/PJ/2009 & PER-43/PJ/2011)',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-23-pj-2025',
+    publisher: 'Direktorat Jenderal Pajak / JDIH Kemenkeu',
+  },
+  PER_1_PJ_2023: {
+    title: 'PER-1/PJ/2023 tentang Pedoman Teknis Tata Cara Pemotongan, Penyetoran, dan Pelaporan PPh Pasal 23 atas Penghasilan Royalti WPOP Pengguna NPPN',
+    url: 'https://www.pajak.go.id/id/peraturan-direktur-jenderal-pajak-nomor-per-1pj2023',
+    publisher: 'Direktorat Jenderal Pajak',
+  },
+  PP_17_2009: {
+    title: 'PP Nomor 17 Tahun 2009 tentang Pajak Penghasilan atas Penghasilan dari Transaksi Derivatif Berupa Kontrak Berjangka yang Diperdagangkan di Bursa',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-17-tahun-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_31_2011: {
+    title: 'PP Nomor 31 Tahun 2011 tentang Pencabutan PP Nomor 17 Tahun 2009 mengenai PPh atas Transaksi Derivatif Kontrak Berjangka di Bursa',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-31-tahun-2011',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_52_2017: {
+    title: 'PMK Nomor 52/PMK.010/2017 tentang Penggunaan Nilai Buku atas Pengalihan dan Perolehan Harta dalam Rangka Penggabungan, Peleburan, Pemekaran, atau Pengambilalihan Usaha',
+    url: 'https://jdih.kemenkeu.go.id/dok/52-pmk-010-2017',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_205_2018: {
+    title: 'PMK Nomor 205/PMK.010/2018 tentang Perubahan atas PMK 52/PMK.010/2017 mengenai Penggunaan Nilai Buku Aksi Korporasi',
+    url: 'https://jdih.kemenkeu.go.id/dok/205-pmk-010-2018',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_56_2021: {
+    title: 'PMK Nomor 56/PMK.010/2021 tentang Perubahan Kedua atas PMK 52/PMK.010/2017 tentang Penggunaan Nilai Buku dalam Restrukturisasi Usaha',
+    url: 'https://jdih.kemenkeu.go.id/dok/56-pmk-010-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_60_2010: {
+    title: 'PP Nomor 60 Tahun 2010 tentang Zakat atau Sumbangan Keagamaan yang Sifatnya Wajib yang Dapat Dikurangkan dari Penghasilan Bruto',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-60-tahun-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_254_2010: {
+    title: 'PMK Nomor 254/PMK.03/2010 tentang Tata Cara Pembebanan Zakat atau Sumbangan Keagamaan yang Sifatnya Wajib dari Penghasilan Bruto',
+    url: 'https://jdih.kemenkeu.go.id/dok/254-pmk-03-2010',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_6_PJ_2011: {
+    title: 'PER-6/PJ/2011 tentang Pelaksanaan Pembayaran dan Pembuatan Bukti Pembayaran atas Zakat atau Sumbangan Keagamaan yang Sifatnya Wajib',
+    url: 'https://www.pajak.go.id/id/peraturan-direktur-jenderal-pajak-nomor-6pj2011',
+    publisher: 'Direktorat Jenderal Pajak',
+  },
+  PP_32_2009: {
+    title: 'PP Nomor 32 Tahun 2009 tentang Tempat Penimbunan Berikat',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-32-tahun-2009',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_85_2015: {
+    title: 'PP Nomor 85 Tahun 2015 tentang Perubahan atas PP Nomor 32 Tahun 2009 tentang Tempat Penimbunan Berikat',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-85-tahun-2015',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_131_2018: {
+    title: 'PMK Nomor 131/PMK.04/2018 tentang Kawasan Berikat',
+    url: 'https://jdih.kemenkeu.go.id/dok/131-pmk-04-2018',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_65_2021: {
+    title: 'PMK Nomor 65/PMK.04/2021 tentang Perubahan atas PMK Nomor 131/PMK.04/2018 tentang Kawasan Berikat',
+    url: 'https://jdih.kemenkeu.go.id/dok/65-pmk-04-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_39_2018: {
+    title: 'PMK Nomor 39/PMK.03/2018 tentang Tata Cara Pengembalian Pendahuluan Kelebihan Pembayaran Pajak',
+    url: 'https://jdih.kemenkeu.go.id/dok/39-pmk-03-2018',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_209_2021: {
+    title: 'PMK Nomor 209/PMK.03/2021 tentang Perubahan Kedua atas PMK 39/PMK.03/2018 (Penyesuaian Ambang Restitusi PPN Pasal 17D)',
+    url: 'https://jdih.kemenkeu.go.id/dok/209-pmk-03-2021',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_119_2024: {
+    title: 'PMK Nomor 119 Tahun 2024 tentang Perubahan Ketiga atas PMK 39/PMK.03/2018 mengenai Pengembalian Pendahuluan Kelebihan Pembayaran Pajak',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-119-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PP_44_2022: {
+    title: 'PP Nomor 44 Tahun 2022 tentang Penerapan terhadap PPN Barang dan Jasa dan PPnBM',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-44-tahun-2022',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PER_11_PJ_2025: {
+    title: 'PER-11/PJ/2025 tentang Ketentuan Pelaporan PPh, PPN, PPnBM, dan Bea Meterai dalam Rangka Pelaksanaan Sistem Inti Administrasi Perpajakan (Coretax)',
+    url: 'https://jdih.kemenkeu.go.id/dok/per-11-pj-2025',
+    publisher: 'Direktorat Jenderal Pajak / JDIH Kemenkeu',
+  },
+  PP_47_2020: {
+    title: 'PP Nomor 47 Tahun 2020 tentang Pemberian Pembebasan PPN atau PPN dan PPnBM kepada Perwakilan Negara Asing dan Badan Internasional Serta Pejabatnya',
+    url: 'https://jdih.kemenkeu.go.id/dok/pp-47-tahun-2020',
+    publisher: 'JDIH Kemenkeu',
+  },
+  PMK_59_2024: {
+    title: 'PMK Nomor 59 Tahun 2024 tentang Tata Cara Pemberian Pembebasan PPN atau PPN dan PPnBM kepada Perwakilan Negara Asing dan Badan Internasional Serta Pejabatnya',
+    url: 'https://jdih.kemenkeu.go.id/dok/pmk-59-tahun-2024',
+    publisher: 'JDIH Kemenkeu',
   },
 } satisfies Record<string, TaxSource>;

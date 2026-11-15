@@ -44,9 +44,10 @@ const article: TaxArticle = {
       ],
     },
     {
-      heading: 'Kesalahan umum: Hibah ke saudara kandung tetap kena PPh Final 2,5%',
+      heading: 'Syarat khusus SKB Waris: Pelaporan Harta di SPT Tahunan Pewaris',
       paragraphs: [
-        'Perlu dicermati bahwa pengecualian hibah hanya berlaku untuk garis lurus satu derajat (orang tua ke anak atau anak ke orang tua). Hibah properti kepada kakak/adik kandung, paman, keponakan, atau mertua merupakan garis menyamping atau semenda sehingga TIDAK mendapat SKB dan tetap dikenai PPh Final 2,5% dari nilai pasar/NJOP.',
+        'Khusus permohonan SKB PHTB karena warisan (PER-30/PJ/2009 jo. Pasal 200 PMK 81/2024), ahli waris tidak hanya melampirkan Surat Pernyataan Pembagian Waris, tetapi juga harus membuktikan bahwa tanah dan/atau bangunan yang diwariskan telah dilaporkan dalam Daftar Harta SPT Tahunan PPh pewaris (atau apabila pewaris belum memiliki NPWP/penghasilan di bawah PTKP sehingga tidak wajib menyampaikan SPT, dibuktikan melalui Surat Pernyataan bermeterai bahwa penghasilan pewaris di bawah PTKP dan tidak memenuhi syarat subjektif/objektif).',
+        'Kesalahan umum lainnya adalah hibah kepada saudara kandung, paman, keponakan, atau mertua. Pengecualian hibah hanya berlaku untuk garis lurus satu derajat (orang tua ke anak atau anak ke orang tua). Hibah ke garis menyamping atau semenda TIDAK mendapat SKB dan tetap dikenai PPh Final 2,5% dari nilai pasar/NJOP.',
       ],
     },
   ],
@@ -57,7 +58,7 @@ const article: TaxArticle = {
       {
         aspek: 'Warisan ahli waris sah',
         aturanLama: 'Harus validasi SSP sebelum AJB/balik nama',
-        aturanBaru: 'Dikecualikan 0% dengan SKB Waris PHTB',
+        aturanBaru: '0% dengan SKB Waris (wajib Surat Pembagian Waris & harta terlaporkan di SPT pewaris / surat pernyataan < PTKP)',
       },
       {
         aspek: 'Hibah anak <-> orang tua vs saudara kandung',
@@ -94,6 +95,7 @@ export const pph4_2SkbWarisHibahRule: TaxRuleModule<TaxCalculatorInput['pph4_2']
   calculate(input) {
     const nilai = Math.max(0, input.nilaiBruto);
     const skema = input.skemaSkbPhtb ?? 'waris';
+    const isDilaporkanSptPewaris = input.isDilaporkanSptPewaris !== false;
 
     let rate = 0;
     let statusLabel = 'Dikecualikan / SKB PHTB (0%)';
@@ -102,9 +104,12 @@ export const pph4_2SkbWarisHibahRule: TaxRuleModule<TaxCalculatorInput['pph4_2']
     switch (skema) {
       case 'waris':
         rate = 0;
-        statusLabel = 'Dikecualikan 0% — Pengalihan karena Warisan (SKB Waris)';
-        detailNote =
-          'Sesuai Pasal 6 huruf d PP 34/2016, pengalihan hak tanah/bangunan karena warisan dikecualikan dari PPh Final 2,5% dengan penerbitan SKB PHTB di KPP.';
+        statusLabel = isDilaporkanSptPewaris
+          ? 'Dikecualikan 0% — Warisan (SKB Memenuhi Syarat SPT Pewaris)'
+          : 'Dikecualikan 0% Secara Materiil — Perlu Pembetulan SPT Pewaris / Pernyataan < PTKP untuk SKB';
+        detailNote = isDilaporkanSptPewaris
+          ? 'Sesuai Pasal 6 huruf d PP 34/2016 jo. PER-30/PJ/2009 & Pasal 200 PMK 81/2024, pengalihan hak karena warisan dikecualikan dari PPh Final 2,5% dengan SKB Waris (dilampiri Surat Pernyataan Pembagian Waris serta bukti pelaporan harta di SPT Tahunan pewaris / surat pernyataan pewaris di bawah PTKP).'
+          : 'Secara materiil warisan bukan objek PPh, namun untuk penerbitan SKB Waris di KPP/Coretax ahli waris wajib melampirkan bukti harta telah dilaporkan dalam SPT Tahunan pewaris (atau Surat Pernyataan bahwa pewaris berpenghasilan di bawah PTKP sehingga tidak wajib SPT).';
         break;
       case 'hibah_garis_lurus':
         rate = 0;
@@ -163,6 +168,11 @@ export const pph4_2SkbWarisHibahRule: TaxRuleModule<TaxCalculatorInput['pph4_2']
     ];
 
     const notes: string[] = [detailNote];
+    if (skema === 'waris' && !isDilaporkanSptPewaris) {
+      notes.push(
+        'Peringatan Administrasi SKB: Permohonan SKB Waris dapat ditolak/tertahan oleh KPP apabila tanah/bangunan belum masuk Daftar Harta SPT Tahunan pewaris (kecuali pewaris tidak wajib SPT/di bawah PTKP dan dibuktikan surat pernyataan).'
+      );
+    }
     if (rate === 0 && nilai > 0) {
       notes.push(
         'Catatan PPAT/BPN: Pembebasan PPh 2,5% (SKB PHTB) tidak serta-merta membebaskan BPHTB Daerah (waris/hibah garis lurus umumnya tetap dikenai BPHTB 5% setelah dikurangi NPOPTKP waris/hibah daerah sesuai Perda HKPD).'

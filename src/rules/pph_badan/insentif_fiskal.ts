@@ -16,9 +16,9 @@ const regime: TaxRegime = {
   name: 'PMK 130/2020 jo. PMK 69/2024, PP 78/2019 & PP 45/2019 (Tax Holiday, Tax Allowance & Super Deduction)',
   shortName: '2019–Kini (Tax Holiday & Super Deduction)',
   legalBasis: 'PMK 130/PMK.010/2020 jo. PMK 69/2024, PP 78/2019, & PP 45/2019',
-  effectivePeriod: '2019 – Sekarang (Tax Holiday Diperpanjang s.d. Des 2025 & Penyesuaian GMT)',
+  effectivePeriod: '2019 – Sekarang (Tax Allowance & Super R&D Aktif; Usulan Tax Holiday PMK 69/2024 s.d. 31 Des 2025)',
   isCurrent: true,
-  currentScopeLabel: 'Berlaku kini — Tax Holiday 50%–100%, Tax Allowance 30%, Super R&D 300%',
+  currentScopeLabel: 'Tax Allowance & Super R&D berlaku kini; Tax Holiday PMK 69/2024 (penerima/usulan s.d. 31 Des 2025)',
   summary:
     'Tiga pilar insentif investasi strategis PPh Badan: (1) Tax Holiday (pengurangan PPh Badan 100% investasi >= Rp 500 M, atau 50% mini tax holiday Rp 100–500 M); (2) Tax Allowance pengurangan penghasilan neto 30% investasi (5%/thn x 6 thn); dan (3) Super Deduction PP 45/2019 hingga 300% biaya Litbang (R&D) atau 200% vokasi.',
   sources,
@@ -39,7 +39,7 @@ const article: TaxArticle = {
     {
       heading: 'Tax Holiday 50%–100% vs Tax Allowance 30% vs Super Deduction 300%',
       paragraphs: [
-        'Berdasarkan PMK 130/PMK.010/2020 (diperpanjang sampai akhir 2025 lewat PMK 69 Tahun 2024), industri pionir dengan rencana penanaman modal baru minimal Rp 500 miliar berhak atas pengurangan PPh Badan sebesar 100% selama 5–20 tahun (ditambah 50% selama 2 tahun berikutnya), sedangkan investasi Rp 100–500 miliar memperoleh Mini Tax Holiday pengurangan 50% selama 5 tahun + 25% selama 2 tahun. Melalui PMK 69/2024, dicantumkan klausul bahwa penerima yang masuk lingkup Pajak Minimum Global tetap tunduk pada Top-Up Tax 15% PMK 136/2024.',
+        'Berdasarkan PMK 130/PMK.010/2020 (batas penyampaian usulan diperpanjang hingga 31 Desember 2025 lewat PMK 69 Tahun 2024), industri pionir dengan rencana penanaman modal baru minimal Rp 500 miliar memperoleh pengurangan PPh Badan sebesar 100% selama 5–20 tahun (ditambah 50% selama 2 tahun berikutnya), sedangkan investasi Rp 100–500 miliar memperoleh Mini Tax Holiday pengurangan 50% selama 5 tahun + 25% selama 2 tahun. Bagi penerima yang telah ditetapkan, jangka waktu fasilitas tetap berjalan namun tunduk pada Top-Up Tax 15% PMK 136/2024 bila masuk lingkup GMT; sementara usulan baru pasca 31 Desember 2025 menunggu peraturan lanjutan Kemenkeu.',
         'Alternatifnya, PP Nomor 78 Tahun 2019 memberikan Tax Allowance berupa pengurangan penghasilan neto 30% dari nilai investasi aktiva tetap (dibebankan 5% per tahun selama 6 tahun) plus penyusutan dipercepat. Sementara PP Nomor 45 Tahun 2019 memberikan Super Tax Deduction hingga 300% dari biaya kegiatan Litbang (R&D) tertentu di Indonesia (ekstra 200% tambahan pengurang laba fiskal) atau 200% untuk kegiatan vokasi.',
       ],
     },
@@ -155,6 +155,7 @@ export const badanInsentifFiskalRule: TaxRuleModule<TaxCalculatorInput['pph_bada
       takeHomeOrNetAmount: hemat,
       steps,
       notes: [
+        'Batas akhir pengajuan usulan baru Tax Holiday PMK 130/2020 jo. PMK 69/2024 berakhir pada 31 Desember 2025 (wajib pajak yang telah memperoleh penetapan tetap menikmati durasi 5–20 tahunnya, sedangkan usulan baru 2026+ menunggu PMK lanjutan). Sementara Tax Allowance PP 78/2019 dan Super Deduction PP 45/2019 tetap terbuka tanpa batas waktu.',
         'Khusus wajib pajak anggota grup multinasional dengan omzet konsolidasi global >= EUR 750 juta mulai Tahun Pajak 2025, pengurangan Tax Holiday hingga ETR < 15% tetap dapat memicu pajak tambahan QDMTT (PMK 69/2024 & PMK 136/2024).',
       ],
     };

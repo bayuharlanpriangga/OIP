@@ -37,10 +37,10 @@ const article: TaxArticle = {
     'Panduan lengkap ambang batas Master File, Local File, dan Country-by-Country Report (CbCR) serta mekanisme pembatalan Secondary Adjustment PPh 26 20% melalui pengembalian kas (repatriasi) sebelum SKP diterbitkan.',
   sections: [
     {
-      heading: 'Ambang batas wajib Master File, Local File, & CbCR (Pasal 16 PMK 172/2023)',
+      heading: 'Ambang batas wajib Master File, Local File, & CbCR (Pasal 16 ayat (3)–(4) PMK 172/2023)',
       paragraphs: [
-        'Wajib Pajak yang melakukan transaksi afiliasi wajib menyelenggarakan dan menyimpan Dokumen Induk (Master File) dan Dokumen Lokal (Local File) dalam jangka waktu 4 bulan setelah akhir tahun pajak apabila pada tahun pajak sebelumnya memenuhi SALAH SATU syarat: (1) Peredaran bruto > Rp 50 miliar, (2) Transaksi afiliasi barang berwujud > Rp 20 miliar, (3) Masing-masing jenis transaksi jasa/bunga/royalti/lainnya > Rp 5 miliar, atau (4) Bertransaksi dengan pihak afiliasi di negara bertarif PPh lebih rendah dari Indonesia (< 22%).',
-        'Selain itu, entitas induk dalam negeri grup usaha dengan peredaran bruto konsolidasi tahun pajak sebelum tahun bersangkutan paling sedikit Rp 11 triliun wajib menyelenggarakan dan menyampaikan Laporan per Negara (CbCR).',
+        'Sesuai Pasal 16 ayat (3) PMK 172/2023, Wajib Pajak yang melakukan transaksi afiliasi wajib menyelenggarakan dan menyimpan Dokumen Induk (Master File) dan Dokumen Lokal (Local File) dalam jangka waktu 4 bulan setelah akhir tahun pajak apabila pada tahun pajak sebelumnya memenuhi SALAH SATU syarat: (1) Peredaran bruto > Rp 50 miliar, (2) Transaksi afiliasi barang berwujud > Rp 20 miliar, (3) Masing-masing jenis transaksi jasa/bunga/royalti/lainnya > Rp 5 miliar, atau (4) Bertransaksi dengan pihak afiliasi di negara bertarif PPh lebih rendah dari Indonesia (< 22%).',
+        'Selain itu, sesuai Pasal 16 ayat (4), entitas induk dalam negeri grup usaha dengan peredaran bruto konsolidasi tahun pajak sebelum tahun bersangkutan paling sedikit Rp 11 triliun wajib menyelenggarakan dan menyampaikan Laporan per Negara (CbCR).',
       ],
     },
     {
@@ -104,9 +104,13 @@ export const badanPmk172_2023TpDocRule: TaxRuleModule<TaxCalculatorInput['pph_ba
     const omzetGrup = Math.max(0, input.omzetGrupKonsolidasi ?? 0);
     const koreksiTp = Math.max(0, input.koreksiKewajaranTp ?? 0);
     const isRepatriasi = Boolean(input.isRepatriasiTpBeforeSkp);
+    const isAfiliasiTarifRendah = Boolean(input.isAfiliasiTarifLebihRendah);
 
     const wajibMasterLocal =
-      omzet > 50000000000 || barang > 20000000000 || jasaLain > 5000000000;
+      omzet > 50000000000 ||
+      barang > 20000000000 ||
+      jasaLain > 5000000000 ||
+      isAfiliasiTarifRendah;
     const wajibCbcr = omzetGrup >= 11000000000000;
 
     const pphPrimer = Math.round(koreksiTp * 0.22);
@@ -123,10 +127,15 @@ export const badanPmk172_2023TpDocRule: TaxRuleModule<TaxCalculatorInput['pph_ba
 
     const steps: CalculationStep[] = [
       {
-        label: 'Status Kewajiban TP Doc (Pasal 16 PMK 172/2023)',
+        label: 'Status Kewajiban TP Doc (Pasal 16 ayat (3)–(4) PMK 172/2023)',
         formula: statusDoc,
         value: wajibCbcr ? 3 : wajibMasterLocal ? 2 : 0,
-        format: 'currency',
+        format: 'text',
+        displayValue: wajibCbcr
+          ? 'Wajib MF, LF & CbCR'
+          : wajibMasterLocal
+            ? 'Wajib MF & LF'
+            : 'Tidak Wajib TP Doc',
       },
       {
         label: 'Selisih koreksi kewajaran Transfer Pricing (PKKU)',
@@ -155,7 +164,7 @@ export const badanPmk172_2023TpDocRule: TaxRuleModule<TaxCalculatorInput['pph_ba
     ];
 
     const notes: string[] = [
-      `Evaluasi kepatuhan: ${statusDoc} (Batas Master/Local File: omzet > Rp 50 M, afiliasi barang > Rp 20 M, atau jasa/bunga/royalti > Rp 5 M; batas CbCR: omzet grup >= Rp 11 T).`,
+      `Evaluasi kepatuhan: ${statusDoc} (Pasal 16 ayat (3): omzet > Rp 50 M, afiliasi barang > Rp 20 M, jasa/bunga/royalti > Rp 5 M, atau afiliasi yurisdiksi tarif < 22%; Pasal 16 ayat (4) CbCR: omzet grup >= Rp 11 T).`,
     ];
     if (isRepatriasi) {
       notes.push(
@@ -163,7 +172,7 @@ export const badanPmk172_2023TpDocRule: TaxRuleModule<TaxCalculatorInput['pph_ba
       );
     } else if (koreksiTp > 0) {
       notes.push(
-        `Tanpa repatriasi kas, koreksi primer Rp ${koreksiTp.toLocaleString('id-ID')} otomatis memicu Secondary Adjustment PPh 26 20% senilai ${formatRupiah(pphSekunder)} (total beban pajak menjadi 42% atas selisih koreksi).`
+        `Tanpa repatriasi kas, koreksi primer ${formatRupiah(koreksiTp)} otomatis memicu Secondary Adjustment PPh 26 20% senilai ${formatRupiah(pphSekunder)} (total beban pajak menjadi 42% atas selisih koreksi).`
       );
     }
 

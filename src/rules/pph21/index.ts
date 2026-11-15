@@ -2,6 +2,7 @@ import { TaxCalculatorInput, TaxRuleModule } from '../../types/tax';
 import { pph21Hpp2022Rule } from './hpp2022';
 import { pph21Kmk462_1998PesangonRule } from './kmk462_1998_pesangon';
 import { pph21Kmk564_2004Rule } from './kmk564_2004';
+import { pph21Per2_2009SplnRule } from './per2_2009_spln';
 import { pph21Per31_2009Rule } from './per31_2009';
 import { pph21Pmk105_2025Rule } from './pmk105_2025';
 import { pph21Pmk10_2025Rule } from './pmk10_2025';
@@ -40,6 +41,7 @@ export const PPH21_RULES: TaxRuleModule<TaxCalculatorInput['pph21']>[] = [
   pph21Pmk105_2025Rule,
   pph21Pmk28_2024IknRule,
   pph21Pmk18_2021WnaRule,
+  pph21Per2_2009SplnRule,
   pph21Pmk66_2023Rule,
   pph21Pp80_2010Rule,
   pph21Pmk10_2025Rule,

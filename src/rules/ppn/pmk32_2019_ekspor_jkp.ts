@@ -118,7 +118,8 @@ export const ppnPmk32_2019EksporJkpRule: TaxRuleModule<TaxCalculatorInput['ppn']
         label: 'Uji Jenis Jasa PMK 32/PMK.010/2019',
         formula: jenisLabelMap[jenis],
         value: isEligibleList ? 1 : 0,
-        format: 'currency',
+        format: 'text',
+        displayValue: isEligibleList ? 'Eligible 0%' : 'Non-0%',
       },
       {
         label: 'Uji Syarat Formal (Kontrak Tertulis LN + Bukti Bayar LN + PEJKP)',

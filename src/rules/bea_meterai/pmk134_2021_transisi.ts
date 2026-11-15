@@ -90,7 +90,12 @@ export const beaMeteraiPmk134_2021TransisiRule: TaxRuleModule<TaxCalculatorInput
 
     const steps: CalculationStep[] = [
       { label: 'Nilai nominal uang dalam dokumen (ambang > Rp 5 juta)', value: nilaiDokumen },
-      { label: 'Jumlah dokumen yang dimeteraikan', value: jumlahDokumen },
+      {
+        label: 'Jumlah dokumen yang dimeteraikan',
+        value: jumlahDokumen,
+        format: 'text',
+        displayValue: `${jumlahDokumen} dokumen`,
+      },
       {
         label:
           jenis === 'transisi_3000_6000_9000'
